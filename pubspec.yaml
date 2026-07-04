@@ -79,7 +79,7 @@ dependencies:
   dynamic_color: ^1.8.1
   easy_debounce: ^2.0.3
   flutter_liquid_glass_plus: ^0.0.7
-  progressive_blur: ^2.0.0
+  progressive_blur: ^0.0.2
   encrypt: ^5.0.3
   expandable: ^5.0.1
   extended_nested_scroll_view:
@@ -281,4 +281,3 @@ flutter:
     - family: custom_icon
       fonts:
         - asset: assets/fonts/custom_icon.ttf
-
