@@ -1,0 +1,9 @@
+﻿#!/usr/bin/env bash
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
+    echo "Stopping LiqLiquid if running..."
+    pkill -x LiqLiquid || true
+fi
+
+exit 0
+

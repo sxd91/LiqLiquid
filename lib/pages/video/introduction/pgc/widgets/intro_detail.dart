@@ -1,0 +1,215 @@
+﻿import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
+import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/selectable_text.dart';
+import 'package:liqliquid/common/widgets/stat/stat.dart';
+import 'package:liqliquid/models/common/stat_type.dart';
+import 'package:liqliquid/models_new/pgc/pgc_info_model/result.dart';
+import 'package:liqliquid/models_new/video/video_tag/data.dart';
+import 'package:liqliquid/pages/common/slide/common_slide_page.dart';
+import 'package:liqliquid/pages/pgc_review/view.dart';
+import 'package:liqliquid/pages/search/widgets/search_text.dart';
+import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
+import 'package:liqliquid/utils/utils.dart';
+import 'package:flutter/material.dart' hide TabBarView;
+import 'package:get/get.dart';
+
+class PgcIntroPanel extends CommonSlidePage {
+  final PgcInfoModel item;
+  final List<VideoTagItem>? videoTags;
+
+  const PgcIntroPanel({
+    super.key,
+    required this.item,
+    super.enableSlide,
+    this.videoTags,
+  });
+
+  @override
+  State<PgcIntroPanel> createState() => _IntroDetailState();
+}
+
+class _IntroDetailState extends State<PgcIntroPanel>
+    with TickerProviderStateMixin, CommonSlideMixin {
+  late final ScrollController _controller;
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget buildPage(ThemeData theme) {
+    return Material(
+      color: theme.colorScheme.surface,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TabBar(
+                  controller: _tabController,
+                  dividerHeight: 0,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  dividerColor: Colors.transparent,
+                  tabs: const [
+                    Tab(text: '璇︽儏'),
+                    Tab(text: '鐐硅瘎'),
+                  ],
+                  onTap: (index) {
+                    if (!_tabController.indexIsChanging) {
+                      if (index == 0) {
+                        _controller.animToTop();
+                      }
+                    }
+                  },
+                ),
+              ),
+              IconButton(
+                tooltip: '鍏抽棴',
+                icon: const Icon(Icons.close, size: 20),
+                onPressed: Get.back,
+              ),
+              const SizedBox(width: 2),
+            ],
+          ),
+          Expanded(
+            child: enableSlide ? slideList(theme) : buildList(theme),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget buildList(ThemeData theme) {
+    return TabBarView<TabBarDragGestureRecognizer>(
+      controller: _tabController,
+      physics: clampingScrollPhysics,
+      horizontalDragGestureRecognizer: () =>
+          TabBarDragGestureRecognizer(isDxAllowed: isDxAllowed),
+      children: [
+        KeepAliveWrapper(child: _buildInfo(theme)),
+        PgcReviewPage(
+          name: widget.item.title!,
+          mediaId: widget.item.mediaId,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfo(ThemeData theme) {
+    final TextStyle smallTitle = TextStyle(
+      fontSize: 12,
+      color: theme.colorScheme.onSurface,
+    );
+    final TextStyle textStyle = TextStyle(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+    return ListView(
+      controller: _controller,
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: EdgeInsets.only(
+        left: 14,
+        right: 14,
+        top: 14,
+        bottom: MediaQuery.viewPaddingOf(context).bottom + 100,
+      ),
+      children: [
+        selectableText(
+          widget.item.title!,
+          style: const TextStyle(fontSize: 16),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          spacing: 6,
+          children: [
+            StatWidget(
+              type: StatType.play,
+              value: widget.item.stat!.view,
+            ),
+            StatWidget(
+              type: StatType.danmaku,
+              value: widget.item.stat!.danmaku,
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          spacing: 6,
+          children: [
+            if (widget.item.areas?.isNotEmpty ?? false)
+              Text(
+                widget.item.areas!.first.name!,
+                style: smallTitle,
+              ),
+            Text(
+              widget.item.publish!.pubTimeShow!,
+              style: smallTitle,
+            ),
+            Text(
+              widget.item.newEp!.desc!,
+              style: smallTitle,
+            ),
+          ],
+        ),
+        if (widget.item.evaluate?.isNotEmpty == true) ...[
+          const SizedBox(height: 20),
+          Text(
+            '绠€浠嬶細',
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: 4),
+          selectableText(
+            widget.item.evaluate!,
+            style: textStyle,
+          ),
+        ],
+        if (widget.item.actors?.isNotEmpty == true) ...[
+          const SizedBox(height: 20),
+          Text(
+            '婕旇亴浜哄憳锛?,
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            widget.item.actors!,
+            style: textStyle,
+          ),
+        ],
+        if (widget.videoTags?.isNotEmpty == true) ...[
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: widget.videoTags!
+                .map(
+                  (item) => SearchText(
+                    fontSize: 13,
+                    text: item.tagName!,
+                    onTap: (tagName) => Get.toNamed(
+                      '/searchResult',
+                      parameters: {'keyword': tagName},
+                    ),
+                    onLongPress: Utils.copyText,
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ],
+    );
+  }
+}
+

@@ -1,0 +1,56 @@
+﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/http/black.dart';
+import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/video.dart';
+import 'package:liqliquid/models_new/blacklist/data.dart';
+import 'package:liqliquid/models_new/blacklist/list.dart';
+import 'package:liqliquid/pages/common/common_list_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+
+class BlackListController
+    extends CommonListController<BlackListData, BlackListItem> {
+  RxInt total = (-1).obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    queryData();
+  }
+
+  @override
+  List<BlackListItem>? getDataList(BlackListData response) {
+    total.value = response.total ?? 0;
+    return response.list;
+  }
+
+  @override
+  void checkIsEnd(int length) {
+    if (length >= total.value) {
+      isEnd = true;
+    }
+  }
+
+  void onRemove(BuildContext context, int index, name, mid) {
+    showConfirmDialog(
+      context: context,
+      title: Text('纭畾灏?$name 绉诲嚭榛戝悕鍗曪紵'),
+      onConfirm: () async {
+        final result = await VideoHttp.relationMod(mid: mid, act: 6, reSrc: 11);
+        if (result.isSuccess) {
+          loadingState
+            ..value.data!.removeAt(index)
+            ..refresh();
+          total.value -= 1;
+          SmartDialog.showToast('绉婚櫎鎴愬姛');
+        }
+      },
+    );
+  }
+
+  @override
+  Future<LoadingState<BlackListData>> customGetData() =>
+      BlackHttp.blackList(pn: page);
+}
+

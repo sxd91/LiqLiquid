@@ -1,0 +1,41 @@
+﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/models_new/space/space_cheese/data.dart';
+import 'package:liqliquid/models_new/space/space_cheese/item.dart';
+import 'package:liqliquid/pages/common/common_list_controller.dart';
+import 'package:liqliquid/utils/accounts.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+
+class FavCheeseController
+    extends CommonListController<SpaceCheeseData, SpaceCheeseItem> {
+  final mid = Accounts.main.mid;
+
+  @override
+  void onInit() {
+    super.onInit();
+    queryData();
+  }
+
+  @override
+  List<SpaceCheeseItem>? getDataList(SpaceCheeseData response) {
+    isEnd = response.page?.next == false;
+    return response.items;
+  }
+
+  @override
+  Future<LoadingState<SpaceCheeseData>> customGetData() =>
+      FavHttp.favPugv(mid: mid, page: page);
+
+  Future<void> onRemove(int index, int sid) async {
+    final res = await FavHttp.delFavPugv(sid);
+    if (res.isSuccess) {
+      loadingState
+        ..value.data!.removeAt(index)
+        ..refresh();
+      SmartDialog.showToast('宸插彇娑堟敹钘?);
+    } else {
+      res.toast();
+    }
+  }
+}
+

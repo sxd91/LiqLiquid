@@ -1,0 +1,558 @@
+﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/pages/video/introduction/ugc/widgets/menu_row.dart';
+import 'package:liqliquid/plugin/pl_player/controller.dart';
+import 'package:liqliquid/plugin/pl_player/utils/danmaku_options.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/page_utils.dart';
+import 'package:liqliquid/utils/theme_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+mixin HeaderMixin<T extends StatefulWidget> on State<T> {
+  PlPlayerController get plPlayerController;
+
+  bool get isFullScreen => plPlayerController.isFullScreen.value;
+
+  ThemeData? get theme {
+    if (plPlayerController.darkVideoPage) {
+      return ThemeUtils.darkTheme;
+    }
+    return null;
+  }
+
+  Future<void>? showBottomSheet(
+    StatefulWidgetBuilder builder, {
+    ValueGetter<EdgeInsets>? padding,
+  }) {
+    return PageUtils.showVideoBottomSheet(
+      context,
+      maxWidth: 512,
+      padding: padding,
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          final theme = this.theme;
+          if (theme != null) {
+            return Theme(
+              data: theme,
+              child: builder(this.context, setState),
+            );
+          }
+          return builder(context, setState);
+        },
+      ),
+    );
+  }
+
+  Widget resetBtn(ThemeData theme, Object def, VoidCallback onPressed) {
+    return iconButton(
+      tooltip: '榛樿鍊? $def',
+      icon: const Icon(Icons.refresh),
+      onPressed: onPressed,
+      iconColor: theme.colorScheme.outline,
+      size: 24,
+      iconSize: 24,
+    );
+  }
+
+  /// 寮瑰箷鍔熻兘
+  void showSetDanmaku({bool isLive = false}) {
+    // 灞忚斀绫诲瀷
+    const blockTypesList = [
+      (value: 2, label: '婊氬姩'),
+      (value: 5, label: '椤堕儴'),
+      (value: 4, label: '搴曢儴'),
+      (value: 6, label: '褰╄壊'),
+      (value: 7, label: '楂樼骇'),
+    ];
+
+    final danmakuController = plPlayerController.danmakuController;
+
+    final isFullScreen = this.isFullScreen;
+
+    showBottomSheet(
+      (context, setState) {
+        final theme = Theme.of(context);
+
+        void setOptions() => danmakuController?.updateOption(
+          DanmakuOptions.get(
+            notFullscreen: !isFullScreen,
+            speed: plPlayerController.playbackSpeed,
+          ),
+        );
+
+        final sliderTheme = SliderThemeData(
+          trackHeight: 10,
+          trackShape: const MSliderTrackShape(),
+          thumbColor: theme.colorScheme.primary,
+          activeTrackColor: theme.colorScheme.primary,
+          inactiveTrackColor: theme.colorScheme.onInverseSurface,
+          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
+        );
+
+        void updateLineHeight(double val) {
+          DanmakuOptions.danmakuLineHeight = val.toPrecision(1);
+          setState(() {});
+          setOptions();
+        }
+
+        void updateDuration(double val) {
+          DanmakuOptions.danmakuDuration = val.toPrecision(1);
+          setState(() {});
+          setOptions();
+        }
+
+        void updateStaticDuration(double val) {
+          DanmakuOptions.danmakuStaticDuration = val.toPrecision(1);
+          setState(() {});
+          setOptions();
+        }
+
+        void updateFontSizeFS(double val) {
+          DanmakuOptions.danmakuFontScaleFS = val;
+          setState(() {});
+          if (isFullScreen) {
+            setOptions();
+          }
+        }
+
+        void updateFontSize(double val) {
+          DanmakuOptions.danmakuFontScale = val;
+          setState(() {});
+          if (!isFullScreen) {
+            setOptions();
+          }
+        }
+
+        void updateStrokeWidth(double val) {
+          DanmakuOptions.danmakuStrokeWidth = val;
+          setState(() {});
+          setOptions();
+        }
+
+        void updateFontWeight(double val) {
+          DanmakuOptions.danmakuFontWeight = val.toInt();
+          setState(() {});
+          setOptions();
+        }
+
+        void updateOpacity(double val) {
+          plPlayerController.danmakuOpacity.value = val;
+          setState(() {});
+        }
+
+        void updateShowArea(double val) {
+          DanmakuOptions.danmakuShowArea = val.toPrecision(1);
+          setState(() {});
+          setOptions();
+        }
+
+        void updateDanmakuWeight(double val) {
+          DanmakuOptions.danmakuWeight = val.toInt();
+          setState(() {});
+        }
+
+        void onUpdateBlockType(int blockType, bool blocked) {
+          if (blocked) {
+            DanmakuOptions.blockTypes.remove(blockType);
+          } else {
+            DanmakuOptions.blockTypes.add(blockType);
+          }
+          DanmakuOptions.blockColorful = DanmakuOptions.blockTypes.contains(6);
+          setState(() {});
+          setOptions();
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(12),
+          child: Material(
+            clipBehavior: Clip.hardEdge,
+            color: theme.colorScheme.surface,
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(
+                    height: 45,
+                    child: Center(
+                      child: Text('寮瑰箷璁剧疆', style: TextStyle(fontSize: 14)),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  if (!isLive) ...[
+                    Row(
+                      mainAxisAlignment: .spaceBetween,
+                      children: [
+                        Text('鏅鸿兘浜戝睆钄?${DanmakuOptions.danmakuWeight} 绾?),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          onPressed: () => Get
+                            ..back()
+                            ..toNamed(
+                              '/danmakuBlock',
+                              arguments: plPlayerController,
+                            ),
+                          child: Text(
+                            "灞忚斀绠＄悊(${plPlayerController.filters.count})",
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 0,
+                        bottom: 6,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: SliderTheme(
+                        data: sliderTheme,
+                        child: Slider(
+                          min: 0,
+                          max: 11,
+                          value: DanmakuOptions.danmakuWeight.toDouble(),
+                          divisions: 11,
+                          label: DanmakuOptions.danmakuWeight.toString(),
+                          onChanged: updateDanmakuWeight,
+                        ),
+                      ),
+                    ),
+                  ],
+                  const Text('鎸夌被鍨嬪睆钄?),
+                  SingleChildScrollView(
+                    scrollDirection: .horizontal,
+                    padding: const .symmetric(vertical: 10),
+                    child: Row(
+                      spacing: 10,
+                      children: blockTypesList.map(
+                        (e) {
+                          final blocked = DanmakuOptions.blockTypes.contains(
+                            e.value,
+                          );
+                          return ActionRowLineItem(
+                            onTap: () => onUpdateBlockType(e.value, blocked),
+                            text: e.label,
+                            selectStatus: blocked,
+                          );
+                        },
+                      ).toList(),
+                    ),
+                  ),
+                  const Text('鍏朵粬'),
+                  SingleChildScrollView(
+                    scrollDirection: .horizontal,
+                    padding: const .symmetric(vertical: 10),
+                    child: Row(
+                      spacing: 10,
+                      children: [
+                        ActionRowLineItem(
+                          selectStatus: DanmakuOptions.danmakuMassiveMode,
+                          onTap: () {
+                            DanmakuOptions.danmakuMassiveMode =
+                                !DanmakuOptions.danmakuMassiveMode;
+                            setState(() {});
+                            setOptions();
+                          },
+                          text: '娴烽噺寮瑰箷',
+                        ),
+                        ActionRowLineItem(
+                          selectStatus: DanmakuOptions.danmakuStatic2Scroll,
+                          onTap: () {
+                            DanmakuOptions.danmakuStatic2Scroll =
+                                !DanmakuOptions.danmakuStatic2Scroll;
+                            setState(() {});
+                            setOptions();
+                          },
+                          text: '鍥哄畾杞粴鍔?,
+                        ),
+                        ActionRowLineItem(
+                          selectStatus: DanmakuOptions.danmakuFixedV,
+                          onTap: () {
+                            DanmakuOptions.danmakuFixedV =
+                                !DanmakuOptions.danmakuFixedV;
+                            setState(() {});
+                            setOptions();
+                          },
+                          text: '婊氬姩寮瑰箷鍥哄畾閫熷害',
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('鏄剧ず鍖哄煙 ${DanmakuOptions.danmakuShowArea * 100}%'),
+                      resetBtn(theme, '50.0%', () => updateShowArea(0.5)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0.1,
+                        max: 1,
+                        value: DanmakuOptions.danmakuShowArea,
+                        divisions: 9,
+                        label: '${DanmakuOptions.danmakuShowArea * 100}%',
+                        onChanged: updateShowArea,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('涓嶉€忔槑搴?${plPlayerController.danmakuOpacity * 100}%'),
+                      resetBtn(theme, '100.0%', () => updateOpacity(1.0)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0,
+                        max: 1,
+                        value: plPlayerController.danmakuOpacity.value,
+                        divisions: 10,
+                        label: '${plPlayerController.danmakuOpacity * 100}%',
+                        onChanged: updateOpacity,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '瀛椾綋绮楃粏 ${DanmakuOptions.danmakuFontWeight + 1}锛堝彲鑳芥棤娉曠簿纭皟鑺傦級',
+                      ),
+                      resetBtn(theme, 6, () => updateFontWeight(5)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0,
+                        max: 8,
+                        value: DanmakuOptions.danmakuFontWeight.toDouble(),
+                        divisions: 8,
+                        label: '${DanmakuOptions.danmakuFontWeight + 1}',
+                        onChanged: updateFontWeight,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('鎻忚竟绮楃粏 ${DanmakuOptions.danmakuStrokeWidth}'),
+                      resetBtn(theme, 1.5, () => updateStrokeWidth(1.5)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0,
+                        max: 5,
+                        value: DanmakuOptions.danmakuStrokeWidth,
+                        divisions: 10,
+                        label: DanmakuOptions.danmakuStrokeWidth
+                            .toStringAsFixed(0),
+                        onChanged: updateStrokeWidth,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '瀛椾綋澶у皬 ${(DanmakuOptions.danmakuFontScale * 100).toStringAsFixed(1)}%',
+                      ),
+                      resetBtn(theme, '100.0%', () => updateFontSize(1.0)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0.5,
+                        max: 2.5,
+                        value: DanmakuOptions.danmakuFontScale,
+                        divisions: 20,
+                        label:
+                            '${(DanmakuOptions.danmakuFontScale * 100).toStringAsFixed(1)}%',
+                        onChanged: updateFontSize,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '鍏ㄥ睆瀛椾綋澶у皬 ${(DanmakuOptions.danmakuFontScaleFS * 100).toStringAsFixed(1)}%',
+                      ),
+                      resetBtn(theme, '120.0%', () => updateFontSizeFS(1.2)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 0.5,
+                        max: 2.5,
+                        value: DanmakuOptions.danmakuFontScaleFS,
+                        divisions: 20,
+                        label:
+                            '${(DanmakuOptions.danmakuFontScaleFS * 100).toStringAsFixed(1)}%',
+                        onChanged: updateFontSizeFS,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('婊氬姩寮瑰箷鏃堕暱 ${DanmakuOptions.danmakuDuration} 绉?),
+                      resetBtn(theme, 7.0, () => updateDuration(7.0)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 1,
+                        max: 50,
+                        value: DanmakuOptions.danmakuDuration,
+                        divisions: 49,
+                        label: DanmakuOptions.danmakuDuration.toString(),
+                        onChanged: updateDuration,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('闈欐€佸脊骞曟椂闀?${DanmakuOptions.danmakuStaticDuration} 绉?),
+                      resetBtn(theme, 4.0, () => updateStaticDuration(4.0)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 1,
+                        max: 50,
+                        value: DanmakuOptions.danmakuStaticDuration,
+                        divisions: 49,
+                        label: DanmakuOptions.danmakuStaticDuration.toString(),
+                        onChanged: updateStaticDuration,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('寮瑰箷琛岄珮 ${DanmakuOptions.danmakuLineHeight}'),
+                      resetBtn(theme, 1.6, () => updateLineHeight(1.6)),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      bottom: 6,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: SliderTheme(
+                      data: sliderTheme,
+                      child: Slider(
+                        min: 1.0,
+                        max: 3.0,
+                        value: DanmakuOptions.danmakuLineHeight,
+                        onChanged: updateLineHeight,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    )?.whenComplete(
+      () => DanmakuOptions.save(plPlayerController.danmakuOpacity.value),
+    );
+  }
+}
+
+class MSliderTrackShape extends RoundedRectSliderTrackShape {
+  const MSliderTrackShape();
+
+  @override
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    SliderThemeData? sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    const double trackHeight = 3;
+    final double trackLeft = offset.dx;
+    final double trackTop =
+        offset.dy + (parentBox.size.height - trackHeight) / 2 + 4;
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+  }
+}
+

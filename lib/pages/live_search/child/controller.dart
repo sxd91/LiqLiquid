@@ -1,0 +1,53 @@
+﻿import 'package:liqliquid/http/live.dart';
+import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/models/common/live/live_search_type.dart';
+import 'package:liqliquid/models_new/live/live_search/data.dart';
+import 'package:liqliquid/pages/common/common_list_controller.dart';
+import 'package:liqliquid/pages/live_search/controller.dart';
+
+class LiveSearchChildController
+    extends CommonListController<LiveSearchData, dynamic> {
+  LiveSearchChildController(this.controller, this.searchType);
+
+  final LiveSearchController controller;
+  final LiveSearchType searchType;
+
+  @override
+  void checkIsEnd(int length) {
+    switch (searchType) {
+      case LiveSearchType.room:
+        if (controller.counts.first != -1 &&
+            length >= controller.counts.first) {
+          isEnd = true;
+        }
+        break;
+      case LiveSearchType.user:
+        if (controller.counts[1] != -1 && length >= controller.counts[1]) {
+          isEnd = true;
+        }
+        break;
+    }
+  }
+
+  @override
+  List? getDataList(response) {
+    switch (searchType) {
+      case LiveSearchType.room:
+        controller.counts[searchType.index] = response.room?.totalRoom ?? 0;
+        return response.room?.list;
+      case LiveSearchType.user:
+        controller.counts[searchType.index] = response.user?.totalUser ?? 0;
+        return response.user?.list;
+    }
+  }
+
+  @override
+  Future<LoadingState<LiveSearchData>> customGetData() {
+    return LiveHttp.liveSearch(
+      page: page,
+      keyword: controller.editingController.text,
+      type: searchType,
+    );
+  }
+}
+

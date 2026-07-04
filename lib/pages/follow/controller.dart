@@ -1,0 +1,110 @@
+﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/member.dart';
+import 'package:liqliquid/models/member/tags.dart';
+import 'package:liqliquid/utils/accounts.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+
+class FollowController extends GetxController with GetTickerProviderStateMixin {
+  late final int mid;
+  late final RxnString name;
+  late final bool isOwner;
+
+  late final Rx<LoadingState> followState = LoadingState.loading().obs;
+  late final RxList<MemberTagItemModel> tabs = <MemberTagItemModel>[].obs;
+  TabController? tabController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    final Map? args = Get.arguments;
+    final ownerMid = Accounts.main.mid;
+    final int? mid = args?['mid'];
+    this.mid = mid ?? ownerMid;
+    isOwner = ownerMid == this.mid;
+    if (isOwner) {
+      queryFollowUpTags();
+    } else {
+      final String? name = args?['name'];
+      this.name = RxnString(name);
+      if (name == null) {
+        _queryUserName();
+      }
+    }
+  }
+
+  Future<void> _queryUserName() async {
+    final res = await MemberHttp.memberCardInfo(mid: mid);
+    name.value = res.dataOrNull?.card?.name;
+  }
+
+  Future<void> queryFollowUpTags() async {
+    final res = await MemberHttp.followUpTags();
+    if (res case Success(:final response)) {
+      tabs
+        ..assign(MemberTagItemModel(name: '鍏ㄩ儴鍏虫敞'))
+        ..addAll(response);
+      onInitTab();
+      followState.value = Success(tabs.hashCode);
+    } else {
+      followState.value = res;
+    }
+  }
+
+  void onInitTab() {
+    int initialIndex = 0;
+    if (tabController != null) {
+      initialIndex = tabController!.index.clamp(0, tabs.length - 1);
+      tabController!.dispose();
+    }
+    tabController = TabController(
+      initialIndex: initialIndex,
+      length: tabs.length,
+      vsync: this,
+    );
+  }
+
+  void onCreateFavTag(({int tagid, String tagName}) res) {
+    if (isClosed) return;
+    if (followState.value.isSuccess) {
+      tabs.add(MemberTagItemModel.fromCreate(res));
+      onInitTab();
+      followState.refresh();
+    } else {
+      followState.value = LoadingState.loading();
+      queryFollowUpTags();
+    }
+  }
+
+  Future<void> onUpdateTag(MemberTagItemModel item, String tagName) async {
+    final res = await MemberHttp.updateFollowTag(item.tagid!, tagName);
+    if (res.isSuccess) {
+      item.name = tagName;
+      tabs.refresh();
+      SmartDialog.showToast('淇敼鎴愬姛');
+    } else {
+      res.toast();
+    }
+  }
+
+  Future<void> onDelTag(int index, int tagid) async {
+    final res = await MemberHttp.delFollowTag(tagid);
+    if (res.isSuccess) {
+      tabs.removeAt(index);
+      onInitTab();
+      followState.refresh();
+      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+    } else {
+      res.toast();
+    }
+  }
+
+  @override
+  void onClose() {
+    tabController?.dispose();
+    tabController = null;
+    super.onClose();
+  }
+}
+

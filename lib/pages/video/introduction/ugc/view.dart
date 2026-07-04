@@ -1,0 +1,1065 @@
+﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
+import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
+import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/selectable_text.dart';
+import 'package:liqliquid/common/widgets/stat/stat.dart';
+import 'package:liqliquid/http/sponsor_block.dart';
+import 'package:liqliquid/models/common/image_type.dart';
+import 'package:liqliquid/models/common/stat_type.dart';
+import 'package:liqliquid/models_new/video/video_ai_conclusion/model_result.dart';
+import 'package:liqliquid/models_new/video/video_detail/data.dart';
+import 'package:liqliquid/models_new/video/video_detail/staff.dart';
+import 'package:liqliquid/models_new/video/video_tag/data.dart';
+import 'package:liqliquid/pages/mine/controller.dart';
+import 'package:liqliquid/pages/search/widgets/search_text.dart';
+import 'package:liqliquid/pages/video/controller.dart';
+import 'package:liqliquid/pages/video/introduction/ugc/controller.dart';
+import 'package:liqliquid/pages/video/introduction/ugc/widgets/action_item.dart';
+import 'package:liqliquid/pages/video/introduction/ugc/widgets/page.dart';
+import 'package:liqliquid/pages/video/introduction/ugc/widgets/season.dart';
+import 'package:liqliquid/utils/app_scheme.dart';
+import 'package:liqliquid/utils/date_utils.dart';
+import 'package:liqliquid/utils/duration_utils.dart';
+import 'package:liqliquid/utils/extension/get_ext.dart';
+import 'package:liqliquid/utils/extension/iterable_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/string_ext.dart';
+import 'package:liqliquid/utils/extension/theme_ext.dart';
+import 'package:liqliquid/utils/feed_back.dart';
+import 'package:liqliquid/utils/id_utils.dart';
+import 'package:liqliquid/utils/num_utils.dart';
+import 'package:liqliquid/utils/page_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/request_utils.dart';
+import 'package:liqliquid/utils/utils.dart';
+import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+class UgcIntroPanel extends StatefulWidget {
+  const UgcIntroPanel({
+    super.key,
+    required this.heroTag,
+    required this.showAiBottomSheet,
+    required this.showEpisodes,
+    required this.onShowMemberPage,
+    required this.isPortrait,
+    required this.isHorizontal,
+  });
+  final String heroTag;
+  final Function showAiBottomSheet;
+  final Function showEpisodes;
+  final ValueChanged<int?> onShowMemberPage;
+  final bool isPortrait;
+  final bool isHorizontal;
+
+  @override
+  State<UgcIntroPanel> createState() => _UgcIntroPanelState();
+}
+
+class _UgcIntroPanelState extends State<UgcIntroPanel> {
+  late final UgcIntroController introController;
+  late final VideoDetailController videoDetailCtr =
+      Get.find<VideoDetailController>(tag: widget.heroTag);
+
+  @override
+  void initState() {
+    super.initState();
+    introController = Get.putOrFind(
+      UgcIntroController.new,
+      tag: widget.heroTag,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    const expandTheme = ExpandableThemeData(
+      animationDuration: Duration(milliseconds: 300),
+      scrollAnimationDuration: Duration(milliseconds: 300),
+      crossFadePoint: 0,
+      fadeCurve: Curves.ease,
+      sizeCurve: Curves.linear,
+    );
+    final isPortrait = widget.isPortrait;
+    final isHorizontal = !isPortrait && widget.isHorizontal;
+    return SliverPadding(
+      padding: const EdgeInsets.only(
+        left: Style.safeSpace,
+        right: Style.safeSpace,
+        top: 10,
+      ),
+      sliver: Obx(
+        () {
+          VideoDetailData videoDetail = introController.videoDetail.value;
+          bool isLoading = videoDetail.bvid == null;
+          int? mid = videoDetail.owner?.mid;
+          return SliverToBoxAdapter(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                if (isLoading) {
+                  return;
+                }
+                feedBack();
+                introController.expandableCtr.toggle();
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {},
+                    child: Row(
+                      children: [
+                        if (videoDetail.staff.isNullOrEmpty) ...[
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: _buildAvatar(
+                                theme,
+                                () {
+                                  if (mid != null) {
+                                    feedBack();
+                                    if (!isPortrait &&
+                                        introController.horizontalMemberPage) {
+                                      widget.onShowMemberPage(mid);
+                                    } else {
+                                      Get.toNamed(
+                                        '/member?mid=$mid&from_view_aid=${videoDetailCtr.aid}',
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                          followButton(context, theme),
+                        ] else
+                          Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              physics: ReloadScrollPhysics(
+                                controller: introController,
+                              ),
+                              child: Row(
+                                spacing: 25,
+                                children: videoDetail.staff!
+                                    .map(
+                                      (e) => _buildStaff(
+                                        theme,
+                                        isPortrait,
+                                        mid,
+                                        e,
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        if (isHorizontal) ...[
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: actionGrid(
+                              context,
+                              isLoading,
+                              videoDetail,
+                              introController,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  if (isLoading)
+                    _buildVideoTitle(theme, videoDetail)
+                  else if (isHorizontal && PlatformUtils.isDesktop)
+                    SelectionArea(
+                      child: _buildVideoTitle(
+                        theme,
+                        videoDetail,
+                        isExpand: true,
+                      ),
+                    )
+                  else
+                    ExpandablePanel(
+                      controller: introController.expandableCtr,
+                      collapsed: _buildTitle(theme, videoDetail),
+                      expanded: _buildTitle(theme, videoDetail, isExpand: true),
+                      theme: expandTheme,
+                    ),
+                  const SizedBox(height: 8),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      _buildInfo(theme, videoDetail),
+                      if (introController.enableAi) _aiBtn,
+                    ],
+                  ),
+                  if (introController.showArgueMsg &&
+                      videoDetail.argueInfo?.argueMsg?.isNotEmpty == true) ...[
+                    const SizedBox(height: 2),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Padding(
+                              padding: const .only(right: 2),
+                              child: Icon(
+                                size: 13,
+                                Icons.error_outline,
+                                color: theme.colorScheme.outline,
+                              ),
+                            ),
+                          ),
+                          TextSpan(
+                            text: '${videoDetail.argueInfo!.argueMsg}',
+                          ),
+                        ],
+                      ),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: theme.colorScheme.outline,
+                      ),
+                    ),
+                  ],
+                  if (isHorizontal && PlatformUtils.isDesktop)
+                    ..._infos(theme, videoDetail)
+                  else
+                    ExpandablePanel(
+                      controller: introController.expandableCtr,
+                      collapsed: const SizedBox.shrink(),
+                      expanded: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _infos(theme, videoDetail),
+                      ),
+                      theme: expandTheme,
+                    ),
+                  Obx(
+                    () => introController.status.value
+                        ? const SizedBox.shrink()
+                        : Center(
+                            child: TextButton.icon(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                introController
+                                  ..status.value = true
+                                  ..queryVideoIntro();
+                                if (videoDetailCtr.videoUrl.isNullOrEmpty &&
+                                    !videoDetailCtr.isQuerying) {
+                                  videoDetailCtr.queryVideoUrl();
+                                }
+                              },
+                              label: const Text("鐐规閲嶆柊鍔犺浇"),
+                            ),
+                          ),
+                  ),
+                  // 鐐硅禐鏀惰棌杞彂 甯冨眬鏍峰紡2
+                  if (!isHorizontal) ...[
+                    const SizedBox(height: 8),
+                    actionGrid(
+                      context,
+                      isLoading,
+                      videoDetail,
+                      introController,
+                    ),
+                  ],
+                  // 鍚堥泦
+                  if (!isLoading &&
+                      videoDetail.ugcSeason != null &&
+                      (isPortrait ||
+                          !videoDetailCtr
+                              .plPlayerController
+                              .horizontalSeasonPanel))
+                    Obx(
+                      () => SeasonPanel(
+                        key: ValueKey(introController.videoDetail.value),
+                        heroTag: widget.heroTag,
+                        showEpisodes: widget.showEpisodes,
+                        ugcIntroController: introController,
+                      ),
+                    ),
+                  if (!isLoading &&
+                      videoDetail.pages != null &&
+                      videoDetail.pages!.length > 1 &&
+                      (isPortrait ||
+                          !videoDetailCtr
+                              .plPlayerController
+                              .horizontalSeasonPanel))
+                    Obx(
+                      () => PagesPanel(
+                        key: ValueKey(introController.videoDetail.value),
+                        heroTag: widget.heroTag,
+                        ugcIntroController: introController,
+                        bvid: introController.bvid,
+                        showEpisodes: widget.showEpisodes,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildTitle(
+    ThemeData theme,
+    VideoDetailData videoDetail, {
+    bool isExpand = false,
+  }) => GestureDetector(
+    onLongPress: () {
+      Feedback.forLongPress(context);
+      Utils.copyText(videoDetail.title ?? '');
+    },
+    child: _buildVideoTitle(
+      theme,
+      videoDetail,
+      isExpand: isExpand,
+    ),
+  );
+
+  List<Widget> _infos(ThemeData theme, VideoDetailData videoDetail) => [
+    const SizedBox(height: 8),
+    GestureDetector(
+      onTap: () => Utils.copyText('${videoDetail.bvid}'),
+      child: Text(
+        videoDetail.bvid ?? '',
+        style: TextStyle(
+          fontSize: 14,
+          color: theme.colorScheme.secondary,
+        ),
+      ),
+    ),
+    if (videoDetail.descV2?.isNotEmpty == true) ...[
+      const SizedBox(height: 8),
+      selectableRichText(
+        style: const TextStyle(height: 1.4),
+        buildContent(theme, videoDetail),
+      ),
+    ],
+    Obx(() {
+      final videoTags = introController.videoTags.value;
+      if (videoTags == null || videoTags.isEmpty) {
+        return const SizedBox.shrink();
+      }
+      return _buildTags(videoTags);
+    }),
+  ];
+
+  WidgetSpan _labelWidget(String text, Color bgColor, Color textColor) {
+    return WidgetSpan(
+      alignment: PlaceholderAlignment.middle,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 4,
+          vertical: 3,
+        ),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+        ),
+        child: Text(
+          text,
+          textScaler: TextScaler.noScaling,
+          strutStyle: const StrutStyle(
+            leading: 0,
+            height: 1,
+            fontSize: 12,
+          ),
+          style: TextStyle(
+            height: 1,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVideoTitle(
+    ThemeData theme,
+    VideoDetailData videoDetail, {
+    bool isExpand = false,
+  }) {
+    late final isDark = theme.brightness == Brightness.dark;
+    Widget child() {
+      final videoLabel = videoDetailCtr.videoLabel.value;
+      return Text.rich(
+        TextSpan(
+          children: [
+            if (videoLabel.isNotEmpty) ...[
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.secondaryContainer,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Stack(
+                        clipBehavior: Clip.none,
+                        alignment: Alignment.center,
+                        children: [
+                          Icon(
+                            Icons.shield_outlined,
+                            size: 16,
+                            color: theme.colorScheme.onSecondaryContainer,
+                          ),
+                          Icon(
+                            Icons.play_arrow_rounded,
+                            size: 12,
+                            color: theme.colorScheme.onSecondaryContainer,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        videoLabel,
+                        textScaler: TextScaler.noScaling,
+                        strutStyle: const StrutStyle(
+                          leading: 0,
+                          height: 1,
+                          fontSize: 13,
+                        ),
+                        style: TextStyle(
+                          height: 1,
+                          fontSize: 13,
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const TextSpan(text: ' '),
+            ],
+            if (videoDetail.isUpowerExclusive == true) ...[
+              _labelWidget(
+                '鍏呯數涓撳睘',
+                isDark
+                    ? theme.colorScheme.error
+                    : theme.colorScheme.errorContainer,
+                isDark
+                    ? theme.colorScheme.onError
+                    : theme.colorScheme.onErrorContainer,
+              ),
+              const TextSpan(text: ' '),
+            ] else if (videoDetail.rights?.isSteinGate == 1) ...[
+              _labelWidget(
+                '浜掑姩瑙嗛',
+                theme.colorScheme.secondaryContainer,
+                theme.colorScheme.onSecondaryContainer,
+              ),
+              const TextSpan(text: ' '),
+            ],
+            TextSpan(text: videoDetail.title ?? ''),
+          ],
+        ),
+        maxLines: isExpand ? null : 2,
+        overflow: isExpand ? null : TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 16),
+      );
+    }
+
+    if (videoDetailCtr.plPlayerController.enableSponsorBlock) {
+      return Obx(child);
+    }
+    return child();
+  }
+
+  Widget followButton(BuildContext context, ThemeData t) {
+    return Obx(
+      () {
+        int attr = introController.followStatus.value.attribute ?? 0;
+        return TextButton(
+          onPressed: () => introController.actionRelationMod(context),
+          style: TextButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: const VisualDensity(vertical: -2.8),
+            foregroundColor: attr != 0
+                ? t.colorScheme.outline
+                : t.colorScheme.onSecondaryContainer,
+            backgroundColor: attr != 0
+                ? t.colorScheme.onInverseSurface
+                : t.colorScheme.secondaryContainer,
+          ),
+          child: Text(
+            switch (attr) {
+              1 => '鎮勬倓鍏虫敞',
+              2 => '宸插叧娉?,
+              4 || 6 => '宸蹭簰鍏?,
+              128 => '宸叉媺榛?,
+              -10 => '鐗瑰埆鍏虫敞',
+              _ => ' 鍏虫敞 ',
+            },
+            style: const TextStyle(fontSize: 13),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget actionGrid(
+    BuildContext context,
+    bool isLoading,
+    VideoDetailData videoDetail,
+    UgcIntroController introController,
+  ) {
+    return SizedBox(
+      height: 48,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Obx(
+            () => ActionItem(
+              animation: introController.tripleAnimation,
+              icon: const Icon(FontAwesomeIcons.thumbsUp),
+              selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
+              selectStatus: introController.hasLike.value,
+              semanticsLabel: '鐐硅禐',
+              text: !isLoading
+                  ? NumUtils.numFormat(videoDetail.stat!.like)
+                  : null,
+              onStartTriple: introController.onStartTriple,
+              onCancelTriple: introController.onCancelTriple,
+            ),
+          ),
+          Obx(
+            () => ActionItem(
+              icon: const Icon(FontAwesomeIcons.thumbsDown),
+              selectIcon: const Icon(FontAwesomeIcons.solidThumbsDown),
+              onTap: () => introController.handleAction(
+                introController.actionDislikeVideo,
+              ),
+              selectStatus: introController.hasDislike.value,
+              semanticsLabel: '鐐硅俯',
+              text: "鐐硅俯",
+            ),
+          ),
+          Obx(
+            () => ActionItem(
+              animation: introController.tripleAnimation,
+              icon: const Icon(FontAwesomeIcons.b),
+              selectIcon: const Icon(FontAwesomeIcons.b),
+              onTap: introController.actionCoinVideo,
+              selectStatus: introController.hasCoin,
+              semanticsLabel: '鎶曞竵',
+              text: !isLoading
+                  ? NumUtils.numFormat(videoDetail.stat!.coin)
+                  : null,
+            ),
+          ),
+          Obx(
+            () => ActionItem(
+              animation: introController.tripleAnimation,
+              icon: const Icon(FontAwesomeIcons.star),
+              selectIcon: const Icon(FontAwesomeIcons.solidStar),
+              onTap: () => introController.showFavBottomSheet(context),
+              onLongPress: () => introController.showFavBottomSheet(
+                context,
+                isLongPress: true,
+              ),
+              selectStatus: introController.hasFav.value,
+              semanticsLabel: '鏀惰棌',
+              text: !isLoading
+                  ? NumUtils.numFormat(videoDetail.stat!.favorite)
+                  : null,
+            ),
+          ),
+          Obx(
+            () => ActionItem(
+              icon: const Icon(FontAwesomeIcons.clock),
+              selectIcon: const Icon(FontAwesomeIcons.solidClock),
+              onTap: () =>
+                  introController.handleAction(introController.viewLater),
+              selectStatus: introController.hasLater.value,
+              semanticsLabel: '鍐嶇湅',
+              text: '鍐嶇湅',
+            ),
+          ),
+          ActionItem(
+            icon: const Icon(FontAwesomeIcons.shareFromSquare),
+            onTap: () => introController.actionShareVideo(context),
+            selectStatus: false,
+            semanticsLabel: '鍒嗕韩',
+            text: !isLoading
+                ? NumUtils.numFormat(videoDetail.stat!.share!)
+                : null,
+          ),
+        ],
+      ),
+    );
+  }
+
+  static final RegExp urlRegExp = RegExp(
+    Constants.urlRegex.pattern + r'|av\d+|bv[a-z\d]{10}|(?:\d+[:锛歖)?\d+[:锛歖\d+',
+    caseSensitive: false,
+  );
+
+  static final youtubeRegExp = RegExp(
+    r'(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-z0-9_\-]{11})',
+    caseSensitive: false,
+  );
+
+  TextSpan buildContent(ThemeData theme, VideoDetailData content) {
+    if (content.descV2.isNullOrEmpty) {
+      return const TextSpan();
+    }
+    // type
+    // 1 鏅€氭枃鏈?    // 2 @鐢ㄦ埛
+    final List<TextSpan> spanChildren = content.descV2!.map((currentDesc) {
+      switch (currentDesc.type) {
+        case 1:
+          final List<InlineSpan> spanChildren = <InlineSpan>[];
+          currentDesc.rawText?.splitMapJoin(
+            urlRegExp,
+            onMatch: (Match match) {
+              final matchStr = match[0]!;
+              final matchStrLowerCase = matchStr.toLowerCase();
+              if (matchStrLowerCase.startsWith('http')) {
+                spanChildren.add(
+                  TextSpan(
+                    text: matchStr,
+                    style: TextStyle(color: theme.colorScheme.primary),
+                    recognizer: NoDeadlineTapGestureRecognizer()
+                      ..onTap = () async {
+                        if (videoDetailCtr
+                            .plPlayerController
+                            .enableSponsorBlock) {
+                          final duration =
+                              videoDetailCtr.data.timeLength ??
+                              videoDetailCtr
+                                  .plPlayerController
+                                  .durationInMilliseconds;
+                          if (duration > 0) {
+                            final ytbId = youtubeRegExp
+                                .firstMatch(matchStr)
+                                ?.group(1);
+                            if (ytbId != null) {
+                              final bvid = videoDetailCtr.bvid;
+                              final cid = videoDetailCtr.cid.value;
+
+                              SmartDialog.showLoading();
+                              final hasPortVideo =
+                                  (await SponsorBlock.getPortVideo(
+                                    bvid: bvid,
+                                    cid: cid,
+                                  )).dataOrNull ==
+                                  ytbId;
+                              SmartDialog.dismiss();
+
+                              if (!mounted) return;
+                              final confirmed = await showConfirmDialog(
+                                context: context,
+                                title: const Text('绌洪檷鍔╂墜锛氭惉杩愯棰戝悓姝?),
+                                content: Text(
+                                  '${hasPortVideo ? "" : "鏄惁灏?}璇ヨ棰?{hasPortVideo ? "宸? : ""}缁戝畾鍒版YouTube瑙嗛($ytbId)',
+                                ),
+                              );
+                              if (!hasPortVideo && confirmed) {
+                                final res = await SponsorBlock.postPortVideo(
+                                  bvid: bvid,
+                                  cid: cid,
+                                  ytbId: ytbId,
+                                  videoDuration: (duration / 1000).round(),
+                                );
+                                SmartDialog.showToast(
+                                  '鎻愪氦鎼繍瑙嗛${res.isSuccess ? "鎴愬姛" : "澶辫触: $res"}',
+                                );
+                                return;
+                              }
+                            }
+                          }
+                        }
+                        PageUtils.handleWebview(matchStr);
+                      },
+                  ),
+                );
+              } else if (matchStrLowerCase.startsWith('av')) {
+                try {
+                  int aid = int.parse(matchStr.substring(2));
+                  IdUtils.av2bv(aid);
+                  spanChildren.add(
+                    TextSpan(
+                      text: matchStr,
+                      style: TextStyle(color: theme.colorScheme.primary),
+                      recognizer: NoDeadlineTapGestureRecognizer()
+                        ..onTap = () => PiliScheme.videoPush(aid, null),
+                    ),
+                  );
+                } catch (e) {
+                  spanChildren.add(TextSpan(text: matchStr));
+                }
+              } else if (matchStrLowerCase.startsWith('bv')) {
+                try {
+                  IdUtils.bv2av(matchStr);
+                  spanChildren.add(
+                    TextSpan(
+                      text: matchStr,
+                      style: TextStyle(color: theme.colorScheme.primary),
+                      recognizer: NoDeadlineTapGestureRecognizer()
+                        ..onTap = () => PiliScheme.videoPush(null, matchStr),
+                    ),
+                  );
+                } catch (e) {
+                  spanChildren.add(TextSpan(text: matchStr));
+                }
+              } else {
+                spanChildren.add(
+                  TextSpan(
+                    text: matchStr,
+                    style: TextStyle(color: theme.colorScheme.primary),
+                    recognizer: NoDeadlineTapGestureRecognizer()
+                      ..onTap = () {
+                        try {
+                          Get.find<VideoDetailController>(
+                            tag: widget.heroTag,
+                          ).plPlayerController.seekTo(
+                            Duration(
+                              seconds: DurationUtils.parseDuration(matchStr),
+                            ),
+                            isSeek: false,
+                          );
+                        } catch (_) {}
+                      },
+                  ),
+                );
+              }
+              return '';
+            },
+            onNonMatch: (String nonMatchStr) {
+              spanChildren.add(TextSpan(text: nonMatchStr));
+              return '';
+            },
+          );
+          return TextSpan(children: spanChildren);
+        case 2:
+          final Color colorSchemePrimary = theme.colorScheme.primary;
+          return TextSpan(
+            text: '@${currentDesc.rawText}',
+            style: TextStyle(color: colorSchemePrimary),
+            recognizer: NoDeadlineTapGestureRecognizer()
+              ..onTap = () => Get.toNamed('/member?mid=${currentDesc.bizId}'),
+          );
+        default:
+          return const TextSpan();
+      }
+    }).toList();
+    return TextSpan(children: spanChildren);
+  }
+
+  Widget _buildStaff(
+    ThemeData theme,
+    bool isPortrait,
+    int? ownerMid,
+    Staff item,
+  ) {
+    void onTap() => Get.toNamed(
+      '/member?mid=${item.mid}&from_view_aid=${videoDetailCtr.aid}',
+    );
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        if (item.mid == ownerMid &&
+            !isPortrait &&
+            introController.horizontalMemberPage) {
+          widget.onShowMemberPage(ownerMid);
+        } else {
+          onTap();
+        }
+      },
+      onSecondaryTap:
+          PlatformUtils.isDesktop && introController.horizontalMemberPage
+          ? onTap
+          : null,
+      child: Row(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              NetworkImgLayer(
+                type: ImageType.avatar,
+                src: item.face,
+                width: 35,
+                height: 35,
+                fadeInDuration: Duration.zero,
+                fadeOutDuration: Duration.zero,
+              ),
+              if ((item.official?.type ?? -1) != -1)
+                Positioned(
+                  right: -2,
+                  bottom: -2,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.colorScheme.surface,
+                    ),
+                    child: Icon(
+                      Icons.offline_bolt,
+                      color: item.official?.type == 0
+                          ? const Color(0xFFFFCC00)
+                          : Colors.lightBlueAccent,
+                      size: 14,
+                    ),
+                  ),
+                ),
+              Positioned(
+                top: 0,
+                right: -6,
+                child: Obx(
+                  () =>
+                      introController.staffRelations['status'] == true &&
+                          introController.staffRelations['${item.mid}'] == null
+                      ? Material(
+                          type: MaterialType.transparency,
+                          shape: const CircleBorder(),
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () => RequestUtils.actionRelationMod(
+                              context: context,
+                              mid: item.mid,
+                              isFollow: false,
+                              afterMod: (val) {
+                                introController.staffRelations['${item.mid}'] =
+                                    true;
+                              },
+                            ),
+                            child: Ink(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.secondaryContainer,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                MdiIcons.plus,
+                                size: 16,
+                                color: theme.colorScheme.onSecondaryContainer,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 8),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.name!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: (item.vip?.status ?? 0) > 0 && item.vip?.type == 2
+                      ? theme.colorScheme.vipColor
+                      : null,
+                ),
+              ),
+              Text(
+                item.title!,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: theme.colorScheme.outline,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAvatar(
+    ThemeData theme,
+    VoidCallback onPushMember,
+  ) => GestureDetector(
+    onTap: onPushMember,
+    behavior: HitTestBehavior.opaque,
+    onSecondaryTap:
+        PlatformUtils.isDesktop && introController.horizontalMemberPage
+        ? () => Get.toNamed(
+            '/member?mid=${introController.userStat.value.card?.mid}&from_view_aid=${videoDetailCtr.aid}',
+          )
+        : null,
+    child: Obx(
+      () {
+        final userStat = introController.userStat.value;
+        final isVip = (userStat.card?.vip?.status ?? 0) > 0;
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PendantAvatar(
+              userStat.card?.face,
+              size: 35,
+              badgeSize: 14,
+              vipStatus: userStat.card?.vip?.status,
+              officialType: userStat.card?.official?.type,
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userStat.card?.name ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isVip && userStat.card?.vip?.type == 2
+                        ? theme.colorScheme.vipColor
+                        : null,
+                  ),
+                ),
+                const SizedBox(height: 0),
+                Text(
+                  '${NumUtils.numFormat(userStat.follower)}绮変笣    ${'${NumUtils.numFormat(userStat.archiveCount)}瑙嗛'}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: theme.colorScheme.outline,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    ),
+  );
+
+  Widget _buildInfo(ThemeData theme, VideoDetailData videoDetail) => Row(
+    spacing: 10,
+    children: [
+      StatWidget(
+        type: StatType.play,
+        value: videoDetail.stat?.view,
+        color: theme.colorScheme.outline,
+      ),
+      StatWidget(
+        type: StatType.danmaku,
+        value: videoDetail.stat?.danmaku,
+        color: theme.colorScheme.outline,
+      ),
+      Text(
+        DateFormatUtils.format(videoDetail.pubdate),
+        style: TextStyle(
+          fontSize: 12,
+          color: theme.colorScheme.outline,
+        ),
+      ),
+      if (MineController.anonymity.value)
+        Icon(
+          MdiIcons.incognito,
+          size: 15,
+          color: theme.colorScheme.outline,
+          semanticLabel: '鏃犵棔',
+        ),
+      if (introController.isShowOnlineTotal)
+        Obx(
+          () => Text(
+            '${introController.total.value}浜哄湪鐪?,
+            style: TextStyle(
+              fontSize: 12,
+              color: theme.colorScheme.outline,
+            ),
+          ),
+        ),
+    ],
+  );
+
+  Widget get _aiBtn => Positioned(
+    right: 8,
+    child: Center(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () async {
+          if (introController.aiConclusionResult == null) {
+            await introController.aiConclusion();
+          }
+          if (introController.aiConclusionResult case AiConclusionResult(
+            :final summary,
+            :final outline,
+          )) {
+            if (summary?.isNotEmpty == true || outline?.isNotEmpty == true) {
+              widget.showAiBottomSheet();
+            } else {
+              SmartDialog.showToast("褰撳墠瑙嗛涓嶆敮鎸丄I瑙嗛鎬荤粨");
+            }
+          }
+        },
+        child: Image.asset(
+          semanticLabel: 'AI鎬荤粨',
+          Assets.ai,
+          height: 18,
+          width: 18,
+          cacheHeight: 18.cacheSize(context),
+        ),
+      ),
+    ),
+  );
+
+  Widget _buildTags(List<VideoTagItem> tags) {
+    return GestureDetector(
+      onTap: () {},
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(top: 8),
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: tags
+              .map(
+                (item) => SearchText(
+                  fontSize: 13,
+                  text: switch (item.tagType) {
+                    'bgm' => item.tagName!.replaceFirst('鍙戠幇', '鈾?BGM锛?),
+                    'topic' => '#${item.tagName}',
+                    _ => item.tagName!,
+                  },
+                  onTap: switch (item.tagType) {
+                    'bgm' => (_) => Get.toNamed(
+                      '/musicDetail',
+                      parameters: {'musicId': item.musicId!},
+                    ),
+                    'topic' => (_) => Get.toNamed(
+                      '/dynTopic',
+                      parameters: {'id': item.tagId!.toString()},
+                    ),
+                    _ => (tagName) => Get.toNamed(
+                      '/searchResult',
+                      parameters: {'keyword': tagName},
+                    ),
+                  },
+                  onLongPress: Utils.copyText,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+}
+

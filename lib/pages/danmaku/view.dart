@@ -1,0 +1,191 @@
+﻿import 'dart:convert';
+
+import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
+import 'package:liqliquid/pages/danmaku/controller.dart';
+import 'package:liqliquid/pages/danmaku/danmaku_model.dart';
+import 'package:liqliquid/plugin/pl_player/controller.dart';
+import 'package:liqliquid/plugin/pl_player/models/play_status.dart';
+import 'package:liqliquid/plugin/pl_player/utils/danmaku_options.dart';
+import 'package:liqliquid/utils/danmaku_utils.dart';
+import 'package:canvas_danmaku/canvas_danmaku.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+/// 浼犲叆鎾斁鍣ㄦ帶鍒跺櫒锛岀洃鍚挱鏀捐繘搴︼紝鍔犺浇瀵瑰簲寮瑰箷
+class PlDanmaku extends StatefulWidget {
+  final int cid;
+  final PlPlayerController playerController;
+  final bool isPipMode;
+  final bool isFullScreen;
+  final bool isFileSource;
+  final Size size;
+
+  const PlDanmaku({
+    super.key,
+    required this.cid,
+    required this.playerController,
+    this.isPipMode = false,
+    required this.isFullScreen,
+    required this.isFileSource,
+    required this.size,
+  });
+
+  @override
+  State<PlDanmaku> createState() => _PlDanmakuState();
+
+  bool get notFullscreen => !isFullScreen || isPipMode;
+}
+
+class _PlDanmakuState extends State<PlDanmaku> {
+  PlPlayerController get playerController => widget.playerController;
+
+  late final PlDanmakuController _plDanmakuController;
+  DanmakuController<DanmakuExtra>? _controller;
+  int latestAddedPosition = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    _plDanmakuController = PlDanmakuController(
+      widget.cid,
+      playerController,
+      widget.isFileSource,
+    );
+    if (playerController.enableShowDanmaku.value) {
+      if (widget.isFileSource) {
+        _plDanmakuController.initFileDmIfNeeded();
+      } else {
+        _plDanmakuController.queryDanmaku(
+          PlDanmakuController.calcSegment(
+            playerController.positionInMilliseconds,
+          ),
+        );
+      }
+    }
+    playerController
+      ..addStatusLister(playerListener)
+      ..addPositionListener(videoPositionListen);
+  }
+
+  @override
+  void didUpdateWidget(PlDanmaku oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.notFullscreen != widget.notFullscreen &&
+        !DanmakuOptions.sameFontScale) {
+      _controller?.updateOption(
+        DanmakuOptions.get(notFullscreen: widget.notFullscreen),
+      );
+    }
+  }
+
+  // 鎾斁鍣ㄧ姸鎬佺洃鍚?  void playerListener(PlayerStatus status) {
+    if (_controller case final controller?) {
+      if (status.isPlaying) {
+        controller.resume();
+      } else {
+        controller.pause();
+      }
+    }
+  }
+
+  @pragma('vm:notify-debugger-on-exception')
+  void videoPositionListen(Duration position) {
+    if (_controller == null || !playerController.enableShowDanmaku.value) {
+      return;
+    }
+
+    if (!playerController.showDanmaku && !widget.isPipMode) {
+      return;
+    }
+
+    if (!playerController.playerStatus.isPlaying) {
+      return;
+    }
+
+    int currentPosition = position.inMilliseconds;
+    currentPosition -= currentPosition % 100; //鍙栨暣鐧剧殑姣鏁?    if (currentPosition == latestAddedPosition) {
+      return;
+    }
+    latestAddedPosition = currentPosition;
+
+    List<DanmakuElem>? currentDanmakuList = _plDanmakuController
+        .getCurrentDanmaku(currentPosition);
+    if (currentDanmakuList != null) {
+      final blockColorful = DanmakuOptions.blockColorful;
+      final danmakuWeight = DanmakuOptions.danmakuWeight;
+      for (DanmakuElem e in currentDanmakuList) {
+        if (e.weight < danmakuWeight) return;
+        if (e.mode == 7) {
+          try {
+            _controller!.addDanmaku(
+              SpecialDanmakuContentItem.fromList(
+                DmUtils.decimalToColor(e.color),
+                e.fontsize.toDouble(),
+                jsonDecode(e.content.replaceAll('\n', '\\n')),
+                extra: VideoDanmaku(
+                  id: e.id.toInt(),
+                  mid: e.midHash,
+                  like: e.likeCount.toInt(),
+                ),
+              ),
+            );
+          } catch (_) {}
+        } else {
+          _controller!.addDanmaku(
+            DanmakuContentItem(
+              e.content,
+              color: blockColorful
+                  ? Colors.white
+                  : DmUtils.decimalToColor(e.color),
+              type: DmUtils.getPosition(e.mode),
+              isColorful:
+                  playerController.showVipDanmaku &&
+                  e.colorful == DmColorfulType.VipGradualColor,
+              count: e.count > 1 ? e.count : null,
+              selfSend: e.isSelf,
+              extra: VideoDanmaku(
+                id: e.id.toInt(),
+                mid: e.midHash,
+                like: e.likeCount.toInt(),
+              ),
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    playerController
+      ..removePositionListener(videoPositionListen)
+      ..removeStatusLister(playerListener);
+    _plDanmakuController.dispose();
+    _controller = null;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final option = DanmakuOptions.get(
+      notFullscreen: widget.notFullscreen,
+      speed: playerController.playbackSpeed,
+    );
+    return Obx(
+      () => AnimatedOpacity(
+        opacity: playerController.enableShowDanmaku.value
+            ? playerController.danmakuOpacity.value
+            : 0,
+        duration: const Duration(milliseconds: 100),
+        child: DanmakuScreen<DanmakuExtra>(
+          createdController: (e) {
+            playerController.danmakuController = _controller = e;
+          },
+          option: option,
+          size: widget.size,
+        ),
+      ),
+    );
+  }
+}
+

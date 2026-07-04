@@ -1,0 +1,69 @@
+﻿import 'package:liqliquid/http/init.dart';
+import 'package:liqliquid/http/search.dart';
+import 'package:liqliquid/utils/accounts/account.dart';
+import 'package:liqliquid/utils/id_utils.dart';
+import 'package:liqliquid/utils/page_utils.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+
+abstract final class UrlUtils {
+  // 302閲嶅畾鍚戣矾鐢辨埅鍙?  static Future<String?> parseRedirectUrl(
+    String url, [
+    bool returnOri = false,
+  ]) async {
+    String? redirectUrl;
+    try {
+      final response = await Request.dio.head(
+        url,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return 200 <= status! && status < 400;
+          },
+          extra: {'account': AnonymousAccount()},
+        ),
+      );
+      redirectUrl = response.headers['location']?.firstOrNull;
+      if (kDebugMode) debugPrint('redirectUrl: $redirectUrl');
+      if (redirectUrl != null && !redirectUrl.startsWith('http')) {
+        redirectUrl = Uri.parse(url).resolve(redirectUrl).toString();
+      }
+    } catch (_) {}
+    if (returnOri && redirectUrl == null) redirectUrl = url;
+    if (redirectUrl?.endsWith('/') == true) {
+      redirectUrl = redirectUrl!.substring(0, redirectUrl.length - 1);
+    }
+    return redirectUrl;
+  }
+
+  // 鍖归厤url璺敱璺宠浆
+  static Future<void> matchUrlPush(
+    String pathSegment,
+    String redirectUrl,
+  ) async {
+    final matchRes = IdUtils.matchAvorBv(input: pathSegment);
+    if (matchRes.isNotEmpty) {
+      final aid = matchRes.av;
+      String? bvid = matchRes.bv;
+      bvid ??= IdUtils.av2bv(aid!);
+      final res = await SearchHttp.ab2cWithDimension(aid: aid, bvid: bvid);
+      final cid = res?.cid;
+      if (cid != null) {
+        PageUtils.toVideoPage(
+          aid: aid,
+          bvid: bvid,
+          cid: cid,
+          dimension: res!.dimension,
+        );
+      }
+    } else {
+      if (redirectUrl.isNotEmpty) {
+        PageUtils.handleWebview(redirectUrl);
+      } else {
+        SmartDialog.showToast('matchUrlPush: $pathSegment');
+      }
+    }
+  }
+}
+

@@ -1,0 +1,44 @@
+﻿import 'package:liqliquid/pages/follow_type/follow_same/controller.dart';
+import 'package:liqliquid/pages/follow_type/view.dart';
+import 'package:liqliquid/utils/extension/get_ext.dart';
+import 'package:liqliquid/utils/parse_int.dart';
+import 'package:liqliquid/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class FollowSamePage extends StatefulWidget {
+  const FollowSamePage({super.key});
+
+  @override
+  State<FollowSamePage> createState() => _FollowSamePageState();
+
+  static void toFollowSamePage({dynamic mid, String? name}) {
+    if (mid == null) return;
+    Get.toNamed(
+      '/sameFollowing',
+      arguments: {
+        'mid': safeToInt(mid),
+        'name': name,
+      },
+    );
+  }
+}
+
+class _FollowSamePageState extends FollowTypePageState<FollowSamePage> {
+  @override
+  final controller = Get.putOrFind(
+    FollowSameController.new,
+    tag: Get.arguments?['mid']?.toString() ?? Utils.generateRandomString(8),
+  );
+
+  @override
+  PreferredSizeWidget get appBar => AppBar(
+    title: Obx(
+      () {
+        final name = controller.name.value;
+        return Text('${name == null ? '' : '鎴戜笌$name鐨?}鍏卞悓鍏虫敞');
+      },
+    ),
+  );
+}
+

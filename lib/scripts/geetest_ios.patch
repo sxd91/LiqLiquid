@@ -1,0 +1,147 @@
+﻿diff --git a/lib/pages/login/geetest/geetest_plugin.dart b/lib/pages/login/geetest/geetest_plugin.dart
+new file mode 100644
+index 000000000..2823c2188
+--- /dev/null
++++ b/lib/pages/login/geetest/geetest_plugin.dart
+@@ -0,0 +1,110 @@
++import 'dart:async' show Completer;
++import 'dart:io' show Platform;
++
++import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
++import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
++import 'package:gt3_flutter_plugin/gt3_flutter_plugin.dart';
++
++abstract final class GeetestPlugin {
++  static Future geetest(String gt, String challenge) {
++    final completer = Completer();
++    void complete([result]) {
++      if (!completer.isCompleted) {
++        completer.complete(result);
++      }
++    }
++
++    final registerData = Gt3RegisterData(
++      challenge: challenge,
++      gt: gt,
++      success: true,
++    );
++
++    Gt3FlutterPlugin()
++      ..addEventHandler(
++        onShow: (Map<String, dynamic> message) {},
++        onClose: (Map<String, dynamic> message) {
++          SmartDialog.showToast('鍏抽棴楠岃瘉');
++          complete();
++        },
++        onResult: (Map<String, dynamic> message) {
++          if (kDebugMode) debugPrint("Captcha result: $message");
++          final String code = message["code"];
++          if (code == "1") {
++            // 鍙戦€?message["result"] 涓殑鏁版嵁鍚?B 绔殑涓氬姟鏈嶅姟鎺ュ彛杩涜鏌ヨ
++            complete(message['result']);
++            return;
++          } else {
++            // 缁堢鐢ㄦ埛瀹屾垚楠岃瘉澶辫触锛岃嚜鍔ㄩ噸璇?If the verification fails, it will be automatically retried.
++            if (kDebugMode) debugPrint("Captcha result code : $code");
++          }
++          complete();
++        },
++        onError: (Map<String, dynamic> message) {
++          SmartDialog.showToast("Captcha onError: $message");
++          String code = message["code"];
++          // 澶勭悊楠岃瘉涓繑鍥炵殑閿欒 Handling errors returned in verification
++          if (Platform.isAndroid) {
++            // Android 骞冲彴
++            if (code == "-2") {
++              // Dart 璋冪敤寮傚父 Call exception
++            } else if (code == "-1") {
++              // Gt3RegisterData 鍙傛暟涓嶅悎娉?Parameter is invalid
++            } else if (code == "201") {
++              // 缃戠粶鏃犳硶璁块棶 Network inaccessible
++            } else if (code == "202") {
++              // Json 瑙ｆ瀽閿欒 Analysis error
++            } else if (code == "204") {
++              // WebView 鍔犺浇瓒呮椂锛岃妫€鏌ユ槸鍚︽贩娣嗘瀬楠?SDK   Load timed out
++            } else if (code == "204_1") {
++              // WebView 鍔犺浇鍓嶇椤甸潰閿欒锛岃鏌ョ湅鏃ュ織 Error loading front-end page, please check the log
++            } else if (code == "204_2") {
++              // WebView 鍔犺浇 SSLError
++            } else if (code == "206") {
++              // gettype 鎺ュ彛閿欒鎴栬繑鍥炰负 null   API error or return null
++            } else if (code == "207") {
++              // getphp 鎺ュ彛閿欒鎴栬繑鍥炰负 null    API error or return null
++            } else if (code == "208") {
++              // ajax 鎺ュ彛閿欒鎴栬繑鍥炰负 null      API error or return null
++            } else {
++              // 鏇村閿欒鐮佸弬鑰冨紑鍙戞枃妗? More error codes refer to the development document
++              // https://docs.geetest.com/sensebot/apirefer/errorcode/android
++            }
++          }
++
++          if (Platform.isIOS) {
++            // iOS 骞冲彴
++            if (code == "-1009") {
++              // 缃戠粶鏃犳硶璁块棶 Network inaccessible
++            } else if (code == "-1004") {
++              // 鏃犳硶鏌ユ壘鍒?HOST  Unable to find HOST
++            } else if (code == "-1002") {
++              // 闈炴硶鐨?URL  Illegal URL
++            } else if (code == "-1001") {
++              // 缃戠粶瓒呮椂 Network timeout
++            } else if (code == "-999") {
++              // 璇锋眰琚剰澶栦腑鏂? 涓€鑸敱鐢ㄦ埛杩涜鍙栨秷鎿嶄綔瀵艰嚧 The interrupted request was usually caused by the user cancelling the operation
++            } else if (code == "-21") {
++              // 浣跨敤浜嗛噸澶嶇殑 challenge   Duplicate challenges are used
++              // 妫€鏌ヨ幏鍙?challenge 鏄惁杩涜浜嗙紦瀛? Check if the fetch challenge is cached
++            } else if (code == "-20") {
++              // 灏濊瘯杩囧, 閲嶆柊寮曞鐢ㄦ埛瑙﹀彂楠岃瘉鍗冲彲 Try too many times, lead the user to request verification again
++            } else if (code == "-10") {
++              // 棰勫垽鏂椂琚皝绂? 涓嶄細鍐嶈繘琛屽浘褰㈤獙璇?Banned during pre-judgment, and no more image captcha verification
++            } else if (code == "-2") {
++              // Dart 璋冪敤寮傚父 Call exception
++            } else if (code == "-1") {
++              // Gt3RegisterData 鍙傛暟涓嶅悎娉? Parameter is invalid
++            } else {
++              // 鏇村閿欒鐮佸弬鑰冨紑鍙戞枃妗?More error codes refer to the development document
++              // https://docs.geetest.com/sensebot/apirefer/errorcode/ios
++            }
++          }
++          complete();
++        },
++      )
++      ..startCaptcha(registerData);
++
++    return completer.future;
++  }
++}
+diff --git a/lib/pages/login/geetest/geetest_webview_dialog.dart b/lib/pages/login/geetest/geetest_webview_dialog.dart
+index 7a0461170..da032af1a 100644
+--- a/lib/pages/login/geetest/geetest_webview_dialog.dart
++++ b/lib/pages/login/geetest/geetest_webview_dialog.dart
+@@ -1,3 +1,5 @@
++import 'package:liqliquid/pages/login/geetest/geetest_plugin.dart';
++
+ import 'dart:convert' show base64, jsonDecode, jsonEncode, utf8;
+ import 'dart:io' show Platform;
+ 
+@@ -22,6 +24,7 @@ class GeetestWebviewDialog extends StatefulWidget {
+   State<GeetestWebviewDialog> createState() => _GeetestWebviewDialogState();
+ 
+   static Future geetest(String gt, String challenge) {
++    return GeetestPlugin.geetest(gt, challenge);
+     return showDialog(
+       context: Get.context!,
+       builder: (context) => GeetestWebviewDialog(gt, challenge),
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 1ec95f9f1..e29e474e0 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -34,6 +34,7 @@ dependencies:
+     sdk: flutter
+   flutter_localizations:
+     sdk: flutter
++  gt3_flutter_plugin: ^0.1.0
+ 
+   app_links: ^7.1.1
+   archive: ^4.0.0
+

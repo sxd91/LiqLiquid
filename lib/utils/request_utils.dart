@@ -1,0 +1,585 @@
+﻿import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
+import 'package:liqliquid/grpc/bilibili/im/type.pbenum.dart';
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+    show ReplyInfo;
+import 'package:liqliquid/grpc/im.dart';
+import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/member.dart';
+import 'package:liqliquid/http/user.dart';
+import 'package:liqliquid/http/validate.dart';
+import 'package:liqliquid/http/video.dart';
+import 'package:liqliquid/models/dynamics/result.dart';
+import 'package:liqliquid/models/login/model.dart';
+import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
+import 'package:liqliquid/models_new/later/list.dart';
+import 'package:liqliquid/models_new/relation/data.dart';
+import 'package:liqliquid/pages/common/multi_select/base.dart';
+import 'package:liqliquid/pages/dynamics_tab/controller.dart';
+import 'package:liqliquid/pages/fav_detail/controller.dart'
+    show BaseFavController;
+import 'package:liqliquid/pages/group_panel/view.dart';
+import 'package:liqliquid/pages/login/geetest/geetest_webview_dialog.dart';
+import 'package:liqliquid/utils/accounts.dart';
+import 'package:liqliquid/utils/extension/context_ext.dart';
+import 'package:liqliquid/utils/extension/size_ext.dart';
+import 'package:liqliquid/utils/extension/string_ext.dart';
+import 'package:liqliquid/utils/extension/theme_ext.dart';
+import 'package:liqliquid/utils/feed_back.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/storage.dart';
+import 'package:liqliquid/utils/storage_key.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/theme_utils.dart';
+import 'package:liqliquid/utils/utils.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show LengthLimitingTextInputFormatter;
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+
+abstract final class RequestUtils {
+  static Future<void> syncHistoryStatus() async {
+    final account = Accounts.history;
+    if (!account.isLogin) {
+      return;
+    }
+    final res = await UserHttp.historyStatus(account: account);
+    if (res case Success(:final response)) {
+      GStorage.localCache.put(LocalCacheKey.historyPause, response);
+    }
+  }
+
+  // 1锛氬皬瑙嗛锛堝凡寮冪敤锛?  // 2锛氱浉绨?  // 3锛氱函鏂囧瓧
+  // 4锛氱洿鎾紙姝ょ被鍨嬩笉甯哥敤锛岃鍒嗕韩鍏朵粬鍐呭娑堟伅锛?  // 5锛氳棰?  // 6锛氫笓鏍?  // 7锛氱暘鍓э紙id 涓?season_id锛?  // 8锛氶煶涔?  // 9锛氬浗浜у姩鐢伙紙id 涓?AV 鍙凤級
+  // 10锛氬浘鐗?  // 11锛氬姩鎬?  // 16锛氱暘鍓э紙id 涓?epid锛?  // 17锛氱暘鍓?  // https://github.com/SocialSisterYi/bilibili-API-collect/tree/master/docs/message/private_msg_content.md
+  static Future<bool> pmShare({
+    required int receiverId,
+    required Map content,
+    String? message,
+  }) async {
+    final ownerMid = Accounts.main.mid;
+    final contentRes = await ImGrpc.sendMsg(
+      senderUid: ownerMid,
+      receiverId: receiverId,
+      content: jsonEncode(content),
+      msgType: content['source'] is String
+          ? MsgType.EN_MSG_TYPE_COMMON_SHARE_CARD
+          : MsgType.EN_MSG_TYPE_SHARE_V2,
+    );
+
+    if (contentRes.isSuccess) {
+      if (message?.isNotEmpty == true) {
+        final msgRes = await ImGrpc.sendMsg(
+          senderUid: ownerMid,
+          receiverId: receiverId,
+          content: jsonEncode({"content": message}),
+          msgType: MsgType.EN_MSG_TYPE_TEXT,
+        );
+        return msgRes.isSuccess;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static Future<void> createFavTag(
+    BuildContext context,
+    ValueChanged<({int tagid, String tagName})> onSuccess,
+  ) async {
+    String tagName = '';
+    final onCreate = await showConfirmDialog(
+      context: context,
+      title: const Text('鏂板缓鍒嗙粍'),
+      content: TextFormField(
+        autofocus: true,
+        initialValue: tagName,
+        onChanged: (value) => tagName = value,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(16),
+        ],
+        decoration: const InputDecoration(border: OutlineInputBorder()),
+      ),
+    );
+    if (onCreate) {
+      final res = await MemberHttp.createFollowTag(tagName);
+      if (res case Success(:final response)) {
+        onSuccess((tagid: response, tagName: tagName));
+        SmartDialog.showToast('鍒涘缓鎴愬姛');
+      } else {
+        res.toast();
+      }
+    }
+  }
+
+  static Future<void> actionRelationMod({
+    required BuildContext context,
+    required dynamic mid,
+    required bool isFollow,
+    required ValueChanged<int>? afterMod,
+    RelationData? followStatus,
+  }) async {
+    if (mid == null) {
+      return;
+    }
+    feedBack();
+    if (!isFollow) {
+      final res = await VideoHttp.relationMod(
+        mid: mid,
+        act: 1,
+        reSrc: 11,
+      );
+      if (res.isSuccess) {
+        SmartDialog.showToast('鍏虫敞鎴愬姛');
+        afterMod?.call(2);
+      } else {
+        res.toast();
+      }
+    } else {
+      if (followStatus?.tag == null) {
+        final res = await UserHttp.userRelation(mid);
+        if (res case Success(:final response)) {
+          followStatus = response;
+        } else {
+          res.toast();
+          return;
+        }
+      }
+
+      if (context.mounted) {
+        bool isSpecialFollowed = followStatus!.special == 1;
+        String text = isSpecialFollowed ? '绉婚櫎鐗瑰埆鍏虫敞' : '鍔犲叆鐗瑰埆鍏虫敞';
+        showDialog(
+          context: context,
+          builder: (context) => SimpleDialog(
+            clipBehavior: Clip.hardEdge,
+            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            children: [
+              DialogOption(
+                onPressed: () async {
+                  Get.back();
+                  final res = await MemberHttp.specialAction(
+                    fid: mid,
+                    isAdd: !isSpecialFollowed,
+                  );
+                  if (res.isSuccess) {
+                    SmartDialog.showToast('$text鎴愬姛');
+                    afterMod?.call(isSpecialFollowed ? 2 : -10);
+                  } else {
+                    res.toast();
+                  }
+                },
+                child: Text(text, style: const TextStyle(fontSize: 14)),
+              ),
+              DialogOption(
+                onPressed: () async {
+                  Get.back();
+                  final result = await showModalBottomSheet<Set<int>>(
+                    context: context,
+                    useSafeArea: true,
+                    isScrollControlled: true,
+                    constraints: BoxConstraints(
+                      maxWidth: min(640, context.mediaQueryShortestSide),
+                    ),
+                    builder: (BuildContext context) {
+                      final maxChildSize =
+                          PlatformUtils.isMobile &&
+                              !context.mediaQuerySize.isPortrait
+                          ? 1.0
+                          : 0.7;
+                      return DraggableScrollableSheet(
+                        minChildSize: 0,
+                        maxChildSize: 1,
+                        snap: true,
+                        expand: false,
+                        snapSizes: [maxChildSize],
+                        initialChildSize: maxChildSize,
+                        builder: (context, scrollController) {
+                          return GroupPanel(
+                            mid: mid,
+                            tags: followStatus!.tag,
+                            scrollController: scrollController,
+                          );
+                        },
+                      );
+                    },
+                  );
+                  if (result != null) {
+                    followStatus!.tag = result.toList();
+                    afterMod?.call(result.contains(-10) ? -10 : 2);
+                  }
+                },
+                child: const Text('璁剧疆鍒嗙粍', style: TextStyle(fontSize: 14)),
+              ),
+              DialogOption(
+                onPressed: () async {
+                  Get.back();
+                  final res = await VideoHttp.relationMod(
+                    mid: mid,
+                    act: 2,
+                    reSrc: 11,
+                  );
+                  if (res.isSuccess) {
+                    SmartDialog.showToast('鍙栨秷鍏虫敞鎴愬姛');
+                    afterMod?.call(0);
+                  } else {
+                    res.toast();
+                  }
+                },
+                child: const Text('鍙栨秷鍏虫敞', style: TextStyle(fontSize: 14)),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+  static ReplyInfo replyCast(Map res) {
+    Map? emote = res['content']['emote'];
+    emote?.forEach((key, value) {
+      value['size'] = value['meta']['size'];
+    });
+    return ReplyInfo.create()..mergeFromProto3Json(
+      res
+        ..['content'].remove('members')
+        ..['id'] = res['rpid']
+        ..['member']['name'] = res['member']['uname']
+        ..['member']['face'] = res['member']['avatar']
+        ..['member']['level'] = res['member']['level_info']['current_level']
+        ..['member']['vipStatus'] = res['member']['vip']['vipStatus']
+        ..['member']['vipType'] = res['member']['vip']['vipType']
+        ..['member']['officialVerifyType'] =
+            res['member']['official_verify']['type']
+        ..['content']['emotes'] = emote,
+      ignoreUnknownFields: true,
+    );
+  }
+
+  // static Future<dynamic> getWwebid(mid) async {
+  //   try {
+  //     final response = await Request().get(
+  //       '${HttpString.spaceBaseUrl}/$mid/dynamic',
+  //       options: Options(
+  //         extra: {'account': AnonymousAccount()},
+  //       ),
+  //     );
+  //     dom.Document document = html_parser.parse(response.data);
+  //     dom.Element? scriptElement =
+  //         document.querySelector('script#__RENDER_DATA__');
+  //     return jsonDecode(
+  //         Uri.decodeComponent(scriptElement?.text ?? ''))['access_id'];
+  //   } catch (e) {
+  //     if (kDebugMode) debugPrint('failed to get wwebid: $e');
+  //     return null;
+  //   }
+  // }
+
+  static Future<void> insertCreatedDyn(dynamic id) async {
+    if (id != null) {
+      try {
+        await Future.delayed(const Duration(milliseconds: 450));
+        final res = await DynamicsHttp.dynamicDetail(id: id);
+        if (res case final Success<DynamicItemModel> e) {
+          final ctr = Get.find<DynamicsTabController>(tag: 'all');
+          if (ctr.loadingState.value case Success(:final response?)) {
+            response.insert(0, e.response);
+            ctr.loadingState.refresh();
+            return;
+          }
+          ctr.loadingState.value = Success([e.response]);
+        }
+      } catch (e) {
+        if (kDebugMode) debugPrint('create dyn $e');
+      }
+    }
+  }
+
+  static Future<void> checkCreatedDyn({
+    dynamic id,
+    String? dynText,
+    bool isManual = false,
+  }) async {
+    if (isManual || Pref.enableCreateDynAntifraud) {
+      try {
+        if (id != null) {
+          if (!isManual) {
+            await Future.delayed(const Duration(seconds: 5));
+          }
+          final res = await DynamicsHttp.dynamicDetail(
+            id: id,
+            clearCookie: true,
+          );
+          final isSuccess = res.isSuccess;
+          final theme = ThemeUtils.theme;
+          final actions = [
+            if (!isSuccess)
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                  Utils.copyText('https://www.bilibili.com/opus/$id');
+                  Get.toNamed(
+                    '/webview',
+                    parameters: {
+                      'url':
+                          'https://www.bilibili.com/h5/comment/appeal?${ThemeUtils.themeUrl(theme.isDark)}',
+                    },
+                  );
+                },
+                child: const Text('鐢宠瘔'),
+              ),
+            if (!isManual)
+              TextButton(
+                onPressed: Get.back,
+                child: Text(
+                  '鍏抽棴',
+                  style: TextStyle(color: theme.colorScheme.outline),
+                ),
+              ),
+          ];
+          showDialog(
+            context: Get.context!,
+            barrierDismissible: isManual,
+            builder: (context) => AlertDialog(
+              title: const Text('鍔ㄦ€佹鏌ョ粨鏋?),
+              content: SelectableText(
+                '${isSuccess ? '鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勫姩鎬侊紝鍔ㄦ€佹甯革紒' : '浣犵殑鍔ㄦ€佽shadow ban锛堜粎鑷繁鍙锛夛紒'}${dynText != null ? ' \n\n鍔ㄦ€佸唴瀹? $dynText' : ''}',
+              ),
+              actions: actions.isEmpty ? null : actions,
+            ),
+          );
+        }
+      } catch (e) {
+        if (kDebugMode) debugPrint('check dyn error: $e');
+      }
+    }
+  }
+
+  // 鍔ㄦ€佺偣璧?  static Future<void> onLikeDynamic(
+    DynamicItemModel item,
+    bool uiStatus,
+    VoidCallback onSuccess,
+  ) async {
+    feedBack();
+
+    final like = item.modules.moduleStat?.like;
+    final status = like?.status ?? false;
+
+    if (status ^ uiStatus) {
+      SmartDialog.showToast(status ? '鐐硅禐鎴愬姛' : '鍙栨秷璧?);
+      onSuccess();
+      return;
+    }
+
+    final res = await DynamicsHttp.thumbDynamic(
+      dynamicId: item.idStr!,
+      up: status ? 2 : 1, // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?    );
+    if (res.isSuccess) {
+      SmartDialog.showToast(status ? '鍙栨秷璧? : '鐐硅禐鎴愬姛');
+      like
+        ?..count = (like.count ?? 0) + (status ? -1 : 1)
+        ..status = !status;
+      onSuccess();
+    } else {
+      res.toast();
+    }
+  }
+
+  static void onCopyOrMove<T extends MultiSelectData>({
+    required BuildContext context,
+    required bool isCopy,
+    required CommonMultiSelectMixin<T> ctr,
+    required dynamic mediaId,
+    required dynamic mid,
+  }) {
+    FavHttp.allFavFolders(mid).then((res) {
+      if (!context.mounted) return;
+      if (res case Success(:final response)) {
+        final list = response.list;
+        if (list == null || list.isEmpty) return;
+        int? checkedId;
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('${isCopy ? '澶嶅埗' : '绉诲姩'}鍒?),
+              contentPadding: const EdgeInsets.only(top: 5),
+              content: SingleChildScrollView(
+                child: RadioGroup(
+                  onChanged: (value) {
+                    checkedId = value;
+                    (context as Element).markNeedsBuild();
+                  },
+                  groupValue: checkedId,
+                  child: Column(
+                    children: list.map((item) {
+                      return RadioListTile<int>(
+                        dense: true,
+                        title: Text(item.title),
+                        value: item.id,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: Get.back,
+                  child: Text(
+                    '鍙栨秷',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (checkedId != null) {
+                      final removeList = ctr.allChecked.toSet();
+                      SmartDialog.showLoading();
+                      FavHttp.copyOrMoveFav(
+                        isCopy: isCopy,
+                        isFav: ctr is BaseFavController,
+                        srcMediaId: mediaId,
+                        tarMediaId: checkedId,
+                        resources: removeList
+                            .map(
+                              (e) => switch (e) {
+                                LaterItemModel _ => e.aid,
+                                FavDetailItemModel _ => '${e.id}:${e.type}',
+                                _ => throw UnsupportedError(e.toString()),
+                              },
+                            )
+                            .join(','),
+                        mid: isCopy ? mid : null,
+                      ).then((res) {
+                        if (res.isSuccess) {
+                          ctr.handleSelect(checked: false);
+                          if (!isCopy) {
+                            ctr.loadingState
+                              ..value.data!.removeWhere(removeList.contains)
+                              ..refresh();
+                          }
+                          SmartDialog.dismiss();
+                          SmartDialog.showToast('${isCopy ? '澶嶅埗' : '绉诲姩'}鎴愬姛');
+                          Get.back();
+                        } else {
+                          SmartDialog.dismiss();
+                          res.toast();
+                        }
+                      });
+                    }
+                  },
+                  child: const Text('纭'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        res.toast();
+      }
+    });
+  }
+
+  static Future<void> validate(
+    String vVoucher,
+    ValueChanged<String> onSuccess,
+  ) async {
+    final res = await ValidateHttp.gaiaVgateRegister(vVoucher);
+    if (!res.isSuccess) {
+      res.toast();
+      return;
+    }
+
+    final resData = res.data;
+    if (resData == null) {
+      SmartDialog.showToast("null data");
+      return;
+    }
+
+    CaptchaDataModel captchaData = CaptchaDataModel();
+
+    final geetest = resData['geetest'];
+    String? gt = geetest?['gt'];
+    String? challenge = geetest?['challenge'];
+    captchaData.token = resData['token'];
+
+    bool isGeeArgumentValid() {
+      return gt?.isNotEmpty == true &&
+          challenge?.isNotEmpty == true &&
+          captchaData.token?.isNotEmpty == true;
+    }
+
+    if (!isGeeArgumentValid()) {
+      SmartDialog.showToast("鍙傛暟涓虹┖");
+      return;
+    }
+
+    Future<void> gaiaVgateValidate() async {
+      final res = await ValidateHttp.gaiaVgateValidate(
+        challenge: captchaData.geetest?.challenge,
+        seccode: captchaData.seccode,
+        token: captchaData.token,
+        validate: captchaData.validate,
+      );
+      if (res case Success(:final response?)) {
+        if (response['is_valid'] == 1) {
+          final griskId = response['grisk_id'];
+          if (griskId is String) {
+            onSuccess(griskId);
+          }
+        } else {
+          SmartDialog.showToast('invalid');
+        }
+      } else {
+        res.toast();
+      }
+    }
+
+    final json = await GeetestWebviewDialog.geetest(gt!, challenge!);
+    if (json is Map) {
+      captchaData
+        ..validate = json['geetest_validate']
+        ..seccode = json['geetest_seccode']
+        ..geetest = GeetestData(
+          challenge: json['geetest_challenge'],
+          gt: gt,
+        );
+      gaiaVgateValidate();
+    }
+  }
+
+  static Future<void> showUserRealName(String mid) async {
+    final res = await UserHttp.getUserRealName(mid);
+    if (res case Success(:final response)) {
+      final show = !response.name.isNullOrEmpty;
+      showDialog(
+        context: Get.context!,
+        builder: (context) => AlertDialog(
+          title: SelectableText(
+            show ? response.name! : response.rejectPage?.title ?? '',
+          ),
+          content: show ? null : Text(response.rejectPage?.text ?? ''),
+          actions: [
+            TextButton(
+              onPressed: Get.back,
+              child: const Text('鍏抽棴'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      res.toast();
+    }
+  }
+}
+

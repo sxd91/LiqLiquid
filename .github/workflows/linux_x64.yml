@@ -1,0 +1,266 @@
+﻿name: Build for Linux x64
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "tag"
+        required: false
+        default: ""
+        type: string
+  workflow_dispatch:
+
+jobs:
+  build-linux-app:
+    name: Release Linux x64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev unzip webkit2gtk-4.1 libasound2-dev rpm patchelf
+          sudo apt-get install -y gcc g++ autoconf automake debhelper glslang-dev ladspa-sdk xutils-dev libasound2-dev \
+              libarchive-dev libbluray-dev libbs2b-dev libcaca-dev libcdio-paranoia-dev libdrm-dev \
+              libdav1d-dev libdvdnav-dev libegl1-mesa-dev libepoxy-dev libfontconfig-dev libfreetype6-dev \
+              libfribidi-dev libgl1-mesa-dev libgbm-dev libgme-dev libgsm1-dev libharfbuzz-dev libjpeg-dev \
+              libbrotli-dev liblcms2-dev libmodplug-dev libmp3lame-dev libopenal-dev \
+              libopus-dev libopencore-amrnb-dev libopencore-amrwb-dev libpulse-dev librtmp-dev \
+              libsdl2-dev libsixel-dev libssh-dev libsoxr-dev libspeex-dev libtool \
+              libv4l-dev libva-dev libvdpau-dev libvorbis-dev libvo-amrwbenc-dev \
+              libunwind-dev libvpx-dev libwayland-dev libx11-dev libxext-dev \
+              libxkbcommon-dev libxrandr-dev libxss-dev libxv-dev libxvidcore-dev \
+              linux-libc-dev nasm ninja-build pkg-config python3 python3-docutils wayland-protocols \
+              x11proto-core-dev zlib1g-dev libfdk-aac-dev libtheora-dev libwebp-dev \
+              unixodbc-dev libpq-dev libxxhash-dev libaom-dev \
+              libgtk-3-0 libblkid1 liblzma5 libmpv-dev
+        shell: bash
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version-file: pubspec.yaml
+          cache: true
+
+      - name: Set and Extract version
+        shell: pwsh
+        run: lib/scripts/build.ps1
+
+      - name: Apply Patch
+        shell: pwsh
+        run: lib/scripts/patch.ps1 Linux
+
+        #TODO: deb and rpm packages need to be build
+      - name: Build Linux
+        run: flutter build linux --release -v --pub --dart-define-from-file=liq_release.json
+
+      - name: Package .tar.gz
+        run: tar -zcvf LiqLiquid_linux_${{ env.version }}_amd64.tar.gz -C build/linux/x64/release/bundle .
+
+      - name: Packege deb
+        run: |
+          printf "寤虹珛鏋勫缓鐩綍...\n"
+          mkdir "LiqLiquid_linux_${{ env.version }}_amd64"
+          pushd "LiqLiquid_linux_${{ env.version }}_amd64"
+          mkdir -p opt/LiqLiquid
+          mkdir -p usr/share/applications
+          mkdir -p usr/share/icons/hicolor/512x512/apps
+
+          printf "澶嶅埗鏂囦欢...\n"
+          cp -r ../build/linux/x64/release/bundle/* opt/LiqLiquid
+          cp -r ../assets/linux/DEBIAN .
+          cp ../assets/linux/com.example.LiqLiquid.desktop usr/share/applications
+          cp ../assets/images/logo/logo.png usr/share/icons/hicolor/512x512/apps/LiqLiquid.png
+
+          printf "淇敼鎺у埗鏂囦欢...\n"
+          # 鏇挎崲鐗堟湰鍙?          sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
+          # 璁＄畻瀹夎澶у皬骞舵浛鎹?          SIZE_KB=$(du -s -b --apparent-size . | awk '{print int($1)}')
+          SIZE_KB=$(($SIZE_KB - $(du -s -b --apparent-size DEBIAN | awk '{print int($1)}')))
+          SIZE_KB=$(echo $SIZE_KB | awk '{print int($1/1024 + 0.999)}')
+          printf "\t瀹夎澶у皬: %s KB\n" "$SIZE_KB"
+          sed -i "9s/size_need_change/${SIZE_KB}/g" DEBIAN/control
+
+          printf "鐢熸垚骞跺啓鍏?md5sums ...\n"
+          md5sum opt/LiqLiquid/LiqLiquid >> DEBIAN/md5sums
+          md5sum opt/LiqLiquid/lib/* >> DEBIAN/md5sums
+          md5sum opt/LiqLiquid/data/icudtl.dat >> DEBIAN/md5sums
+
+          printf "璁剧疆鏉冮檺...\n"
+          chmod 0644 DEBIAN/control
+          chmod 0644 DEBIAN/md5sums
+          chmod 0755 DEBIAN/postinst
+          chmod 0755 DEBIAN/postrm
+          chmod 0755 DEBIAN/prerm
+
+          printf "鎵撳寘 deb 鏂囦欢...\n"
+          popd
+          dpkg-deb --build --verbose --root-owner-group "LiqLiquid_linux_${{ env.version }}_amd64"
+          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.deb\n" "${{ env.version }}"
+        shell: bash
+
+      - name: Packege rpm
+        run: |
+          printf "寤虹珛 RPM 鏋勫缓鐩綍...\n"
+          RPM_BUILD_ROOT="$PWD/rpm_build"
+          mkdir -p "$RPM_BUILD_ROOT/BUILD" "$RPM_BUILD_ROOT/RPMS" "$RPM_BUILD_ROOT/SOURCES" "$RPM_BUILD_ROOT/SPECS" "$RPM_BUILD_ROOT/SRPMS"
+
+          printf "鍑嗗婧愮爜褰掓。锛堜粎鍖呭惈杩愯鏃朵笌鍏冩暟鎹級...\n"
+          DATE="$(date '+%a %b %d %Y')"
+          SRC_DIR="$PWD/LiqLiquid-${{ env.version }}"
+          mkdir -p "$SRC_DIR/bundle" "$SRC_DIR/assets"
+          cp -r build/linux/x64/release/bundle/* "$SRC_DIR/bundle/"
+          cp assets/linux/com.example.LiqLiquid.desktop "$SRC_DIR/assets/com.example.LiqLiquid.desktop"
+          cp assets/images/logo/logo.png "$SRC_DIR/assets/LiqLiquid.png"
+          tar -zcvf "$RPM_BUILD_ROOT/SOURCES/LiqLiquid-${{ env.version }}.tar.gz" -C "$PWD" "LiqLiquid-${{ env.version }}"
+
+          printf "鐢熸垚 spec 鏂囦欢...\n"
+          cat > "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec" <<EOF
+          Name:           LiqLiquid
+          Version:        ${{ env.version }}
+          Release:        1%{?dist}
+          Summary:        LiqLiquid Linux Version
+          License:        GPL-3.0
+          Source0:        LiqLiquid-${{ env.version }}.tar.gz
+          Requires:       desktop-file-utils, hicolor-icon-theme
+
+          %description
+          浣跨敤 Flutter 寮€鍙戠殑 BiliBili 绗笁鏂瑰鎴风
+
+          %prep
+          %setup -q -n LiqLiquid-${{ env.version }}
+
+          %build
+
+          %install
+          mkdir -p %{buildroot}/opt/LiqLiquid
+          cp -r bundle/* %{buildroot}/opt/LiqLiquid/
+
+          # 浜岃繘鍒舵潈闄愪笌鍛戒护琛屽叆鍙?          chmod 755 %{buildroot}/opt/LiqLiquid/LiqLiquid
+          mkdir -p %{buildroot}/usr/bin
+          ln -sf /opt/LiqLiquid/LiqLiquid %{buildroot}/usr/bin/LiqLiquid
+
+          # 妗岄潰闆嗘垚
+          mkdir -p %{buildroot}/usr/share/applications
+          install -m 644 assets/com.example.LiqLiquid.desktop %{buildroot}/usr/share/applications/com.example.LiqLiquid.desktop
+
+          mkdir -p %{buildroot}/usr/share/icons/hicolor/512x512/apps
+          install -m 644 assets/LiqLiquid.png %{buildroot}/usr/share/icons/hicolor/512x512/apps/LiqLiquid.png
+
+          %post
+          update-desktop-database -q || true
+          gtk-update-icon-cache -q -t -f %{_datadir}/icons/hicolor || true
+
+          %postun
+          update-desktop-database -q || true
+          gtk-update-icon-cache -q -t -f %{_datadir}/icons/hicolor || true
+
+          %files
+          /opt/LiqLiquid
+          /usr/bin/LiqLiquid
+          /usr/share/applications/com.example.LiqLiquid.desktop
+          /usr/share/icons/hicolor/512x512/apps/LiqLiquid.png
+
+          %changelog
+          * DATE - ${{ env.version }}-1
+          - Initial RPM release
+          EOF
+
+          sed -i "s/DATE/${DATE}/g" "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec"
+
+          printf "鏋勫缓 RPM 鍖?..\n"
+          rpmbuild --define "_topdir $RPM_BUILD_ROOT" -bb "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec"
+
+          printf "绉诲姩鐢熸垚鐨?RPM...\n"
+          find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "LiqLiquid_linux_${{ env.version }}_amd64.rpm" \;
+
+          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.rpm\n" "${{ env.version }}"
+        shell: bash
+
+      - name: Package AppImage
+        run: |
+          printf "涓嬭浇 appimagetool...\n"
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+          printf "寤虹珛 AppDir 鐩綍缁撴瀯...\n"
+          APPDIR="LiqLiquid.AppDir"
+          mkdir -p "$APPDIR/usr/bin"
+          mkdir -p "$APPDIR/usr/lib"
+          mkdir -p "$APPDIR/usr/share/applications"
+          mkdir -p "$APPDIR/usr/share/icons/hicolor/512x512/apps"
+
+          printf "澶嶅埗搴旂敤鏂囦欢...\n"
+          cp -r build/linux/x64/release/bundle/* "$APPDIR/usr/bin/"
+
+          printf "澶嶅埗妗岄潰鏂囦欢鍜屽浘鏍?..\n"
+          cp assets/linux/com.example.LiqLiquid.desktop "$APPDIR/com.example.LiqLiquid.desktop"
+          cp assets/linux/com.example.LiqLiquid.desktop "$APPDIR/usr/share/applications/com.example.LiqLiquid.desktop"
+          cp assets/images/logo/logo.png "$APPDIR/LiqLiquid.png"
+          cp assets/images/logo/logo.png "$APPDIR/usr/share/icons/hicolor/512x512/apps/LiqLiquid.png"
+
+          printf "鍒涘缓 AppRun 鍚姩鑴氭湰...\n"
+          cat > "$APPDIR/AppRun" <<'APPRUN_EOF'
+          #!/bin/bash
+          SELF=$(readlink -f "$0")
+          HERE=${SELF%/*}
+          export PATH="${HERE}/usr/bin:${PATH}"
+          export LD_LIBRARY_PATH="${HERE}/usr/lib:${LD_LIBRARY_PATH}"
+          exec "${HERE}/usr/bin/LiqLiquid" "$@"
+          APPRUN_EOF
+          chmod +x "$APPDIR/AppRun"
+
+          printf "淇敼妗岄潰鏂囦欢涓殑 Exec 璺緞...\n"
+          sed -i 's|Exec=LiqLiquid|Exec=LiqLiquid|g' "$APPDIR/com.example.LiqLiquid.desktop"
+          sed -i 's|Icon=LiqLiquid|Icon=LiqLiquid|g' "$APPDIR/com.example.LiqLiquid.desktop"
+
+          printf "鎵撳寘 AppImage...\n"
+          ARCH=x86_64 ./appimagetool-x86_64.AppImage "$APPDIR" "LiqLiquid_linux_${{ env.version }}_amd64.AppImage"
+
+          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.AppImage\n" "${{ env.version }}"
+        shell: bash
+
+      - name: Release
+        if: ${{ github.event.inputs.tag != '' }}
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          name: ${{ github.event.inputs.tag }}
+          files: |
+            LiqLiquid_linux_*.tar.gz
+            LiqLiquid_linux_*.deb
+            LiqLiquid_linux_*.rpm
+            LiqLiquid_linux_*.AppImage
+
+      - name: Upload linux targz package
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          name: Linux_targz_amd64_packege
+          path: LiqLiquid_linux_*.tar.gz
+
+      - name: Upload linux deb package
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          name: Linux_deb_amd64_package
+          path: LiqLiquid_linux_*.deb
+
+      - name: Upload linux rpm package
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          name: Linux_rpm_amd64_package
+          path: LiqLiquid_linux_*.rpm
+
+      - name: Upload linux AppImage package
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          name: Linux_AppImage_amd64_package
+          path: LiqLiquid_linux_*.AppImage
+
