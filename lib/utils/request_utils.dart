@@ -98,7 +98,7 @@ abstract final class RequestUtils {
     String tagName = '';
     final onCreate = await showConfirmDialog(
       context: context,
-      title: const Text('鏂板缓鍒嗙粍'),
+      title: const Text('新建分组'),
       content: TextFormField(
         autofocus: true,
         initialValue: tagName,
@@ -113,7 +113,7 @@ abstract final class RequestUtils {
       final res = await MemberHttp.createFollowTag(tagName);
       if (res case Success(:final response)) {
         onSuccess((tagid: response, tagName: tagName));
-        SmartDialog.showToast('鍒涘缓鎴愬姛');
+        SmartDialog.showToast('创建成功');
       } else {
         res.toast();
       }
@@ -138,7 +138,7 @@ abstract final class RequestUtils {
         reSrc: 11,
       );
       if (res.isSuccess) {
-        SmartDialog.showToast('鍏虫敞鎴愬姛');
+        SmartDialog.showToast('关注成功');
         afterMod?.call(2);
       } else {
         res.toast();
@@ -156,7 +156,7 @@ abstract final class RequestUtils {
 
       if (context.mounted) {
         bool isSpecialFollowed = followStatus!.special == 1;
-        String text = isSpecialFollowed ? '绉婚櫎鐗瑰埆鍏虫敞' : '鍔犲叆鐗瑰埆鍏虫敞';
+        String text = isSpecialFollowed ? '移除特别关注' : '加入特别关注';
         showDialog(
           context: context,
           builder: (context) => SimpleDialog(
@@ -217,7 +217,7 @@ abstract final class RequestUtils {
                     afterMod?.call(result.contains(-10) ? -10 : 2);
                   }
                 },
-                child: const Text('璁剧疆鍒嗙粍', style: TextStyle(fontSize: 14)),
+                child: const Text('设置分组', style: TextStyle(fontSize: 14)),
               ),
               DialogOption(
                 onPressed: () async {
@@ -228,13 +228,13 @@ abstract final class RequestUtils {
                     reSrc: 11,
                   );
                   if (res.isSuccess) {
-                    SmartDialog.showToast('鍙栨秷鍏虫敞鎴愬姛');
+                    SmartDialog.showToast('取消关注成功');
                     afterMod?.call(0);
                   } else {
                     res.toast();
                   }
                 },
-                child: const Text('鍙栨秷鍏虫敞', style: TextStyle(fontSize: 14)),
+                child: const Text('取消关注', style: TextStyle(fontSize: 14)),
               ),
             ],
           ),
@@ -334,13 +334,13 @@ abstract final class RequestUtils {
                     },
                   );
                 },
-                child: const Text('鐢宠瘔'),
+                child: const Text('申诉'),
               ),
             if (!isManual)
               TextButton(
                 onPressed: Get.back,
                 child: Text(
-                  '鍏抽棴',
+                  '关闭',
                   style: TextStyle(color: theme.colorScheme.outline),
                 ),
               ),
@@ -349,7 +349,7 @@ abstract final class RequestUtils {
             context: Get.context!,
             barrierDismissible: isManual,
             builder: (context) => AlertDialog(
-              title: const Text('鍔ㄦ€佹鏌ョ粨鏋?),
+              title: const Text('动态检查结果'),
               content: SelectableText(
                 '${isSuccess ? '鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勫姩鎬侊紝鍔ㄦ€佹甯革紒' : '浣犵殑鍔ㄦ€佽shadow ban锛堜粎鑷繁鍙锛夛紒'}${dynText != null ? ' \n\n鍔ㄦ€佸唴瀹? $dynText' : ''}',
               ),
@@ -363,7 +363,7 @@ abstract final class RequestUtils {
     }
   }
 
-  // 鍔ㄦ€佺偣璧?  static Future<void> onLikeDynamic(
+  // 动态点赞?  static Future<void> onLikeDynamic(
     DynamicItemModel item,
     bool uiStatus,
     VoidCallback onSuccess,
@@ -374,7 +374,7 @@ abstract final class RequestUtils {
     final status = like?.status ?? false;
 
     if (status ^ uiStatus) {
-      SmartDialog.showToast(status ? '鐐硅禐鎴愬姛' : '鍙栨秷璧?);
+      SmartDialog.showToast(status ? '点赞成功' : '取消赞');
       onSuccess();
       return;
     }
@@ -383,7 +383,7 @@ abstract final class RequestUtils {
       dynamicId: item.idStr!,
       up: status ? 2 : 1, // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?    );
     if (res.isSuccess) {
-      SmartDialog.showToast(status ? '鍙栨秷璧? : '鐐硅禐鎴愬姛');
+      SmartDialog.showToast(status ? '取消赞' : '点赞成功');
       like
         ?..count = (like.count ?? 0) + (status ? -1 : 1)
         ..status = !status;
@@ -410,7 +410,7 @@ abstract final class RequestUtils {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('${isCopy ? '澶嶅埗' : '绉诲姩'}鍒?),
+              title: Text('${isCopy ? '复制' : '移动'}到'),
               contentPadding: const EdgeInsets.only(top: 5),
               content: SingleChildScrollView(
                 child: RadioGroup(
@@ -434,7 +434,7 @@ abstract final class RequestUtils {
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '鍙栨秷',
+                    '取消',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.outline,
                     ),
@@ -469,7 +469,7 @@ abstract final class RequestUtils {
                               ..refresh();
                           }
                           SmartDialog.dismiss();
-                          SmartDialog.showToast('${isCopy ? '澶嶅埗' : '绉诲姩'}鎴愬姛');
+                          SmartDialog.showToast('${isCopy ? '复制' : '移动'}鎴愬姛');
                           Get.back();
                         } else {
                           SmartDialog.dismiss();
@@ -572,7 +572,7 @@ abstract final class RequestUtils {
           actions: [
             TextButton(
               onPressed: Get.back,
-              child: const Text('鍏抽棴'),
+              child: const Text('关闭'),
             ),
           ],
         ),

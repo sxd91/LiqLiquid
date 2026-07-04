@@ -72,7 +72,8 @@ Future<void>? hideSystemBar() {
   return SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
 }
 
-//閫€鍑哄叏灞忔樉绀?Future<void>? showSystemBar() {
+//退出全屏显示
+Future<void>? showSystemBar() {
   if (_showSystemBar) {
     return null;
   }

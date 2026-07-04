@@ -67,7 +67,7 @@ class AccountManager extends Interceptor {
       ..addAll(account.headers)
       ..['referer'] ??= HttpString.baseUrl;
 
-    // app绔笉闇€瑕佺鐞哻ookie
+    // app端不需要管理cookie
     if (isApp) {
       // if (kDebugMode) debugPrint('is app: ${options.path}');
       final dataPtr = (options.method == 'POST' && options.data is Map
@@ -177,7 +177,7 @@ class AccountManager extends Interceptor {
       'site/getCoin',
     ];
     String url = err.requestOptions.uri.toString();
-    if (kDebugMode) debugPrint('馃尮馃尮ApiInterceptor: $url');
+    if (kDebugMode) debugPrint('⚠️ApiInterceptor: $url');
     if (skipShow.any((i) => url.contains(i)) ||
         (url.contains('skipSegments') && err.requestOptions.method == 'GET')) {
       // skip
@@ -239,19 +239,19 @@ class AccountManager extends Interceptor {
   static Future<String> dioError(DioException error) async {
     switch (error.type) {
       case DioExceptionType.badCertificate:
-        return '璇佷功鏈夎锛?;
+        return '证书有误！';
       case DioExceptionType.badResponse:
-        return '鏈嶅姟鍣ㄥ紓甯革紝璇风◢鍚庨噸璇曪紒';
+        return '服务器异常，请稍后重试！';
       case DioExceptionType.cancel:
-        return '璇锋眰宸茶鍙栨秷锛岃閲嶆柊璇锋眰';
+        return '请求已被取消，请重新请求';
       case DioExceptionType.connectionError:
-        return '杩炴帴閿欒锛岃妫€鏌ョ綉缁滆缃?;
+        return '连接错误，请检查网络设置';
       case DioExceptionType.connectionTimeout:
-        return '缃戠粶杩炴帴瓒呮椂锛岃妫€鏌ョ綉缁滆缃?;
+        return '网络连接超时，请检查网络设置';
       case DioExceptionType.receiveTimeout:
-        return '鍝嶅簲瓒呮椂锛岃绋嶅悗閲嶈瘯锛?;
+        return '响应超时，请稍后重试！';
       case DioExceptionType.sendTimeout:
-        return '鍙戦€佽姹傝秴鏃讹紝璇锋鏌ョ綉缁滆缃?;
+        return '发送请求超时，请检查网络设置';
       case DioExceptionType.unknown:
         String desc;
         try {
@@ -261,12 +261,12 @@ class AccountManager extends Interceptor {
         } catch (_) {
           desc = '';
         }
-        return '$desc缃戠粶寮傚父 ${error.error}';
+        return '$desc网络异常 ${error.error}';
     }
   }
 }
 
 extension _ConnectivityResultExt on ConnectivityResult {
-  String get desc => const ['钃濈墮', 'Wi-Fi', '灞€鍩?, '娴侀噺', '鏃?, '浠ｇ悊', '鍏朵粬'][index];
+  String get desc => const ['蓝牙', 'Wi-Fi', '局域网', '流量', '无', '代理', '其他'][index];
 }
 

@@ -35,7 +35,7 @@ class Request {
       _http11Dio ??= _enableHttp2 ? _cloneHttp11Dio() : dio;
   factory Request() => _instance;
 
-  /// 璁剧疆cookie
+  /// 设置Cookie
   static void setCookie() {
     accountManager = AccountManager();
     dio.interceptors.add(accountManager);
@@ -60,7 +60,7 @@ class Request {
   }
 
   static Future<void> buvidActive(Account account) async {
-    // 杩欐牱绾跨▼涓嶅畨鍏? 浣嗕粛鎸夐鏈熻繘琛?    if (account.activated) return;
+    // 这样线程不安全? 但仍按预期进行?    if (account.activated) return;
     account.activated = true;
     try {
       // final html = await Request().get(Api.dynamicSpmPrefix,
@@ -153,7 +153,7 @@ class Request {
               ..badCertificateCallback = (cert, host, port) => true
           : () => HttpClient()
               ..idleTimeout = const Duration(seconds: 15)
-              ..autoUncompress = false, // Http2Adapter娌℃湁鑷姩瑙ｅ帇, 缁熶竴琛屼负
+              ..autoUncompress = false, // Http2Adapter没有自动解压，统一行为
     );
 
     final connectionManager = _enableHttp2
@@ -198,19 +198,19 @@ class Request {
    * config it and create
    */
   Request._internal() {
-    //BaseOptions銆丱ptions銆丷equestOptions 閮藉彲浠ラ厤缃弬鏁帮紝浼樺厛绾у埆渚濇閫掑锛屼笖鍙互鏍规嵁浼樺厛绾у埆瑕嗙洊鍙傛暟
+    // BaseOptions、Options、RequestOptions 都可以配置参数，优先级依次递增，且可以根据优先级覆盖参数
     BaseOptions options = BaseOptions(
-      //璇锋眰鍩哄湴鍧€,鍙互鍖呭惈瀛愯矾寰?      baseUrl: HttpString.apiBaseUrl,
-      //杩炴帴鏈嶅姟鍣ㄨ秴鏃舵椂闂达紝鍗曚綅鏄绉?
+      // 请求基地址，可以包含子路径?      baseUrl: HttpString.apiBaseUrl,
+      // 连接服务器超时时间，单位是毫秒?
       connectTimeout: const Duration(milliseconds: 10000),
-      //鍝嶅簲娴佷笂鍓嶅悗涓ゆ鎺ュ彈鍒版暟鎹殑闂撮殧锛屽崟浣嶄负姣銆?      receiveTimeout: const Duration(milliseconds: 10000),
-      //Http璇锋眰澶?
+      // 响应流上前两次接收到数据的间隔，单位为毫秒。?      receiveTimeout: const Duration(milliseconds: 10000),
+      // Http请求头?
       headers: {
-        'user-agent': 'Dart/3.6 (dart:io)', // Http2Adapter涓嶄細鑷姩娣诲姞鏍囧ご
+        'user-agent': 'Dart/3.6 (dart:io)', // Http2Adapter不会自动添加标头
         if (!_enableHttp2) 'connection': 'keep-alive',
         'accept-encoding': 'br,gzip',
       },
-      responseDecoder: _responseDecoder, // Http2Adapter娌℃湁鑷姩瑙ｅ帇
+      responseDecoder: _responseDecoder, // Http2Adapter没有自动解压
       persistentConnection: true,
     );
 
@@ -221,14 +221,14 @@ class Request {
           ? Http2Adapter(connectionManager, fallbackAdapter: h11)
           : h11;
 
-    // 鍏堜簬鍏朵粬Interceptor
+    // 先于其他Interceptor
     if (Pref.retryCount != 0) {
       dio.interceptors.add(
         RetryInterceptor(dio, Pref.retryCount, Pref.retryDelay),
       );
     }
 
-    // 鏃ュ織鎷︽埅鍣?杈撳嚭璇锋眰銆佸搷搴斿唴瀹?    if (kDebugMode) {
+    // 日志拦截器 输出请求、响应内容?    if (kDebugMode) {
       dio.interceptors.add(
         LogInterceptor(
           request: false,
@@ -248,7 +248,7 @@ class Request {
   }
 
   /*
-   * get璇锋眰
+   * get请求
    */
   Future<Response> get<T>(
     String url, {
@@ -274,7 +274,7 @@ class Request {
   }
 
   /*
-   * post璇锋眰
+   * post请求
    */
   Future<Response> post<T>(
     String url, {
@@ -304,7 +304,7 @@ class Request {
   }
 
   /*
-   * 涓嬭浇鏂囦欢
+   * 下载文件
    */
   Future<Response> downloadFile(
     String urlPath,
@@ -317,7 +317,7 @@ class Request {
         savePath,
         cancelToken: cancelToken,
         // onReceiveProgress: (int count, int total) {
-        // 杩涘害
+        // 进度
         // if (kDebugMode) debugPrint("$count $total");
         // },
       );

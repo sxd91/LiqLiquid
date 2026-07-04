@@ -45,7 +45,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('寮瑰箷灞忚斀'),
+        title: const Text('弹幕屏蔽'),
         bottom: TabBar(
           controller: _controller.tabController,
           tabs: DmBlockType.values
@@ -72,7 +72,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: '娣诲姞',
+        tooltip: '添加',
         onPressed: () =>
             _showAddDialog(DmBlockType.values[_controller.tabController.index]),
         child: const Icon(Icons.add),
@@ -93,7 +93,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
         final SimpleRule item = list[itemIndex];
         final child = iconButton(
           iconSize: 20,
-          tooltip: '鍒犻櫎',
+          tooltip: '删除',
           icon: const Icon(Icons.delete_outlined),
           onPressed: () => showConfirmDialog(
             context: context,
@@ -117,7 +117,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
                   children: [
                     iconButton(
                       iconSize: 20,
-                      tooltip: '缂栬緫',
+                      tooltip: '编辑',
                       icon: const Icon(Icons.edit_outlined),
                       onPressed: () => _showAddDialog(
                         DmBlockType.values[_controller.tabController.index],
@@ -145,13 +145,13 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
     final hintText = switch (type) {
       DmBlockType.keyword => '杈撳叆杩囨护鐨勫叧閿瘝锛屽叾瀹冪被鍒鍒囨崲鏍囩椤靛悗娣诲姞',
       DmBlockType.regex => '杈撳叆//涔嬮棿鐨勬鍒欒〃杈惧紡锛屾棤闇€鍖呭惈澶村熬鐨?/"',
-      DmBlockType.uid => '杈撳叆鐢ㄦ埛UID',
+      DmBlockType.uid => '输入用户UID',
     };
     final isUid = type == DmBlockType.uid;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${itemId != null ? "缂栬緫" : "娣诲姞鏂扮殑"}${type.label}瑙勫垯'),
+        title: Text('${itemId != null ? "编辑" : "添加新的"}${type.label}瑙勫垯'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,7 +172,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍙栨秷',
+              '取消',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -194,7 +194,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
                 );
               } else {
                 SmartDialog.showToast(
-                  '杈撳叆鍐呭${filter.isEmpty ? "涓嶈兘涓虹┖" : "涓庝笂娆＄浉鍚?}',
+                  '杈撳叆鍐呭${filter.isEmpty ? "不能为空" : "涓庝笂娆＄浉鍚?}',
                 );
               }
             },

@@ -173,14 +173,14 @@ abstract final class UserHttp {
     final res = await Request().post(
       Api.toViewLater,
       data: {
-        'aid': ?aid,
-        'bvid': ?bvid,
+        'aid': aid,
+        'bvid': bvid,
         'csrf': Accounts.main.csrf,
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['code'] == 0) {
-      SmartDialog.showToast('yeah锛佺◢鍚庡啀鐪?);
+      SmartDialog.showToast('yeah！稍后再看');
       return const Success(null);
     } else {
       SmartDialog.showToast(res.data['message'].toString());
@@ -199,7 +199,7 @@ abstract final class UserHttp {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['code'] == 0) {
-      SmartDialog.showToast('yeah锛佹垚鍔熺Щ闄?);
+      SmartDialog.showToast('yeah！成功移除');
       return const Success(null);
     } else {
       SmartDialog.showToast(res.data['message'].toString());
@@ -556,7 +556,7 @@ abstract final class UserHttp {
       Api.sameFollowing,
       queryParameters: {
         'csrf': Accounts.main.csrf,
-        'pn': ?pn,
+        'pn': pn,
         'vmid': mid,
         'web_location': 333.789,
         'x-bili-device-req-json':

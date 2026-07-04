@@ -60,18 +60,18 @@ abstract final class LoginUtils {
           accountService.isLogin.value = true;
         }
 
-        SmartDialog.showToast('main鐧诲綍鎴愬姛');
+        SmartDialog.showToast('main登录成功');
         if (response != Pref.userInfoCache) {
           await GStorage.userInfo.put('userInfoCache', response);
         }
       }
     } else {
-      // 鑾峰彇鐢ㄦ埛淇℃伅澶辫触
+      // 获取用户信息失败
       final errMsg = res.toString();
-      if (errMsg == '璐﹀彿鏈櫥褰?) {
+      if (errMsg == '账号未登录') {
         await Accounts.deleteAll({account});
         SmartDialog.showNotify(
-          msg: '鐧诲綍澶辫触锛岃妫€鏌ookie鏄惁姝ｇ‘锛?errMsg',
+          msg: '登录失败，请检查Cookie是否正确！\',
           notifyType: .warning,
         );
       } else {

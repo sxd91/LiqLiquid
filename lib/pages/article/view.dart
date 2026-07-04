@@ -300,7 +300,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
                                           const PBadge(
                                             right: 12,
                                             bottom: 12,
-                                            text: '闀垮浘',
+                                            text: '长图',
                                             type: .primary,
                                           ),
                                       ],
@@ -422,7 +422,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
               children: [
                 Icon(Icons.share_outlined, size: 19),
                 SizedBox(width: 10),
-                Text('鍒嗕韩'),
+                Text('分享'),
               ],
             ),
           ),
@@ -433,7 +433,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
               children: [
                 Icon(Icons.copy_rounded, size: 19),
                 SizedBox(width: 10),
-                Text('澶嶅埗閾炬帴'),
+                Text('复制链接'),
               ],
             ),
           ),
@@ -472,7 +472,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
                 children: [
                   Icon(Icons.forward_to_inbox, size: 19),
                   SizedBox(width: 10),
-                  Text('鍒嗕韩鑷虫秷鎭?),
+                  Text('分享至消息'?),
                 ],
               ),
             ),
@@ -606,7 +606,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
                   ),
                   Expanded(
                     child: textIconButton(
-                      text: '鍒嗕韩',
+                      text: '分享',
                       icon: CustomIcons.share_node,
                       stat: null,
                       onPressed: () => ShareUtils.shareText(controller.url),
@@ -616,7 +616,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
                     child: textIconButton(
                       icon: FontAwesomeIcons.star,
                       activatedIcon: FontAwesomeIcons.solidStar,
-                      text: '鏀惰棌',
+                      text: '收藏',
                       stat: stats.favorite,
                       onPressed: controller.onFav,
                     ),
@@ -625,7 +625,7 @@ class _ArticlePageState extends CommonDynPageState<ArticlePage> {
                     child: textIconButton(
                       icon: FontAwesomeIcons.thumbsUp,
                       activatedIcon: FontAwesomeIcons.solidThumbsUp,
-                      text: '鐐硅禐',
+                      text: '点赞',
                       stat: stats.like,
                       onPressed: controller.onLike,
                     ),

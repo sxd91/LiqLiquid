@@ -1,4 +1,4 @@
-﻿name: Build for Linux x64
+name: Build for Linux x64
 
 on:
   workflow_call:
@@ -64,52 +64,52 @@ jobs:
 
       - name: Packege deb
         run: |
-          printf "寤虹珛鏋勫缓鐩綍...\n"
+          printf "建立构建目录...\n"
           mkdir "LiqLiquid_linux_${{ env.version }}_amd64"
           pushd "LiqLiquid_linux_${{ env.version }}_amd64"
           mkdir -p opt/LiqLiquid
           mkdir -p usr/share/applications
           mkdir -p usr/share/icons/hicolor/512x512/apps
 
-          printf "澶嶅埗鏂囦欢...\n"
+          printf "Copying files...\n"
           cp -r ../build/linux/x64/release/bundle/* opt/LiqLiquid
           cp -r ../assets/linux/DEBIAN .
           cp ../assets/linux/com.example.LiqLiquid.desktop usr/share/applications
           cp ../assets/images/logo/logo.png usr/share/icons/hicolor/512x512/apps/LiqLiquid.png
 
-          printf "淇敼鎺у埗鏂囦欢...\n"
-          # 鏇挎崲鐗堟湰鍙?          sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
-          # 璁＄畻瀹夎澶у皬骞舵浛鎹?          SIZE_KB=$(du -s -b --apparent-size . | awk '{print int($1)}')
+          printf "Modifying control file...\n"
+          # Replace version number?          sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
+          # 计算安装大小并替换
           SIZE_KB=$(($SIZE_KB - $(du -s -b --apparent-size DEBIAN | awk '{print int($1)}')))
           SIZE_KB=$(echo $SIZE_KB | awk '{print int($1/1024 + 0.999)}')
-          printf "\t瀹夎澶у皬: %s KB\n" "$SIZE_KB"
+          printf "\t安装大小: %s KB\n" "$SIZE_KB"
           sed -i "9s/size_need_change/${SIZE_KB}/g" DEBIAN/control
 
-          printf "鐢熸垚骞跺啓鍏?md5sums ...\n"
+          printf "Generating and writing?md5sums ...\n"
           md5sum opt/LiqLiquid/LiqLiquid >> DEBIAN/md5sums
           md5sum opt/LiqLiquid/lib/* >> DEBIAN/md5sums
           md5sum opt/LiqLiquid/data/icudtl.dat >> DEBIAN/md5sums
 
-          printf "璁剧疆鏉冮檺...\n"
+          printf "Setting permissions...\n"
           chmod 0644 DEBIAN/control
           chmod 0644 DEBIAN/md5sums
           chmod 0755 DEBIAN/postinst
           chmod 0755 DEBIAN/postrm
           chmod 0755 DEBIAN/prerm
 
-          printf "鎵撳寘 deb 鏂囦欢...\n"
+          printf "Building deb package...\n"
           popd
           dpkg-deb --build --verbose --root-owner-group "LiqLiquid_linux_${{ env.version }}_amd64"
-          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.deb\n" "${{ env.version }}"
+          printf "Complete: LiqLiquid_linux_%s_amd64.deb\n" "${{ env.version }}"
         shell: bash
 
       - name: Packege rpm
         run: |
-          printf "寤虹珛 RPM 鏋勫缓鐩綍...\n"
+          printf "建立 RPM 构建目录...\n"
           RPM_BUILD_ROOT="$PWD/rpm_build"
           mkdir -p "$RPM_BUILD_ROOT/BUILD" "$RPM_BUILD_ROOT/RPMS" "$RPM_BUILD_ROOT/SOURCES" "$RPM_BUILD_ROOT/SPECS" "$RPM_BUILD_ROOT/SRPMS"
 
-          printf "鍑嗗婧愮爜褰掓。锛堜粎鍖呭惈杩愯鏃朵笌鍏冩暟鎹級...\n"
+          printf "准备源码归档（仅包含运行时与元数据）...\n"
           DATE="$(date '+%a %b %d %Y')"
           SRC_DIR="$PWD/LiqLiquid-${{ env.version }}"
           mkdir -p "$SRC_DIR/bundle" "$SRC_DIR/assets"
@@ -118,7 +118,7 @@ jobs:
           cp assets/images/logo/logo.png "$SRC_DIR/assets/LiqLiquid.png"
           tar -zcvf "$RPM_BUILD_ROOT/SOURCES/LiqLiquid-${{ env.version }}.tar.gz" -C "$PWD" "LiqLiquid-${{ env.version }}"
 
-          printf "鐢熸垚 spec 鏂囦欢...\n"
+          printf "Generating spec file...\n"
           cat > "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec" <<EOF
           Name:           LiqLiquid
           Version:        ${{ env.version }}
@@ -129,8 +129,7 @@ jobs:
           Requires:       desktop-file-utils, hicolor-icon-theme
 
           %description
-          浣跨敤 Flutter 寮€鍙戠殑 BiliBili 绗笁鏂瑰鎴风
-
+          使用 Flutter 开发的 BiliBili 第三方客户端
           %prep
           %setup -q -n LiqLiquid-${{ env.version }}
 
@@ -140,11 +139,11 @@ jobs:
           mkdir -p %{buildroot}/opt/LiqLiquid
           cp -r bundle/* %{buildroot}/opt/LiqLiquid/
 
-          # 浜岃繘鍒舵潈闄愪笌鍛戒护琛屽叆鍙?          chmod 755 %{buildroot}/opt/LiqLiquid/LiqLiquid
+          # Binary permissions and CLI entry?          chmod 755 %{buildroot}/opt/LiqLiquid/LiqLiquid
           mkdir -p %{buildroot}/usr/bin
           ln -sf /opt/LiqLiquid/LiqLiquid %{buildroot}/usr/bin/LiqLiquid
 
-          # 妗岄潰闆嗘垚
+          # Desktop integration
           mkdir -p %{buildroot}/usr/share/applications
           install -m 644 assets/com.example.LiqLiquid.desktop %{buildroot}/usr/share/applications/com.example.LiqLiquid.desktop
 
@@ -172,38 +171,38 @@ jobs:
 
           sed -i "s/DATE/${DATE}/g" "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec"
 
-          printf "鏋勫缓 RPM 鍖?..\n"
+          printf "Building RPM package?..\n"
           rpmbuild --define "_topdir $RPM_BUILD_ROOT" -bb "$RPM_BUILD_ROOT/SPECS/LiqLiquid.spec"
 
-          printf "绉诲姩鐢熸垚鐨?RPM...\n"
+          printf "Moving generated?RPM...\n"
           find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "LiqLiquid_linux_${{ env.version }}_amd64.rpm" \;
 
-          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.rpm\n" "${{ env.version }}"
+          printf "Complete: LiqLiquid_linux_%s_amd64.rpm\n" "${{ env.version }}"
         shell: bash
 
       - name: Package AppImage
         run: |
-          printf "涓嬭浇 appimagetool...\n"
+          printf "Downloading appimagetool...\n"
           wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x appimagetool-x86_64.AppImage
 
-          printf "寤虹珛 AppDir 鐩綍缁撴瀯...\n"
+          printf "建立 AppDir 目录结构...\n"
           APPDIR="LiqLiquid.AppDir"
           mkdir -p "$APPDIR/usr/bin"
           mkdir -p "$APPDIR/usr/lib"
           mkdir -p "$APPDIR/usr/share/applications"
           mkdir -p "$APPDIR/usr/share/icons/hicolor/512x512/apps"
 
-          printf "澶嶅埗搴旂敤鏂囦欢...\n"
+          printf "Copying application files...\n"
           cp -r build/linux/x64/release/bundle/* "$APPDIR/usr/bin/"
 
-          printf "澶嶅埗妗岄潰鏂囦欢鍜屽浘鏍?..\n"
+          printf "Copying desktop files and icons?..\n"
           cp assets/linux/com.example.LiqLiquid.desktop "$APPDIR/com.example.LiqLiquid.desktop"
           cp assets/linux/com.example.LiqLiquid.desktop "$APPDIR/usr/share/applications/com.example.LiqLiquid.desktop"
           cp assets/images/logo/logo.png "$APPDIR/LiqLiquid.png"
           cp assets/images/logo/logo.png "$APPDIR/usr/share/icons/hicolor/512x512/apps/LiqLiquid.png"
 
-          printf "鍒涘缓 AppRun 鍚姩鑴氭湰...\n"
+          printf "创建 AppRun 启动脚本...\n"
           cat > "$APPDIR/AppRun" <<'APPRUN_EOF'
           #!/bin/bash
           SELF=$(readlink -f "$0")
@@ -214,14 +213,14 @@ jobs:
           APPRUN_EOF
           chmod +x "$APPDIR/AppRun"
 
-          printf "淇敼妗岄潰鏂囦欢涓殑 Exec 璺緞...\n"
+          printf "修改桌面文件中的 Exec 路径...\n"
           sed -i 's|Exec=LiqLiquid|Exec=LiqLiquid|g' "$APPDIR/com.example.LiqLiquid.desktop"
           sed -i 's|Icon=LiqLiquid|Icon=LiqLiquid|g' "$APPDIR/com.example.LiqLiquid.desktop"
 
-          printf "鎵撳寘 AppImage...\n"
+          printf "Building AppImage...\n"
           ARCH=x86_64 ./appimagetool-x86_64.AppImage "$APPDIR" "LiqLiquid_linux_${{ env.version }}_amd64.AppImage"
 
-          printf "瀹屾垚: LiqLiquid_linux_%s_amd64.AppImage\n" "${{ env.version }}"
+          printf "Complete: LiqLiquid_linux_%s_amd64.AppImage\n" "${{ env.version }}"
         shell: bash
 
       - name: Release

@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder, base64;
+﻿import 'dart:convert' show JsonEncoder, base64;
 import 'dart:math' show Random;
 
 import 'package:catcher_2/catcher_2.dart';
@@ -32,7 +32,7 @@ abstract final class Utils {
     String? toastText,
   }) {
     if (needToast) {
-      SmartDialog.showToast(toastText ?? '已复�?);
+      SmartDialog.showToast(toastText ?? '已复制');
     }
     return Clipboard.setData(ClipboardData(text: text));
   }
