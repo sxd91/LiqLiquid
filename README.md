@@ -24,7 +24,7 @@
 
 ## ✨ 亮点特性与规划
 
-- **LiquidGlass 毛玻璃效果（规划中）** ——计划于2026 年暑假期间，基于 Flutter 生态的 [`liquid_glass_widgets`](https://pub.dev/packages/liquid_glass_widgets) 库，为 LiqLiquid 注入动态、精致的玻璃质感，提升视觉层次与交互流畅度。通过集成成熟的开源实现，我们将专注于场景适配与性能调优，而非重造轮子。\n- **全平台覆盖* ——Android / iOS / Pad / Windows / Linux，一套代码多端运行。\n- **海量功能** ——覆盖弹幕、离线缓存、DLNA、直播、互动视频、高级弹幕等，几乎还原官方体验并超越。
+- **LiquidGlass 毛玻璃效果（开发）** ——计划于2026 年暑假期间，基于 Flutter 生态的 [`liquid_glass_widgets`](https://pub.dev/packages/liquid_glass_widgets) 库，为 LiqLiquid 注入动态、精致的玻璃质感，提升视觉层次与交互流畅度。通过集成成熟的开源实现，我们将专注于场景适配与性能调优，而非重造轮子。\n- **全平台覆盖* ——Android / iOS / Pad / Windows / Linux，一套代码多端运行。\n- **海量功能** ——覆盖弹幕、离线缓存、DLNA、直播、互动视频、高级弹幕等，几乎还原官方体验并超越。
 > 本项目已报名 **计算机思维全国活动**，在后续开发中将注重逻辑抽象、模块解耦、性能优化与创新视觉落地，展现综合工程能力与产品思维。
 <br/>
 
@@ -187,7 +187,7 @@
 ## 声明
 
 此项目（LiqLiquid）是个人为了兴趣而开发，仅用于学习和测试，请于下载后24小时内删除。所用API皆从官方网站收集，不提供任何破解内容。
-**本仓库Fork 自[https://github.com/sxd91/qiliquid](https://github.com/sxd91/qiliquid)**，在此致敬原作者[guozhigq/pilipala](https://github.com/guozhigq/pilipala) 以及上游作者[orz12/PiliPalaX](https://github.com/orz12/PiliPalaX)。 
+**本仓库Fork 自[piliplus]**，在此致敬原作者[guozhigq/pilipala](https://github.com/guozhigq/pilipala) 以及上游作者[orz12/PiliPalaX](https://github.com/orz12/PiliPalaX)。 
 本仓库在原有基础上做了更激进的修改，感谢原作者的开源精神。
 感谢 Flutter 社区 [`liquid_glass_widgets`](https://pub.dev/packages/liquid_glass_widgets) 的开源实现，本项目计划于暑期将其集成到 Flutter 端。
 感谢使用
@@ -208,10 +208,10 @@
 
 ## Star History
 
-<a href="https://www.star-history.com/#sxd91/qiliquid&Date">
+<a href="https://www.star-history.com/#sxd91/LiqLiquid&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sxd91/qiliquid&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sxd91/qiliquid&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sxd91/qiliquid&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sxd91/LiqLiquid&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sxd91/LiqLiquid&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sxd91/LiqLiquid&type=Date" />
  </picture>
 </a>
