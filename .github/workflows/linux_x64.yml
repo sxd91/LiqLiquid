@@ -55,9 +55,10 @@ jobs:
         shell: pwsh
         run: lib/scripts/patch.ps1 Linux
 
-        #TODO: deb and rpm packages need to be build
+
+        # TODO: deb and rpm packages need to be build
       - name: Build Linux
-        run: flutter build linux --release -v --pub --dart-define-from-file=liqliquid_release.json
+        run: flutter build linux --release -v --pub --dart-define-from-file=pili_release.json
 
       - name: Package .tar.gz
         run: tar -zcvf PiliPlus_linux_${{ env.version }}_amd64.tar.gz -C build/linux/x64/release/bundle .
@@ -78,16 +79,16 @@ jobs:
           cp ../assets/images/logo/logo.png usr/share/icons/hicolor/512x512/apps/liqliquid.png
 
           printf "修改控制文件...\n"
-          # 替换版本�?
+          # 替换版本�?
           sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
-          # 计算安装大小并替�?
+          # 计算安装大小并替�?
           SIZE_KB=$(du -s -b --apparent-size . | awk '{print int($1)}')
           SIZE_KB=$(($SIZE_KB - $(du -s -b --apparent-size DEBIAN | awk '{print int($1)}')))
           SIZE_KB=$(echo $SIZE_KB | awk '{print int($1/1024 + 0.999)}')
           printf "\t安装大小: %s KB\n" "$SIZE_KB"
           sed -i "9s/size_need_change/${SIZE_KB}/g" DEBIAN/control
 
-          printf "生成并写�?md5sums ...\n"
+          printf "生成并写�?md5sums ...\n"
           md5sum opt/liqliquid/liqliquid >> DEBIAN/md5sums
           md5sum opt/liqliquid/lib/* >> DEBIAN/md5sums
           md5sum opt/liqliquid/data/icudtl.dat >> DEBIAN/md5sums
@@ -121,7 +122,7 @@ jobs:
           tar -zcvf "$RPM_BUILD_ROOT/SOURCES/liqliquid-${{ env.version }}.tar.gz" -C "$PWD" "liqliquid-${{ env.version }}"
 
           printf "生成 spec 文件...\n"
-          cat > "$RPM_BUILD_ROOT/SPECS/liqliquid.spec" <<EOF
+          cat > "$RPM_BUILD_ROOT/SPECS/liqliquid.spec" <<'EOF'
           Name:           liqliquid
           Version:        ${{ env.version }}
           Release:        1%{?dist}
@@ -142,7 +143,7 @@ jobs:
           mkdir -p %{buildroot}/opt/liqliquid
           cp -r bundle/* %{buildroot}/opt/liqliquid/
 
-          # 二进制权限与命令行入�?
+          # 二进制权限与命令行入�?
           chmod 755 %{buildroot}/opt/liqliquid/liqliquid
           mkdir -p %{buildroot}/usr/bin
           ln -sf /opt/liqliquid/liqliquid %{buildroot}/usr/bin/liqliquid
@@ -175,10 +176,10 @@ jobs:
 
           sed -i "s/DATE/${DATE}/g" "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "构建 RPM �?..\n"
+          printf "构建 RPM �?..\n"
           rpmbuild --define "_topdir $RPM_BUILD_ROOT" -bb "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "移动生成�?RPM...\n"
+          printf "移动生成�?RPM...\n"
           find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "PiliPlus_linux_${{ env.version }}_amd64.rpm" \;
 
           printf "完成: PiliPlus_linux_%s_amd64.rpm\n" "${{ env.version }}"
@@ -200,7 +201,7 @@ jobs:
           printf "复制应用文件...\n"
           cp -r build/linux/x64/release/bundle/* "$APPDIR/usr/bin/"
 
-          printf "复制桌面文件和图�?..\n"
+          printf "复制桌面文件和图�?..\n"
           cp assets/linux/com.example.piliplus.desktop "$APPDIR/com.example.piliplus.desktop"
           cp assets/linux/com.example.piliplus.desktop "$APPDIR/usr/share/applications/com.example.piliplus.desktop"
           cp assets/images/logo/logo.png "$APPDIR/liqliquid.png"
@@ -228,11 +229,11 @@ jobs:
         shell: bash
 
       - name: Release
-        if: ${{ github.event.inputs.tag != '' }}
+        if: ${{ inputs.tag != '' }}
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.event.inputs.tag }}
-          name: ${{ github.event.inputs.tag }}
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
           files: |
             PiliPlus_linux_*.tar.gz
             PiliPlus_linux_*.deb
