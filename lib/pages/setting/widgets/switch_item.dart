@@ -110,7 +110,7 @@ class _SetSwitchItemState extends State<SetSwitchItem> {
     final switchBtn = Transform.scale(
       scale: 0.8,
       alignment: .centerRight,
-      child: Pref.useLiquidGlass ? GlassSwitch(value: val, onChanged: (v) => switchChange(v)) : Switch(
+      child: Pref.useLiquidGlass ? GlassSwitch(value: val, onChanged: switchChange) : Switch(
       value: val,
       onChanged: switchChange,
     ),

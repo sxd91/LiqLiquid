@@ -1,6 +1,7 @@
-﻿import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 class SliderDialog extends StatefulWidget {
   const SliderDialog({

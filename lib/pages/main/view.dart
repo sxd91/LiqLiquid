@@ -533,7 +533,7 @@ class _MainAppState extends PopScopeState<MainApp>
       );
     }
 
-    return child;
+    return Pref.useLiquidGlass ? GlassPageWrapper(child: child) : child;
   }
 
   Widget _buildIcon({required NavigationBarType type, bool selected = false}) {

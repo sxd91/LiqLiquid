@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/pages/video/introduction/ugc/widgets/menu_row.dart';
 import 'package:liqliquid/plugin/pl_player/controller.dart';
 import 'package:liqliquid/plugin/pl_player/utils/danmaku_options.dart';
@@ -7,6 +7,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:get/get.dart';
 
 mixin HeaderMixin<T extends StatefulWidget> on State<T> {
