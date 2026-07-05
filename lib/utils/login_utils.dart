@@ -71,7 +71,7 @@ abstract final class LoginUtils {
       if (errMsg == '账号未登录') {
         await Accounts.deleteAll({account});
         SmartDialog.showNotify(
-          msg: '登录失败，请检查Cookie是否正确！\',
+          msg: '登录失败，请检查Cookie是否正确！',
           notifyType: .warning,
         );
       } else {

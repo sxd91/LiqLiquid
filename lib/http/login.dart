@@ -188,7 +188,8 @@ abstract final class LoginHttp {
   //   }
   // }
 
-  // app绔瘑鐮佺櫥褰?  static Future loginByPwd({
+  // app绔瘑鐮佺櫥褰?
+  static Future loginByPwd({
     required String username,
     required String password,
     required String key,
@@ -324,7 +325,8 @@ abstract final class LoginHttp {
     }
   }
 
-  // 瀵嗙爜鐧诲綍鏃堕鎺ч獙璇佹墜鏈?  static Future safeCenterGetInfo({
+  // 瀵嗙爜鐧诲綍鏃堕鎺ч獙璇佹墜鏈?
+  static Future safeCenterGetInfo({
     required String tmpCode,
   }) async {
     final res = await Request().get(
@@ -345,7 +347,8 @@ abstract final class LoginHttp {
     }
   }
 
-  // 椋庢帶楠岃瘉鎵嬫満鍓嶇殑鏋侀獙楠岃瘉鐮?  static Future preCapture() async {
+  // 椋庢帶楠岃瘉鎵嬫満鍓嶇殑鏋侀獙楠岃瘉鐮?
+  static Future preCapture() async {
     final res = await Request().post(Api.preCapture);
 
     if (res.data['code'] == 0) {

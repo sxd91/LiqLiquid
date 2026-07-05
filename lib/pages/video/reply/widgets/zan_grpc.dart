@@ -30,7 +30,8 @@ class ZanButtonGrpc extends StatelessWidget {
     feedBack();
     final int oid = replyItem.oid.toInt();
     final int rpid = replyItem.id.toInt();
-    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?    final int action = isDislike ? 0 : 2;
+    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?
+    final int action = isDislike ? 0 : 2;
     final res = await ReplyHttp.hateReply(
       type: replyItem.type.toInt(),
       action: action == 2 ? 1 : 0,
@@ -70,7 +71,8 @@ class ZanButtonGrpc extends StatelessWidget {
     feedBack();
     final int oid = replyItem.oid.toInt();
     final int rpid = replyItem.id.toInt();
-    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?    final int action = isLike ? 0 : 1;
+    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?
+    final int action = isLike ? 0 : 1;
     final res = await ReplyHttp.likeReply(
       type: replyItem.type.toInt(),
       oid: oid,

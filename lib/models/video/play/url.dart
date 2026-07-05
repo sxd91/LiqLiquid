@@ -357,7 +357,8 @@ class Volume {
 
   // final MultiSceneArgs? multiSceneArgs;
 
-  // FFmpeg loudnorm 婊ら暅鐨勬爣鍑嗘湁鏁堣寖鍥达紙https://ffmpeg.org/ffmpeg-filters.html#loudnorm锛?  static const double minTpValue = -9.0;
+  // FFmpeg loudnorm 婊ら暅鐨勬爣鍑嗘湁鏁堣寖鍥达紙https://ffmpeg.org/ffmpeg-filters.html#loudnorm锛?
+  static const double minTpValue = -9.0;
   static const double maxTpValue = 0.0;
 
   factory Volume.fromJson(Map<String, dynamic> json) {

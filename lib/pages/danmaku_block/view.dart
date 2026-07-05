@@ -194,7 +194,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
                 );
               } else {
                 SmartDialog.showToast(
-                  '杈撳叆鍐呭${filter.isEmpty ? "不能为空" : "涓庝笂娆＄浉鍚?}',
+                  '输入内容${filter.isEmpty ? "不能为空" : "与上次相同"}',
                 );
               }
             },

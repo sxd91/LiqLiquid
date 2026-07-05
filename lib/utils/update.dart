@@ -16,7 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract final class Update {
-  // 妫€鏌ユ洿鏂?  static Future<void> checkUpdate([bool isAuto = true]) async {
+  // 妫€鏌ユ洿鏂?
+  static Future<void> checkUpdate([bool isAuto = true]) async {
     if (kDebugMode) return;
     SmartDialog.dismiss();
     try {
@@ -114,7 +115,8 @@ abstract final class Update {
     }
   }
 
-  // 涓嬭浇閫傜敤浜庡綋鍓嶇郴缁熺殑瀹夎鍖?  static Future<void> onDownload(Map data, {String? ext}) async {
+  // 涓嬭浇閫傜敤浜庡綋鍓嶇郴缁熺殑瀹夎鍖?
+  static Future<void> onDownload(Map data, {String? ext}) async {
     SmartDialog.dismiss();
     try {
       void download(String plat) {

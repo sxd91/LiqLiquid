@@ -690,7 +690,8 @@ class VideoDetailController extends GetxController
     return bestVideo ?? videoList.first;
   }
 
-  /// 鏇存柊鐢昏川銆侀煶璐?  void updatePlayer() {
+  /// 鏇存柊鐢昏川銆侀煶璐?
+  void updatePlayer() {
     final currentVideoQa = this.currentVideoQa.value;
     if (currentVideoQa == null) return;
     _autoPlay.value = true;
@@ -878,7 +879,8 @@ class VideoDetailController extends GetxController
         videoUrl = VideoUtils.getCdnUrl(first.playUrls);
         audioUrl = '';
 
-        // 瀹為檯涓篎LV/MP4鏍煎紡锛屼絾宸茶娣樻卑锛岃繖閲屼粎鍋氬厹搴曞鐞?        final videoQuality = VideoQuality.fromCode(data.quality!);
+        // 瀹為檯涓篎LV/MP4鏍煎紡锛屼絾宸茶娣樻卑锛岃繖閲屼粎鍋氬厹搴曞鐞?
+        final videoQuality = VideoQuality.fromCode(data.quality!);
         firstVideo = VideoItem(
           id: data.quality!,
           baseUrl: videoUrl,
@@ -904,8 +906,10 @@ class VideoDetailController extends GetxController
       }
       final List<VideoItem> videoList = data.dash!.video!;
       // if (kDebugMode) debugPrint("allVideosList:${allVideosList}");
-      // 褰撳墠鍙挱鏀剧殑鏈€楂樿川閲忚棰?      final curHighestVideoQa = videoList.first.quality.code;
-      // 棰勮鐨勭敾璐ㄤ负null锛屽垯褰撳墠鍙敤鐨勬渶楂樿川閲?      int targetVideoQa = curHighestVideoQa;
+      // 褰撳墠鍙挱鏀剧殑鏈€楂樿川閲忚棰?
+      final curHighestVideoQa = videoList.first.quality.code;
+      // 棰勮鐨勭敾璐ㄤ负null锛屽垯褰撳墠鍙敤鐨勬渶楂樿川閲?
+      int targetVideoQa = curHighestVideoQa;
       if (data.acceptQuality?.isNotEmpty == true &&
           plPlayerController.cacheVideoQa! <= curHighestVideoQa) {
         // 濡傛灉棰勮鐨勭敾璐ㄤ綆浜庡綋鍓嶆渶楂?        targetVideoQa = data.acceptQuality!.findClosestTarget(

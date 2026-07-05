@@ -115,7 +115,8 @@ class LoginPageController extends GetxController
     }
   }
 
-  // 鐢宠鏋侀獙楠岃瘉鐮?  void getCaptcha(
+  // 鐢宠鏋侀獙楠岃瘉鐮?
+  void getCaptcha(
     String geeGt,
     String geeChallenge,
     VoidCallback onSuccess,

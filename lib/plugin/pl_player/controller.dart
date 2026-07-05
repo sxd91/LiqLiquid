@@ -159,7 +159,8 @@ class PlPlayerController with BlockConfigMixin {
   /// 瑙嗛鎾斁閫熷害
   double get playbackSpeed => _playbackSpeed.value;
 
-  // 闀挎寜鍊嶉€?  double get longPressSpeed => _longPressSpeed.value;
+  // 闀挎寜鍊嶉€?
+  double get longPressSpeed => _longPressSpeed.value;
 
   /// [videoPlayerController] instance of Player
   Player? get videoPlayerController => _videoPlayerController;
@@ -854,7 +855,8 @@ class PlPlayerController with BlockConfigMixin {
 
   // 寮€濮嬫挱鏀?  Future<void> _initializePlayer() async {
     if (_instance == null) return;
-    // 璁剧疆鍊嶉€?    if (isLive) {
+    // 璁剧疆鍊嶉€?
+    if (isLive) {
       await setPlaybackSpeed(1.0);
     } else {
       if (_videoPlayerController?.state.rate != _playbackSpeed.value) {
@@ -1129,14 +1131,16 @@ class PlPlayerController with BlockConfigMixin {
     await _videoPlayerController?.pause();
     playerStatus.value = PlayerStatus.paused;
 
-    // 涓诲姩鏆傚仠鏃惰鍑洪煶棰戠劍鐐?    if (!isInterrupt) {
+    // 涓诲姩鏆傚仠鏃惰鍑洪煶棰戠劍鐐?
+    if (!isInterrupt) {
       audioSessionHandler?.setActive(false);
     }
   }
 
   bool tripling = false;
 
-  /// 闅愯棌鎺у埗鏉?  void hideTaskControls() {
+  /// 闅愯棌鎺у埗鏉?
+  void hideTaskControls() {
     _timer?.cancel();
     _timer = Timer(showControlDuration, () {
       if (!isSeeking.value && !tripling) {
@@ -1313,7 +1317,8 @@ class PlPlayerController with BlockConfigMixin {
     }
   }
 
-  /// 鍏抽棴鎺у埗鏍?  void onLockControl(bool val) {
+  /// 鍏抽棴鎺у埗鏍?
+  void onLockControl(bool val) {
     feedBack();
     controlsLock.value = val;
     if (!val && showControls.value) {

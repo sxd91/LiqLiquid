@@ -54,7 +54,8 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
 
   Box video = GStorage.video;
 
-  // 娣诲姞鑷畾涔夊€嶉€?  void onAddSpeed() {
+  // 娣诲姞鑷畾涔夊€嶉€?
+  void onAddSpeed() {
     String initialValue = '';
     showDialog(
       context: context,
@@ -110,7 +111,8 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     );
   }
 
-  // 璁惧畾鍊嶉€熷脊绐?  void showBottomSheet(ThemeData theme, int index) {
+  // 璁惧畾鍊嶉€熷脊绐?
+  void showBottomSheet(ThemeData theme, int index) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,

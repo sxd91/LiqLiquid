@@ -55,7 +55,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 绋嶅悗鍐嶇湅
+  // 稍后再看
   static Future<LoadingState<LaterData>> seeYouLater({
     required int page,
     int viewed = 0,
@@ -81,7 +81,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 瑙傜湅鍘嗗彶
+  // 观看历史
   static Future<LoadingState<HistoryData>> historyList({
     required String type,
     int? max,
@@ -105,12 +105,12 @@ abstract final class UserHttp {
     }
   }
 
-  // 鏆傚仠瑙傜湅鍘嗗彶
+  // 暂停观看历史
   static Future<LoadingState<void>> pauseHistory(
     bool switchStatus, {
     Account? account,
   }) async {
-    // 鏆傚仠switchStatus浼爐rue 鍚﹀垯false
+    // 暂停switchStatus为true 否则false
     account ??= Accounts.history;
     final res = await Request().post(
       Api.pauseHistory,
@@ -131,7 +131,8 @@ abstract final class UserHttp {
     }
   }
 
-  // 瑙傜湅鍘嗗彶鏆傚仠鐘舵€?  static Future<LoadingState<bool>> historyStatus({Account? account}) async {
+  // 观看历史暂停状态
+  static Future<LoadingState<bool>> historyStatus({Account? account}) async {
     final res = await Request().get(
       Api.historyStatus,
       options: Options(extra: {'account': account ?? Accounts.history}),
@@ -143,7 +144,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 娓呯┖鍘嗗彶璁板綍
+  // 清空历史记录
   static Future<LoadingState<void>> clearHistory({Account? account}) async {
     account ??= Accounts.history;
     final res = await Request().post(
@@ -164,7 +165,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 绋嶅悗鍐嶇湅
+  // 稍后再看
   static Future<LoadingState<void>> toViewLater({
     String? bvid,
     Object? aid,
@@ -188,7 +189,8 @@ abstract final class UserHttp {
     }
   }
 
-  // 绉婚櫎宸茶鐪?  static Future<LoadingState<void>> toViewDel({required String aids}) async {
+  // 移除已观看
+  static Future<LoadingState<void>> toViewDel({required String aids}) async {
     final Map<String, dynamic> params = {
       'csrf': Accounts.main.csrf,
       'resources': aids,
@@ -345,7 +347,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 绋嶅悗鍐嶇湅鍒楄〃
+  // 稍后再看鍒楄〃
   static Future<LoadingState<MediaListData>> getMediaList({
     required Object type,
     required Object bizId,

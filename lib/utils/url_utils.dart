@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract final class UrlUtils {
-  // 302閲嶅畾鍚戣矾鐢辨埅鍙?  static Future<String?> parseRedirectUrl(
+  // 302閲嶅畾鍚戣矾鐢辨埅鍙?
+  static Future<String?> parseRedirectUrl(
     String url, [
     bool returnOri = false,
   ]) async {

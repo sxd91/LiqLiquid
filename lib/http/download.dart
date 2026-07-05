@@ -55,7 +55,8 @@ abstract final class DownloadHttp {
 
         /// 浼樺厛椤哄簭 璁剧疆涓寚瀹氳В鐮佹牸寮?-> 褰撳墠鍙€夌殑棣栦釜瑙ｇ爜鏍煎紡
         final supportFormats = response.supportFormats!;
-        // 鏍规嵁鐢昏川閫夌紪鐮佹牸寮?        final targetSupportFormats = supportFormats.firstWhere(
+        // 鏍规嵁鐢昏川閫夌紪鐮佹牸寮?
+        final targetSupportFormats = supportFormats.firstWhere(
           (e) => e.quality == targetVideoQa,
           orElse: () => supportFormats.first,
         );

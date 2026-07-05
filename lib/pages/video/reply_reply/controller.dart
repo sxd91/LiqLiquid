@@ -28,7 +28,8 @@ class VideoReplyReplyController extends ReplyController
   int? id;
   // 瑙嗛aid 璇锋眰鏃朵娇鐢ㄧ殑oid
   int oid;
-  // rpid 璇锋眰妤间腑妤煎洖澶?  int rpid;
+  // rpid 璇锋眰妤间腑妤煎洖澶?
+  int rpid;
   int replyType;
 
   bool hasRoot = false;

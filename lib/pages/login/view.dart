@@ -29,7 +29,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginPageController _loginPageCtr = Get.put(LoginPageController());
-  // 浜岀淮鐮佺敓鎴愭椂闂?  bool showPassword = false;
+  // 浜岀淮鐮佺敓鎴愭椂闂?
+  bool showPassword = false;
   GlobalKey globalKey = GlobalKey();
 
   @override

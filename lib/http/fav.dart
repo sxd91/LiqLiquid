@@ -394,7 +394,8 @@ abstract final class FavHttp {
     }
   }
 
-  // 鏀惰棌澶?  static Future<LoadingState<FavFolderData>> userfavFolder({
+  // 鏀惰棌澶?
+  static Future<LoadingState<FavFolderData>> userfavFolder({
     required int pn,
     required int ps,
     required dynamic mid,
@@ -717,7 +718,8 @@ abstract final class FavHttp {
     }
   }
 
-  // 鏌ョ湅瑙嗛琚敹钘忓湪鍝釜鏂囦欢澶?  static Future<LoadingState<FavFolderData>> videoInFolder({
+  // 鏌ョ湅瑙嗛琚敹钘忓湪鍝釜鏂囦欢澶?
+  static Future<LoadingState<FavFolderData>> videoInFolder({
     dynamic mid,
     dynamic rid,
     dynamic type,

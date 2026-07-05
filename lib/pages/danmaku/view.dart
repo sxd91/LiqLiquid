@@ -78,7 +78,8 @@ class _PlDanmakuState extends State<PlDanmaku> {
     }
   }
 
-  // 鎾斁鍣ㄧ姸鎬佺洃鍚?  void playerListener(PlayerStatus status) {
+  // 鎾斁鍣ㄧ姸鎬佺洃鍚?
+  void playerListener(PlayerStatus status) {
     if (_controller case final controller?) {
       if (status.isPlaying) {
         controller.resume();

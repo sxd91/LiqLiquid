@@ -67,7 +67,8 @@ class VideoCardV extends StatelessWidget {
           );
         }
         break;
-      // 鍔ㄦ€?      case 'picture':
+      // 鍔ㄦ€?'picture':
+      case 'picture':
         try {
           PiliScheme.routePushFromUrl(videoItem.uri!);
         } catch (err) {

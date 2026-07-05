@@ -156,7 +156,8 @@ abstract final class DanmakuHttp {
     required int state,
   }) async {
     /// 0: 鍙栨秷鍒犻櫎
-    /// 1锛氬垹闄ゅ脊骞?    /// 2锛氬脊骞曚繚鎶?    /// 3锛氬彇娑堜繚鎶?    final data = {
+    /// 1锛氬垹闄ゅ脊骞?    /// 2锛氬脊骞曚繚鎶?    /// 3锛氬彇娑堜繚鎶?
+    final data = {
       'dmids': ids.join(','),
       'oid': oid,
       'state': state,

@@ -29,7 +29,8 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
 
   // 鐢ㄦ埛淇℃伅 澶村儚銆佹樀绉般€乴v
   final Rx<UserInfoData> userInfo = UserInfoData().obs;
-  // 鐢ㄦ埛鐘舵€?鍔ㄦ€併€佸叧娉ㄣ€佺矇涓?  final Rx<UserStat> userStat = const UserStat().obs;
+  // 鐢ㄦ埛鐘舵€?鍔ㄦ€併€佸叧娉ㄣ€佺矇涓?
+  final Rx<UserStat> userStat = const UserStat().obs;
 
   final Rx<ThemeType> themeType = Pref.themeType.obs;
 

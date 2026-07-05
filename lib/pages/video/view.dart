@@ -165,7 +165,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     addObserverMobile(this);
   }
 
-  // 鑾峰彇瑙嗛璧勬簮锛屽垵濮嬪寲鎾斁鍣?  void videoSourceInit() {
+  // 鑾峰彇瑙嗛璧勬簮锛屽垵濮嬪寲鎾斁鍣?
+  void videoSourceInit() {
     videoDetailController.queryVideoUrl(autoFullScreenFlag: true);
     if (videoDetailController.autoPlay) {
       plPlayerController = videoDetailController.plPlayerController;
@@ -278,7 +279,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     }
   }
 
-  // 缁х画鎾斁鎴栭噸鏂版挱鏀?  void continuePlay() {
+  // 缁х画鎾斁鎴栭噸鏂版挱鏀?
+  void continuePlay() {
     plPlayerController!.play();
   }
 
@@ -356,7 +358,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }
 
   @override
-  // 绂诲紑褰撳墠椤甸潰鏃?  void didPushNext() {
+  // 绂诲紑褰撳墠椤甸潰鏃?
+  void didPushNext() {
     super.didPushNext();
     isShowing = false;
 
@@ -383,7 +386,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }
 
   @override
-  // 杩斿洖褰撳墠椤甸潰鏃?  void didPopNext() {
+  // 杩斿洖褰撳墠椤甸潰鏃?
+  void didPopNext() {
     super.didPopNext();
 
     if (videoDetailController.plPlayerController.isCloseAll) {

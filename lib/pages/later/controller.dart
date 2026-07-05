@@ -126,7 +126,8 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
     }
   }
 
-  // 涓€閿竻绌?  void toViewClear(BuildContext context, [int? cleanType]) {
+  // 涓€閿竻绌?
+  void toViewClear(BuildContext context, [int? cleanType]) {
     String content = switch (cleanType) {
       1 => '纭畾娓呯┖宸插け鏁堣棰戝悧锛?,
       2 => '纭畾娓呯┖宸茬湅瀹岃棰戝悧锛?,

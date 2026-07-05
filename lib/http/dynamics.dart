@@ -123,7 +123,8 @@ abstract final class DynamicsHttp {
     }
   }
 
-  // 鍔ㄦ€佺偣璧?  // static Future likeDynamic({
+  // 鍔ㄦ€佺偣璧?
+    static Future likeDynamic({
   //   required String? dynamicId,
   //   required int? up,
   // }) async {
@@ -145,7 +146,8 @@ abstract final class DynamicsHttp {
   //   }
   // }
 
-  // 鍔ㄦ€佺偣璧?  static Future<LoadingState<void>> thumbDynamic({
+  // 鍔ㄦ€佺偣璧?
+  static Future<LoadingState<void>> thumbDynamic({
     required String? dynamicId,
     required int? up,
   }) async {

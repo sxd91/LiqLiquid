@@ -3,8 +3,10 @@
   static const sourceCodeUrl = 'https://github.com/sxd91/qiliquid';
 
   // 27eb53fc9058f8c3  绉诲姩绔?Android
-  // 4409e2ce8ffd12b8  HD鐗?  static const String appKey = 'dfca71928277209b';
-  // 59b43e04ad6965f34319062b478f83dd TV绔?  static const String appSec = 'b5475a8825547a4fc26c7d518eaaa02e';
+  // 4409e2ce8ffd12b8  HD鐗?
+  static const String appKey = 'dfca71928277209b';
+  // 59b43e04ad6965f34319062b478f83dd TV绔?
+  static const String appSec = 'b5475a8825547a4fc26c7d518eaaa02e';
   // static const String thirdSign = '04224646d1fea004e79606d3b038c84a';
   // static const String thirdApi =
   //     'https://www.mcbbs.net/template/mcbbs/image/special_photo_bg.png';

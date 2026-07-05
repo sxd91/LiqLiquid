@@ -208,7 +208,8 @@ mixin FavMixin on TripleMixin {
     }
     // 蹇€熸敹钘?&
     // 鐐规寜 鏀惰棌鑷抽粯璁ゆ枃浠跺す
-    // 闀挎寜閫夋嫨鏂囦欢澶?    if (enableQuickFav) {
+    // 闀挎寜閫夋嫨鏂囦欢澶?
+    if (enableQuickFav) {
       if (!isLongPress) {
         actionFavVideo(isQuick: true);
       } else {

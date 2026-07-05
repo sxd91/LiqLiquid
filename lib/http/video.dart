@@ -68,7 +68,8 @@ abstract final class VideoHttp {
     if (res.data['code'] == 0) {
       List<RcmdVideoItemModel> list = <RcmdVideoItemModel>[];
       for (final i in res.data['data']['item']) {
-        //杩囨护鎺塴ive涓巃d锛屼互鍙婃媺榛戠敤鎴?        if (i['goto'] == 'av' &&
+        //杩囨护鎺塴ive涓巃d锛屼互鍙婃媺榛戠敤鎴?
+        if (i['goto'] == 'av' &&
             (i['owner'] != null &&
                 !GlobalData().blackMids.contains(i['owner']['mid']))) {
           RcmdVideoItemModel videoItem = RcmdVideoItemModel.fromJson(i);
@@ -83,7 +84,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 娣诲姞棰濆鐨刲oginState鍙橀噺妯℃嫙鏈櫥褰曠姸鎬?  static Future<LoadingState<List<RcmdVideoItemAppModel>>> rcmdVideoListApp({
+  // 娣诲姞棰濆鐨刲oginState鍙橀噺妯℃嫙鏈櫥褰曠姸鎬?
+  static Future<LoadingState<List<RcmdVideoItemAppModel>>> rcmdVideoListApp({
     required int freshIdx,
   }) async {
     final params = {
@@ -139,7 +141,8 @@ abstract final class VideoHttp {
     if (res.data['code'] == 0) {
       List<RcmdVideoItemAppModel> list = <RcmdVideoItemAppModel>[];
       for (final i in res.data['data']['items']) {
-        // 灞忚斀鎺ㄥ箍鍜屾媺榛戠敤鎴?        if (i['card_goto'] != 'ad_av' &&
+        // 灞忚斀鎺ㄥ箍鍜屾媺榛戠敤鎴?
+        if (i['card_goto'] != 'ad_av' &&
             i['card_goto'] != 'ad_web_s' &&
             i['ad_info'] == null &&
             (i['args'] != null &&
@@ -161,7 +164,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鏈€鐑棰?  static Future<LoadingState<List<HotVideoItemModel>>> hotVideoList({
+  // 鏈€鐑棰?
+  static Future<LoadingState<List<HotVideoItemModel>>> hotVideoList({
     required int pn,
     required int ps,
   }) async {
@@ -279,7 +283,8 @@ abstract final class VideoHttp {
     };
   }
 
-  // 瑙嗛淇℃伅 鏍囬銆佺畝浠?  static Future<LoadingState<VideoDetailData>> videoIntro({
+  // 瑙嗛淇℃伅 鏍囬銆佺畝浠?
+  static Future<LoadingState<VideoDetailData>> videoIntro({
     required String bvid,
   }) async {
     final res = await Request().get(
@@ -393,7 +398,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 涓€閿笁杩?  static Future<LoadingState<UgcTriple>> ugcTriple({
+  // 涓€閿笁杩?
+  static Future<LoadingState<UgcTriple>> ugcTriple({
     required String bvid,
   }) async {
     final res = await Request().post(
@@ -464,7 +470,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ弽棣?  static Future<LoadingState<void>> feedDislike({
+  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ弽棣?
+  static Future<LoadingState<void>> feedDislike({
     required String goto,
     required int id,
     int? reasonId,
@@ -492,7 +499,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ彇娑?  static Future<LoadingState<void>> feedDislikeCancel({
+  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ彇娑?
+  static Future<LoadingState<void>> feedDislikeCancel({
     required String goto,
     required int id,
     int? reasonId,
@@ -526,7 +534,8 @@ abstract final class VideoHttp {
   // root	num	鏍硅瘎璁簉pid	闈炲繀瑕?浜岀骇璇勮浠ヤ笂浣跨敤
   // parent	num	鐖惰瘎璁簉pid	闈炲繀瑕?浜岀骇璇勮鍚屾牴璇勮id 澶т簬浜岀骇璇勮涓鸿鍥炲鐨勮瘎璁篿d
   // message	str	鍙戦€佽瘎璁哄唴瀹?蹇呰	鏈€澶?000瀛楃
-  // plat	num	鍙戦€佸钩鍙版爣璇?闈炲繀瑕?1锛歸eb绔?2锛氬畨鍗撳鎴风  3锛歩os瀹㈡埛绔? 4锛歸p瀹㈡埛绔?  static Future<LoadingState<ReplyInfo?>> replyAdd({
+  // plat	num	鍙戦€佸钩鍙版爣璇?闈炲繀瑕?1锛歸eb绔?2锛氬畨鍗撳鎴风  3锛歩os瀹㈡埛绔? 4锛歸p瀹㈡埛绔?
+  static Future<LoadingState<ReplyInfo?>> replyAdd({
     required int type,
     required int oid,
     required String message,

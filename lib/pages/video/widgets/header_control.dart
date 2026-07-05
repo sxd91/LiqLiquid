@@ -884,9 +884,11 @@ class HeaderControlState extends State<HeaderControl>
 
     final List<FormatItem> videoFormat = videoInfo.supportFormats!;
 
-    /// 鎬昏川閲忓垎绫?    final int totalQaSam = videoFormat.length;
+    /// 鎬昏川閲忓垎绫?
+    final int totalQaSam = videoFormat.length;
 
-    /// 鍙敤鐨勮川閲忓垎绫?    int usefulQaSam = 0;
+    /// 鍙敤鐨勮川閲忓垎绫?
+    int usefulQaSam = 0;
     final List<VideoItem> video = videoInfo.dash!.video!;
     final Set<int> idSet = {};
     for (final VideoItem item in video) {
@@ -1069,7 +1071,8 @@ class HeaderControlState extends State<HeaderControl>
   // 閫夋嫨瑙ｇ爜鏍煎紡
   void showSetDecodeFormats() {
     final firstCode = videoDetailCtr.firstVideo.quality.code;
-    // 褰撳墠瑙嗛鍙敤鐨勮В鐮佹牸寮?    final videoFormat = videoInfo.supportFormats!;
+    // 褰撳墠瑙嗛鍙敤鐨勮В鐮佹牸寮?
+    final videoFormat = videoInfo.supportFormats!;
 
     final list = videoFormat.firstWhere((e) => e.quality == firstCode).codecs;
     if (list == null) {
@@ -1077,7 +1080,8 @@ class HeaderControlState extends State<HeaderControl>
       return;
     }
 
-    // 褰撳墠閫変腑鐨勮В鐮佹牸寮?    final curCodecs = videoDetailCtr.currentDecodeFormats.codes;
+    // 褰撳墠閫変腑鐨勮В鐮佹牸寮?
+    final curCodecs = videoDetailCtr.currentDecodeFormats.codes;
     showBottomSheet(
       (context, setState) {
         final colorScheme = ColorScheme.of(context);

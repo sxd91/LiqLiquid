@@ -689,7 +689,8 @@ class ReplyItemGrpc extends StatelessWidget {
     bool hasNote = false;
 
     final urlKeys = content.urls.keys;
-    // 鏋勫缓姝ｅ垯琛ㄨ揪寮?    final List<String> specialTokens = [
+    // 鏋勫缓姝ｅ垯琛ㄨ揪寮?
+    final List<String> specialTokens = [
       ...content.emotes.keys,
       ...content.topics.keys.map((e) => '#$e#'),
       ...content.atNameToMid.keys.map((e) => '@$e'),
@@ -851,7 +852,8 @@ class ReplyItemGrpc extends StatelessWidget {
               recognizer: isValid
                   ? (NoDeadlineTapGestureRecognizer()
                       ..onTap = () {
-                        // 璺宠浆鍒版寚瀹氫綅缃?                        try {
+                        // 璺宠浆鍒版寚瀹氫綅缃?
+                        try {
                           SmartDialog.showToast('璺宠浆鑷筹細$matchStr');
                           Get.find<VideoDetailController>(
                             tag: Get.arguments['heroTag'],

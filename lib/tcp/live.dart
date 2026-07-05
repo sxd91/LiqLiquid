@@ -270,7 +270,8 @@ class LiveMessageStream {
     final header = PackageHeaderRes.fromBytesData(data as Uint8List);
     if (header != null) {
       List<int> decompressedData = const [];
-      //蹇冭烦鍖呭洖澶嶄笉鐢ㄥ鐞?      if (header.operationCode == 3) return;
+      //蹇冭烦鍖呭洖澶嶄笉鐢ㄥ鐞?
+      if (header.operationCode == 3) return;
       if (header.operationCode == 8) {
         _heartBeat();
       }

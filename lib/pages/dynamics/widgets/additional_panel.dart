@@ -25,7 +25,8 @@ Widget? addWidget(
   Widget? child;
   try {
     switch (type) {
-      // 杞彂鐨勬姇绋?      case 'ADDITIONAL_TYPE_UGC' when (additional.ugc != null):
+      // 杞彂鐨勬姇绋?
+      case 'ADDITIONAL_TYPE_UGC' when (additional.ugc != null):
         final ugc = additional.ugc!;
         child = InkWell(
           borderRadius: borderRadius,

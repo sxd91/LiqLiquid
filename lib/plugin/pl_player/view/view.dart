@@ -1041,7 +1041,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     Offset delta = details.focalPointDelta;
 
     if (_gestureType == .horizontal) {
-      // live妯″紡涓嬬鐢?      if (plPlayerController.isLive) return;
+      // live妯″紡涓嬬鐢?
+      if (plPlayerController.isLive) return;
 
       final height = maxHeight * 0.125;
       if (details.localFocalPoint.dy <= height &&
@@ -1686,7 +1687,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               : const SizedBox.shrink(),
         ),
 
-        /// 杩涘害鏉?live妯″紡涓嬬鐢?        if (!isLive)
+        /// 杩涘害鏉?live妯″紡涓嬬鐢?
+        if (!isLive)
           Positioned(
             bottom: -2.2,
             left: 0,
@@ -1784,7 +1786,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           ),
 
         if (isFullScreen || plPlayerController.isDesktopPip) ...[
-          // 閿?          if (plPlayerController.showFsLockBtn)
+          // 閿?
+          if (plPlayerController.showFsLockBtn)
             ViewSafeArea(
               right: false,
               left: !plPlayerController.removeSafeArea,

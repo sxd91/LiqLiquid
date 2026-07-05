@@ -369,7 +369,8 @@ abstract final class MsgHttp {
     }
   }
 
-  // // 鍙戦€佺淇?  // static Future<LoadingState<void>> sendMsg({
+  // // 鍙戦€佺淇?
+    static Future<LoadingState<void>> sendMsg({
   //   required int senderUid,
   //   required int receiverId,
   //   int? msgType,
