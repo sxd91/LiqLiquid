@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 
 import 'package:liqliquid/http/init.dart';
@@ -110,4 +110,3 @@ class DownloadManager {
     return task;
   }
 }
-

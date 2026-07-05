@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:liqliquid/utils/global_data.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +93,7 @@ class DynamicCardSkeleton extends StatelessWidget {
             if (GlobalData().dynamicsWaterfallFlow) const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const ['杞彂', '璇勮', '鐐硅禐']
+              children: const ['转发', '评论', '点赞']
                   .map(
                     (e) => TextButton.icon(
                       onPressed: () {},
@@ -113,4 +113,3 @@ class DynamicCardSkeleton extends StatelessWidget {
     );
   }
 }
-

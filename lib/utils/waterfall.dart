@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/dynamic_card.dart';
+import 'package:liqliquid/common/skeleton/dynamic_card.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/utils/global_data.dart';
 import 'package:liqliquid/utils/grid.dart';
@@ -115,4 +115,3 @@ class SliverWaterfallFlowDelegateWithMaxCrossAxisExtent
     return flag;
   }
 }
-

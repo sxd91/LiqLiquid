@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/plugin/pl_player/controller.dart';
+import 'package:liqliquid/plugin/pl_player/controller.dart';
 import 'package:liqliquid/plugin/pl_player/models/play_status.dart';
 import 'package:audio_session/audio_session.dart';
 
@@ -63,7 +63,7 @@ class AudioSessionHandler {
       }
     });
 
-    // 鑰虫満鎷斿嚭鏆傚仠
+    // 耳机拔出暂停
     session.becomingNoisyEventStream.listen((_) {
       PlPlayerController.pauseIfExists();
       // final player = PlPlayerController.getInstance();
@@ -73,4 +73,3 @@ class AudioSessionHandler {
     });
   }
 }
-

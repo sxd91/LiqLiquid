@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/svg/level_icon.dart';
+import 'package:liqliquid/common/widgets/svg/level_icon.dart';
 import 'package:flutter/material.dart';
 
 abstract final class BiliUtils {
@@ -13,7 +13,7 @@ abstract final class BiliUtils {
     if (attr == null) {
       return '';
     }
-    return isPublicFav(attr) ? '鍏紑' : '绉佸瘑';
+    return isPublicFav(attr) ? '公开' : '私密';
   }
 
   static bool isPublicFav(int attr) {
@@ -33,4 +33,3 @@ abstract final class BiliUtils {
     return UserLevel(level, height: height, flash: isSeniorMember);
   }
 }
-

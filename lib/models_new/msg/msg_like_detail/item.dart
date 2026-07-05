@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_like_detail/user.dart';
+import 'package:liqliquid/models_new/msg/msg_like_detail/user.dart';
 
 class MsgLikeDetailItem {
   MsgLikeDetailUser? user;
@@ -14,4 +14,3 @@ class MsgLikeDetailItem {
         likeTime: json['like_time'] as int?,
       );
 }
-

@@ -1,11 +1,11 @@
-﻿abstract final class Constants {
-  static const appName = 'LiqLiquid';
-  static const sourceCodeUrl = 'https://github.com/sxd91/qiliquid';
+abstract final class Constants {
+  static const appName = 'liqliquid';
+  static const sourceCodeUrl = 'https://github.com/sxd91/LiqLiquid';
 
-  // 27eb53fc9058f8c3  绉诲姩绔?Android
-  // 4409e2ce8ffd12b8  HD鐗?
+  // 27eb53fc9058f8c3  移动端 Android
+  // 4409e2ce8ffd12b8  HD版
   static const String appKey = 'dfca71928277209b';
-  // 59b43e04ad6965f34319062b478f83dd TV绔?
+  // 59b43e04ad6965f34319062b478f83dd TV端
   static const String appSec = 'b5475a8825547a4fc26c7d518eaaa02e';
   // static const String thirdSign = '04224646d1fea004e79606d3b038c84a';
   // static const String thirdApi =
@@ -17,7 +17,7 @@
       'Mozilla/5.0 BiliDroid/2.0.1 (bbcallen@gmail.com) os/android model/android_hd mobi_app/android_hd build/2001100 channel/master innerVer/2001100 osVer/15 network/2';
   static const String statistics =
       '{"appId":5,"platform":3,"version":"2.0.1","abtest":""}';
-  // 璇锋眰鏃朵細鑷姩encodeComponent
+  // 请求时会自动encodeComponent
 
   // app
   static const String userAgentApp =
@@ -42,4 +42,3 @@
   // 'itemOpusStyle,opusBigCover,onlyfansVote,endFooterHidden,decorationCard,onlyfansAssetsV2,ugcDelete,onlyfansQaCard,editable,opusPrivateVisible,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser'
   static const dynFeatures = 'itemOpusStyle,listOnlyfans,onlyfansQaCard';
 }
-

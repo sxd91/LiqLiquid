@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:liqliquid/common/assets.dart';
@@ -110,10 +110,10 @@ class _PagesPanelState extends State<PagesPanel> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('瑙嗛閫夐泦 '),
+                const Text('视频选集 '),
                 Expanded(
                   child: Text(
-                    ' 姝ｅ湪鎾斁锛?{pages[pageIndex].part}',
+                    ' 正在播放：${pages[pageIndex].part}',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 12,
@@ -137,7 +137,7 @@ class _PagesPanelState extends State<PagesPanel> {
                       cid,
                     ),
                     child: Text(
-                      '鍏?{pages.length}闆?,
+                      '共${pages.length}集',
                       style: const TextStyle(fontSize: 13),
                     ),
                   ),
@@ -202,7 +202,7 @@ class _PagesPanelState extends State<PagesPanel> {
                               color: theme.colorScheme.primary,
                               height: 12,
                               cacheHeight: 12.cacheSize(context),
-                              semanticLabel: "姝ｅ湪鎾斁锛?,
+                              semanticLabel: "正在播放：",
                             ),
                             const SizedBox(width: 6),
                           ],
@@ -240,4 +240,3 @@ class _PagesPanelState extends State<PagesPanel> {
     );
   }
 }
-

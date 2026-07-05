@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -156,4 +156,3 @@ class MemberFavoriteCtr
   Future<LoadingState<List<SpaceFavData>?>> customGetData() =>
       FavHttp.spaceFav(mid: mid);
 }
-

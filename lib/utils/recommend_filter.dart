@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_video.dart';
+import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 abstract final class RecommendFilter {
@@ -14,7 +14,7 @@ abstract final class RecommendFilter {
   static bool enableFilter = rcmdRegExp.pattern.isNotEmpty;
 
   static bool filter(BaseVideoItemModel videoItem) {
-    //鐢变簬鐩稿叧瑙嗛涓病鏈夊凡鍏虫敞鏍囩锛屽彧鑳借涓洪潪鍏虫敞瑙嗛
+    //由于相关视频中没有已关注标签，只能视为非关注视频
     if (videoItem.isFollowed && exemptFilterForFollowed) {
       return false;
     }
@@ -42,4 +42,3 @@ abstract final class RecommendFilter {
         filterTitle(videoItem.title);
   }
 }
-

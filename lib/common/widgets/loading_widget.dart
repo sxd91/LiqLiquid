@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_arc.dart';
+import 'package:liqliquid/common/widgets/custom_arc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,4 +43,3 @@ class LoadingWidget extends StatelessWidget {
     );
   }
 }
-

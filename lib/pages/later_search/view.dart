@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/video/source_type.dart';
+import 'package:liqliquid/models/common/video/source_type.dart';
 import 'package:liqliquid/models_new/later/data.dart';
 import 'package:liqliquid/models_new/later/list.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';
@@ -43,7 +43,7 @@ class _LaterSearchPageState
           mediaId: null,
           mid: controller.mid,
         ),
-        child: Text('澶嶅埗', style: textStyle),
+        child: Text('复制', style: textStyle),
       ),
       TextButton(
         style: btnStyle,
@@ -54,7 +54,7 @@ class _LaterSearchPageState
           mediaId: null,
           mid: controller.mid,
         ),
-        child: Text('绉诲姩', style: textStyle),
+        child: Text('移动', style: textStyle),
       ),
     ];
   }
@@ -83,7 +83,7 @@ class _LaterSearchPageState
                 'oid': item.aid,
                 'sourceType': SourceType.watchLater,
                 'count': controller.count,
-                'favTitle': '绋嶅悗鍐嶇湅',
+                'favTitle': '稍后再看',
                 'mediaId': controller.mid,
                 'desc': false,
                 'isContinuePlaying': index != 0,
@@ -96,4 +96,3 @@ class _LaterSearchPageState
     );
   }
 }
-

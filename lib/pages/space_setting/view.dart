@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -22,7 +22,7 @@ class _SpaceSettingPageState extends State<SpaceSettingPage> {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('绌洪棿璁剧疆')),
+      appBar: AppBar(title: const Text('空间设置')),
       body: Obx(() => _buildBody(theme, _controller.loadingState.value)),
     );
   }
@@ -132,4 +132,3 @@ class _SpaceSettingPageState extends State<SpaceSettingPage> {
     );
   }
 }
-

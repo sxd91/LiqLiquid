@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';
@@ -38,7 +38,7 @@ class _DownloadSearchPageState
   @override
   List<Widget>? get extraActions => [
     IconButton(
-      tooltip: '澶氶€?,
+      tooltip: '多选',
       onPressed: () {
         if (controller.loadingState.value is! Success) {
           return;
@@ -69,13 +69,13 @@ class _DownloadSearchPageState
         controller.handleSelect();
         final res = await Future.wait(future);
         if (res.every((e) => e)) {
-          SmartDialog.showToast('鏇存柊鎴愬姛');
+          SmartDialog.showToast('更新成功');
         } else {
-          SmartDialog.showToast('鏇存柊澶辫触');
+          SmartDialog.showToast('更新失败');
         }
       },
       child: Text(
-        '鏇存柊',
+        '更新',
         style: TextStyle(color: ColorScheme.of(context).onSurface),
       ),
     ),
@@ -103,4 +103,3 @@ class _DownloadSearchPageState
     return const HttpError();
   }
 }
-

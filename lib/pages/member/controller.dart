@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
@@ -36,7 +36,8 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
   Live? live;
   int? silence;
 
-  int? isFollowed; // 琚叧娉?  RxInt relation = 0.obs;
+  int? isFollowed; // 被关注
+  RxInt relation = 0.obs;
   bool get isFollow => relation.value != 0 && relation.value != 128;
 
   SpaceSetting? spaceSetting;
@@ -144,14 +145,14 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
   @override
   bool handleError(String? errMsg) {
     tab2 = const [
-      SpaceTab2(title: '鍔ㄦ€?, param: 'dynamic'),
+      SpaceTab2(title: '动态', param: 'dynamic'),
       SpaceTab2(
-        title: '鎶曠',
+        title: '投稿',
         param: 'contribute',
-        items: [SpaceTab2Item(title: '瑙嗛', param: 'video')],
+        items: [SpaceTab2Item(title: '视频', param: 'video')],
       ),
-      SpaceTab2(title: '鏀惰棌', param: 'favorite'),
-      SpaceTab2(title: '杩界暘', param: 'bangumi'),
+      SpaceTab2(title: '收藏', param: 'favorite'),
+      SpaceTab2(title: '追番', param: 'bangumi'),
     ];
     tabs = tab2!.map((item) => Tab(text: item.title)).toList();
     tabController?.dispose();
@@ -172,19 +173,19 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
 
   void blockUser(BuildContext context) {
     if (!account.isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('鎻愮ず'),
-        content: Text(relation.value != 128 ? '纭畾鎷夐粦UP涓?' : '浠庨粦鍚嶅崟绉婚櫎UP涓?),
+        title: const Text('提示'),
+        content: Text(relation.value != 128 ? '确定拉黑UP主?' : '从黑名单移除UP主'),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鐐归敊浜?,
+              '点错了',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -193,7 +194,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
               Get.back();
               _onBlock();
             },
-            child: const Text('纭'),
+            child: const Text('确认'),
           ),
         ],
       ),
@@ -223,7 +224,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
       _onBlock();
     } else {
       if (!account.isLogin) {
-        SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+        SmartDialog.showToast('账号未登录');
         return;
       }
       RequestUtils.actionRelationMod(
@@ -248,7 +249,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
       if (relation.value == 4) {
         relation.value = 2;
       }
-      SmartDialog.showToast('绉婚櫎鎴愬姛');
+      SmartDialog.showToast('移除成功');
     } else {
       res.toast();
     }
@@ -263,10 +264,9 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
   Future<void> vipExpAdd() async {
     final res = await UserHttp.vipExpAdd();
     if (res.isSuccess) {
-      SmartDialog.showToast('棰嗗彇鎴愬姛');
+      SmartDialog.showToast('领取成功');
     } else {
       res.toast();
     }
   }
 }
-

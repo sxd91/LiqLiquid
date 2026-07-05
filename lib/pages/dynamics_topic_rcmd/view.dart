@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -23,7 +23,7 @@ class _DynTopicRcmdPageState extends State<DynTopicRcmdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('璇濋')),
+      appBar: AppBar(title: const Text('话题')),
       body: refreshIndicator(
         onRefresh: _controller.onRefresh,
         child: CustomScrollView(
@@ -66,4 +66,3 @@ class _DynTopicRcmdPageState extends State<DynTopicRcmdPage> {
     };
   }
 }
-

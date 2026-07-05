@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -76,13 +76,13 @@ class MemberFavItem extends StatelessWidget {
                     const PBadge(
                       right: 6,
                       top: 6,
-                      text: '鍚堥泦',
+                      text: '合集',
                     )
                   else if (item.type == 11)
                     const PBadge(
                       right: 6,
                       top: 6,
-                      text: '鏀惰棌澶?,
+                      text: '收藏夹',
                     ),
                 ],
               ),
@@ -100,12 +100,12 @@ class MemberFavItem extends StatelessWidget {
                     const Spacer(),
                     Text(
                       item.type == 0
-                          ? '${item.mediaCount}涓唴瀹?路 ${BiliUtils.isPublicFavText(item.attr)}'
+                          ? '${item.mediaCount}个内容 · ${BiliUtils.isPublicFavText(item.attr)}'
                           : item.type == 11
-                          ? '${item.mediaCount}涓唴瀹?路 ${item.upper?.name}'
+                          ? '${item.mediaCount}个内容 · ${item.upper?.name}'
                           : item.type == 21
-                          ? '鍒涘缓鑰? ${item.upper?.name}\n${item.mediaCount}涓棰?路 ${NumUtils.numFormat(item.viewCount)}鎾斁'
-                          : '${item.mediaCount}涓唴瀹?,
+                          ? '创建者: ${item.upper?.name}\n${item.mediaCount}个视频 · ${NumUtils.numFormat(item.viewCount)}播放'
+                          : '${item.mediaCount}个内容',
                       style: TextStyle(
                         fontSize: 12,
                         color: theme.colorScheme.outline,
@@ -121,4 +121,3 @@ class MemberFavItem extends StatelessWidget {
     );
   }
 }
-

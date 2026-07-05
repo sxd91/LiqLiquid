@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class FollowingsFollowedUpper {
   List<Owner>? items;
@@ -12,4 +12,3 @@ class FollowingsFollowedUpper {
         jumpUrl: json['jump_url'] as String?,
       );
 }
-

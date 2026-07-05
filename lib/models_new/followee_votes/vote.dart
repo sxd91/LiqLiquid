@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class FolloweeVote extends Owner {
   String _name;
@@ -26,4 +26,3 @@ class FolloweeVote extends Owner {
     ctime: json['ctime'],
   );
 }
-

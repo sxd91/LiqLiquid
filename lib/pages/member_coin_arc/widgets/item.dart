@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -76,13 +76,13 @@ class MemberCoinLikeItem extends StatelessWidget {
                       ),
                       if (item.isCooperation == true)
                         const PBadge(
-                          text: '鍚堜綔',
+                          text: '合作',
                           top: 6,
                           right: 6,
                         )
                       else if (item.isSteins == true)
                         const PBadge(
-                          text: '浜掑姩',
+                          text: '互动',
                           top: 6,
                           right: 6,
                         ),
@@ -145,4 +145,3 @@ class MemberCoinLikeItem extends StatelessWidget {
     );
   }
 }
-

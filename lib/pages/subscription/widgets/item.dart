@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -23,9 +23,9 @@ class SubItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String heroTag = Utils.makeHeroTag(item.id);
     final type = switch (item.type) {
-      11 => '鏀惰棌澶?,
-      21 => '鍚堥泦',
-      _ => '鍏跺畠(${item.type})',
+      11 => '收藏夹',
+      21 => '合集',
+      _ => '其它(${item.type})',
     };
     void onLongPress() => imageSaveDialog(
       title: item.title,
@@ -36,7 +36,7 @@ class SubItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (item.state == 1) {
-            SmartDialog.showToast('璇?type宸插け鏁?);
+            SmartDialog.showToast('该$type已失效');
             return;
           }
           if (item.type == 11) {
@@ -123,7 +123,7 @@ class SubItem extends StatelessWidget {
                 ),
               ),
               Text(
-                'UP涓? ${item.upper!.name!}',
+                'UP主: ${item.upper!.name!}',
                 textAlign: TextAlign.start,
                 style: style,
                 maxLines: 1,
@@ -131,7 +131,7 @@ class SubItem extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                '${item.mediaCount}涓棰?,
+                '${item.mediaCount}个视频',
                 textAlign: TextAlign.start,
                 style: style,
               ),
@@ -156,4 +156,3 @@ class SubItem extends StatelessWidget {
     );
   }
 }
-

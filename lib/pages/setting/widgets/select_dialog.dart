@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/http/browser_ua.dart';
 import 'package:liqliquid/http/constants.dart';
@@ -135,7 +135,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
       videoType: VideoType.ugc,
     );
     final item = result.dataOrNull?.dash?.video?.first;
-    if (item == null) throw Exception('鏃犳硶鑾峰彇瑙嗛娴?);
+    if (item == null) throw Exception('无法获取视频流');
     return item;
   }
 
@@ -199,7 +199,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
             _updateSpeedResult(index, downloaded, duration);
             downloaded = 0;
           } else {
-            throw TimeoutException('娴嬮€熻秴鏃?);
+            throw TimeoutException('测速超时');
           }
         } else if (downloaded >= maxSize) {
           onClose();
@@ -228,7 +228,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
     if (error is DioException) {
       final statusCode = error.response?.statusCode;
       if (statusCode != null && 400 <= statusCode && statusCode < 500) {
-        message = '姝よ棰戝彲鑳芥棤娉曟浛鎹负璇DN';
+        message = '此视频可能无法替换为该CDN';
       } else {
         message = error.toString();
       }
@@ -236,7 +236,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
       message = error.toString();
     }
     if (message.isEmpty) {
-      message = '娴嬮€熷け璐?;
+      message = '测速失败';
     }
     item.value = message;
   }
@@ -244,7 +244,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
   @override
   Widget build(BuildContext context) {
     return SelectDialog<CDNService>(
-      title: 'CDN 璁剧疆',
+      title: 'CDN 设置',
       values: CDNService.values.map((i) => (i, i.desc)).toList(),
       value: VideoUtils.cdnService,
       subtitleBuilder: _cdnSpeedTest
@@ -266,4 +266,3 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
     );
   }
 }
-

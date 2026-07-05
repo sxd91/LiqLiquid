@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models/common/account_type.dart';
 import 'package:liqliquid/models/common/video/audio_quality.dart';
@@ -47,15 +47,16 @@ abstract final class DownloadHttp {
         int targetVideoQa = curHighestVideoQa;
         if (response.acceptQuality?.isNotEmpty == true &&
             preferVideoQa <= curHighestVideoQa) {
-          // 濡傛灉棰勮鐨勭敾璐ㄤ綆浜庡綋鍓嶆渶楂?          targetVideoQa = response.acceptQuality!.findClosestTarget(
+          // 如果预设的画质低于当前最高
+          targetVideoQa = response.acceptQuality!.findClosestTarget(
             (e) => e <= preferVideoQa,
             (a, b) => a > b ? a : b,
           );
         }
 
-        /// 浼樺厛椤哄簭 璁剧疆涓寚瀹氳В鐮佹牸寮?-> 褰撳墠鍙€夌殑棣栦釜瑙ｇ爜鏍煎紡
+        /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
         final supportFormats = response.supportFormats!;
-        // 鏍规嵁鐢昏川閫夌紪鐮佹牸寮?
+        // 根据画质选编码格式
         final targetSupportFormats = supportFormats.firstWhere(
           (e) => e.quality == targetVideoQa,
           orElse: () => supportFormats.first,
@@ -74,12 +75,12 @@ abstract final class DownloadHttp {
               targetSupportFormats.newDesc ??
               VideoQuality.fromCode(targetVideoQa).desc;
 
-        /// 鍙栧嚭绗﹀悎褰撳墠鐢昏川鐨剉ideoList
+        /// 取出符合当前画质的videoList
         final videosList = videoList
             .where((e) => e.quality.code == targetVideoQa)
             .toList();
 
-        /// 鍙栧嚭绗﹀悎褰撳墠瑙ｇ爜鏍煎紡鐨剉ideoItem
+        /// 取出符合当前解码格式的videoItem
         final videoDash = videosList.firstWhere(
           (e) => currentDecodeFormats.codes.any(e.codecs!.startsWith),
           orElse: () => videosList.first,
@@ -214,4 +215,3 @@ abstract final class DownloadHttp {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/common/widgets/color_palette.dart';
 import 'package:liqliquid/main.dart' show MyApp;
@@ -47,7 +47,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
   Future<void> _onChanged([bool? val]) async {
     val ??= !ctr.dynamicColor.value;
     if (val && !await MyApp.initPlatformState()) {
-      SmartDialog.showToast('璁惧鍙兘涓嶆敮鎸佸姩鎬佸彇鑹?);
+      SmartDialog.showToast('设备可能不支持动态取色');
       return;
     }
     ctr.dynamicColor.value = val;
@@ -68,7 +68,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
     ).copyWith(top: 0, bottom: 0);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('閫夋嫨搴旂敤涓婚')),
+      appBar: AppBar(title: const Text('选择应用主题')),
       body: ListView(
         children: [
           ListTile(
@@ -76,7 +76,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
               final result = await showDialog<ThemeType>(
                 context: context,
                 builder: (context) => SelectDialog<ThemeType>(
-                  title: '涓婚妯″紡',
+                  title: '主题模式',
                   value: ctr.themeType.value,
                   values: ThemeType.values.map((e) => (e, e.desc)).toList(),
                 ),
@@ -91,10 +91,10 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
               }
             },
             leading: const Icon(Icons.flashlight_on_outlined),
-            title: Text('涓婚妯″紡', style: titleStyle),
+            title: Text('主题模式', style: titleStyle),
             subtitle: Obx(
               () => Text(
-                '褰撳墠妯″紡锛?{ctr.themeType.value.desc}',
+                '当前模式：${ctr.themeType.value.desc}',
                 style: subTitleStyle,
               ),
             ),
@@ -103,7 +103,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
             () => PopupListTile<FlexSchemeVariant>(
               enabled: !ctr.dynamicColor.value,
               leading: const Icon(Icons.palette_outlined),
-              title: const Text('璋冭壊鏉块鏍?),
+              title: const Text('调色板风格'),
               value: () =>
                   (_dynamicSchemeVariant, _dynamicSchemeVariant.variantName),
               itemBuilder: (_) => FlexSchemeVariant.values
@@ -122,7 +122,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
           if (!Platform.isIOS)
             Obx(
               () => ListTile(
-                title: const Text('鍔ㄦ€佸彇鑹?),
+                title: const Text('动态取色'),
                 leading: ExcludeFocus(
                   child: Checkbox(
                     value: ctr.dynamicColor.value,
@@ -226,4 +226,3 @@ class _ColorSelectController extends GetxController {
   final RxInt currentColor = Pref.customColor.obs;
   final Rx<ThemeType> themeType = Pref.themeType.obs;
 }
-

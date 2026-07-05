@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/dialog/report_member.dart';
@@ -65,8 +65,8 @@ class WhisperLinkSettingController extends GetxController {
     if (isPush) {
       showConfirmDialog(
         context: Get.context!,
-        title: const Text('纭鍏抽棴鍐呭鎺ㄩ€佸悧锛?),
-        content: const Text('鑻ュ叧闂寮€鍏筹紝浣犲皢涓嶅啀鏀跺埌璇ヨ处鍙风殑鍥炬枃娑堟伅涓庣浠舵帹閫侊紝浣嗛€氱煡绫绘秷鎭笉鍙楀奖鍝?),
+        title: const Text('确认关闭内容推送吗？'),
+        content: const Text('若关闭此开关，你将不再收到该账号的图文消息与稿件推送，但通知类消息不受影响'),
         onConfirm: () => _setPush(isPush),
       );
       return;
@@ -133,8 +133,8 @@ class WhisperLinkSettingController extends GetxController {
     } else {
       showConfirmDialog(
         context: Get.context!,
-        title: const Text('纭鎷夐粦璇ョ敤鎴?),
-        content: const Text('鍔犲叆榛戝悕鍗曞悗锛屽皢鑷姩瑙ｉ櫎鍏虫敞鍏崇郴鍜屽璇ョ敤鎴风殑鍚堥泦璁㈤槄鍏崇郴锛岀姝㈣鐢ㄦ埛涓庢垜浜掑姩鎴栨煡鐪嬫垜鐨勭┖闂?),
+        title: const Text('确认拉黑该用户'),
+        content: const Text('加入黑名单后，将自动解除关注关系和对该用户的合集订阅关系，禁止该用户与我互动或查看我的空间'),
         onConfirm: () async {
           final res = await VideoHttp.relationMod(
             mid: talkerUid,
@@ -159,4 +159,3 @@ class WhisperLinkSettingController extends GetxController {
     mid: talkerUid,
   );
 }
-

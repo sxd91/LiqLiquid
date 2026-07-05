@@ -1,13 +1,13 @@
-﻿# Project-level configuration.
+# Project-level configuration.
 cmake_minimum_required(VERSION 3.13)
 project(runner LANGUAGES C CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "liqliquid")
+set(BINARY_NAME "piliplus")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
-set(APPLICATION_ID "com.example.liqliquid")
+set(APPLICATION_ID "com.example.piliplus")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
@@ -127,4 +127,3 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
   install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()
-

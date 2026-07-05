@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/reorder_mixin.dart';
+import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
@@ -30,7 +30,7 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鏀惰棌澶规帓搴?),
+        title: const Text('收藏夹排序'),
         actions: [
           TextButton(
             onPressed: () async {
@@ -38,7 +38,7 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
                 sort: sortList.map((item) => item.id).join(','),
               );
               if (res.isSuccess) {
-                SmartDialog.showToast('鎺掑簭瀹屾垚');
+                SmartDialog.showToast('排序完成');
                 _favController.loadingState.value = Success(sortList);
                 if (mounted) {
                   Get.back();
@@ -47,7 +47,7 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
                 res.toast();
               }
             },
-            child: const Text('瀹屾垚'),
+            child: const Text('完成'),
           ),
           const SizedBox(width: 16),
         ],
@@ -58,7 +58,7 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
 
   void onReorderItem(int oldIndex, int newIndex) {
     if (oldIndex == 0 || newIndex == 0) {
-      SmartDialog.showToast('榛樿鏀惰棌澶逛笉鏀寔鎺掑簭');
+      SmartDialog.showToast('默认收藏夹不支持排序');
       return;
     }
 
@@ -86,7 +86,7 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
             heroTag: key,
             item: item,
             onLongPress: index == 0
-                ? () => SmartDialog.showToast('榛樿鏀惰棌澶逛笉鏀寔鎺掑簭')
+                ? () => SmartDialog.showToast('默认收藏夹不支持排序')
                 : null,
           ),
         );
@@ -94,4 +94,3 @@ class _FavFolderSortPageState extends State<FavFolderSortPage>
     );
   }
 }
-

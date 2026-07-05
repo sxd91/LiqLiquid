@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/follow/list.dart';
+import 'package:liqliquid/models_new/follow/list.dart';
 
 class FollowData {
   List<FollowItemModel>? list;
@@ -13,4 +13,3 @@ class FollowData {
     total: json['total'] as int?,
   );
 }
-

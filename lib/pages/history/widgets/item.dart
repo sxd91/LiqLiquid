@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/progress_bar/video_progress_indicator.dart';
@@ -66,7 +66,7 @@ class HistoryItem extends StatelessWidget {
                   if (item.liveStatus == 1) {
                     PageUtils.toLiveRoom(item.history.oid);
                   } else {
-                    SmartDialog.showToast('鐩存挱鏈紑鎾?);
+                    SmartDialog.showToast('直播未开播');
                   }
                 } else if (business == 'pgc') {
                   PageUtils.viewPgc(epId: item.history.epid);
@@ -137,7 +137,7 @@ class HistoryItem extends StatelessWidget {
                             if (hasDuration)
                               PBadge(
                                 text: item.progress == -1
-                                    ? '宸茬湅瀹?
+                                    ? '已看完'
                                     : '${DurationUtils.formatDuration(item.progress)}/${DurationUtils.formatDuration(item.duration)}',
                                 right: 6.0,
                                 bottom: 8.0,
@@ -145,7 +145,7 @@ class HistoryItem extends StatelessWidget {
                               ),
                             if (item.isFav == 1)
                               const PBadge(
-                                text: '宸叉敹钘?,
+                                text: '已收藏',
                                 top: 6.0,
                                 right: 6.0,
                                 type: PBadgeType.gray,
@@ -198,7 +198,7 @@ class HistoryItem extends StatelessWidget {
               height: 29,
               child: PopupMenuButton(
                 padding: EdgeInsets.zero,
-                tooltip: '鍔熻兘鑿滃崟',
+                tooltip: '功能菜单',
                 icon: Icon(
                   Icons.more_vert_outlined,
                   color: theme.colorScheme.outline,
@@ -219,15 +219,15 @@ class HistoryItem extends StatelessWidget {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            '璁块棶锛?{item.authorName}',
+                            '访问：${item.authorName}',
                             style: const TextStyle(fontSize: 13),
                           ),
                         ],
                       ),
                     ),
                   if (business != 'pgc' &&
-                      item.badge != '鐣墽' &&
-                      item.tagName?.contains('鍔ㄧ敾') != true &&
+                      item.badge != '番剧' &&
+                      item.tagName?.contains('动画') != true &&
                       business != 'live' &&
                       business?.contains('article') != true)
                     PopupMenuItem(
@@ -238,7 +238,7 @@ class HistoryItem extends StatelessWidget {
                         children: [
                           Icon(Icons.watch_later_outlined, size: 16),
                           SizedBox(width: 6),
-                          Text('绋嶅悗鍐嶇湅', style: TextStyle(fontSize: 13)),
+                          Text('稍后再看', style: TextStyle(fontSize: 13)),
                         ],
                       ),
                     ),
@@ -249,7 +249,7 @@ class HistoryItem extends StatelessWidget {
                       children: [
                         Icon(Icons.close_outlined, size: 16),
                         SizedBox(width: 6),
-                        Text('鍒犻櫎璁板綍', style: TextStyle(fontSize: 13)),
+                        Text('删除记录', style: TextStyle(fontSize: 13)),
                       ],
                     ),
                   ),
@@ -312,4 +312,3 @@ class HistoryItem extends StatelessWidget {
     );
   }
 }
-

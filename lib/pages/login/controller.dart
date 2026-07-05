@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 
 import 'package:liqliquid/common/dial_prefix.dart';
@@ -42,7 +42,8 @@ class LoginPageController extends GetxController
   late final RxInt smsSendCooldown = 0.obs;
   late int smsSendTimestamp = 0;
 
-  // 瀹氭椂鍣?  Timer? qrCodeTimer;
+  // 定时器
+  Timer? qrCodeTimer;
   Timer? smsSendCooldownTimer;
 
   bool _isReq = false;
@@ -78,7 +79,7 @@ class LoginPageController extends GetxController
         final left = 180 - t.tick;
         if (left <= 0) {
           t.cancel();
-          statusQRCode.value = '浜岀淮鐮佸凡杩囨湡锛岃鍒锋柊';
+          statusQRCode.value = '二维码已过期，请刷新';
           qrCodeLeftTime.value = 0;
           return;
         }
@@ -90,7 +91,7 @@ class LoginPageController extends GetxController
           _isReq = false;
           if (value['status']) {
             t.cancel();
-            statusQRCode.value = '鎵爜鎴愬姛';
+            statusQRCode.value = '扫码成功';
             await setAccount(
               value['data'],
               value['data']['cookie_info']['cookies'],
@@ -115,7 +116,7 @@ class LoginPageController extends GetxController
     }
   }
 
-  // 鐢宠鏋侀獙楠岃瘉鐮?
+  // 申请极验验证码
   void getCaptcha(
     String geeGt,
     String geeChallenge,
@@ -130,7 +131,7 @@ class LoginPageController extends GetxController
             challenge: res['geetest_challenge'],
             gt: geeGt,
           );
-        SmartDialog.showToast('楠岃瘉鎴愬姛');
+        SmartDialog.showToast('验证成功');
         onSuccess();
       }
     });
@@ -150,10 +151,10 @@ class LoginPageController extends GetxController
         .join(';');
   }
 
-  // cookie鐧诲綍
+  // cookie登录
   Future<void> loginByCookie() async {
     if (cookieTextController.text.isEmpty) {
-      SmartDialog.showToast('cookie涓嶈兘涓虹┖');
+      SmartDialog.showToast('cookie不能为空');
       return;
     }
     try {
@@ -181,24 +182,25 @@ class LoginPageController extends GetxController
             null,
           ).onChange();
           if (!Accounts.main.isLogin) await switchAccountDialog(Get.context!);
-          SmartDialog.showToast('鐧诲綍鎴愬姛');
+          SmartDialog.showToast('登录成功');
           Get.back();
         } catch (e) {
-          SmartDialog.showToast("鐧诲綍澶辫触: $e");
+          SmartDialog.showToast("登录失败: $e");
         }
       } else {
-        SmartDialog.showToast("鍝斿摡鍝斿摡鐧诲綍宸插け鏁堬紝璇烽噸鏂扮櫥褰?);
+        SmartDialog.showToast("哔哩哔哩登录已失效，请重新登录");
       }
     } catch (e) {
-      SmartDialog.showToast("鑾峰彇鍝斿摡鍝斿摡鐢ㄦ埛淇℃伅澶辫触锛屽彲鍓嶅線璐﹀彿绠＄悊閲嶈瘯");
+      SmartDialog.showToast("获取哔哩哔哩用户信息失败，可前往账号管理重试");
     }
   }
 
-  // app绔瘑鐮佺櫥褰?  Future<void> loginByPassword() async {
+  // app端密码登录
+  Future<void> loginByPassword() async {
     String username = usernameTextController.text;
     String password = passwordTextController.text;
     if (username.isEmpty || password.isEmpty) {
-      SmartDialog.showToast('鐢ㄦ埛鍚嶆垨瀵嗙爜涓嶈兘涓虹┖');
+      SmartDialog.showToast('用户名或密码不能为空');
       return;
     }
     // if ((passwordFormKey.currentState as FormState).validate()) {
@@ -222,13 +224,13 @@ class LoginPageController extends GetxController
     if (res['status']) {
       final data = res['data'];
       if (data == null) {
-        SmartDialog.showToast('鐧诲綍寮傚父锛屾帴鍙ｆ湭杩斿洖鏁版嵁锛?{res["msg"]}');
+        SmartDialog.showToast('登录异常，接口未返回数据：${res["msg"]}');
         return;
       }
       if (data['status'] == 2) {
         SmartDialog.showToast(data['message']);
         // return;
-        //{"code":0,"message":"0","ttl":1,"data":{"status":2,"message":"鏈鐧诲綍鐜瀛樺湪椋庨櫓, 闇€浣跨敤鎵嬫満鍙疯繘琛岄獙璇佹垨缁戝畾","url":"https://passport.bilibili.com/h5-app/passport/risk/verify?tmp_token=9e785433940891dfa78f033fb7928181&request_id=e5a6d6480df04097870be56c6e60f7ef&source=risk","token_info":null,"cookie_info":null,"sso":null,"is_new":false,"is_tourist":false}}
+        //{"code":0,"message":"0","ttl":1,"data":{"status":2,"message":"本次登录环境存在风险, 需使用手机号进行验证或绑定","url":"https://passport.bilibili.com/h5-app/passport/risk/verify?tmp_token=9e785433940891dfa78f033fb7928181&request_id=e5a6d6480df04097870be56c6e60f7ef&source=risk","token_info":null,"cookie_info":null,"sso":null,"is_new":false,"is_tourist":false}}
         String url = data['url']!;
         Uri currentUri = Uri.parse(url);
         final safeCenterRes = await LoginHttp.safeCenterGetInfo(
@@ -237,7 +239,7 @@ class LoginPageController extends GetxController
         //{"code":0,"message":"0","ttl":1,"data":{"account_info":{"hide_tel":"111*****111","hide_mail":"aaa*****aaaa.aaa","bind_mail":true,"bind_tel":true,"tel_verify":true,"mail_verify":true,"unneeded_check":false,"bind_safe_question":false,"mid":1111111},"member_info":{"nickname":"xxxxxxx","face":"https://i0.hdslb.com/bfs/face/xxxxxxx.jpg","realname_status":false},"sns_info":{"bind_google":false,"bind_fb":false,"bind_apple":false,"bind_qq":true,"bind_weibo":true,"bind_wechat":false},"account_safe":{"score":80}}}
         if (!safeCenterRes['status']) {
           SmartDialog.showToast(
-            "鑾峰彇瀹夊叏楠岃瘉淇℃伅澶辫触锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡\n"
+            "获取安全验证信息失败，请尝试其它登录方式\n"
             "(${safeCenterRes['code']}) ${safeCenterRes['msg']}",
           );
           return;
@@ -247,7 +249,7 @@ class LoginPageController extends GetxController
           "hindMail": safeCenterRes['data']['account_info']!["hide_mail"],
         };
         if (!safeCenterRes['data']['account_info']!['tel_verify']) {
-          SmartDialog.showToast("褰撳墠璐﹀彿鏈敮鎸佹墜鏈哄彿楠岃瘉锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡");
+          SmartDialog.showToast("当前账号未支持手机号验证，请尝试其它登录方式");
           return;
         }
 
@@ -268,23 +270,23 @@ class LoginPageController extends GetxController
               vertical: 12,
             ),
             title: const Text(
-              "鏈鐧诲綍闇€瑕侀獙璇佹偍鐨勬墜鏈哄彿",
+              "本次登录需要验证您的手机号",
               textAlign: TextAlign.center,
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  accountInfo['hindTel'] ?? '鏈兘鑾峰彇鎵嬫満鍙?,
+                  accountInfo['hindTel'] ?? '未能获取手机号',
                   style: const TextStyle(fontSize: 18),
                 ),
-                // 甯︽湁娓呯┖鎸夐挳鐨勮緭鍏ユ
+                // 带有清空按钮的输入框
                 TextField(
                   style: const TextStyle(fontSize: 15),
                   controller: textFieldController,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                    hintText: "璇疯緭鍏ョ煭淇￠獙璇佺爜",
+                    hintText: "请输入短信验证码",
                     hintStyle: const TextStyle(fontSize: 15),
                     suffixIcon: iconButton(
                       icon: const Icon(Icons.clear),
@@ -301,13 +303,13 @@ class LoginPageController extends GetxController
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text("鍙戦€侀獙璇佺爜"),
+                child: const Text("发送验证码"),
                 onPressed: () async {
                   final preCaptureRes = await LoginHttp.preCapture();
                   if (!preCaptureRes['status'] ||
                       preCaptureRes['data'] == null) {
                     SmartDialog.showToast(
-                      "鑾峰彇楠岃瘉鐮佸け璐ワ紝璇峰皾璇曞叾瀹冪櫥褰曟柟寮廫n"
+                      "获取验证码失败，请尝试其它登录方式\n"
                       "(${preCaptureRes['code']}) ${preCaptureRes['msg']} ${preCaptureRes['data']}",
                     );
                   }
@@ -316,7 +318,7 @@ class LoginPageController extends GetxController
                   captchaData.token = preCaptureRes['data']['recaptcha_token'];
                   if (!isGeeArgumentValid(geeGt, geeChallenge)) {
                     SmartDialog.showToast(
-                      "鑾峰彇鏋侀獙鍙傛暟涓虹┖锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡\n"
+                      "获取极验参数为空，请尝试其它登录方式\n"
                       "(${preCaptureRes['code']}) ${preCaptureRes['msg']} ${preCaptureRes['data']}",
                     );
                     return;
@@ -337,12 +339,12 @@ class LoginPageController extends GetxController
                           );
                       if (!safeCenterSendSmsCodeRes['status']) {
                         SmartDialog.showToast(
-                          "鍙戦€佺煭淇￠獙璇佺爜澶辫触锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡\n"
+                          "发送短信验证码失败，请尝试其它登录方式\n"
                           "(${safeCenterSendSmsCodeRes['code']}) ${safeCenterSendSmsCodeRes['msg']}",
                         );
                         return;
                       }
-                      SmartDialog.showToast("鐭俊楠岃瘉鐮佸凡鍙戦€侊紝璇锋煡鏀?);
+                      SmartDialog.showToast("短信验证码已发送，请查收");
                       captchaKey =
                           safeCenterSendSmsCodeRes['data']['captcha_key'];
                     },
@@ -352,7 +354,7 @@ class LoginPageController extends GetxController
               TextButton(
                 onPressed: Get.back,
                 child: Text(
-                  "鍙栨秷",
+                  "取消",
                   style: TextStyle(color: ThemeUtils.theme.colorScheme.outline),
                 ),
               ),
@@ -360,7 +362,7 @@ class LoginPageController extends GetxController
                 onPressed: () async {
                   String? code = textFieldController.text;
                   if (code.isEmpty) {
-                    SmartDialog.showToast("璇疯緭鍏ョ煭淇￠獙璇佺爜");
+                    SmartDialog.showToast("请输入短信验证码");
                     return;
                   }
                   final safeCenterSmsVerifyRes =
@@ -374,19 +376,19 @@ class LoginPageController extends GetxController
                       );
                   if (!safeCenterSmsVerifyRes['status']) {
                     SmartDialog.showToast(
-                      "楠岃瘉鐭俊楠岃瘉鐮佸け璐ワ紝璇峰皾璇曞叾瀹冪櫥褰曟柟寮廫n"
+                      "验证短信验证码失败，请尝试其它登录方式\n"
                       "(${safeCenterSmsVerifyRes['code']}) ${safeCenterSmsVerifyRes['msg']}",
                     );
                     return;
                   }
-                  SmartDialog.showToast("楠岃瘉鎴愬姛锛屾鍦ㄧ櫥褰?);
+                  SmartDialog.showToast("验证成功，正在登录");
                   final oauth2AccessTokenRes =
                       await LoginHttp.oauth2AccessToken(
                         code: safeCenterSmsVerifyRes['data']['code'],
                       );
                   if (!oauth2AccessTokenRes['status']) {
                     SmartDialog.showToast(
-                      "鐧诲綍澶辫触锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡\n"
+                      "登录失败，请尝试其它登录方式\n"
                       "(${oauth2AccessTokenRes['code']}) ${oauth2AccessTokenRes['msg']}",
                     );
                     return;
@@ -395,11 +397,11 @@ class LoginPageController extends GetxController
                   if (data['token_info'] == null ||
                       data['cookie_info'] == null) {
                     SmartDialog.showToast(
-                      '鐧诲綍寮傚父锛屾帴鍙ｆ湭杩斿洖韬唤淇℃伅锛屽彲鑳芥槸鍥犱负璐﹀彿椋庢帶锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡銆俓n${oauth2AccessTokenRes["msg"]}锛孿n $data',
+                      '登录异常，接口未返回身份信息，可能是因为账号风控，请尝试其它登录方式。\n${oauth2AccessTokenRes["msg"]}，\n $data',
                     );
                     return;
                   }
-                  SmartDialog.showToast('姝ｅ湪淇濆瓨韬唤淇℃伅');
+                  SmartDialog.showToast('正在保存身份信息');
                   await setAccount(
                     data['token_info'],
                     data['cookie_info']['cookies'],
@@ -408,7 +410,7 @@ class LoginPageController extends GetxController
                     ..back()
                     ..back();
                 },
-                child: const Text("纭"),
+                child: const Text("确认"),
               ),
             ],
           ),
@@ -418,11 +420,11 @@ class LoginPageController extends GetxController
       }
       if (data['token_info'] == null || data['cookie_info'] == null) {
         SmartDialog.showToast(
-          '鐧诲綍寮傚父锛屾帴鍙ｆ湭杩斿洖韬唤淇℃伅锛屽彲鑳芥槸鍥犱负璐﹀彿椋庢帶锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡銆俓n${res["msg"]}锛孿n $data',
+          '登录异常，接口未返回身份信息，可能是因为账号风控，请尝试其它登录方式。\n${res["msg"]}，\n $data',
         );
         return;
       }
-      SmartDialog.showToast('姝ｅ湪淇濆瓨韬唤淇℃伅');
+      SmartDialog.showToast('正在保存身份信息');
       await setAccount(data['token_info'], data['cookie_info']['cookies']);
       Get.back();
     } else {
@@ -449,22 +451,23 @@ class LoginPageController extends GetxController
     // }
   }
 
-  // 鐭俊楠岃瘉鐮佺櫥褰?  Future<void> loginBySmsCode() async {
+  // 短信验证码登录
+  Future<void> loginBySmsCode() async {
     if (telTextController.text.isEmpty) {
-      SmartDialog.showToast('鎵嬫満鍙蜂笉鑳戒负绌?);
+      SmartDialog.showToast('手机号不能为空');
       return;
     }
     if (captchaKey.isEmpty) {
-      SmartDialog.showToast('璇峰厛鐐瑰嚮鑾峰彇楠岃瘉鐮?);
+      SmartDialog.showToast('请先点击获取验证码');
       return;
     }
     if (smsCodeTextController.text.isEmpty) {
-      SmartDialog.showToast('楠岃瘉鐮佷笉鑳戒负绌?);
+      SmartDialog.showToast('验证码不能为空');
       return;
     }
     if (DateTime.now().millisecondsSinceEpoch - smsSendTimestamp >
         1000 * 60 * 5) {
-      SmartDialog.showToast('楠岃瘉鐮佸凡杩囨湡锛岃閲嶆柊鑾峰彇');
+      SmartDialog.showToast('验证码已过期，请重新获取');
       return;
     }
     final webKeyRes = await LoginHttp.getWebKey();
@@ -481,7 +484,7 @@ class LoginPageController extends GetxController
       key: key,
     );
     if (res['status']) {
-      SmartDialog.showToast('鐧诲綍鎴愬姛');
+      SmartDialog.showToast('登录成功');
       final data = res['data'];
       await setAccount(data['token_info'], data['cookie_info']['cookies']);
       Get.back();
@@ -490,10 +493,10 @@ class LoginPageController extends GetxController
     }
   }
 
-  // app绔獙璇佺爜
+  // app端验证码
   Future<void> sendSmsCode() async {
     if (telTextController.text.isEmpty) {
-      SmartDialog.showToast('鎵嬫満鍙蜂笉鑳戒负绌?);
+      SmartDialog.showToast('手机号不能为空');
       return;
     }
     // String? guestId;
@@ -511,7 +514,7 @@ class LoginPageController extends GetxController
     // }
     // final preCaptureRes = await LoginHttp.preCapture();
     // if (!preCaptureRes['status']) {
-    //   SmartDialog.showToast("鑾峰彇楠岃瘉鐮佸け璐ワ紝璇峰皾璇曞叾瀹冪櫥褰曟柟寮廫n"
+    //   SmartDialog.showToast("获取验证码失败，请尝试其它登录方式\n"
     //       "(${preCaptureRes['code']}) ${preCaptureRes['msg']}");
     //   return;
     // }
@@ -531,11 +534,11 @@ class LoginPageController extends GetxController
     //   refererUrl: url,
     // );
     // if (!safeCenterSendSmsCodeRes['status']) {
-    //   SmartDialog.showToast("鍙戦€佺煭淇￠獙璇佺爜澶辫触锛岃灏濊瘯鍏跺畠鐧诲綍鏂瑰紡\n"
+    //   SmartDialog.showToast("发送短信验证码失败，请尝试其它登录方式\n"
     //       "(${safeCenterSendSmsCodeRes['code']}) ${safeCenterSendSmsCodeRes['msg']}");
     //   return;
     // }
-    // SmartDialog.showToast("鐭俊楠岃瘉鐮佸凡鍙戦€侊紝璇锋煡鏀?);
+    // SmartDialog.showToast("短信验证码已发送，请查收");
     // captchaKey = safeCenterSendSmsCodeRes['data']['captcha_key'];
 
     final res = await LoginHttp.sendSmsCode(
@@ -548,7 +551,7 @@ class LoginPageController extends GetxController
       recaptchaToken: captchaData.token,
     );
     if (res['status']) {
-      SmartDialog.showToast('鍙戦€佹垚鍔?);
+      SmartDialog.showToast('发送成功');
       smsSendTimestamp = DateTime.now().millisecondsSinceEpoch;
       smsSendCooldown.value = 60;
       captchaKey = res['data']['captcha_key'];
@@ -579,13 +582,13 @@ class LoginPageController extends GetxController
           if (!isGeeArgumentValid(geeGt, geeChallenge)) {
             if (kDebugMode) {
               debugPrint(
-                '楠岃瘉淇℃伅閿欒锛?{res["msg"]}\n杩斿洖鍐呭锛?{res["data"]}锛屽皾璇曞彟涓€涓獙璇佺爜鎺ュ彛',
+                '验证信息错误：${res["msg"]}\n返回内容：${res["data"]}，尝试另一个验证码接口',
               );
             }
             final preCaptureRes = await LoginHttp.preCapture();
             if (!preCaptureRes['status'] || preCaptureRes['data'] == null) {
               SmartDialog.showToast(
-                "鑾峰彇楠岃瘉鐮佸け璐ワ紝璇峰皾璇曞叾瀹冪櫥褰曟柟寮廫n"
+                "获取验证码失败，请尝试其它登录方式\n"
                 "(${preCaptureRes['code']}) ${preCaptureRes['msg']} ${preCaptureRes['data']}",
               );
               return;
@@ -596,7 +599,7 @@ class LoginPageController extends GetxController
           }
 
           if (!isGeeArgumentValid(geeGt, geeChallenge)) {
-            SmartDialog.showToast("鑾峰彇楠岃瘉鐮佸け璐ワ紝璇峰皾璇曞叾瀹冪櫥褰曟柟寮廫n");
+            SmartDialog.showToast("获取验证码失败，请尝试其它登录方式\n");
             return;
           }
 
@@ -628,16 +631,16 @@ class LoginPageController extends GetxController
       }
     }
     if (Accounts.main.isLogin) {
-      SmartDialog.showToast('鐧诲綍鎴愬姛');
+      SmartDialog.showToast('登录成功');
     } else {
-      SmartDialog.showToast('鐧诲綍鎴愬姛, 璇峰厛璁剧疆璐﹀彿妯″紡');
+      SmartDialog.showToast('登录成功, 请先设置账号模式');
       await switchAccountDialog(Get.context!);
     }
   }
 
   static Future<void>? switchAccountDialog(BuildContext context) {
     if (Accounts.account.isEmpty) {
-      SmartDialog.showToast('璇峰厛鐧诲綍');
+      SmartDialog.showToast('请先登录');
       return Get.toNamed('/loginPage');
     }
     final colorScheme = ColorScheme.of(context);
@@ -660,9 +663,9 @@ class LoginPageController extends GetxController
               style: const TextStyle(height: 1.5),
               TextSpan(
                 children: [
-                  const TextSpan(text: '璐﹀彿鍒囨崲'),
+                  const TextSpan(text: '账号切换'),
                   TextSpan(
-                    text: '\nmid涓?鏃朵娇鐢ㄥ尶鍚?,
+                    text: '\nmid为0时使用匿名',
                     style: TextStyle(fontSize: 14, color: colorScheme.outline),
                   ),
                 ],
@@ -677,7 +680,7 @@ class LoginPageController extends GetxController
                 quickSelect = !quickSelect;
                 (context as Element).markNeedsBuild();
               },
-              child: Text(quickSelect ? '璇︾粏' : '蹇€?),
+              child: Text(quickSelect ? '详细' : '快速'),
             ),
           ],
         ),
@@ -739,7 +742,7 @@ class LoginPageController extends GetxController
         actions: [
           TextButton(
             onPressed: Get.back,
-            child: Text('鍙栨秷', style: TextStyle(color: colorScheme.outline)),
+            child: Text('取消', style: TextStyle(color: colorScheme.outline)),
           ),
           TextButton(
             onPressed: () {
@@ -754,11 +757,10 @@ class LoginPageController extends GetxController
                 }
               }
             },
-            child: const Text('纭畾'),
+            child: const Text('确定'),
           ),
         ],
       ),
     );
   }
 }
-

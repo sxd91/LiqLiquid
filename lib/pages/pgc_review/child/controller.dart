@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/pgc.dart';
 import 'package:liqliquid/models/common/pgc_review_type.dart';
 import 'package:liqliquid/models_new/pgc/pgc_review/data.dart';
@@ -110,7 +110,7 @@ class PgcReviewController
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -124,4 +124,3 @@ class PgcReviewController
     onReload();
   }
 }
-

@@ -1,4 +1,4 @@
-﻿// ignore_for_file: implementation_imports
+// ignore_for_file: implementation_imports
 
 import 'dart:async';
 import 'dart:ffi';
@@ -144,13 +144,13 @@ class MpvConvertWebp {
 }
 
 enum WebpPreset {
-  none('none', '鏃?, '涓嶄娇鐢ㄩ璁?),
-  def('default', '榛樿', '榛樿棰勮'),
-  picture('picture', '鍥剧墖', '鏁扮爜鐓х墖锛屽浜哄儚銆佸鍐呮媿鎽?),
-  photo('photo', '鐓х墖', '鎴峰鎽勫奖锛岃嚜鐒跺厜鐜'),
-  drawing('drawing', '缁樺浘', '鎵嬬粯鎴栫嚎绋匡紝楂樺姣斿害缁嗚妭'),
-  icon('icon', '鍥炬爣', '灏忓瀷褰╄壊鍥惧儚'),
-  text('text', '鏂囨湰', '鏂囧瓧绫?),
+  none('none', '无', '不使用预设'),
+  def('default', '默认', '默认预设'),
+  picture('picture', '图片', '数码照片，如人像、室内拍摄'),
+  photo('photo', '照片', '户外摄影，自然光环境'),
+  drawing('drawing', '绘图', '手绘或线稿，高对比度细节'),
+  icon('icon', '图标', '小型彩色图像'),
+  text('text', '文本', '文字类'),
   ;
 
   final String flag;
@@ -159,4 +159,3 @@ enum WebpPreset {
 
   const WebpPreset(this.flag, this.name, this.desc);
 }
-

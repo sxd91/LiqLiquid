@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File;
+import 'dart:io' show File;
 
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -74,12 +74,12 @@ class _CreateFavPageState extends State<CreateFavPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(_mediaId != null ? '缂栬緫' : '鍒涘缓'),
+        title: Text(_mediaId != null ? '编辑' : '创建'),
         actions: [
           TextButton(
             onPressed: () {
               if (_titleController.text.isEmpty) {
-                SmartDialog.showToast('鍚嶇О涓嶈兘涓虹┖');
+                SmartDialog.showToast('名称不能为空');
                 return;
               }
               FavHttp.addOrEditFolder(
@@ -91,7 +91,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                 intro: _introController.text,
               ).then((res) {
                 if (res case Success(:final response)) {
-                  SmartDialog.showToast('${_mediaId != null ? '缂栬緫' : '鍒涘缓'}鎴愬姛');
+                  SmartDialog.showToast('${_mediaId != null ? '编辑' : '创建'}成功');
                   if (mounted) {
                     Get.back(result: response);
                   }
@@ -100,7 +100,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                 }
               });
             },
-            child: const Text('瀹屾垚'),
+            child: const Text('完成'),
           ),
           const SizedBox(width: 16),
         ],
@@ -129,7 +129,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
             sourcePath: imgPath,
             uiSettings: [
               AndroidUiSettings(
-                toolbarTitle: '瑁佸壀',
+                toolbarTitle: '裁剪',
                 toolbarColor: theme.colorScheme.secondaryContainer,
                 toolbarWidgetColor: theme.colorScheme.onSecondaryContainer,
                 statusBarLight: theme.isLight,
@@ -139,7 +139,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                 initAspectRatio: CropAspectRatioPreset.ratio16x9,
               ),
               IOSUiSettings(
-                title: '瑁佸壀',
+                title: '裁剪',
                 // aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
                 // aspectRatioLockEnabled: false,
                 // resetAspectRatioEnabled: false,
@@ -206,7 +206,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                                   _pickImg(context, theme);
                                 },
                                 child: const Text(
-                                  '鏇挎崲灏侀潰',
+                                  '替换封面',
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),
@@ -217,7 +217,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                                   (context as Element).markNeedsBuild();
                                 },
                                 child: const Text(
-                                  '绉婚櫎灏侀潰',
+                                  '移除封面',
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),
@@ -231,7 +231,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                   );
                 },
                 leading: Text(
-                  '灏侀潰',
+                  '封面',
                   style: leadingStyle,
                 ),
                 trailing: Row(
@@ -276,7 +276,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                         ),
                       ),
                       const TextSpan(
-                        text: '鍚嶇О',
+                        text: '名称',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
@@ -299,7 +299,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                   ],
                   decoration: InputDecoration(
                     isDense: true,
-                    hintText: '鍚嶇О',
+                    hintText: '名称',
                     hintStyle: TextStyle(
                       fontSize: 14,
                       color: theme.colorScheme.outline,
@@ -324,7 +324,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                 SizedBox(
                   width: 55,
                   child: Text(
-                    '绠€浠?,
+                    '简介',
                     style: TextStyle(
                       fontSize: 14,
                       color: theme.colorScheme.onSurfaceVariant,
@@ -342,7 +342,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
                     ],
                     decoration: InputDecoration(
                       isDense: true,
-                      hintText: '鍙～鍐欑畝浠?,
+                      hintText: '可填写简介',
                       hintStyle: TextStyle(
                         fontSize: 14,
                         color: theme.colorScheme.outline,
@@ -369,7 +369,7 @@ class _CreateFavPageState extends State<CreateFavPage> {
               onTap: onTap,
               tileColor: theme.colorScheme.onInverseSurface,
               leading: Text(
-                '鍏紑',
+                '公开',
                 style: leadingStyle,
               ),
               trailing: Transform.scale(
@@ -387,4 +387,3 @@ class _CreateFavPageState extends State<CreateFavPage> {
     ),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply_interaction/interact_status.dart';
+import 'package:liqliquid/models_new/reply_interaction/interact_status.dart';
 
 class ReplyInteractData {
   InteractStatus upReplySelection;
@@ -18,4 +18,3 @@ class ReplyInteractData {
         // upDm: InteractStatus.fromJson(json["up_dm"]),
       );
 }
-

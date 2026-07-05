@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/button/toolbar_icon_button.dart';
@@ -203,12 +203,12 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
       sourcePath: path,
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: '瑁佸壀',
+          toolbarTitle: '裁剪',
           toolbarColor: colorScheme.secondaryContainer,
           toolbarWidgetColor: colorScheme.onSecondaryContainer,
           statusBarLight: colorScheme.isLight,
         ),
-        IOSUiSettings(title: '瑁佸壀'),
+        IOSUiSettings(title: '裁剪'),
       ],
     );
     if (croppedFile != null) {
@@ -233,7 +233,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
           if (pickedFiles.isNotEmpty) {
             for (int i = 0; i < pickedFiles.length; i++) {
               if (imageList.length == limit) {
-                SmartDialog.showToast('鏈€澶氶€夋嫨$limit寮犲浘鐗?);
+                SmartDialog.showToast('最多选择$limit张图片');
                 break;
               } else {
                 imageList.add(FilePicModel(path: pickedFiles[i].path));
@@ -463,7 +463,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     () {
       final isEmoji = panelType.value == PanelType.emoji;
       return ToolbarIconButton(
-        tooltip: isEmoji ? '杈撳叆' : '琛ㄦ儏',
+        tooltip: isEmoji ? '输入' : '表情',
         onPressed: () {
           if (isEmoji) {
             updatePanelType(PanelType.keyboard);
@@ -490,7 +490,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     () {
       final isMore = panelType.value == PanelType.more;
       return ToolbarIconButton(
-        tooltip: isMore ? '杈撳叆' : '鏇村',
+        tooltip: isMore ? '输入' : '更多',
         onPressed: () {
           if (isMore) {
             updatePanelType(PanelType.keyboard);
@@ -511,7 +511,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     feedBack();
     List<Map<String, dynamic>>? pictures;
     if (imageList.isNotEmpty) {
-      SmartDialog.showLoading(msg: '姝ｅ湪涓婁紶鍥剧墖...');
+      SmartDialog.showLoading(msg: '正在上传图片...');
       final cancelToken = CancelToken();
       try {
         pictures = await Future.wait<Map<String, dynamic>>(
@@ -548,4 +548,3 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     return onCustomPublish(pictures: pictures);
   }
 }
-

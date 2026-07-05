@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_search/room.dart';
+import 'package:liqliquid/models_new/live/live_search/room.dart';
 import 'package:liqliquid/models_new/live/live_search/user.dart';
 
 class LiveSearchData {
@@ -19,4 +19,3 @@ class LiveSearchData {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   );
 }
-

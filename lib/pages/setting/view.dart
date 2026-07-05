@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/http/login.dart';
 import 'package:liqliquid/models/common/setting_type.dart';
@@ -43,32 +43,32 @@ class _SettingPageState extends State<SettingPage> {
   static const List<_SettingsModel> _items = [
     _SettingsModel(
       type: SettingType.privacySetting,
-      subtitle: '榛戝悕鍗?,
+      subtitle: '黑名单',
       icon: Icon(Icons.privacy_tip_outlined),
     ),
     _SettingsModel(
       type: SettingType.recommendSetting,
-      subtitle: '鎺ㄨ崘鏉ユ簮锛坵eb/app锛夈€佸埛鏂颁繚鐣欏唴瀹广€佽繃婊ゅ櫒',
+      subtitle: '推荐来源（web/app）、刷新保留内容、过滤器',
       icon: Icon(Icons.explore_outlined),
     ),
     _SettingsModel(
       type: SettingType.videoSetting,
-      subtitle: '鐢昏川銆侀煶璐ㄣ€佽В鐮併€佺紦鍐层€侀煶棰戣緭鍑虹瓑',
+      subtitle: '画质、音质、解码、缓冲、音频输出等',
       icon: Icon(Icons.video_settings_outlined),
     ),
     _SettingsModel(
       type: SettingType.playSetting,
-      subtitle: '鍙屽嚮/闀挎寜銆佸叏灞忋€佸悗鍙版挱鏀俱€佸脊骞曘€佸瓧骞曘€佸簳閮ㄨ繘搴︽潯绛?,
+      subtitle: '双击/长按、全屏、后台播放、弹幕、字幕、底部进度条等',
       icon: Icon(Icons.touch_app_outlined),
     ),
     _SettingsModel(
       type: SettingType.styleSetting,
-      subtitle: '妯睆閫傞厤锛堝钩鏉匡級銆佷晶鏍忋€佸垪瀹姐€侀椤点€佸姩鎬佺孩鐐广€佷富棰樸€佸瓧鍙枫€佸浘鐗囥€佸抚鐜囩瓑',
+      subtitle: '横屏适配（平板）、侧栏、列宽、首页、动态红点、主题、字号、图片、帧率等',
       icon: Icon(Icons.style_outlined),
     ),
     _SettingsModel(
       type: SettingType.extraSetting,
-      subtitle: '闇囧姩銆佹悳绱€佹敹钘忋€乤i銆佽瘎璁恒€佸姩鎬併€佷唬鐞嗐€佹洿鏂版鏌ョ瓑',
+      subtitle: '震动、搜索、收藏、ai、评论、动态、代理、更新检查等',
       icon: Icon(Icons.extension_outlined),
     ),
     _SettingsModel(
@@ -94,7 +94,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: _isPortrait ? const Text('璁剧疆') : Text(_type.title),
+        title: _isPortrait ? const Text('设置') : Text(_type.title),
       ),
       body: ViewSafeArea(
         child: _isPortrait
@@ -194,7 +194,7 @@ class _SettingPageState extends State<SettingPage> {
         ListTile(
           onTap: () => LoginPageController.switchAccountDialog(context),
           leading: const Icon(Icons.switch_account_outlined),
-          title: Text('鍒囨崲璐﹀彿', style: titleStyle),
+          title: Text('切换账号', style: titleStyle),
         ),
         Obx(
           () => _noAccount.value
@@ -202,7 +202,7 @@ class _SettingPageState extends State<SettingPage> {
               : ListTile(
                   leading: const Icon(Icons.logout_outlined),
                   onTap: () => _logoutDialog(context),
-                  title: Text('閫€鍑虹櫥褰?, style: titleStyle),
+                  title: Text('退出登录', style: titleStyle),
                 ),
         ),
         ListTile(
@@ -219,7 +219,7 @@ class _SettingPageState extends State<SettingPage> {
     final result = await showDialog<Set<LoginAccount>>(
       context: context,
       builder: (context) => MultiSelectDialog<LoginAccount>(
-        title: '閫夋嫨瑕佺櫥鍑虹殑璐﹀彿uid',
+        title: '选择要登出的账号uid',
         initValues: const Iterable.empty(),
         values: {
           for (final i in Accounts.account.values) i: i.mid.toString(),
@@ -237,15 +237,15 @@ class _SettingPageState extends State<SettingPage> {
       builder: (context) {
         final theme = Theme.of(context);
         return AlertDialog(
-          title: const Text('鎻愮ず'),
+          title: const Text('提示'),
           content: Text(
-            "纭瑕侀€€鍑轰互涓嬭处鍙风櫥褰曞悧\n\n${result.map((i) => i.mid.toString()).join('\n')}",
+            "确认要退出以下账号登录吗\n\n${result.map((i) => i.mid.toString()).join('\n')}",
           ),
           actions: [
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '鐐归敊浜?,
+                '点错了',
                 style: TextStyle(
                   color: theme.colorScheme.outline,
                 ),
@@ -257,7 +257,7 @@ class _SettingPageState extends State<SettingPage> {
                 logout();
               },
               child: Text(
-                '浠呯櫥鍑?,
+                '仅登出',
                 style: TextStyle(color: theme.colorScheme.error),
               ),
             ),
@@ -274,7 +274,7 @@ class _SettingPageState extends State<SettingPage> {
                   SmartDialog.showToast(res['msg'].toString());
                 }
               },
-              child: const Text('纭'),
+              child: const Text('确认'),
             ),
           ],
         );
@@ -309,7 +309,7 @@ class _SettingPageState extends State<SettingPage> {
                   Icons.search,
                 ),
                 Text(
-                  ' 鎼滅储',
+                  ' 搜索',
                   style: TextStyle(height: 1),
                   strutStyle: StrutStyle(height: 1, leading: 0),
                 ),
@@ -321,4 +321,3 @@ class _SettingPageState extends State<SettingPage> {
     ),
   );
 }
-

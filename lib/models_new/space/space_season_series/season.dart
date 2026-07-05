@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_season_series/meta.dart';
+import 'package:liqliquid/models_new/space/space_season_series/meta.dart';
 
 class SpaceSsModel {
   SpaceSsMeta? meta;
@@ -9,4 +9,3 @@ class SpaceSsModel {
     meta: json["meta"] == null ? null : SpaceSsMeta.fromJson(json["meta"]),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -23,7 +23,7 @@ class _SubPageState extends State<SubPage> with GridMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('鎴戠殑璁㈤槄')),
+      appBar: AppBar(title: const Text('我的订阅')),
       body: refreshIndicator(
         onRefresh: _subController.onRefresh,
         child: CustomScrollView(
@@ -67,4 +67,3 @@ class _SubPageState extends State<SubPage> with GridMixin {
     };
   }
 }
-

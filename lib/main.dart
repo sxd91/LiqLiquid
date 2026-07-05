@@ -1,35 +1,63 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/build_config.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/constants.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/back_detector.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/custom_toast.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/route_aware_mixin.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/scale_app.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/scroll_behavior.dart';
-import 'package:liqliquid/common/widgets/liquid_glass_layer.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/http/init.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/models/common/theme/theme_color_type.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/plugin/pl_player/utils/fullscreen.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/router/app_pages.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/services/account_service.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/services/download/download_service.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/services/logger.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/services/service_locator.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/cache_manager.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/calc_window_position.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/date_utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/extension/theme_ext.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/json_file_handler.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/max_screen_size.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/path_utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/request_utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/storage.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/storage_key.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/theme_utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/utils/utils.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:collection/collection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -44,6 +72,7 @@ import 'package:get/get.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:screen_brightness_platform_interface/screen_brightness_platform_interface.dart';
 import 'package:window_manager/window_manager.dart' hide calcWindowPosition;
 
@@ -188,7 +217,7 @@ void main() async {
   }
 
   if (Pref.enableLog) {
-    // 寮傚父鎹曡幏 logo璁板綍
+    // 异常捕获 logo记录
     final customParameters = {
       'Build Time': DateFormatUtils.format(
         BuildConfig.buildTime,
@@ -260,7 +289,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (light, dark) = getAllTheme();
-    return const LiquidGlassRootLayer(child: GetMaterialApp(
+    // Wrap the entire app with LiquidGlassLayer for glass-morphism UI effect
+    return LiquidGlassLayer(
+      glassColor: Colors.white.withOpacity(0.15),
+      blur: 1.0,
+      thickness: 35.0,
+      child: GetMaterialApp(
       title: Constants.appName,
       theme: light,
       darkTheme: dark,
@@ -275,7 +309,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
       initialRoute: '/',
       getPages: Routes.getPages,
-      defaultTransition: Pref.pageTransition,
+      defaultTransition: Transition.cupertino,
       builder: FlutterSmartDialog.init(
         toastBuilder: CustomToast.new,
         loadingBuilder: LoadingWidget.new,
@@ -291,7 +325,8 @@ class MyApp extends StatelessWidget {
       scrollBehavior: PlatformUtils.isDesktop
           ? const CustomScrollBehavior(desktopDragDevices)
           : null,
-    ),);
+    );
+    ),
   }
 
   static Widget _builder(BuildContext context, Widget? child) {
@@ -388,4 +423,3 @@ class _CustomHttpOverrides extends HttpOverrides {
     return client;
   }
 }
-

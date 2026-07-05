@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
@@ -412,7 +412,7 @@ class AudioController extends GetxController
   @override
   Future<void> actionLikeVideo() async {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final newVal = !hasLike.value;
@@ -441,7 +441,7 @@ class AudioController extends GetxController
   @override
   Future<void> actionTriple() async {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final res = await AudioGrpc.audioTripleLike(
@@ -463,9 +463,9 @@ class AudioController extends GetxController
       }
       hasFav.value = true;
       if (!hasCoin) {
-        SmartDialog.showToast('鎶曞竵澶辫触');
+        SmartDialog.showToast('投币失败');
       } else {
-        SmartDialog.showToast('涓夎繛鎴愬姛');
+        SmartDialog.showToast('三连成功');
       }
     } else {
       res.toast();
@@ -510,7 +510,7 @@ class AudioController extends GetxController
   @override
   void showFavBottomSheet(BuildContext context, {bool isLongPress = false}) {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     if (enableQuickFav) {
@@ -542,14 +542,14 @@ class AudioController extends GetxController
         contentPadding: const EdgeInsets.symmetric(vertical: 12),
         children: [
           DialogOption(
-            child: const Text('澶嶅埗閾炬帴', style: TextStyle(fontSize: 14)),
+            child: const Text('复制链接', style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               Utils.copyText(audioUrl);
             },
           ),
           DialogOption(
-            child: const Text('鍏跺畠app鎵撳紑', style: TextStyle(fontSize: 14)),
+            child: const Text('其它app打开', style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               PageUtils.launchURL(audioUrl);
@@ -557,7 +557,7 @@ class AudioController extends GetxController
           ),
           if (PlatformUtils.isMobile)
             DialogOption(
-              child: const Text('鍒嗕韩瑙嗛', style: TextStyle(fontSize: 14)),
+              child: const Text('分享视频', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 if (audioItem.value case DetailItem(
@@ -566,7 +566,7 @@ class AudioController extends GetxController
                 )) {
                   ShareUtils.shareText(
                     '${arc.title} '
-                    'UP涓? ${owner.name}'
+                    'UP主: ${owner.name}'
                     ' - $audioUrl',
                   );
                 }
@@ -574,7 +574,7 @@ class AudioController extends GetxController
             ),
           if (isLogin)
             DialogOption(
-              child: const Text('鍒嗕韩鑷冲姩鎬?, style: TextStyle(fontSize: 14)),
+              child: const Text('分享至动态', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 if (audioItem.value case DetailItem(
@@ -598,7 +598,7 @@ class AudioController extends GetxController
             ),
           if (isUgc && isLogin)
             DialogOption(
-              child: const Text('鍒嗕韩鑷虫秷鎭?, style: TextStyle(fontSize: 14)),
+              child: const Text('分享至消息', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 if (audioItem.value case DetailItem(
@@ -793,4 +793,3 @@ extension on ResponseUrl {
     yield* backupUrl;
   }
 }
-

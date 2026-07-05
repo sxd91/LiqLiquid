@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/fav/pgc/child_view.dart';
+import 'package:liqliquid/pages/fav/pgc/child_view.dart';
 import 'package:liqliquid/pages/fav/pgc/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:flutter/material.dart';
@@ -72,9 +72,9 @@ class _FavPgcPageState extends State<FavPgcPage>
                 labelColor: theme.colorScheme.onSecondaryContainer,
                 unselectedLabelColor: theme.colorScheme.outline,
                 tabs: const [
-                  Tab(text: '鎯崇湅'),
-                  Tab(text: '鍦ㄧ湅'),
-                  Tab(text: '鐪嬭繃'),
+                  Tab(text: '想看'),
+                  Tab(text: '在看'),
+                  Tab(text: '看过'),
                 ],
                 onTap: (index) {
                   try {
@@ -95,7 +95,7 @@ class _FavPgcPageState extends State<FavPgcPage>
             //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             //   ),
             //   onPressed: () {},
-            //   child: const Text('绠＄悊'),
+            //   child: const Text('管理'),
             // ),
             // const SizedBox(width: 12),
           ],
@@ -117,4 +117,3 @@ class _FavPgcPageState extends State<FavPgcPage>
     );
   }
 }
-

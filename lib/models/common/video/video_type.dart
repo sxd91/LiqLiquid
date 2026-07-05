@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 
 enum VideoType {
   ugc(
@@ -25,4 +25,3 @@ enum VideoType {
     this.replyType = 1,
   });
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_like/latest.dart';
+import 'package:liqliquid/models_new/msg/msg_like/latest.dart';
 import 'package:liqliquid/models_new/msg/msg_like/total.dart';
 
 class MsgLikeData {
@@ -16,4 +16,3 @@ class MsgLikeData {
         : Total.fromJson(json['total'] as Map<String, dynamic>),
   );
 }
-

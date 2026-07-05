@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -163,7 +163,7 @@ class _MemberVideoState extends State<MemberVideo>
                               _jumpToIndex(locatedIndex);
                             }
                           },
-                          label: const Text('瀹氫綅鑷充笂娆¤鐪?),
+                          label: const Text('定位至上次观看'),
                         ),
                       ),
                     ),
@@ -238,7 +238,7 @@ class _MemberVideoState extends State<MemberVideo>
     final count = _controller.count;
     if (count != null) {
       return Text(
-        '鍏?count瑙嗛',
+        '共$count视频',
         style: const TextStyle(fontSize: 13),
       );
     }
@@ -261,7 +261,7 @@ class _MemberVideoState extends State<MemberVideo>
             color: theme.colorScheme.secondary,
           ),
           label: Text(
-            episodicButton?.text ?? '鎾斁鍏ㄩ儴',
+            episodicButton?.text ?? '播放全部',
             style: TextStyle(
               fontSize: 13,
               color: theme.colorScheme.secondary,
@@ -292,4 +292,3 @@ class _MemberVideoState extends State<MemberVideo>
     );
   }
 }
-

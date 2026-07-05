@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/user/info.dart';
@@ -110,7 +110,7 @@ abstract final class UserHttp {
     bool switchStatus, {
     Account? account,
   }) async {
-    // 暂停switchStatus为true 否则false
+    // 暂停switchStatus传true 否则false
     account ??= Accounts.history;
     final res = await Request().post(
       Api.pauseHistory,
@@ -174,8 +174,8 @@ abstract final class UserHttp {
     final res = await Request().post(
       Api.toViewLater,
       data: {
-        'aid': aid,
-        'bvid': bvid,
+        'aid': ?aid,
+        'bvid': ?bvid,
         'csrf': Accounts.main.csrf,
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
@@ -209,7 +209,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 鑾峰彇鐢ㄦ埛鍑瘉 澶辨晥
+  // 获取用户凭证 失效
   // static Future thirdLogin() async {
   //   final res = await Request().get(
   //     'https://passport.bilibili.com/login/app/third',
@@ -224,11 +224,11 @@ abstract final class UserHttp {
   //       Request().get(res.data['data']['confirm_uri']);
   //     }
   //   } catch (err) {
-  //     SmartDialog.showNotify(msg: '鑾峰彇鐢ㄦ埛鍑瘉: $err', notifyType: NotifyType.error);
+  //     SmartDialog.showNotify(msg: '获取用户凭证: $err', notifyType: NotifyType.error);
   //   }
   // }
 
-  // 娓呯┖绋嶅悗鍐嶇湅 // clean_type: null->all, 1->invalid, 2->viewed
+  // 清空稍后再看 // clean_type: null->all, 1->invalid, 2->viewed
   static Future<LoadingState<void>> toViewClear([int? cleanType]) async {
     final res = await Request().post(
       Api.toViewClear,
@@ -245,7 +245,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 鍒犻櫎鍘嗗彶璁板綍
+  // 删除历史记录
   static Future<LoadingState<void>> delHistory(
     String kid, {
     Account? account,
@@ -284,7 +284,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 鎼滅储鍘嗗彶璁板綍
+  // 搜索历史记录
   static Future<LoadingState<HistoryData>> searchHistory({
     required int pn,
     required String keyword,
@@ -306,7 +306,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 鎴戠殑璁㈤槄
+  // 我的订阅
   static Future<LoadingState<SubData>> userSubFolder({
     required int mid,
     required int pn,
@@ -347,7 +347,7 @@ abstract final class UserHttp {
     }
   }
 
-  // 稍后再看鍒楄〃
+  // 稍后再看列表
   static Future<LoadingState<MediaListData>> getMediaList({
     required Object type,
     required Object bizId,
@@ -558,7 +558,7 @@ abstract final class UserHttp {
       Api.sameFollowing,
       queryParameters: {
         'csrf': Accounts.main.csrf,
-        'pn': pn,
+        'pn': ?pn,
         'vmid': mid,
         'web_location': 333.789,
         'x-bili-device-req-json':
@@ -591,4 +591,3 @@ abstract final class UserHttp {
     }
   }
 }
-

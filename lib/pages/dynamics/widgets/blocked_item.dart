@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/dynamics/result.dart' show ModuleBlocked;
+import 'package:liqliquid/models/dynamics/result.dart' show ModuleBlocked;
 import 'package:liqliquid/pages/article/widgets/opus_content.dart'
     show moduleBlockedItem;
 import 'package:flutter/material.dart';
@@ -13,4 +13,3 @@ Widget blockedItem(
     child: moduleBlockedItem(context, theme, blocked),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_fav/list.dart';
+import 'package:liqliquid/models_new/space/space_fav/list.dart';
 
 class Favourite2 {
   int? count;
@@ -13,4 +13,3 @@ class Favourite2 {
         .toList(),
   );
 }
-

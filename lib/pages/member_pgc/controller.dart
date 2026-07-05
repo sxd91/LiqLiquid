@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/common/member/contribute_type.dart';
 import 'package:liqliquid/models_new/space/space/data.dart';
@@ -55,4 +55,3 @@ class MemberBangumiCtr
         pn: page,
       );
 }
-

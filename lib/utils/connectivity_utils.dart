@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract final class ConnectivityUtils {
@@ -13,4 +13,3 @@ abstract final class ConnectivityUtils {
     }
   }
 }
-

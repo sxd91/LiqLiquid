@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_timeline/episode.dart';
+import 'package:liqliquid/models_new/pgc/pgc_timeline/episode.dart';
 
 class TimelineResult {
   String? date;
@@ -33,4 +33,3 @@ class TimelineResult {
     }
   }
 }
-

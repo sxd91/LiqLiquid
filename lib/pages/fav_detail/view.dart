@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -91,7 +91,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                                 _favDetailController.setIsPlayAll(true);
                               }
                             },
-                            label: const Text('鎾斁鍏ㄩ儴'),
+                            label: const Text('播放全部'),
                             icon: const Icon(Icons.playlist_play),
                           ),
                         ),
@@ -137,14 +137,14 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
               mainAxisSize: .min,
               children: [
                 IconButton(
-                  tooltip: '鍙栨秷',
+                  tooltip: '取消',
                   onPressed: _favDetailController.handleSelect,
                   icon: const Icon(Icons.close_outlined),
                 ),
                 Obx(
                   () {
                     return Text(
-                      '宸查€? ${_favDetailController.checkedCount}',
+                      '已选: ${_favDetailController.checkedCount}',
                       style: const TextStyle(fontSize: 15),
                     );
                   },
@@ -164,7 +164,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                   style: theme.textTheme.titleMedium,
                 ),
                 Text(
-                  '鍏?{_favDetailController.folderInfo.value.mediaCount}鏉¤棰?,
+                  '共${_favDetailController.folderInfo.value.mediaCount}条视频',
                   style: theme.textTheme.labelMedium,
                 ),
               ],
@@ -177,7 +177,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
   List<Widget> _actions(ThemeData theme) {
     return [
       IconButton(
-        tooltip: '鎼滅储',
+        tooltip: '搜索',
         onPressed: () {
           final folderInfo = _favDetailController.folderInfo.value;
           Get.toNamed(
@@ -199,7 +199,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
             ? const SizedBox.shrink()
             : IconButton(
                 iconSize: 22,
-                tooltip: '鍒嗕韩',
+                tooltip: '分享',
                 onPressed: () => ShareUtils.shareText(
                   'https://www.bilibili.com/medialist/detail/ml${_favDetailController.mediaId}',
                 ),
@@ -211,7 +211,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
           return PopupMenuButton<FavOrderType>(
             icon: const Icon(Icons.sort),
             initialValue: _favDetailController.order.value,
-            tooltip: '鎺掑簭鏂瑰紡',
+            tooltip: '排序方式',
             onSelected: (value) => _favDetailController
               ..order.value = value
               ..onReload(),
@@ -236,7 +236,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
               if (isOwner) ...[
                 PopupMenuItem(
                   onTap: _favDetailController.onSort,
-                  child: const Text('鎺掑簭'),
+                  child: const Text('排序'),
                 ),
                 PopupMenuItem(
                   onTap: () =>
@@ -248,13 +248,13 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                           _favDetailController.folderInfo.value = res;
                         }
                       }),
-                  child: const Text('缂栬緫淇℃伅'),
+                  child: const Text('编辑信息'),
                 ),
               ] else
                 PopupMenuItem(
                   onTap: () =>
                       _favDetailController.onFav(folderInfo.favState == 1),
-                  child: Text('${folderInfo.favState == 1 ? '鍙栨秷' : ''}鏀惰棌'),
+                  child: Text('${folderInfo.favState == 1 ? '取消' : ''}收藏'),
                 ),
               if (BiliUtils.isPublicFav(folderInfo.attr))
                 PopupMenuItem(
@@ -270,23 +270,23 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                       uname: folderInfo.upper?.name,
                     ),
                   ),
-                  child: const Text('鍒嗕韩鑷冲姩鎬?),
+                  child: const Text('分享至动态'),
                 ),
               if (isOwner) ...<PopupMenuEntry>[
                 PopupMenuItem(
                   onTap: _favDetailController.cleanFav,
-                  child: const Text('娓呴櫎澶辨晥鍐呭'),
+                  child: const Text('清除失效内容'),
                 ),
                 if (!BiliUtils.isDefaultFav(folderInfo.attr)) ...[
                   const PopupMenuDivider(height: 12),
                   PopupMenuItem(
                     onTap: () => showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍒犻櫎璇ユ敹钘忓す?'),
+                      title: const Text('确定删除该收藏夹?'),
                       onConfirm: () =>
                           FavHttp.deleteFolder(mediaIds: mediaId).then((res) {
                             if (res.isSuccess) {
-                              SmartDialog.showToast('鍒犻櫎鎴愬姛');
+                              SmartDialog.showToast('删除成功');
                               Get.back(result: true);
                             } else {
                               res.toast();
@@ -294,7 +294,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                           }),
                     ),
                     child: Text(
-                      '鍒犻櫎',
+                      '删除',
                       style: TextStyle(
                         color: theme.colorScheme.error,
                       ),
@@ -316,7 +316,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
       TextButton(
         style: btnStyle,
         onPressed: () => _favDetailController.handleSelect(checked: true),
-        child: const Text('鍏ㄩ€?),
+        child: const Text('全选'),
       ),
       TextButton(
         style: btnStyle,
@@ -327,7 +327,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
           mediaId: _favDetailController.mediaId,
           mid: _favDetailController.account.mid,
         ),
-        child: Text('澶嶅埗', style: textStyle),
+        child: Text('复制', style: textStyle),
       ),
       TextButton(
         style: btnStyle,
@@ -338,13 +338,13 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
           mediaId: _favDetailController.mediaId,
           mid: _favDetailController.account.mid,
         ),
-        child: Text('绉诲姩', style: textStyle),
+        child: Text('移动', style: textStyle),
       ),
       TextButton(
         style: btnStyle,
         onPressed: _favDetailController.onRemove,
         child: Text(
-          '鍒犻櫎',
+          '删除',
           style: TextStyle(color: theme.colorScheme.error),
         ),
       ),
@@ -399,7 +399,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                           return iconButton(
                             size: 28,
                             iconSize: 18,
-                            tooltip: '${isFav ? '鍙栨秷' : ''}鏀惰棌',
+                            tooltip: '${isFav ? '取消' : ''}收藏',
                             onPressed: () => _favDetailController.onFav(isFav),
                             icon: isFav
                                 ? const Icon(Icons.favorite)
@@ -453,7 +453,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                             const SizedBox(height: 4),
                           ],
                           Text(
-                            '鍏?{folderInfo.mediaCount}鏉¤棰?路 '
+                            '共${folderInfo.mediaCount}条视频 · '
                             '${BiliUtils.isPublicFavText(folderInfo.attr)}',
                             style: style,
                           ),
@@ -487,7 +487,7 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
                       height: 60,
                       alignment: Alignment.center,
                       child: Text(
-                        _favDetailController.isEnd ? '娌℃湁鏇村浜? : '鍔犺浇涓?..',
+                        _favDetailController.isEnd ? '没有更多了' : '加载中...',
                         style: TextStyle(
                           color: theme.colorScheme.outline,
                           fontSize: 13,
@@ -512,4 +512,3 @@ class _FavDetailPageState extends State<FavDetailPage> with GridMixin {
     };
   }
 }
-

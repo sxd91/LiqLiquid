@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/archive/middleware/v1.pb.dart';
+import 'package:liqliquid/grpc/bilibili/app/archive/middleware/v1.pb.dart';
 import 'package:liqliquid/grpc/bilibili/app/listener/v1.pb.dart';
 import 'package:liqliquid/grpc/bilibili/pagination.pb.dart';
 import 'package:liqliquid/grpc/grpc_req.dart';
@@ -131,4 +131,3 @@ abstract final class AudioGrpc {
     );
   }
 }
-

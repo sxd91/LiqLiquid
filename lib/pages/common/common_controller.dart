@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
@@ -67,4 +67,3 @@ abstract class CommonController<R, T> extends GetxController
     super.onClose();
   }
 }
-

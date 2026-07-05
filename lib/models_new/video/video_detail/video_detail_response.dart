@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/data.dart';
+import 'package:liqliquid/models_new/video/video_detail/data.dart';
 
 class VideoDetailResponse {
   int? code;
@@ -19,4 +19,3 @@ class VideoDetailResponse {
     );
   }
 }
-

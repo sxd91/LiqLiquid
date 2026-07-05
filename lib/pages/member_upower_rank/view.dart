@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
@@ -89,7 +89,7 @@ class _UpowerRankPageState extends State<UpowerRankPage>
       return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('$_name鐨勫厖鐢垫帓琛屾${_count == null ? '' : '($_count)'}'),
+          title: Text('$_name的充电排行榜${_count == null ? '' : '($_count)'}'),
           actions: [
             TextButton(
               onPressed: () => Get.toNamed(
@@ -100,7 +100,7 @@ class _UpowerRankPageState extends State<UpowerRankPage>
                 },
               ),
               style: TextButton.styleFrom(visualDensity: VisualDensity.compact),
-              child: const Text('鍏呯數'),
+              child: const Text('充电'),
             ),
             const SizedBox(width: 12),
           ],
@@ -239,7 +239,7 @@ class _UpowerRankPageState extends State<UpowerRankPage>
                               ),
                             ),
                             const TextSpan(
-                              text: ' 澶?,
+                              text: ' 天',
                               style: TextStyle(fontSize: 13),
                             ),
                           ],
@@ -260,4 +260,3 @@ class _UpowerRankPageState extends State<UpowerRankPage>
   @override
   bool get wantKeepAlive => widget.privilegeType != null;
 }
-

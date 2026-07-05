@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
 
 class MemberInfoModel {
@@ -84,4 +84,3 @@ class LiveRoom {
         : WatchedShow.fromJson(json['watched_show']);
   }
 }
-

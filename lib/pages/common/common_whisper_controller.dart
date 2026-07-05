@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show SessionPageType, SessionId, Session;
 import 'package:liqliquid/grpc/im.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -18,7 +18,7 @@ abstract class CommonWhisperController<R>
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -41,7 +41,7 @@ abstract class CommonWhisperController<R>
         list.insert(0, list.removeAt(index));
       }
       loadingState.refresh();
-      SmartDialog.showToast('${isTop ? '绉婚櫎' : ''}缃《鎴愬姛');
+      SmartDialog.showToast('${isTop ? '移除' : ''}置顶成功');
     } else {
       res.toast();
     }
@@ -56,7 +56,7 @@ abstract class CommonWhisperController<R>
     if (res.isSuccess) {
       item.isMuted = !isMuted;
       loadingState.refresh();
-      SmartDialog.showToast('璁剧疆鎴愬姛');
+      SmartDialog.showToast('设置成功');
     } else {
       res.toast();
     }
@@ -75,7 +75,7 @@ abstract class CommonWhisperController<R>
           loadingState.refresh();
         }
       }
-      SmartDialog.showToast('宸叉爣璁颁负宸茶');
+      SmartDialog.showToast('已标记为已读');
     } else {
       res.toast();
     }
@@ -90,4 +90,3 @@ abstract class CommonWhisperController<R>
     }
   }
 }
-

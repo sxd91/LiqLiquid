@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_stein_edgeinfo/choice.dart';
+import 'package:liqliquid/models_new/video/video_stein_edgeinfo/choice.dart';
 
 class Question {
   List<Choice>? choices;
@@ -13,4 +13,3 @@ class Question {
         .toList(),
   );
 }
-

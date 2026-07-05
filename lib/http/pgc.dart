@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/pgc_review_type.dart';
@@ -91,7 +91,7 @@ abstract final class PgcHttp {
   }
 
   static Future<LoadingState<List<TimelineResult>?>> pgcTimeline({
-    int types = 1, // 1锛歚鐣墽`<br />3锛歚鐢靛奖`<br />4锛歚鍥藉垱` |
+    int types = 1, // 1：`番剧`<br />3：`电影`<br />4：`国创` |
     required int before,
     required int after,
   }) async {
@@ -255,4 +255,3 @@ abstract final class PgcHttp {
     }
   }
 }
-

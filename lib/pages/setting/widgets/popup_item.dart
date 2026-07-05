@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart' hide ListTile;
@@ -120,4 +120,3 @@ class _PopupListTileState<T> extends State<PopupListTile<T>> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/member/search_archive/list.dart';
+import 'package:liqliquid/models_new/member/search_archive/list.dart';
 import 'package:liqliquid/models_new/member/search_archive/page.dart';
 
 class SearchArchiveData {
@@ -20,4 +20,3 @@ class SearchArchiveData {
             : Page.fromJson(json['page'] as Map<String, dynamic>),
       );
 }
-

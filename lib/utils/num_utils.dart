@@ -1,16 +1,16 @@
-﻿import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 
 abstract final class NumUtils {
-  static final _numRegExp = RegExp(r'([\d\.]+)([鍗冧竾浜縘)?');
+  static final _numRegExp = RegExp(r'([\d\.]+)([千万亿])?');
 
   static int _getUnit(String? unit) {
     switch (unit) {
-      case '鍗?:
+      case '千':
         return 1000;
-      case '涓?:
+      case '万':
         return 10000;
-      case '浜?:
+      case '亿':
         return 100000000;
       default:
         return 1;
@@ -52,9 +52,9 @@ abstract final class NumUtils {
     }
 
     if (number >= 100000000) {
-      return format(100000000, '浜?);
+      return format(100000000, '亿');
     } else if (number >= 10000) {
-      return format(10000, '涓?);
+      return format(10000, '万');
     } else {
       return number.toString();
     }
@@ -80,4 +80,3 @@ abstract final class NumUtils {
     return sb.toString();
   }
 }
-

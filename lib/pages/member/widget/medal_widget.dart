@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/models_new/live/live_medal_wall/uinfo_medal.dart';
 import 'package:liqliquid/utils/color_utils.dart';
 import 'package:flutter/material.dart';
@@ -75,4 +75,3 @@ class MedalWidget extends StatelessWidget {
     );
   }
 }
-

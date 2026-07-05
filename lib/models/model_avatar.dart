@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class Avatar extends Owner {
   Pendant? pendant;
@@ -51,4 +51,3 @@ class Label {
     text = json['text'];
   }
 }
-

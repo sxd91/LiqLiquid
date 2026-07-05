@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/progress_bar/segment_progress_bar.dart';
@@ -41,11 +41,11 @@ class _ViewPointsPageState extends State<ViewPointsPage>
         primary: false,
         automaticallyImplyLeading: false,
         titleSpacing: 16,
-        title: const Text('鍒嗘淇℃伅'),
+        title: const Text('分段信息'),
         toolbarHeight: 45,
         actions: [
           const Text(
-            '鍒嗘杩涘害鏉?',
+            '分段进度条 ',
             style: TextStyle(fontSize: 16),
           ),
           Obx(
@@ -63,7 +63,7 @@ class _ViewPointsPageState extends State<ViewPointsPage>
             context: context,
             size: 30,
             icon: const Icon(Icons.clear),
-            tooltip: '鍏抽棴',
+            tooltip: '关闭',
             onPressed: Get.back,
           ),
           const SizedBox(width: 16),
@@ -115,7 +115,7 @@ class _ViewPointsPageState extends State<ViewPointsPage>
     );
     if (_isNested) {
       return ExtendedVisibilityDetector(
-        uniqueKey: const Key('viewpoints'),
+        uniqueKey: const ValueKey(ViewPointsPage),
         child: child,
       );
     }
@@ -182,4 +182,3 @@ class _ViewPointsPageState extends State<ViewPointsPage>
     );
   }
 }
-

@@ -1,12 +1,11 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 
 enum ArchiveOrderTypeApp with EnumWithLabel {
-  pubdate('鏈€鏂板彂甯?),
-  click('鏈€澶氭挱鏀?),
+  pubdate('最新发布'),
+  click('最多播放'),
   ;
 
   @override
   final String label;
   const ArchiveOrderTypeApp(this.label);
 }
-

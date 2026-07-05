@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/iterable_ext.dart';
+import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class RelationData {
   int? attribute;
@@ -20,4 +20,3 @@ class RelationData {
     special: json['special'] as int?,
   );
 }
-

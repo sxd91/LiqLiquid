@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:math' show max;
 
 import 'package:liqliquid/common/widgets/custom_icon.dart';
@@ -55,7 +55,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 List<SettingsModel> get extraSettings => [
   if (PlatformUtils.isDesktop) ...[
     SwitchModel(
-      title: '閫€鍑烘椂鏈€灏忓寲',
+      title: '退出时最小化',
       leading: const Icon(Icons.exit_to_app),
       setKey: SettingBoxKey.minimizeOnExit,
       defaultVal: true,
@@ -66,7 +66,7 @@ List<SettingsModel> get extraSettings => [
       },
     ),
     NormalModel(
-      title: '缂撳瓨璺緞',
+      title: '缓存路径',
       getSubtitle: () => downloadPath,
       leading: const Icon(Icons.storage),
       onTap: _showDownPathDialog,
@@ -74,8 +74,8 @@ List<SettingsModel> get extraSettings => [
   ],
   SplitModel(
     normalModel: const NormalModel.split(
-      title: '绌洪檷鍔╂墜',
-      subtitle: '鐐瑰嚮閰嶇疆',
+      title: '空降助手',
+      subtitle: '点击配置',
       leading: Icon(CustomIcons.shield_play_arrow),
     ),
     switchModel: SwitchModel.split(
@@ -85,7 +85,7 @@ List<SettingsModel> get extraSettings => [
     ),
   ),
   PopupModel<SkipType>(
-    title: '鐣墽鐗囧ご/鐗囧熬璺宠繃绫诲瀷',
+    title: '番剧片头/片尾跳过类型',
     leading: const Icon(MdiIcons.debugStepOver),
     value: () => Pref.pgcSkipType,
     items: SkipType.values,
@@ -95,8 +95,8 @@ List<SettingsModel> get extraSettings => [
   ),
   SplitModel(
     normalModel: const NormalModel.split(
-      title: '妫€鏌ユ湭璇诲姩鎬?,
-      subtitle: '鐐瑰嚮璁剧疆妫€鏌ュ懆鏈?min)',
+      title: '检查未读动态',
+      subtitle: '点击设置检查周期(min)',
       leading: Icon(Icons.notifications_none),
     ),
     switchModel: SwitchModel.split(
@@ -107,73 +107,73 @@ List<SettingsModel> get extraSettings => [
     ),
   ),
   const SwitchModel(
-    title: '鏄剧ず瑙嗛鍒嗘淇℃伅',
+    title: '显示视频分段信息',
     leading: Icon(CustomIcons.view_headline_rotate_90),
     setKey: SettingBoxKey.showViewPoints,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '瑙嗛椤垫樉绀虹浉鍏宠棰?,
+    title: '视频页显示相关视频',
     leading: Icon(MdiIcons.motionPlayOutline),
     setKey: SettingBoxKey.showRelatedVideo,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鏄剧ず瑙嗛璇勮',
+    title: '显示视频评论',
     leading: Icon(MdiIcons.commentTextOutline),
     setKey: SettingBoxKey.showVideoReply,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鏄剧ず鐣墽璇勮',
+    title: '显示番剧评论',
     leading: Icon(MdiIcons.commentTextOutline),
     setKey: SettingBoxKey.showBangumiReply,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '榛樿灞曞紑瑙嗛绠€浠?,
+    title: '默认展开视频简介',
     leading: Icon(Icons.expand_more),
     setKey: SettingBoxKey.alwaysExpandIntroPanel,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '妯睆鑷姩灞曞紑瑙嗛绠€浠?,
+    title: '横屏自动展开视频简介',
     leading: Icon(Icons.expand_more),
     setKey: SettingBoxKey.expandIntroPanelH,
     defaultVal: false,
   ),
   SwitchModel(
-    title: '妯睆鍒哖/鍚堥泦鍒楄〃鏄剧ず鍦═ab鏍?,
+    title: '横屏分P/合集列表显示在Tab栏',
     leading: const Icon(Icons.format_list_numbered_rtl_sharp),
     setKey: SettingBoxKey.horizontalSeasonPanel,
     defaultVal: Pref.horizontalScreen,
   ),
   SwitchModel(
-    title: '妯睆鎾斁椤靛湪渚ф爮鎵撳紑UP涓婚〉',
+    title: '横屏播放页在侧栏打开UP主页',
     leading: const Icon(Icons.account_circle_outlined),
     setKey: SettingBoxKey.horizontalMemberPage,
     defaultVal: Pref.horizontalScreen,
   ),
   SwitchModel(
-    title: '妯睆鍦ㄤ晶鏍忔墦寮€鍥剧墖棰勮',
+    title: '横屏在侧栏打开图片预览',
     leading: const Icon(Icons.photo_outlined),
     setKey: SettingBoxKey.horizontalPreview,
     defaultVal: false,
     onChanged: (value) => ImageGridView.horizontalPreview = value,
   ),
   NormalModel(
-    title: '璇勮鎶樺彔琛屾暟',
-    subtitle: '0琛屼负涓嶆姌鍙?,
+    title: '评论折叠行数',
+    subtitle: '0行为不折叠',
     leading: const Icon(Icons.compress),
     getTrailing: (theme) => Text(
-      '${ReplyItemGrpc.replyLengthLimit}琛?,
+      '${ReplyItemGrpc.replyLengthLimit}行',
       style: theme.textTheme.titleSmall,
     ),
     onTap: _showReplyLengthDialog,
   ),
   NormalModel(
-    title: '寮瑰箷琛岄珮',
-    subtitle: '榛樿1.6',
+    title: '弹幕行高',
+    subtitle: '默认1.6',
     leading: const Icon(CustomIcons.dm_settings),
     getTrailing: (theme) => Text(
       Pref.danmakuLineHeight.toString(),
@@ -182,40 +182,40 @@ List<SettingsModel> get extraSettings => [
     onTap: _showDmHeightDialog,
   ),
   const SwitchModel(
-    title: '鏄剧ず瑙嗛璀﹀憡/浜夎淇℃伅',
+    title: '显示视频警告/争议信息',
     leading: Icon(Icons.warning_amber_rounded),
     setKey: SettingBoxKey.showArgueMsg,
     defaultVal: true,
   ),
   SwitchModel(
-    title: '鏄剧ず鍔ㄦ€佽鍛?浜夎淇℃伅',
+    title: '显示动态警告/争议信息',
     leading: const Icon(Icons.warning_amber_rounded),
     setKey: SettingBoxKey.showDynDispute,
     defaultVal: false,
     onChanged: (val) => ItemModulesModel.showDynDispute = val,
   ),
   const SwitchModel(
-    title: '鍒哖/鍚堥泦锛氬€掑簭鎾斁浠庨闆嗗紑濮嬫挱鏀?,
-    subtitle: '寮€鍚垯鑷姩鍒囨崲涓哄€掑簭棣栭泦锛屽惁鍒欎繚鎸佸綋鍓嶉泦',
+    title: '分P/合集：倒序播放从首集开始播放',
+    subtitle: '开启则自动切换为倒序首集，否则保持当前集',
     leading: Icon(MdiIcons.sort),
     setKey: SettingBoxKey.reverseFromFirst,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '绂佺敤 SSL 璇佷功楠岃瘉',
-    subtitle: '璋ㄦ厧寮€鍚紝绂佺敤瀹规槗鍙楀埌涓棿浜烘敾鍑?,
+    title: '禁用 SSL 证书验证',
+    subtitle: '谨慎开启，禁用容易受到中间人攻击',
     leading: Icon(Icons.security),
     needReboot: true,
     setKey: SettingBoxKey.badCertificateCallback,
   ),
   const SwitchModel(
-    title: '鏄剧ず缁х画鎾斁鍒哖鎻愮ず',
+    title: '显示继续播放分P提示',
     leading: Icon(Icons.local_parking),
     setKey: SettingBoxKey.continuePlayingPart,
     defaultVal: true,
   ),
   getBanWordModel(
-    title: '璇勮鍏抽敭璇嶈繃婊?,
+    title: '评论关键词过滤',
     key: SettingBoxKey.banWordForReply,
     onChanged: (value) {
       ReplyGrpc.replyRegExp = value;
@@ -223,7 +223,7 @@ List<SettingsModel> get extraSettings => [
     },
   ),
   getBanWordModel(
-    title: '鍔ㄦ€佸叧閿瘝杩囨护',
+    title: '动态关键词过滤',
     key: SettingBoxKey.banWordForDyn,
     onChanged: (value) {
       DynamicsDataModel.banWordForDyn = value;
@@ -231,45 +231,45 @@ List<SettingsModel> get extraSettings => [
     },
   ),
   const SwitchModel(
-    title: '浣跨敤澶栭儴娴忚鍣ㄦ墦寮€閾炬帴',
+    title: '使用外部浏览器打开链接',
     leading: Icon(Icons.open_in_browser),
     setKey: SettingBoxKey.openInBrowser,
     defaultVal: false,
   ),
   NormalModel(
-    title: '妯悜婊戝姩闃堝€?,
-    getSubtitle: () => '褰撳墠:銆?{Pref.touchSlopH}銆嶏紝绯荤粺榛樿鍊? $deviceTouchSlop',
+    title: '横向滑动阈值',
+    getSubtitle: () => '当前:「${Pref.touchSlopH}」，系统默认值: $deviceTouchSlop',
     onTap: _showTouchSlopDialog,
     leading: const Icon(Icons.pan_tool_alt_outlined),
   ),
   NormalModel(
-    title: '鍒锋柊婊戝姩璺濈',
+    title: '刷新滑动距离',
     leading: const Icon(Icons.refresh),
-    getSubtitle: () => '褰撳墠婊戝姩璺濈: ${Pref.refreshDragPercentage}x',
+    getSubtitle: () => '当前滑动距离: ${Pref.refreshDragPercentage}x',
     onTap: _showRefreshDragDialog,
   ),
   NormalModel(
-    title: '鍒锋柊鎸囩ず鍣ㄩ珮搴?,
+    title: '刷新指示器高度',
     leading: const Icon(Icons.height),
-    getSubtitle: () => '褰撳墠鎸囩ず鍣ㄩ珮搴? ${Pref.refreshDisplacement}',
+    getSubtitle: () => '当前指示器高度: ${Pref.refreshDisplacement}',
     onTap: _showRefreshDialog,
   ),
   const SwitchModel(
-    title: '鏄剧ず浼氬憳褰╄壊寮瑰箷',
+    title: '显示会员彩色弹幕',
     leading: Icon(MdiIcons.gradientHorizontal),
     setKey: SettingBoxKey.showVipDanmaku,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鍚堝苟寮瑰箷',
-    subtitle: '鍚堝苟涓€娈垫椂闂村唴鑾峰彇鍒扮殑鐩稿悓寮瑰箷',
+    title: '合并弹幕',
+    subtitle: '合并一段时间内获取到的相同弹幕',
     leading: Icon(Icons.merge),
     setKey: SettingBoxKey.mergeDanmaku,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '鏄剧ず鐑棬鎺ㄨ崘',
-    subtitle: '鐑棬椤甸潰鏄剧ず姣忓懆蹇呯湅绛夋帹鑽愬唴瀹瑰叆鍙?,
+    title: '显示热门推荐',
+    subtitle: '热门页面显示每周必看等推荐内容入口',
     leading: Icon(Icons.local_fire_department_outlined),
     setKey: SettingBoxKey.showHotRcmd,
     defaultVal: false,
@@ -277,7 +277,7 @@ List<SettingsModel> get extraSettings => [
   ),
   if (kDebugMode || Platform.isAndroid)
     NormalModel(
-      title: '闊抽噺鍧囪　',
+      title: '音量均衡',
       leading: const Icon(Icons.multitrack_audio),
       getSubtitle: () {
         final audioNormalization = AudioNormalization.getTitleFromConfig(
@@ -288,97 +288,97 @@ List<SettingsModel> get extraSettings => [
           fallback = '';
         } else {
           fallback =
-              '锛屾棤鍙傛暟鏃?銆?{AudioNormalization.getTitleFromConfig(fallback)}銆?;
+              '，无参数时:「${AudioNormalization.getTitleFromConfig(fallback)}」';
         }
-        return '褰撳墠:銆?audioNormalization銆?fallback';
+        return '当前:「$audioNormalization」$fallback';
       },
       onTap: audioNormalization,
     ),
   NormalModel(
-    title: '瓒呭垎杈ㄧ巼',
+    title: '超分辨率',
     leading: const Icon(Icons.stay_current_landscape_outlined),
     getSubtitle: () =>
-        '褰撳墠:銆?{Pref.superResolutionType.label}銆峔n榛樿璁剧疆瀵圭暘鍓х敓鏁? 鍏朵粬瑙嗛榛樿鍏抽棴\n瓒呭垎杈ㄧ巼闇€瑕佸惎鐢ㄧ‖浠惰В鐮? 鑻ュ惎鐢ㄧ‖浠惰В鐮佸悗浠嶇劧涓嶇敓鏁? 灏濊瘯鍒囨崲纭欢瑙ｇ爜鍣ㄤ负 auto-copy',
+        '当前:「${Pref.superResolutionType.label}」\n默认设置对番剧生效, 其他视频默认关闭\n超分辨率需要启用硬件解码, 若启用硬件解码后仍然不生效, 尝试切换硬件解码器为 auto-copy',
     onTap: _showSuperResolutionDialog,
   ),
   const SwitchModel(
-    title: '鎻愬墠鍒濆鍖栨挱鏀惧櫒',
-    subtitle: '鐩稿鍑忓皯鎵嬪姩鎾斁鍔犺浇鏃堕棿',
+    title: '提前初始化播放器',
+    subtitle: '相对减少手动播放加载时间',
     leading: Icon(Icons.play_circle_outlined),
     setKey: SettingBoxKey.preInitPlayer,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '棣栭〉鍒囨崲椤甸潰鍔ㄧ敾',
+    title: '首页切换页面动画',
     leading: Icon(Icons.home_outlined),
     setKey: SettingBoxKey.mainTabBarView,
     defaultVal: false,
     needReboot: true,
   ),
   const SwitchModel(
-    title: '鎼滅储寤鸿',
+    title: '搜索建议',
     leading: Icon(Icons.search),
     setKey: SettingBoxKey.searchSuggestion,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '璁板綍鎼滅储鍘嗗彶',
+    title: '记录搜索历史',
     leading: Icon(Icons.history),
     setKey: SettingBoxKey.recordSearchHistory,
     defaultVal: true,
   ),
   SwitchModel(
-    title: '灞曠ず澶村儚/璇勮/鍔ㄦ€佽楗?,
+    title: '展示头像/评论/动态装饰',
     leading: const Icon(MdiIcons.stickerCircleOutline),
     setKey: SettingBoxKey.showDecorate,
     defaultVal: true,
     onChanged: (value) => PendantAvatar.showDecorate = value,
   ),
   SwitchModel(
-    title: '鏄剧ず绮変笣鍕嬬珷',
+    title: '显示粉丝勋章',
     leading: const Icon(MdiIcons.medalOutline),
     setKey: SettingBoxKey.showMedal,
     defaultVal: true,
     onChanged: (value) => GlobalData().showMedal = value,
   ),
   SwitchModel(
-    title: '棰勮 Live Photo',
-    subtitle: '寮€鍚垯浠ヨ棰戝舰寮忛瑙?Live Photo锛屽惁鍒欓瑙堥潤鎬佸浘鐗?,
+    title: '预览 Live Photo',
+    subtitle: '开启则以视频形式预览 Live Photo，否则预览静态图片',
     leading: const Icon(Icons.image_outlined),
     setKey: SettingBoxKey.enableLivePhoto,
     defaultVal: true,
     onChanged: (value) => ImageModel.enableLivePhoto = value,
   ),
   const SwitchModel(
-    title: '婊戝姩璺宠浆棰勮瑙嗛缂╃暐鍥?,
+    title: '滑动跳转预览视频缩略图',
     leading: Icon(Icons.preview_outlined),
     setKey: SettingBoxKey.showSeekPreview,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鏄剧ず楂樿兘杩涘害鏉?,
-    subtitle: '楂樿兘杩涘害鏉″弽搴斾簡鍦ㄦ椂鍩熶笂锛屽崟浣嶆椂闂村唴寮瑰箷鍙戦€侀噺鐨勫彉鍖栬秼鍔?,
+    title: '显示高能进度条',
+    subtitle: '高能进度条反应了在时域上，单位时间内弹幕发送量的变化趋势',
     leading: Icon(Icons.show_chart),
     setKey: SettingBoxKey.showDmChart,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '璁板綍璇勮',
+    title: '记录评论',
     leading: Icon(Icons.message_outlined),
     setKey: SettingBoxKey.saveReply,
     defaultVal: true,
     needReboot: true,
   ),
   const SwitchModel(
-    title: '鍙戣瘎鍙嶈瘓',
-    subtitle: '鍙戦€佽瘎璁哄悗妫€鏌ヨ瘎璁烘槸鍚﹀彲瑙?,
+    title: '发评反诈',
+    subtitle: '发送评论后检查评论是否可见',
     leading: Icon(CustomIcons.shield_reply),
     setKey: SettingBoxKey.enableCommAntifraud,
     defaultVal: false,
   ),
   if (Platform.isAndroid)
     const SwitchModel(
-      title: '浣跨敤銆屽摂鍝╁彂璇勫弽璇堛€嶆鏌ヨ瘎璁?,
+      title: '使用「哔哩发评反诈」检查评论',
       leading: Icon(
         FontAwesomeIcons.b,
         size: 22,
@@ -387,68 +387,68 @@ List<SettingsModel> get extraSettings => [
       defaultVal: false,
     ),
   const SwitchModel(
-    title: '鍙戝竷/杞彂鍔ㄦ€佸弽璇?,
-    subtitle: '鍙戝竷/杞彂鍔ㄦ€佸悗妫€鏌ュ姩鎬佹槸鍚﹀彲瑙?,
+    title: '发布/转发动态反诈',
+    subtitle: '发布/转发动态后检查动态是否可见',
     leading: Icon(CustomIcons.shield_published),
     setKey: SettingBoxKey.enableCreateDynAntifraud,
     defaultVal: false,
   ),
   SwitchModel(
-    title: '灞忚斀甯﹁揣鍔ㄦ€?,
+    title: '屏蔽带货动态',
     leading: const Icon(CustomIcons.shopping_bag_not_interested),
     setKey: SettingBoxKey.antiGoodsDyn,
     defaultVal: false,
     onChanged: (value) => DynamicsDataModel.antiGoodsDyn = value,
   ),
   SwitchModel(
-    title: '灞忚斀甯﹁揣璇勮',
+    title: '屏蔽带货评论',
     leading: const Icon(CustomIcons.shopping_bag_not_interested),
     setKey: SettingBoxKey.antiGoodsReply,
     defaultVal: false,
     onChanged: (value) => ReplyGrpc.antiGoodsReply = value,
   ),
   SwitchModel(
-    title: '渚ф粦鍏抽棴浜岀骇椤甸潰',
+    title: '侧滑关闭二级页面',
     leading: const Icon(CustomIcons.touch_app_rotate_270),
     setKey: SettingBoxKey.slideDismissReplyPage,
     defaultVal: Platform.isIOS,
     onChanged: (value) => CommonSlideMixin.slideDismissReplyPage = value,
   ),
   const SwitchModel(
-    title: '鍚敤鍙屾寚缂╁皬瑙嗛',
+    title: '启用双指缩小视频',
     leading: Icon(Icons.pinch),
     setKey: SettingBoxKey.enableShrinkVideoSize,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鍔ㄦ€?涓撴爮璇︽儏椤靛睍绀哄簳閮ㄦ搷浣滄爮',
+    title: '动态/专栏详情页展示底部操作栏',
     leading: Icon(Icons.more_horiz),
     setKey: SettingBoxKey.showDynActionBar,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鍚敤鎷栨嫿瀛楀箷璋冩暣搴曢儴杈硅窛',
+    title: '启用拖拽字幕调整底部边距',
     leading: Icon(MdiIcons.dragVariant),
     setKey: SettingBoxKey.enableDragSubtitle,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '灞曠ず杩界暘鏃堕棿琛?,
+    title: '展示追番时间表',
     leading: Icon(MdiIcons.chartTimelineVariantShimmer),
     setKey: SettingBoxKey.showPgcTimeline,
     defaultVal: true,
     needReboot: true,
   ),
   SwitchModel(
-    title: '闈欓粯涓嬭浇鍥剧墖',
-    subtitle: '涓嶆樉绀轰笅杞?Loading 寮圭獥',
+    title: '静默下载图片',
+    subtitle: '不显示下载 Loading 弹窗',
     leading: const Icon(Icons.download_for_offline_outlined),
     setKey: SettingBoxKey.silentDownImg,
     defaultVal: false,
     onChanged: (value) => ImageUtils.silentDownImg = value,
   ),
   SwitchModel(
-    title: '闀挎寜/鍙抽敭鏄剧ず鍥剧墖鑿滃崟',
+    title: '长按/右键显示图片菜单',
     leading: const Icon(Icons.menu),
     setKey: SettingBoxKey.enableImgMenu,
     defaultVal: false,
@@ -461,26 +461,26 @@ List<SettingsModel> get extraSettings => [
       feedBack();
     },
     leading: const Icon(Icons.vibration_outlined),
-    title: '闇囧姩鍙嶉',
-    subtitle: '璇风‘瀹氭墜鏈鸿缃腑宸插紑鍚渿鍔ㄥ弽棣?,
+    title: '震动反馈',
+    subtitle: '请确定手机设置中已开启震动反馈',
   ),
   const SwitchModel(
-    title: '澶у閮藉湪鎼?,
-    subtitle: '鏄惁灞曠ず銆屽ぇ瀹堕兘鍦ㄦ悳銆?,
+    title: '大家都在搜',
+    subtitle: '是否展示「大家都在搜」',
     leading: Icon(Icons.data_thresholding_outlined),
     setKey: SettingBoxKey.enableHotKey,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鎼滅储鍙戠幇',
-    subtitle: '鏄惁灞曠ず銆屾悳绱㈠彂鐜般€?,
+    title: '搜索发现',
+    subtitle: '是否展示「搜索发现」',
     leading: Icon(Icons.search_outlined),
     setKey: SettingBoxKey.enableSearchRcmd,
     defaultVal: true,
   ),
   SwitchModel(
-    title: '鎼滅储榛樿璇?,
-    subtitle: '鏄惁灞曠ず鎼滅储妗嗛粯璁よ瘝',
+    title: '搜索默认词',
+    subtitle: '是否展示搜索框默认词',
     leading: const Icon(Icons.whatshot_outlined),
     setKey: SettingBoxKey.enableSearchWord,
     defaultVal: false,
@@ -496,89 +496,89 @@ List<SettingsModel> get extraSettings => [
     },
   ),
   const SwitchModel(
-    title: '蹇€熸敹钘?,
-    subtitle: '鐐瑰嚮璁剧疆榛樿鏀惰棌澶筡n鐐规寜鏀惰棌鑷抽粯璁わ紝闀挎寜閫夋嫨鏂囦欢澶?,
+    title: '快速收藏',
+    subtitle: '点击设置默认收藏夹\n点按收藏至默认，长按选择文件夹',
     leading: Icon(Icons.bookmark_add_outlined),
     setKey: SettingBoxKey.enableQuickFav,
     onTap: _showFavDialog,
     defaultVal: false,
   ),
   SwitchModel(
-    title: '璇勮鍖烘悳绱㈠叧閿瘝',
-    subtitle: '灞曠ず璇勮鍖烘悳绱㈠叧閿瘝',
+    title: '评论区搜索关键词',
+    subtitle: '展示评论区搜索关键词',
     leading: const Icon(Icons.search_outlined),
     setKey: SettingBoxKey.enableWordRe,
     defaultVal: false,
     onChanged: (value) => ReplyItemGrpc.enableWordRe = value,
   ),
   const SwitchModel(
-    title: '鍚敤AI鎬荤粨',
-    subtitle: '瑙嗛璇︽儏椤靛紑鍚疉I鎬荤粨',
+    title: '启用AI总结',
+    subtitle: '视频详情页开启AI总结',
     leading: Icon(Icons.engineering_outlined),
     setKey: SettingBoxKey.enableAi,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '娑堟伅椤电鐢?鏀跺埌鐨勮禐"鍔熻兘',
-    subtitle: '绂佹鎵撳紑鍏ュ彛锛岄檷浣庣綉缁滅ぞ浜や緷璧?,
+    title: '消息页禁用"收到的赞"功能',
+    subtitle: '禁止打开入口，降低网络社交依赖',
     leading: Icon(Icons.beach_access_outlined),
     setKey: SettingBoxKey.disableLikeMsg,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '榛樿灞曠ず璇勮鍖?,
-    subtitle: '鍦ㄨ棰戣鎯呴〉榛樿鍒囨崲鑷宠瘎璁哄尯椤碉紙浠匱ab鍨嬪竷灞€锛?,
+    title: '默认展示评论区',
+    subtitle: '在视频详情页默认切换至评论区页（仅Tab型布局）',
     leading: Icon(Icons.mode_comment_outlined),
     setKey: SettingBoxKey.defaultShowComment,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '鍚敤HTTP/2',
+    title: '启用HTTP/2',
     leading: Icon(Icons.swap_horizontal_circle_outlined),
     setKey: SettingBoxKey.enableHttp2,
     defaultVal: false,
     needReboot: true,
   ),
   const NormalModel(
-    title: '杩炴帴閲嶈瘯娆℃暟',
-    subtitle: '涓?鏃剁鐢?,
+    title: '连接重试次数',
+    subtitle: '为0时禁用',
     leading: Icon(Icons.repeat),
     onTap: _showReplyCountDialog,
   ),
   const NormalModel(
-    title: '杩炴帴閲嶈瘯闂撮殧',
-    subtitle: '瀹為檯闂撮殧 = 闂撮殧 * 绗瑇娆￠噸璇?,
+    title: '连接重试间隔',
+    subtitle: '实际间隔 = 间隔 * 第x次重试',
     leading: Icon(Icons.more_time_outlined),
     onTap: _showReplyDelayDialog,
   ),
   NormalModel(
-    title: '璇勮灞曠ず',
+    title: '评论展示',
     leading: const Icon(Icons.whatshot_outlined),
-    getSubtitle: () => '褰撳墠浼樺厛灞曠ず銆?{Pref.replySortType.title}銆?,
+    getSubtitle: () => '当前优先展示「${Pref.replySortType.title}」',
     onTap: _showReplySortDialog,
   ),
   NormalModel(
-    title: '鍔ㄦ€佸睍绀?,
+    title: '动态展示',
     leading: const Icon(Icons.dynamic_feed_rounded),
-    getSubtitle: () => '褰撳墠浼樺厛灞曠ず銆?{Pref.defaultDynamicType.label}銆?,
+    getSubtitle: () => '当前优先展示「${Pref.defaultDynamicType.label}」',
     onTap: _showDefDynDialog,
   ),
   SwitchModel(
-    title: '鏄剧ず鍔ㄦ€佷簰鍔ㄥ唴瀹?,
-    subtitle: '寮€鍚悗鍒欏湪鍔ㄦ€佸崱鐗囧簳閮ㄦ樉绀轰簰鍔ㄥ唴瀹癸紙濡傚叧娉ㄧ殑浜虹偣璧炪€佺儹璇勭瓑锛?,
+    title: '显示动态互动内容',
+    subtitle: '开启后则在动态卡片底部显示互动内容（如关注的人点赞、热评等）',
     leading: const Icon(Icons.quickreply_outlined),
     setKey: SettingBoxKey.showDynInteraction,
     defaultVal: true,
     onChanged: (val) => ItemModulesModel.showDynInteraction = val,
   ),
   NormalModel(
-    title: '鐢ㄦ埛椤甸粯璁ゅ睍绀篢AB',
+    title: '用户页默认展示TAB',
     leading: const Icon(Icons.tab),
-    getSubtitle: () => '褰撳墠浼樺厛灞曠ず銆?{Pref.memberTab.title}銆?,
+    getSubtitle: () => '当前优先展示「${Pref.memberTab.title}」',
     onTap: _showMemberTabDialog,
   ),
   SwitchModel(
-    title: '鏄剧ずUP涓婚〉灏忓簵TAB',
+    title: '显示UP主页小店TAB',
     leading: const Icon(Icons.shop_outlined),
     setKey: SettingBoxKey.showMemberShop,
     defaultVal: false,
@@ -586,8 +586,8 @@ List<SettingsModel> get extraSettings => [
   ),
   const SplitModel(
     normalModel: NormalModel.split(
-      title: '璁剧疆浠ｇ悊',
-      subtitle: '璁剧疆浠ｇ悊 host:port',
+      title: '设置代理',
+      subtitle: '设置代理 host:port',
       leading: Icon(Icons.airplane_ticket_outlined),
     ),
     switchModel: SwitchModel.split(
@@ -597,15 +597,15 @@ List<SettingsModel> get extraSettings => [
     ),
   ),
   NormalModel(
-    title: '鏈€澶х紦瀛樺ぇ灏?,
+    title: '最大缓存大小',
     getSubtitle: () =>
-        '褰撳墠鏈€澶х紦瀛樺ぇ灏? 銆?{CacheManager.formatSize(Pref.maxCacheSize)}銆?,
+        '当前最大缓存大小: 「${CacheManager.formatSize(Pref.maxCacheSize)}」',
     leading: const Icon(Icons.delete_outlined),
     onTap: _showCacheDialog,
   ),
   SwitchModel(
-    title: '妫€鏌ユ洿鏂?,
-    subtitle: '姣忔鍚姩鏃舵鏌ユ槸鍚﹂渶瑕佹洿鏂?,
+    title: '检查更新',
+    subtitle: '每次启动时检查是否需要更新',
     leading: const Icon(Icons.system_update_alt),
     setKey: SettingBoxKey.autoUpdate,
     defaultVal: true,
@@ -639,7 +639,7 @@ Future<void> audioNormalization(
         '3',
       };
       return SelectDialog<String>(
-        title: fallback ? '鏈嶅姟鍣ㄦ棤loudnorm閰嶇疆鏃朵娇鐢? : '闊抽噺鍧囪　',
+        title: fallback ? '服务器无loudnorm配置时使用' : '音量均衡',
         toggleable: true,
         value: audioNormalization,
         values: values
@@ -665,12 +665,12 @@ Future<void> audioNormalization(
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('鑷畾涔夊弬鏁?),
+          title: const Text('自定义参数'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             spacing: 16,
             children: [
-              const Text('绛夊悓浜?--lavfi-complex="[aid1] 鍙傛暟 [ao]"'),
+              const Text('等同于 --lavfi-complex="[aid1] 参数 [ao]"'),
               TextField(
                 autofocus: true,
                 onChanged: (value) => param = value,
@@ -681,7 +681,7 @@ Future<void> audioNormalization(
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '鍙栨秷',
+                '取消',
                 style: TextStyle(color: ColorScheme.of(context).outline),
               ),
             ),
@@ -695,7 +695,7 @@ Future<void> audioNormalization(
                 }
                 setState();
               },
-              child: const Text('纭畾'),
+              child: const Text('确定'),
             ),
           ],
         ),
@@ -722,7 +722,7 @@ void _showDownPathDialog(BuildContext context, VoidCallback setState) {
             Get.back();
             Utils.copyText(downloadPath);
           },
-          child: const Text('澶嶅埗', style: TextStyle(fontSize: 14)),
+          child: const Text('复制', style: TextStyle(fontSize: 14)),
         ),
         DialogOption(
           onPressed: () {
@@ -734,7 +734,7 @@ void _showDownPathDialog(BuildContext context, VoidCallback setState) {
             Get.find<DownloadService>().initDownloadList();
             GStorage.setting.delete(SettingBoxKey.downloadPath);
           },
-          child: const Text('閲嶇疆', style: TextStyle(fontSize: 14)),
+          child: const Text('重置', style: TextStyle(fontSize: 14)),
         ),
         DialogOption(
           onPressed: () async {
@@ -746,7 +746,7 @@ void _showDownPathDialog(BuildContext context, VoidCallback setState) {
             Get.find<DownloadService>().initDownloadList();
             GStorage.setting.put(SettingBoxKey.downloadPath, path);
           },
-          child: const Text('璁剧疆鏂拌矾寰?, style: TextStyle(fontSize: 14)),
+          child: const Text('设置新路径', style: TextStyle(fontSize: 14)),
         ),
       ],
     ),
@@ -758,7 +758,7 @@ void _showDynDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('妫€鏌ュ懆鏈?),
+      title: const Text('检查周期'),
       content: TextFormField(
         autofocus: true,
         initialValue: dynamicPeriod,
@@ -771,7 +771,7 @@ void _showDynDialog(BuildContext context) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -786,7 +786,7 @@ void _showDynDialog(BuildContext context) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -798,20 +798,20 @@ void _showReplyLengthDialog(BuildContext context, VoidCallback setState) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('璇勮鎶樺彔琛屾暟'),
+      title: const Text('评论折叠行数'),
       content: TextFormField(
         autofocus: true,
         initialValue: replyLengthLimit,
         keyboardType: TextInputType.number,
         onChanged: (value) => replyLengthLimit = value,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: const InputDecoration(suffixText: '琛?),
+        decoration: const InputDecoration(suffixText: '行'),
       ),
       actions: [
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -827,7 +827,7 @@ void _showReplyLengthDialog(BuildContext context, VoidCallback setState) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -839,7 +839,7 @@ void _showDmHeightDialog(BuildContext context, VoidCallback setState) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('寮瑰箷琛岄珮'),
+      title: const Text('弹幕行高'),
       content: TextFormField(
         autofocus: true,
         initialValue: danmakuLineHeight,
@@ -851,7 +851,7 @@ void _showDmHeightDialog(BuildContext context, VoidCallback setState) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -869,7 +869,7 @@ void _showDmHeightDialog(BuildContext context, VoidCallback setState) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -881,7 +881,7 @@ void _showTouchSlopDialog(BuildContext context, VoidCallback setState) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('妯悜婊戝姩闃堝€?),
+      title: const Text('横向滑动阈值'),
       content: TextFormField(
         autofocus: true,
         initialValue: initialValue,
@@ -893,7 +893,7 @@ void _showTouchSlopDialog(BuildContext context, VoidCallback setState) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -909,7 +909,7 @@ void _showTouchSlopDialog(BuildContext context, VoidCallback setState) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -923,7 +923,7 @@ Future<void> _showRefreshDragDialog(
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('鍒锋柊婊戝姩璺濈'),
+      title: const Text('刷新滑动距离'),
       min: 0.1,
       max: 0.5,
       divisions: 8,
@@ -946,7 +946,7 @@ Future<void> _showRefreshDialog(
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('鍒锋柊鎸囩ず鍣ㄩ珮搴?),
+      title: const Text('刷新指示器高度'),
       min: 10.0,
       max: 100.0,
       divisions: 9,
@@ -979,7 +979,7 @@ Future<void> _showSuperResolutionDialog(
   final res = await showDialog<SuperResolutionType>(
     context: context,
     builder: (context) => SelectDialog<SuperResolutionType>(
-      title: '瓒呭垎杈ㄧ巼',
+      title: '超分辨率',
       value: Pref.superResolutionType,
       values: SuperResolutionType.values.map((e) => (e, e.label)).toList(),
     ),
@@ -1007,14 +1007,14 @@ Future<void> _showFavDialog(BuildContext context) async {
         context: context,
         builder: (context) => AlertDialog(
           clipBehavior: Clip.hardEdge,
-          title: const Text('閫夋嫨榛樿鏀惰棌澶?),
+          title: const Text('选择默认收藏夹'),
           contentPadding: const EdgeInsets.only(top: 5, bottom: 18),
           content: SingleChildScrollView(
             child: RadioGroup(
               onChanged: (value) {
                 Get.back();
                 GStorage.setting.put(SettingBoxKey.quickFavId, value);
-                SmartDialog.showToast('璁剧疆鎴愬姛');
+                SmartDialog.showToast('设置成功');
               },
               groupValue: quickFavId,
               child: Column(
@@ -1046,7 +1046,7 @@ Future<void> _showReplyCountDialog(
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('杩炴帴閲嶈瘯娆℃暟'),
+      title: const Text('连接重试次数'),
       min: 0,
       max: 8,
       divisions: 8,
@@ -1057,7 +1057,7 @@ Future<void> _showReplyCountDialog(
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.retryCount, res.toInt());
     setState();
-    SmartDialog.showToast('閲嶅惎鐢熸晥');
+    SmartDialog.showToast('重启生效');
   }
 }
 
@@ -1068,7 +1068,7 @@ Future<void> _showReplyDelayDialog(
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('杩炴帴閲嶈瘯闂撮殧'),
+      title: const Text('连接重试间隔'),
       min: 0,
       max: 1000,
       divisions: 10,
@@ -1080,7 +1080,7 @@ Future<void> _showReplyDelayDialog(
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.retryDelay, res.toInt());
     setState();
-    SmartDialog.showToast('閲嶅惎鐢熸晥');
+    SmartDialog.showToast('重启生效');
   }
 }
 
@@ -1091,7 +1091,7 @@ Future<void> _showReplySortDialog(
   final res = await showDialog<ReplySortType>(
     context: context,
     builder: (context) => SelectDialog<ReplySortType>(
-      title: '璇勮灞曠ず',
+      title: '评论展示',
       value: Pref.replySortType,
       values: ReplySortType.values.take(2).map((e) => (e, e.title)).toList(),
     ),
@@ -1109,7 +1109,7 @@ Future<void> _showDefDynDialog(
   final res = await showDialog<DynamicsTabType>(
     context: context,
     builder: (context) => SelectDialog<DynamicsTabType>(
-      title: '鍔ㄦ€佸睍绀?,
+      title: '动态展示',
       value: Pref.defaultDynamicType,
       values: DynamicsTabType.values.take(4).map((e) => (e, e.label)).toList(),
     ),
@@ -1130,7 +1130,7 @@ Future<void> _showMemberTabDialog(
   final res = await showDialog<MemberTabType>(
     context: context,
     builder: (context) => SelectDialog<MemberTabType>(
-      title: '鐢ㄦ埛椤甸粯璁ゅ睍绀篢AB',
+      title: '用户页默认展示TAB',
       value: Pref.memberTab,
       values: MemberTabType.values.map((e) => (e, e.title)).toList(),
     ),
@@ -1148,7 +1148,7 @@ void _showProxyDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('璁剧疆浠ｇ悊'),
+      title: const Text('设置代理'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1157,7 +1157,7 @@ void _showProxyDialog(BuildContext context) {
             initialValue: systemProxyHost,
             decoration: const InputDecoration(
               isDense: true,
-              labelText: '璇疯緭鍏ost锛屼娇鐢?. 鍒嗗壊',
+              labelText: '请输入Host，使用 . 分割',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(6)),
               ),
@@ -1170,7 +1170,7 @@ void _showProxyDialog(BuildContext context) {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               isDense: true,
-              labelText: '璇疯緭鍏ort',
+              labelText: '请输入Port',
               border: OutlineInputBorder(borderRadius: .all(.circular(6))),
             ),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -1182,7 +1182,7 @@ void _showProxyDialog(BuildContext context) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -1198,7 +1198,7 @@ void _showProxyDialog(BuildContext context) {
               systemProxyPort,
             );
           },
-          child: const Text('纭'),
+          child: const Text('确认'),
         ),
       ],
     ),
@@ -1210,7 +1210,7 @@ void _showCacheDialog(BuildContext context, VoidCallback setState) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('鏈€澶х紦瀛樺ぇ灏?),
+      title: const Text('最大缓存大小'),
       content: TextField(
         autofocus: true,
         onChanged: (value) => valueStr = value,
@@ -1222,7 +1222,7 @@ void _showCacheDialog(BuildContext context, VoidCallback setState) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -1240,10 +1240,9 @@ void _showCacheDialog(BuildContext context, VoidCallback setState) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
   );
 }
-

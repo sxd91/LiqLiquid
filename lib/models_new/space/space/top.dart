@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/iterable_ext.dart';
+import 'package:liqliquid/utils/extension/iterable_ext.dart';
 import 'package:liqliquid/utils/parse_string.dart';
 
 class Top {
@@ -84,4 +84,3 @@ class SubTitleColorFormat {
         colors: (json["colors"] as List?)?.fromCast(),
       );
 }
-

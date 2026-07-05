@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' show max;
 
@@ -159,7 +159,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
               onSubmitted: onSubmitted,
               focusNode: focusNode,
               decoration: InputDecoration(
-                hintText: widget.hint ?? "杈撳叆鍥炲鍐呭",
+                hintText: widget.hint ?? "输入回复内容",
                 border: InputBorder.none,
                 hintStyle: const TextStyle(fontSize: 14),
               ),
@@ -181,14 +181,14 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             if (widget.root == 0) ...[
               const SizedBox(width: 8),
               ToolbarIconButton(
-                tooltip: '鍥剧墖',
+                tooltip: '图片',
                 selected: false,
                 icon: widget.canUploadPic
                     ? const Icon(Icons.image, size: 22)
                     : const Icon(Icons.image_not_supported, size: 22),
                 onPressed: widget.canUploadPic
                     ? onPickImage
-                    : () => SmartDialog.showToast('褰撳墠璇勮鍖轰笉鏀寔鍙戦€佸浘鐗?),
+                    : () => SmartDialog.showToast('当前评论区不支持发送图片'),
               ),
             ],
             const SizedBox(width: 8),
@@ -198,7 +198,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             const SizedBox(width: 8),
             Obx(
               () => ToolbarIconButton(
-                tooltip: '杞埌鍔ㄦ€?,
+                tooltip: '转到动态',
                 onPressed: _syncToDynamic.toggle,
                 icon: const Icon(
                   CustomIcons.repeat_rounded_rotate_90,
@@ -219,7 +219,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                   ),
                   visualDensity: VisualDensity.compact,
                 ),
-                child: const Text('鍙戦€?),
+                child: const Text('发送'),
               ),
             ),
           ],
@@ -302,7 +302,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
               }
             },
             icon: Icon(Icons.post_add, size: 28, color: color),
-            title: '鎻掑叆鍐呭',
+            title: '插入内容',
           ),
           if (heroTag != null) ...[
             // if (isRoot)
@@ -317,7 +317,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             //       }
             //     },
             //     icon: Icon(Icons.edit_note, size: 28, color: color),
-            //     title: '绗旇',
+            //     title: '笔记',
             //   ),
             item(
               onTap: () {
@@ -334,13 +334,13 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                 }
               },
               icon: Icon(Icons.my_location, size: 28, color: color),
-              title: '瑙嗛杩涘害',
+              title: '视频进度',
             ),
             if (isRoot && widget.canUploadPic)
               item(
                 onTap: () async {
                   if (imageList.length >= limit) {
-                    SmartDialog.showToast('鏈€澶氶€夋嫨$limit寮犲浘鐗?);
+                    SmartDialog.showToast('最多选择$limit张图片');
                     return;
                   }
                   try {
@@ -372,7 +372,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                   size: 28,
                   color: color,
                 ),
-                title: '瑙嗛鎴浘',
+                title: '视频截图',
               ),
           ],
         ],
@@ -395,7 +395,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
       root: widget.root,
       parent: widget.parent,
       message: widget.replyItem != null && widget.replyItem!.root != 0
-          ? ' 鍥炲 @${widget.replyItem!.member.name} : $message'
+          ? ' 回复 @${widget.replyItem!.member.name} : $message'
           : message,
       atNameToMid: atNameToMid,
       pictures: pictures,
@@ -403,11 +403,10 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
     );
     if (res case Success(:final response)) {
       hasPub = true;
-      SmartDialog.showToast('鍙戦€佹垚鍔?);
+      SmartDialog.showToast('发送成功');
       Get.back(result: response);
     } else {
       res.toast();
     }
   }
 }
-

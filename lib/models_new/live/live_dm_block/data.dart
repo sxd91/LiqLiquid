@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_dm_block/shield_info.dart';
+import 'package:liqliquid/models_new/live/live_dm_block/shield_info.dart';
 
 class LiveDmBlockData {
   ShieldInfo? shieldInfo;
@@ -14,4 +14,3 @@ class LiveDmBlockData {
             : ShieldInfo.fromJson(json['shield_info'] as Map<String, dynamic>),
       );
 }
-

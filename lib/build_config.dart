@@ -1,17 +1,16 @@
-﻿abstract final class BuildConfig {
+abstract final class BuildConfig {
   static const int versionCode = int.fromEnvironment(
-    'liq.code',
+    'pili.code',
     defaultValue: 1,
   );
   static const String versionName = String.fromEnvironment(
-    'liq.name',
+    'pili.name',
     defaultValue: 'SNAPSHOT',
   );
 
-  static const int buildTime = int.fromEnvironment('liq.time');
+  static const int buildTime = int.fromEnvironment('pili.time');
   static const String commitHash = String.fromEnvironment(
-    'liq.hash',
+    'pili.hash',
     defaultValue: 'N/A',
   );
 }
-

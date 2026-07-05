@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:liqliquid/services/logger.dart';
@@ -86,4 +86,3 @@ class JsonFileHandler extends ReportHandler {
     return add((raf) => raf.writeString('${jsonEncode(json)}\n'));
   }
 }
-

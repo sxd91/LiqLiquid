@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/sub/sub/list.dart';
+import 'package:liqliquid/models_new/sub/sub/list.dart';
 
 class SubData {
   List<SubItemModel>? list;
@@ -13,4 +13,3 @@ class SubData {
     hasMore: json['has_more'] as bool?,
   );
 }
-

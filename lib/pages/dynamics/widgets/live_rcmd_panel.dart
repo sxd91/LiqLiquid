@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -61,7 +61,7 @@ Widget liveRcmdPanel(
               )
             else
               const PBadge(
-                text: '鐩存挱缁撴潫',
+                text: '直播结束',
                 top: 6,
                 right: 6,
                 type: PBadgeType.gray,
@@ -112,4 +112,3 @@ Widget liveRcmdPanel(
     ),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models/common/later_view_type.dart';
@@ -28,11 +28,11 @@ mixin BaseLaterController
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('鎻愮ず'),
-      content: const Text('纭鍒犻櫎鎵€閫夌◢鍚庡啀鐪嬪悧锛?),
+      title: const Text('提示'),
+      content: const Text('确认删除所选稍后再看吗？'),
       onConfirm: () async {
         final removeList = allChecked.toSet();
-        SmartDialog.showLoading(msg: '璇锋眰涓?);
+        SmartDialog.showLoading(msg: '请求中');
         final res = await UserHttp.toViewDel(
           aids: removeList.map((item) => item.aid).join(','),
         );
@@ -54,13 +54,13 @@ mixin BaseLaterController
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('鎻愮ず'),
-        content: const Text('鍗冲皢绉婚櫎璇ヨ棰戯紝纭畾鏄惁绉婚櫎'),
+        title: const Text('提示'),
+        content: const Text('即将移除该视频，确定是否移除'),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍙栨秷',
+              '取消',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -75,7 +75,7 @@ mixin BaseLaterController
                 updateCount?.call(1);
               }
             },
-            child: const Text('纭绉婚櫎'),
+            child: const Text('确认移除'),
           ),
         ],
       ),
@@ -126,16 +126,16 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
     }
   }
 
-  // 涓€閿竻绌?
+  // 一键清空
   void toViewClear(BuildContext context, [int? cleanType]) {
     String content = switch (cleanType) {
-      1 => '纭畾娓呯┖宸插け鏁堣棰戝悧锛?,
-      2 => '纭畾娓呯┖宸茬湅瀹岃棰戝悧锛?,
-      _ => '纭畾娓呯┖绋嶅悗鍐嶇湅鍒楄〃鍚楋紵',
+      1 => '确定清空已失效视频吗？',
+      2 => '确定清空已看完视频吗？',
+      _ => '确定清空稍后再看列表吗？',
     };
     showConfirmDialog(
       context: context,
-      title: const Text('纭'),
+      title: const Text('确认'),
       content: Text(content),
       onConfirm: () async {
         final res = await UserHttp.toViewClear(cleanType);
@@ -148,7 +148,7 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
               Get.find<LaterController>(tag: item.type.toString()).onReload();
             } catch (_) {}
           }
-          SmartDialog.showToast('宸叉竻绌?);
+          SmartDialog.showToast('已清空');
         } else {
           res.toast();
         }
@@ -156,7 +156,7 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
     );
   }
 
-  // 绋嶅悗鍐嶇湅鎾斁鍏ㄩ儴
+  // 稍后再看播放全部
   void toViewPlayAll() {
     if (loadingState.value case Success(:final response)) {
       if (response == null || response.isEmpty) return;
@@ -174,7 +174,7 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
             extraArguments: {
               'sourceType': SourceType.watchLater,
               'count': baseCtr.counts[LaterViewType.all.index],
-              'favTitle': '绋嶅悗鍐嶇湅',
+              'favTitle': '稍后再看',
               'mediaId': mid,
               'desc': asc.value,
             },
@@ -195,4 +195,3 @@ class LaterController extends MultiSelectController<LaterData, LaterItemModel>
     return super.onReload();
   }
 }
-

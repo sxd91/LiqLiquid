@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/http/danmaku_block.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -32,7 +32,7 @@ class DanmakuBlockController extends GetxController
   }
 
   Future<void> queryDanmakuFilter() async {
-    SmartDialog.showLoading(msg: '姝ｅ湪鍚屾寮瑰箷灞忚斀瑙勫垯鈥︹€?);
+    SmartDialog.showLoading(msg: '正在同步弹幕屏蔽规则……');
     final result = await DanmakuFilterHttp.danmakuFilter();
     SmartDialog.dismiss();
     if (result case Success(:final response)) {
@@ -48,12 +48,12 @@ class DanmakuBlockController extends GetxController
   }
 
   Future<void> danmakuFilterDel(int tabIndex, int itemIndex, int id) async {
-    SmartDialog.showLoading(msg: '姝ｅ湪鍒犻櫎寮瑰箷灞忚斀瑙勫垯鈥︹€?);
+    SmartDialog.showLoading(msg: '正在删除弹幕屏蔽规则……');
     final res = await DanmakuFilterHttp.danmakuFilterDel(ids: id);
     SmartDialog.dismiss();
     if (res.isSuccess) {
       rules[tabIndex].removeAt(itemIndex);
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -66,7 +66,7 @@ class DanmakuBlockController extends GetxController
     if (type == 2) {
       filter = getCrc32(ascii.encode(filter), 0).toRadixString(16);
     }
-    SmartDialog.showLoading(msg: '姝ｅ湪娣诲姞寮瑰箷灞忚斀瑙勫垯鈥︹€?);
+    SmartDialog.showLoading(msg: '正在添加弹幕屏蔽规则……');
     final res = await DanmakuFilterHttp.danmakuFilterAdd(
       filter: filter,
       type: type,
@@ -74,10 +74,9 @@ class DanmakuBlockController extends GetxController
     SmartDialog.dismiss();
     if (res case Success(:final response)) {
       rules[type].add(response);
-      SmartDialog.showToast('娣诲姞鎴愬姛');
+      SmartDialog.showToast('添加成功');
     } else {
       res.toast();
     }
   }
 }
-

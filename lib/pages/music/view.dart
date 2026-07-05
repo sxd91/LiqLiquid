@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:liqliquid/common/widgets/badge.dart';
@@ -283,7 +283,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                   // Expanded(
                   //   child: textIconButton(
                   //     icon: FontAwesomeIcons.shareFromSquare,
-                  //     text: '杞彂',
+                  //     text: '转发',
                   //     count: item.musicShares,
                   //     onPressed: () {
                   //       final data = controller.infoState.value.dataOrNull;
@@ -306,7 +306,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                   Expanded(
                     child: textIconButton(
                       icon: CustomIcons.share_node,
-                      text: '鍒嗕韩',
+                      text: '分享',
                       onPressed: () =>
                           ShareUtils.shareText(controller.shareUrl),
                     ),
@@ -316,12 +316,12 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                       builder: (context) => textIconButton(
                         icon: FontAwesomeIcons.thumbsUp,
                         activatedIcon: FontAwesomeIcons.solidThumbsUp,
-                        text: '鐐硅禐',
+                        text: '点赞',
                         count: item.wishCount,
                         status: item.wishListen ?? false,
                         onPressed: () async {
                           if (!Accounts.main.isLogin) {
-                            SmartDialog.showToast('璇峰厛鐧诲綍');
+                            SmartDialog.showToast('请先登录');
                             return;
                           }
                           final hasLike = item.wishListen ?? false;
@@ -475,7 +475,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                                 _buildArtist(artist, textTheme.bodySmall),
                             if (!item.musicPublish.isNullOrEmpty)
                               Text(
-                                '鍙戣鏃ユ湡锛?{item.musicPublish}',
+                                '发行日期：${item.musicPublish}',
                                 style: textTheme.bodySmall!.copyWith(
                                   color: theme.colorScheme.outline,
                                 ),
@@ -524,7 +524,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                                               .onSecondaryContainer,
                                         ),
                                         Text(
-                                          '鐪婱V',
+                                          '看MV',
                                           style: TextStyle(
                                             color: theme
                                                 .colorScheme
@@ -557,21 +557,21 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                 [
                   if (!(item.originArtist ?? item.originArtistList)
                       .isNullOrEmpty)
-                    '鍘熷敱锛?{item.originArtist ?? item.originArtistList}',
-                  if (!item.album.isNullOrEmpty) '涓撹緫锛?{item.album}',
-                  if (!item.musicSource.isNullOrEmpty) '鍑哄锛?{item.musicSource}',
+                    '原唱：${item.originArtist ?? item.originArtistList}',
+                  if (!item.album.isNullOrEmpty) '专辑：${item.album}',
+                  if (!item.musicSource.isNullOrEmpty) '出处：${item.musicSource}',
                 ].join('\n'),
               ),
               const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('鐑瓕姒滄帓鍚?),
-                  _buildRank(item.hotSongHeat?.lastHeat, '鐑害'),
-                  _buildRank(item.listenPv, '鎬绘挱鏀鹃噺'),
+                  const Text('热歌榜排名'),
+                  _buildRank(item.hotSongHeat?.lastHeat, '热度'),
+                  _buildRank(item.listenPv, '总播放量'),
                   _buildRank(
                     item.musicRelation,
-                    '浣跨敤绋夸欢閲?,
+                    '使用稿件量',
                     () => Get.to(
                       const MusicRecommendPage(),
                       arguments: (id: controller.musicId, item: item),
@@ -602,7 +602,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
       child: Column(
         spacing: 8,
         children: [
-          Text('杩?{heat.length}鏃ョ儹搴﹁秼鍔?, style: theme.textTheme.titleMedium),
+          Text('近${heat.length}日热度趋势', style: theme.textTheme.titleMedium),
           SizedBox(
             width: maxWidth,
             height: maxWidth * 0.5,
@@ -699,4 +699,3 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
     }
   }
 }
-

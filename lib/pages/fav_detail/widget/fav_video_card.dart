@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
@@ -19,7 +19,7 @@ import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// 鏀惰棌瑙嗛鍗＄墖 - 姘村钩甯冨眬
+// 收藏视频卡片 - 水平布局
 class FavVideoCardH extends StatelessWidget {
   final FavDetailItemModel item;
   final int? index;
@@ -118,7 +118,7 @@ class FavVideoCardH extends StatelessWidget {
                         ),
                         if (item.type == 12)
                           const PBadge(
-                            text: '闊抽',
+                            text: '音频',
                             top: 6.0,
                             right: 6.0,
                             type: PBadgeType.gray,
@@ -213,18 +213,18 @@ class FavVideoCardH extends StatelessWidget {
               bottom: -8,
               child: iconButton(
                 icon: const Icon(Icons.clear),
-                tooltip: '鍙栨秷鏀惰棌',
+                tooltip: '取消收藏',
                 iconColor: colorScheme.outline,
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('鎻愮ず'),
-                    content: const Text('瑕佸彇娑堟敹钘忓悧?'),
+                    title: const Text('提示'),
+                    content: const Text('要取消收藏吗?'),
                     actions: [
                       TextButton(
                         onPressed: Get.back,
                         child: Text(
-                          '鍙栨秷',
+                          '取消',
                           style: TextStyle(color: colorScheme.outline),
                         ),
                       ),
@@ -233,7 +233,7 @@ class FavVideoCardH extends StatelessWidget {
                           Get.back();
                           ctr!.onCancelFav(index!, item.id!, item.type!);
                         },
-                        child: const Text('纭畾鍙栨秷'),
+                        child: const Text('确定取消'),
                       ),
                     ],
                   ),
@@ -245,4 +245,3 @@ class FavVideoCardH extends StatelessWidget {
     );
   }
 }
-

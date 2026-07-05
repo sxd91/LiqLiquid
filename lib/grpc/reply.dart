@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart';
 import 'package:liqliquid/grpc/bilibili/pagination.pb.dart';
 import 'package:liqliquid/grpc/grpc_req.dart';
@@ -165,4 +165,3 @@ abstract final class ReplyGrpc {
     );
   }
 }
-

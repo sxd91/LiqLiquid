@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_h.dart';
+import 'package:liqliquid/common/skeleton/video_card_h.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/sliver/sliver_pinned_header.dart';
@@ -210,7 +210,7 @@ class _MemberFavoriteState extends State<MemberFavorite>
           height: 40,
           alignment: .center,
           child: Text(
-            '鏌ョ湅鏇村鍐呭',
+            '查看更多内容',
             textAlign: TextAlign.center,
             style: TextStyle(color: theme.colorScheme.primary),
           ),
@@ -252,4 +252,3 @@ class _FavScrollPhysics extends AlwaysScrollableScrollPhysics {
     );
   }
 }
-

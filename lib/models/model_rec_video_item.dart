@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models/model_video.dart';
 
 abstract class BaseRcmdVideoItemModel extends BaseVideoItemModel {
@@ -6,7 +6,7 @@ abstract class BaseRcmdVideoItemModel extends BaseVideoItemModel {
   String? uri;
   String? rcmdReason;
 
-  // app鎺ㄨ崘涓撳睘
+  // app推荐专属
   int? param;
   String? pgcBadge;
 }
@@ -49,4 +49,3 @@ class RcmdVideoItemModel extends BaseRcmdVideoItemModel {
 //     content = json["content"] ?? '';
 //   }
 // }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/feed_back.dart';
+import 'package:liqliquid/utils/feed_back.dart';
 import 'package:flutter/material.dart';
 
 class ActionRowLineItem extends StatelessWidget {
@@ -74,4 +74,3 @@ class ActionRowLineItem extends StatelessWidget {
     );
   }
 }
-

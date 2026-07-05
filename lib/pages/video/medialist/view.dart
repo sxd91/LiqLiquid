@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/badge.dart';
+import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -72,12 +72,12 @@ class _MediaListPanelState extends State<MediaListPanel>
             toolbarHeight: 45,
             automaticallyImplyLeading: false,
             titleSpacing: 16,
-            title: Text(widget.panelTitle ?? '绋嶅悗鍐嶇湅'),
+            title: Text(widget.panelTitle ?? '稍后再看'),
             backgroundColor: Colors.transparent,
             actions: [
               iconButton(
                 iconSize: 20,
-                tooltip: widget.desc ? '椤哄簭鎾斁' : '鍊掑簭鎾斁',
+                tooltip: widget.desc ? '顺序播放' : '倒序播放',
                 icon: widget.desc
                     ? const Icon(MdiIcons.sortAscending)
                     : const Icon(MdiIcons.sortDescending),
@@ -88,7 +88,7 @@ class _MediaListPanelState extends State<MediaListPanel>
               ),
               iconButton(
                 iconSize: 20,
-                tooltip: '鍏抽棴',
+                tooltip: '关闭',
                 icon: const Icon(Icons.close),
                 onPressed: Get.back,
               ),
@@ -172,7 +172,7 @@ class _MediaListPanelState extends State<MediaListPanel>
           child: InkWell(
             onTap: () {
               if (item.type != 2) {
-                SmartDialog.showToast('涓嶆敮鎸佹挱鏀捐绫诲瀷瑙嗛');
+                SmartDialog.showToast('不支持播放该类型视频');
                 return;
               }
               Get.back();
@@ -205,7 +205,7 @@ class _MediaListPanelState extends State<MediaListPanel>
                               right: 6.0,
                               top: 6.0,
                               type: switch (item.badge) {
-                                '鍏呯數涓撳睘' => PBadgeType.error,
+                                '充电专属' => PBadgeType.error,
                                 _ => PBadgeType.primary,
                               },
                             ),
@@ -288,7 +288,7 @@ class _MediaListPanelState extends State<MediaListPanel>
                       customBorder: const CircleBorder(),
                       onTap: () => showConfirmDialog(
                         context: context,
-                        title: const Text('纭畾绉婚櫎璇ヨ棰戯紵'),
+                        title: const Text('确定移除该视频？'),
                         onConfirm: () => widget.onDelete!(item, index),
                       ),
                       onLongPress: () => widget.onDelete!(item, index),
@@ -310,4 +310,3 @@ class _MediaListPanelState extends State<MediaListPanel>
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_sys_msg_.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_sys_msg_.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -26,7 +26,7 @@ class _SysMsgPageState extends State<SysMsgPage> {
   final _sysMsgController = Get.put(SysMsgController());
 
   static final RegExp _urlRegExp = RegExp(
-    r'#\{([^}]*)\}\{([^}]*)\}|https?:\/\/[^\s/\$.?#].[^\s]*|www\.[^\s/\$.?#].[^\s]*|銆?.*?)銆憒锛?\d+)锛?,
+    r'#\{([^}]*)\}\{([^}]*)\}|https?:\/\/[^\s/\$.?#].[^\s]*|www\.[^\s/\$.?#].[^\s]*|【(.*?)】|（(\d+)）',
   );
 
   @override
@@ -34,7 +34,7 @@ class _SysMsgPageState extends State<SysMsgPage> {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('绯荤粺閫氱煡')),
+      appBar: AppBar(title: const Text('系统通知')),
       body: refreshIndicator(
         onRefresh: _sysMsgController.onRefresh,
         child: CustomScrollView(
@@ -82,7 +82,7 @@ class _SysMsgPageState extends State<SysMsgPage> {
                   final item = response[index];
                   void onLongPress() => showConfirmDialog(
                     context: context,
-                    title: const Text('纭畾鍒犻櫎璇ラ€氱煡?'),
+                    title: const Text('确定删除该通知?'),
                     onConfirm: () => _sysMsgController.onRemove(item.id, index),
                   );
                   return ListTile(
@@ -159,7 +159,7 @@ class _SysMsgPageState extends State<SysMsgPage> {
           } catch (e) {
             spanChildren.add(TextSpan(text: matchStr));
           }
-        } else if (matchStr.startsWith('銆?)) {
+        } else if (matchStr.startsWith('【')) {
           try {
             final isBV = match[3]!.startsWith('BV');
             final int validAv;
@@ -172,7 +172,7 @@ class _SysMsgPageState extends State<SysMsgPage> {
               validBv = IdUtils.av2bv(validAv);
             }
             spanChildren
-              ..add(const TextSpan(text: '銆?))
+              ..add(const TextSpan(text: '【'))
               ..add(
                 TextSpan(
                   text: match[3],
@@ -183,18 +183,18 @@ class _SysMsgPageState extends State<SysMsgPage> {
                     },
                 ),
               )
-              ..add(const TextSpan(text: '銆?));
+              ..add(const TextSpan(text: '】'));
           } catch (e) {
             spanChildren.add(TextSpan(text: matchStr));
           }
-        } else if (matchStr.startsWith('锛?)) {
+        } else if (matchStr.startsWith('（')) {
           try {
             final dynId = match[4]!; // check dynId
             spanChildren
-              ..add(const TextSpan(text: '锛?))
+              ..add(const TextSpan(text: '（'))
               ..add(
                 TextSpan(
-                  text: '鏌ョ湅鍔ㄦ€?,
+                  text: '查看动态',
                   style: TextStyle(color: theme.colorScheme.primary),
                   recognizer: NoDeadlineTapGestureRecognizer()
                     ..onTap = () {
@@ -204,14 +204,14 @@ class _SysMsgPageState extends State<SysMsgPage> {
                     },
                 ),
               )
-              ..add(const TextSpan(text: '锛?));
+              ..add(const TextSpan(text: '）'));
           } catch (e) {
             spanChildren.add(TextSpan(text: matchStr));
           }
         } else {
           spanChildren.add(
             TextSpan(
-              text: '\u{1F517}缃戦〉閾炬帴',
+              text: '\u{1F517}网页链接',
               style: TextStyle(color: theme.colorScheme.primary),
               recognizer: NoDeadlineTapGestureRecognizer()
                 ..onTap = () {
@@ -232,4 +232,3 @@ class _SysMsgPageState extends State<SysMsgPage> {
     return TextSpan(children: spanChildren);
   }
 }
-

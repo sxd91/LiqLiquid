@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -17,12 +17,10 @@ import 'package:liqliquid/utils/id_utils.dart';
 import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:liqliquid/common/navigation/hero_page_transitions.dart';
-import 'package:liqliquid/utils/utils.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/intl.dart';
 
-// 瑙嗛鍗＄墖 - 鍨傜洿甯冨眬
+// 视频卡片 - 垂直布局
 class VideoCardV extends StatelessWidget {
   final BaseRcmdVideoItemModel videoItem;
   final VoidCallback? onRemove;
@@ -67,7 +65,7 @@ class VideoCardV extends StatelessWidget {
           );
         }
         break;
-      // 鍔ㄦ€?'picture':
+      // 动态
       case 'picture':
         try {
           PiliScheme.routePushFromUrl(videoItem.uri!);
@@ -111,14 +109,14 @@ class VideoCardV extends StatelessWidget {
                         clipBehavior: Clip.none,
                         children: [
                           Hero(
-                            tag: HeroNavigator.heroTag(videoItem.bvid ?? videoItem.aid, 'cover'),
+                            tag: videoItem.bvid ?? videoItem.aid.toString(),
                             child: NetworkImgLayer(
-                            src: videoItem.cover,
-                            width: maxWidth,
-                            height: maxHeight,
-                            type: .emote,
-                          ),
+                              src: videoItem.cover,
+                              width: maxWidth,
+                              height: maxHeight,
+                              type: .emote,
                             ),
+                          ),
                           if (videoItem.duration > 0)
                             PBadge(
                               bottom: 6,
@@ -194,7 +192,7 @@ class VideoCardV extends StatelessWidget {
                   ),
                 if (videoItem.goto == 'picture')
                   const PBadge(
-                    text: '鍔ㄦ€?,
+                    text: '动态',
                     isStack: false,
                     size: .small,
                     type: .line_primary,
@@ -202,7 +200,7 @@ class VideoCardV extends StatelessWidget {
                   ),
                 if (videoItem.isFollowed)
                   const PBadge(
-                    text: '宸插叧娉?,
+                    text: '已关注',
                     isStack: false,
                     size: .small,
                     type: .secondary,
@@ -213,7 +211,7 @@ class VideoCardV extends StatelessWidget {
                     videoItem.owner.name.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.clip,
-                    semanticsLabel: 'UP锛?{videoItem.owner.name}',
+                    semanticsLabel: 'UP：${videoItem.owner.name}',
                     style: TextStyle(
                       height: 1.5,
                       fontSize: theme.textTheme.labelMedium!.fontSize,
@@ -268,7 +266,7 @@ class VideoCardV extends StatelessWidget {
         // deprecated
         //  else if (videoItem is RcmdVideoItemAppModel &&
         //     videoItem.desc != null &&
-        //     videoItem.desc!.contains(' 路 ')) ...[
+        //     videoItem.desc!.contains(' · ')) ...[
         //   const Spacer(),
         //   Text.rich(
         //     maxLines: 1,
@@ -278,7 +276,7 @@ class VideoCardV extends StatelessWidget {
         //           color: theme.colorScheme.outline.withValues(alpha: 0.8),
         //         ),
         //         text: Utils.shortenChineseDateString(
-        //             videoItem.desc!.split(' 路 ').last)),
+        //             videoItem.desc!.split(' · ').last)),
         //   ),
         //   const SizedBox(width: 2),
         // ]

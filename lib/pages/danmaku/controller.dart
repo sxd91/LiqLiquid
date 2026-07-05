@@ -1,4 +1,4 @@
-﻿import 'dart:collection';
+import 'dart:collection';
 import 'dart:io' show File;
 
 import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
@@ -26,7 +26,7 @@ class PlDanmakuController {
   late final _isLogin = Accounts.main.isLogin;
 
   final Map<int, List<DanmakuElem>> _dmSegMap = HashMap();
-  // 宸茶姹傜殑娈佃惤鏍囪
+  // 已请求的段落标记
   late final Set<int> _requestedSeg = HashSet();
 
   static const int segmentLength = 60 * 6 * 1000;
@@ -90,7 +90,8 @@ class PlDanmakuController {
         }
       }
 
-      final int pos = element.progress ~/ 100; //姣?.1绉掑瓨鍌ㄤ竴娆?      (_dmSegMap[pos] ??= []).add(element);
+      final int pos = element.progress ~/ 100; //每0.1秒存储一次
+      (_dmSegMap[pos] ??= []).add(element);
     }
   }
 
@@ -134,4 +135,3 @@ class PlDanmakuController {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
@@ -67,12 +67,12 @@ class PostPanel extends CommonSlidePage {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '${isFirst ? '寮€濮? : '缁撴潫'}: $value',
+              '${isFirst ? '开始' : '结束'}: $value',
             ),
             iconButton(
               context: context,
               size: 26,
-              tooltip: '璁句负褰撳墠',
+              tooltip: '设为当前',
               icon: const Icon(Icons.my_location),
               onPressed: () {
                 updateSegment(
@@ -86,7 +86,7 @@ class PostPanel extends CommonSlidePage {
             iconButton(
               context: context,
               size: 26,
-              tooltip: isFirst ? '瑙嗛寮€澶? : '瑙嗛缁撳熬',
+              tooltip: isFirst ? '视频开头' : '视频结尾',
               icon: isFirst
                   ? const Icon(Icons.first_page)
                   : const Icon(Icons.last_page),
@@ -102,7 +102,7 @@ class PostPanel extends CommonSlidePage {
             iconButton(
               context: context,
               size: 26,
-              tooltip: '缂栬緫',
+              tooltip: '编辑',
               icon: const Icon(Icons.edit),
               onPressed: () async {
                 String initV = value;
@@ -121,7 +121,7 @@ class PostPanel extends CommonSlidePage {
                       TextButton(
                         onPressed: Get.back,
                         child: Text(
-                          '鍙栨秷',
+                          '取消',
                           style: TextStyle(
                             color: theme.colorScheme.outline,
                           ),
@@ -129,7 +129,7 @@ class PostPanel extends CommonSlidePage {
                       ),
                       TextButton(
                         onPressed: () => Get.back(result: initV),
-                        child: const Text('纭畾'),
+                        child: const Text('确定'),
                       ),
                     ],
                   ),
@@ -196,12 +196,12 @@ class _PostPanelState extends State<PostPanel>
         toolbarHeight: 45,
         automaticallyImplyLeading: false,
         titleSpacing: 16,
-        title: const Text('鎻愪氦鐗囨'),
+        title: const Text('提交片段'),
         actions: [
           iconButton(
             size: 32,
             context: context,
-            tooltip: '娣诲姞鐗囨',
+            tooltip: '添加片段',
             onPressed: () {
               setState(() {
                 list.insert(
@@ -223,7 +223,7 @@ class _PostPanelState extends State<PostPanel>
           iconButton(
             size: 32,
             context: context,
-            tooltip: '鍏抽棴',
+            tooltip: '关闭',
             onPressed: Get.back,
             icon: const Icon(Icons.close),
           ),
@@ -262,7 +262,7 @@ class _PostPanelState extends State<PostPanel>
     );
     if (_isNested) {
       child = ExtendedVisibilityDetector(
-        uniqueKey: const Key('post-panel'),
+        uniqueKey: const ValueKey(PostPanel),
         child: child,
       );
     }
@@ -274,22 +274,22 @@ class _PostPanelState extends State<PostPanel>
           right: kFloatingActionButtonMargin,
           bottom: kFloatingActionButtonMargin + bottom,
           child: FloatingActionButton(
-            tooltip: '鎻愪氦',
+            tooltip: '提交',
             onPressed: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('纭畾鏃犺鍐嶆彁浜?),
+                title: const Text('确定无误再提交'),
                 actions: [
                   TextButton(
                     onPressed: Get.back,
                     child: Text(
-                      '鍙栨秷',
+                      '取消',
                       style: TextStyle(color: theme.colorScheme.outline),
                     ),
                   ),
                   TextButton(
                     onPressed: _onPost,
-                    child: const Text('纭畾鎻愪氦'),
+                    child: const Text('确定提交'),
                   ),
                 ],
               ),
@@ -312,14 +312,14 @@ class _PostPanelState extends State<PostPanel>
 
     if (res case Success(:final response)) {
       Get.back();
-      SmartDialog.showToast('鎻愪氦鎴愬姛');
+      SmartDialog.showToast('提交成功');
       list.clear();
       videoDetailController.handleSBData(response);
       if (videoDetailController.blockListener == null) {
         videoDetailController.initSkip();
       }
     } else {
-      SmartDialog.showToast('鎻愪氦澶辫触: $res');
+      SmartDialog.showToast('提交失败: $res');
     }
   }
 
@@ -356,7 +356,7 @@ class _PostPanelState extends State<PostPanel>
                   spacing: 16,
                   children: [
                     PopupMenuText(
-                      title: '鍒嗙被',
+                      title: '分类',
                       value: () => item.category,
                       onSelected: (e) {
                         bool flag = false;
@@ -401,7 +401,7 @@ class _PostPanelState extends State<PostPanel>
                       getSelectTitle: (category) => category.title,
                     ),
                     PopupMenuText(
-                      title: '琛屼负绫诲埆',
+                      title: '行为类别',
                       value: () => item.actionType,
                       onSelected: (e) {
                         bool flag = false;
@@ -445,7 +445,7 @@ class _PostPanelState extends State<PostPanel>
           child: iconButton(
             context: context,
             size: 26,
-            tooltip: '绉婚櫎',
+            tooltip: '移除',
             icon: const Icon(Icons.clear),
             onPressed: () {
               setState(() {
@@ -460,7 +460,7 @@ class _PostPanelState extends State<PostPanel>
           child: iconButton(
             context: context,
             size: 26,
-            tooltip: '棰勮',
+            tooltip: '预览',
             icon: const Icon(Icons.preview_outlined),
             onPressed: () async {
               final player = plPlayerController.videoPlayerController;
@@ -509,4 +509,3 @@ class _PostPanelState extends State<PostPanel>
     );
   }
 }
-

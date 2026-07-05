@@ -31,13 +31,13 @@ try {
     $buildTime = [int]([DateTimeOffset]::Now.ToUnixTimeSeconds())
 
     $data = @{
-        'liq.name' = $versionName
-        'liq.code' = $versionCode
-        'liq.hash' = $commitHash
-        'liq.time' = $buildTime
+        'pili.name' = $versionName
+        'pili.code' = $versionCode
+        'pili.hash' = $commitHash
+        'pili.time' = $buildTime
     }
 
-    $data | ConvertTo-Json -Compress | Out-File 'liq_release.json' -Encoding UTF8
+    $data | ConvertTo-Json -Compress | Out-File 'liqliquid_release.json' -Encoding UTF8
 
     Add-Content -Path $env:GITHUB_ENV -Value "version=$versionName+$versionCode"
 }

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/msg/im_user_infos/datum.dart';
 import 'package:liqliquid/models_new/msg/msg_dnd/uid_setting.dart';
@@ -48,7 +48,7 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
     );
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('鑱婂ぉ璁剧疆')),
+      appBar: AppBar(title: const Text('聊天设置')),
       body: ListView(
         padding: EdgeInsets.only(
           bottom: MediaQuery.viewPaddingOf(context).bottom + 100,
@@ -78,7 +78,7 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
           ListTile(
             dense: true,
             onTap: _controller.report,
-            title: const Text('涓炬姤', style: TextStyle(fontSize: 14)),
+            title: const Text('举报', style: TextStyle(fontSize: 14)),
             trailing: Icon(
               Icons.keyboard_arrow_right,
               color: theme.colorScheme.outline,
@@ -94,7 +94,7 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
     return ListTile(
       dense: true,
       onTap: () => _controller.setBlock(isBlocked),
-      title: const Text('鍔犲叆榛戝悕鍗?, style: TextStyle(fontSize: 14)),
+      title: const Text('加入黑名单', style: TextStyle(fontSize: 14)),
       trailing: Transform.scale(
         alignment: Alignment.centerRight,
         scale: 0.8,
@@ -191,9 +191,9 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
                 ListTile(
                   dense: true,
                   onTap: () => _controller.setPush(response.pushSetting == 0),
-                  title: const Text('鎺ユ敹娑堟伅鎺ㄩ€?, style: TextStyle(fontSize: 14)),
+                  title: const Text('接收消息推送', style: TextStyle(fontSize: 14)),
                   subtitle: Text(
-                    '鑻ュ叧闂寮€鍏筹紝浣犲皢涓嶅啀鏀跺埌璇ヨ处鍙风殑鍥炬枃娑堟伅涓庣浠舵帹閫侊紝浣嗛€氱煡绫绘秷鎭笉鍙楀奖鍝?,
+                    '若关闭此开关，你将不再收到该账号的图文消息与稿件推送，但通知类消息不受影响',
                     style: subTitleS,
                   ),
                   trailing: Transform.scale(
@@ -211,7 +211,7 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
                 () => ListTile(
                   dense: true,
                   onTap: _controller.setPin,
-                  title: const Text('缃《鑱婂ぉ', style: TextStyle(fontSize: 14)),
+                  title: const Text('置顶聊天', style: TextStyle(fontSize: 14)),
                   trailing: Transform.scale(
                     alignment: Alignment.centerRight,
                     scale: 0.8,
@@ -241,7 +241,7 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
             ? ListTile(
                 dense: true,
                 onTap: () => _controller.setMute(response.first.setting == 1),
-                title: const Text('娑堟伅鍏嶆墦鎵?, style: TextStyle(fontSize: 14)),
+                title: const Text('消息免打扰', style: TextStyle(fontSize: 14)),
                 trailing: Transform.scale(
                   alignment: Alignment.centerRight,
                   scale: 0.8,
@@ -272,4 +272,3 @@ class _WhisperLinkSettingPageState extends State<WhisperLinkSettingPage> {
     );
   }
 }
-

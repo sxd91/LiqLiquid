@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/fav_order_type.dart';
+import 'package:liqliquid/models/common/fav_order_type.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/data.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';
@@ -44,7 +44,7 @@ class _FavSearchPageState
           mediaId: controller.mediaId,
           mid: Accounts.main.mid,
         ),
-        child: Text('澶嶅埗', style: textStyle),
+        child: Text('复制', style: textStyle),
       ),
       TextButton(
         style: btnStyle,
@@ -55,7 +55,7 @@ class _FavSearchPageState
           mediaId: controller.mediaId,
           mid: Accounts.main.mid,
         ),
-        child: Text('绉诲姩', style: textStyle),
+        child: Text('移动', style: textStyle),
       ),
     ];
   }
@@ -68,7 +68,7 @@ class _FavSearchPageState
           icon: const Icon(Icons.sort),
           requestFocus: false,
           initialValue: controller.order.value,
-          tooltip: '鎺掑簭鏂瑰紡',
+          tooltip: '排序方式',
           onSelected: (value) => controller
             ..order.value = value
             ..onReload(),
@@ -104,4 +104,3 @@ class _FavSearchPageState
     );
   }
 }
-

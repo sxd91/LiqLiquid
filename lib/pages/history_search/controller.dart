@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models_new/history/data.dart';
@@ -36,7 +36,7 @@ class HistorySearchController
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('宸插垹闄?);
+      SmartDialog.showToast('已删除');
     } else {
       res.toast();
     }
@@ -46,10 +46,10 @@ class HistorySearchController
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('鎻愮ず'),
-      content: const Text('纭鍒犻櫎鎵€閫夊巻鍙茶褰曞悧锛?),
+      title: const Text('提示'),
+      content: const Text('确认删除所选历史记录吗？'),
       onConfirm: () async {
-        SmartDialog.showLoading(msg: '璇锋眰涓?);
+        SmartDialog.showLoading(msg: '请求中');
         final removeList = allChecked.toSet();
         final response = await UserHttp.delHistory(
           removeList
@@ -59,7 +59,7 @@ class HistorySearchController
         );
         if (response.isSuccess) {
           afterDelete(removeList);
-          SmartDialog.showToast('宸插垹闄?);
+          SmartDialog.showToast('已删除');
         } else {
           response.toast();
         }
@@ -68,4 +68,3 @@ class HistorySearchController
     );
   }
 }
-

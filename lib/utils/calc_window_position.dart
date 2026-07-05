@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/rendering.dart' show Offset, Size;
 import 'package:screen_retriever/screen_retriever.dart';
@@ -53,4 +53,3 @@ Future<Offset> calcWindowPosition(Size windowSize) async {
     visibleStartY + ((visibleHeight / 2) - (windowSize.height / 2)),
   );
 }
-

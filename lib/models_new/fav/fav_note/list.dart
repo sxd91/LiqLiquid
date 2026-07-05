@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/common/multi_select/base.dart';
+import 'package:liqliquid/pages/common/multi_select/base.dart';
 
 class FavNoteItemModel with MultiSelectData {
   FavNoteItemModel({
@@ -29,4 +29,3 @@ class FavNoteItemModel with MultiSelectData {
     noteId = json['note_id'];
   }
 }
-

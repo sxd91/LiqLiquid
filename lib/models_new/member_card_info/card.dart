@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 
 class Card {
   String? mid;
@@ -29,4 +29,3 @@ class Card {
         : Vip.fromJson(json['vip'] as Map<String, dynamic>),
   );
 }
-

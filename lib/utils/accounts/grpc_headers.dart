@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/grpc/bilibili/metadata.pb.dart';
@@ -84,4 +84,3 @@ abstract final class GrpcHeaders {
     };
   }
 }
-

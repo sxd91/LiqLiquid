@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:flutter/material.dart';
 
 class MsgFeedSysMsgSkeleton extends StatelessWidget {
@@ -51,4 +51,3 @@ class MsgFeedSysMsgSkeleton extends StatelessWidget {
     );
   }
 }
-

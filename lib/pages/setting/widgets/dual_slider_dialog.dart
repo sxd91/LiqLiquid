@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
 
 class DualSliderDialog extends StatefulWidget {
@@ -95,16 +95,15 @@ class _DualSliderDialogState extends State<DualSliderDialog> {
         TextButton(
           onPressed: Navigator.of(context).pop,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, (_tempValue1, _tempValue2)),
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     );
   }
 }
-

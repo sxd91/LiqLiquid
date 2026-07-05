@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/dynamic_sliver_app_bar/dynamic_sliver_app_bar.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -164,11 +164,11 @@ class _DynTopicPageState extends State<DynTopicPage>
                         ),
                       );
                     } else {
-                      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+                      SmartDialog.showToast('账号未登录');
                     }
                   },
                   icon: const Icon(CustomIcons.topic_tag, size: 20),
-                  label: const Text('鍙備笌璇濋'),
+                  label: const Text('参与话题'),
                 ),
               ),
             ),
@@ -235,7 +235,7 @@ class _DynTopicPageState extends State<DynTopicPage>
                         ),
                       ),
                       Text(
-                        ' 鍙戣捣',
+                        ' 发起',
                         style: TextStyle(color: colorScheme.outline),
                       ),
                     ],
@@ -258,7 +258,7 @@ class _DynTopicPageState extends State<DynTopicPage>
               Row(
                 children: [
                   Text(
-                    '${NumUtils.numFormat(response.topicItem!.view)}娴忚 路 ${NumUtils.numFormat(response.topicItem!.discuss)}璁ㄨ',
+                    '${NumUtils.numFormat(response.topicItem!.view)}浏览 · ${NumUtils.numFormat(response.topicItem!.discuss)}讨论',
                     style: TextStyle(
                       fontSize: 13,
                       color: colorScheme.outline,
@@ -335,14 +335,14 @@ class _DynTopicPageState extends State<DynTopicPage>
                 PopupMenuItem(
                   onTap: _controller.onFav,
                   child: Text(
-                    '${_controller.isFav.value ? '鍙栨秷' : ''}鏀惰棌',
+                    '${_controller.isFav.value ? '取消' : ''}收藏',
                   ),
                 ),
                 PopupMenuItem(
-                  child: const Text('涓炬姤'),
+                  child: const Text('举报'),
                   onTap: () {
                     if (!_controller.isLogin) {
-                      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+                      SmartDialog.showToast('账号未登录');
                       return;
                     }
                     PageUtils.inAppWebview(
@@ -409,4 +409,3 @@ class _DynTopicPageState extends State<DynTopicPage>
     };
   }
 }
-

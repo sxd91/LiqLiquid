@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/http/user.dart';
@@ -49,7 +49,7 @@ void imageSaveDialog({
                   width: 30,
                   height: 30,
                   child: IconButton(
-                    tooltip: '鍏抽棴',
+                    tooltip: '关闭',
                     style: IconButton.styleFrom(
                       padding: .zero,
                       backgroundColor: Colors.black.withValues(alpha: 0.3),
@@ -80,7 +80,7 @@ void imageSaveDialog({
                   if (aid != null || bvid != null)
                     iconButton(
                       iconSize: iconSize,
-                      tooltip: '绋嶅悗鍐嶇湅',
+                      tooltip: '稍后再看',
                       onPressed: () => {
                         SmartDialog.dismiss(),
                         UserHttp.toViewLater(aid: aid, bvid: bvid),
@@ -91,7 +91,7 @@ void imageSaveDialog({
                     if (PlatformUtils.isMobile)
                       iconButton(
                         iconSize: iconSize,
-                        tooltip: '鍒嗕韩',
+                        tooltip: '分享',
                         onPressed: () {
                           SmartDialog.dismiss();
                           ImageUtils.onShareImg(cover);
@@ -100,7 +100,7 @@ void imageSaveDialog({
                       ),
                     iconButton(
                       iconSize: iconSize,
-                      tooltip: '淇濆瓨灏侀潰鍥?,
+                      tooltip: '保存封面图',
                       onPressed: () async {
                         bool saveStatus = await ImageUtils.downloadImg([cover]);
                         if (saveStatus) {
@@ -119,4 +119,3 @@ void imageSaveDialog({
     },
   );
 }
-

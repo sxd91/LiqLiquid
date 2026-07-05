@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
@@ -151,7 +151,6 @@ class _LiveRoomPageState extends State<LiveRoomPage>
     plPlayerController.removeStatusLister(playerListener);
     _liveRoomController
       ..danmakuController?.clear()
-      ..danmakuController?.pause()
       ..cancelLiveTimer()
       ..closeLiveMsg()
       ..isPlaying = plPlayerController.playerStatus.isPlaying;
@@ -514,7 +513,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
     child: Obx(() {
       if (_liveRoomController.onlineCount.value case final onlineCount?) {
         return Text(
-          '楂樿兘瑙備紬($onlineCount)',
+          '高能观众($onlineCount)',
           style: const TextStyle(
             fontSize: 12,
             color: Colors.white,
@@ -616,7 +615,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
             ),
       actions: [
         // IconButton(
-        //   tooltip: '鍒锋柊',
+        //   tooltip: '刷新',
         //   onPressed: _liveRoomController.queryLiveUrl,
         //   icon: const Icon(Icons.refresh, size: 20),
         // ),
@@ -633,7 +632,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                   mainAxisSize: .min,
                   children: [
                     Icon(Icons.copy, size: 19),
-                    Text('澶嶅埗閾炬帴'),
+                    Text('复制链接'),
                   ],
                 ),
               ),
@@ -645,7 +644,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                     mainAxisSize: .min,
                     children: [
                       Icon(Icons.share, size: 19),
-                      Text('鍒嗕韩鐩存挱闂?),
+                      Text('分享直播间'),
                     ],
                   ),
                 ),
@@ -656,7 +655,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                   mainAxisSize: .min,
                   children: [
                     Icon(Icons.open_in_browser, size: 19),
-                    Text('娴忚鍣ㄦ墦寮€'),
+                    Text('浏览器打开'),
                   ],
                 ),
               ),
@@ -674,7 +673,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                           "title": roomInfo.roomInfo!.title!,
                           "url": liveUrl,
                           "authorID": roomInfo.roomInfo!.uid.toString(),
-                          "source": "鐩存挱",
+                          "source": "直播",
                           "desc": roomInfo.roomInfo!.title!,
                           "author": roomInfo.anchorInfo!.baseInfo!.uname,
                         },
@@ -688,7 +687,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                     mainAxisSize: .min,
                     children: [
                       Icon(Icons.forward_to_inbox, size: 19),
-                      Text('鍒嗕韩鑷虫秷鎭?),
+                      Text('分享至消息'),
                     ],
                   ),
                 ),
@@ -809,7 +808,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                 Obx(
                   () {
                     final enableShowLiveDanmaku =
-                        plPlayerController.enableShowDanmaku.value;
+                        plPlayerController.enableShowLiveDanmaku.value;
                     return SizedBox(
                       width: 34,
                       height: 34,
@@ -817,7 +816,8 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                         style: IconButton.styleFrom(padding: .zero),
                         onPressed: () {
                           final newVal = !enableShowLiveDanmaku;
-                          plPlayerController.enableShowDanmaku.value = newVal;
+                          plPlayerController.enableShowLiveDanmaku.value =
+                              newVal;
                           if (!plPlayerController.tempPlayerConf) {
                             GStorage.setting.put(
                               SettingBoxKey.enableShowLiveDanmaku,
@@ -842,7 +842,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
                 ),
                 const Expanded(
                   child: Text(
-                    '鍙戦€佸脊骞?,
+                    '发送弹幕',
                     style: TextStyle(color: baseWhite),
                   ),
                 ),
@@ -1091,7 +1091,7 @@ class _LiveDanmakuState extends State<LiveDanmaku> {
     final option = DanmakuOptions.get(notFullscreen: widget.notFullscreen);
     return Obx(
       () => AnimatedOpacity(
-        opacity: plPlayerController.enableShowDanmaku.value
+        opacity: plPlayerController.enableShowLiveDanmaku.value
             ? plPlayerController.danmakuOpacity.value
             : 0,
         duration: const Duration(milliseconds: 100),
@@ -1107,4 +1107,3 @@ class _LiveDanmakuState extends State<LiveDanmaku> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async' show StreamSubscription;
+import 'dart:async' show StreamSubscription;
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/search.dart';
@@ -50,7 +50,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
     if (getBack) Get.back();
     SmartDialog.dismiss();
     if (label != null) {
-      SmartDialog.showToast("銆?label銆嶇殑绛涢€夌粨鏋?);
+      SmartDialog.showToast("「$label」的筛选结果");
     }
     SmartDialog.showLoading(msg: 'loading');
     onReload().whenComplete(SmartDialog.dismiss);
@@ -118,4 +118,3 @@ class SearchPanelController<R extends SearchNumData<T>, T>
     return super.onReload();
   }
 }
-

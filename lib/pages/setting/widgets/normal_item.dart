@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:flutter/material.dart' hide ListTile;
 
 class NormalItem extends StatefulWidget {
@@ -63,4 +63,3 @@ class _NormalItemState extends State<NormalItem> {
     }
   }
 }
-

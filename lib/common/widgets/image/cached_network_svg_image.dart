@@ -1,4 +1,4 @@
-﻿// code from cached_network_svg_image;
+// code from cached_network_svg_image;
 
 import 'dart:developer';
 
@@ -175,4 +175,3 @@ class _CachedNetworkSVGImageState extends State<CachedNetworkSVGImage> {
     );
   }
 }
-

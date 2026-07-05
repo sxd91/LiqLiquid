@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/control.dart';
+import 'package:liqliquid/models_new/reply/control.dart';
 import 'package:liqliquid/models_new/reply/cursor.dart';
 import 'package:liqliquid/models_new/reply/reply.dart';
 import 'package:liqliquid/models_new/reply/top.dart';
@@ -69,4 +69,3 @@ class ReplyData {
     contextFeature: json['context_feature'] as String?,
   );
 }
-

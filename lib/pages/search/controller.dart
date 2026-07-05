@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -74,7 +74,8 @@ class BaseSearchController extends GetxController {
     }
   }
 
-  // 鑾峰彇鐑悳鍏抽敭璇?  Future<void> queryTrendingList() async {
+  // 获取热搜关键词
+  Future<void> queryTrendingList() async {
     trendingState.value = await SearchHttp.searchTrending(limit: 10);
   }
 }
@@ -161,7 +162,7 @@ class SSearchController extends GetxController
     }
   }
 
-  // 鎼滅储
+  // 搜索
   Future<void> submit() async {
     if (controller.text.isEmpty) {
       if (hintText.isNullOrEmpty) {
@@ -230,7 +231,7 @@ class SSearchController extends GetxController
   void onClearHistory() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('纭畾娓呯┖鎼滅储鍘嗗彶锛?),
+      title: const Text('确定清空搜索历史？'),
       onConfirm: () {
         historyList.clear();
         GStorage.historyWord.delete('cacheList');
@@ -246,4 +247,3 @@ class SSearchController extends GetxController
     super.onClose();
   }
 }
-

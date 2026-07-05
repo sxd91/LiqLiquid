@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/http/api.dart';
@@ -55,9 +55,9 @@ abstract final class MemberHttp {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['status'] == true) {
-      SmartDialog.showToast('涓炬姤鎴愬姛');
+      SmartDialog.showToast('举报成功');
     } else {
-      SmartDialog.showToast('涓炬姤澶辫触');
+      SmartDialog.showToast('举报失败');
     }
   }
 
@@ -434,7 +434,8 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鐢ㄦ埛鍔ㄦ€?  @pragma('vm:notify-debugger-on-exception')
+  // 用户动态
+  @pragma('vm:notify-debugger-on-exception')
   static Future<LoadingState<DynamicsDataModel>> memberDynamic({
     String? offset,
     required int mid,
@@ -505,7 +506,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鏌ヨ鍒嗙粍
+  // 查询分组
   static Future<LoadingState<List<MemberTagItemModel>>> followUpTags() async {
     final res = await Request().get(Api.followUpTag);
     if (res.data['code'] == 0) {
@@ -538,7 +539,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 璁剧疆鍒嗙粍
+  // 设置分组
   static Future<LoadingState<void>> addUsers(String fids, String tagids) async {
     final res = await Request().post(
       Api.addUsers,
@@ -561,7 +562,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鑾峰彇鏌愬垎缁勪笅鐨剈p
+  // 获取某分组下的up
   static Future<LoadingState<FollowData>> followUpGroup({
     int? mid,
     int? tagid,
@@ -656,7 +657,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鑾峰彇up缃《
+  // 获取up置顶
   static Future<LoadingState<List<MemberTagItemModel>?>> getTopVideo() async {
     final res = await Request().get(Api.getTopVideoApi);
     if (res.data['code'] == 0) {
@@ -670,7 +671,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鑾峰彇up鎾斁鏁般€佺偣璧炴暟
+  // 获取up播放数、点赞数
   static Future<LoadingState<Map>> memberView({required int mid}) async {
     final res = await Request().get(
       Api.getMemberViewApi,
@@ -683,7 +684,7 @@ abstract final class MemberHttp {
     }
   }
 
-  // 鎼滅储follow
+  // 搜索follow
   static Future<LoadingState<FollowData>> getfollowSearch({
     required int mid,
     required int ps,
@@ -850,4 +851,3 @@ abstract final class MemberHttp {
     }
   }
 }
-

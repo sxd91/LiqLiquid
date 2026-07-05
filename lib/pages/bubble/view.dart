@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -88,7 +88,7 @@ class _BubblePageState extends State<BubblePage>
                 );
                 if (item != null) {
                   return FloatingActionButton.extended(
-                    tooltip: '鎺掑簭',
+                    tooltip: '排序',
                     onPressed: () => showDialog(
                       context: context,
                       builder: (context) => SimpleDialog(
@@ -137,7 +137,7 @@ class _BubblePageState extends State<BubblePage>
           if (tribeName == null) {
             return const SizedBox.shrink();
           }
-          return Text('$tribeName灏忕珯');
+          return Text('$tribeName小站');
         }),
       ),
       body: Padding(
@@ -239,4 +239,3 @@ class _BubblePageState extends State<BubblePage>
   @override
   bool get wantKeepAlive => widget.categoryId != null;
 }
-

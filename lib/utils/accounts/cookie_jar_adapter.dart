@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/accounts/account.dart';
+import 'package:liqliquid/utils/accounts/account.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -25,4 +25,3 @@ class BiliCookieJarAdapter extends TypeAdapter<DefaultCookieJar> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-

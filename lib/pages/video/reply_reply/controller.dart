@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show ReplyInfo, DetailListReply, Mode;
 import 'package:liqliquid/grpc/reply.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -26,9 +26,9 @@ class VideoReplyReplyController extends ReplyController
   });
   final int? dialog;
   int? id;
-  // 瑙嗛aid 璇锋眰鏃朵娇鐢ㄧ殑oid
+  // 视频aid 请求时使用的oid
   int oid;
-  // rpid 璇锋眰妤间腑妤煎洖澶?
+  // rpid 请求楼中楼回复
   int rpid;
   int replyType;
 
@@ -207,4 +207,3 @@ class VideoReplyReplyController extends ReplyController
     super.dispose();
   }
 }
-

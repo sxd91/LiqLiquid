@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/bubble/category_list.dart';
 import 'package:liqliquid/models_new/bubble/data.dart';
@@ -75,4 +75,3 @@ class BubbleController extends CommonListController<BubbleData, DynList>
     onReload();
   }
 }
-

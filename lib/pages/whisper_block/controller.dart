@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';
 import 'package:liqliquid/grpc/im.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';
@@ -38,7 +38,7 @@ class WhisperBlockController
         ..value.data!.add(KeywordBlockingItem(keyword: keyword))
         ..refresh();
       count.value += 1;
-      SmartDialog.showToast('娣诲姞鎴愬姛');
+      SmartDialog.showToast('添加成功');
     } else {
       res.toast();
     }
@@ -51,10 +51,9 @@ class WhisperBlockController
         ..value.data!.remove(item)
         ..refresh();
       count.value -= 1;
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
   }
 }
-

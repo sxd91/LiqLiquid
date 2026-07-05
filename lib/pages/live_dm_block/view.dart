@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -38,8 +38,8 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
     Widget tabBar = TabBar(
       controller: _controller.tabController,
       tabs: const [
-        Tab(text: '鍏抽敭璇?),
-        Tab(text: '鐢ㄦ埛'),
+        Tab(text: '关键词'),
+        Tab(text: '用户'),
       ],
     );
 
@@ -62,7 +62,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
         bottom: 12,
       ),
       child: const Text(
-        '鍏抽敭璇嶅睆钄?,
+        '关键词屏蔽',
         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       ),
     );
@@ -73,7 +73,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            '鍏ㄥ眬灞忚斀',
+            '全局屏蔽',
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
           ..._buildHeader(theme),
@@ -84,7 +84,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('寮瑰箷灞忚斀')),
+      appBar: AppBar(title: const Text('弹幕屏蔽')),
       body: Padding(
         padding: EdgeInsets.only(left: padding.left, right: padding.right),
         child: Stack(
@@ -144,7 +144,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               right: kFloatingActionButtonMargin,
               bottom: kFloatingActionButtonMargin + padding.bottom,
               child: FloatingActionButton(
-                tooltip: '娣诲姞',
+                tooltip: '添加',
                 onPressed: _addShieldKeyword,
                 child: const Icon(Icons.add),
               ),
@@ -175,7 +175,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               text: e is ShieldUserList ? e.uname! : e as String,
               onTap: (value) => showConfirmDialog(
                 context: context,
-                title: const Text('纭畾鍒犻櫎璇ヨ鍒欙紵'),
+                title: const Text('确定删除该规则？'),
                 onConfirm: () => _controller.onRemove(i, e),
               ),
             );
@@ -194,7 +194,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
           return Row(
             spacing: 10,
             children: [
-              Text('灞忚斀${isEnable ? '宸? : '鏈?}寮€鍚?),
+              Text('屏蔽${isEnable ? '已' : '未'}开启'),
               Transform.scale(
                 scale: .8,
                 child: Switch(
@@ -212,7 +212,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
           final level = _controller.level.value;
           return Row(
             children: [
-              const Text('鐢ㄦ埛绛夌骇'),
+              const Text('用户等级'),
               Slider(
                 min: 0,
                 max: 60,
@@ -235,7 +235,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
                   }
                 },
               ),
-              Text('$level 浠ヤ笅'),
+              Text('$level 以下'),
             ],
           );
         },
@@ -250,7 +250,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               theme,
               isEnable,
               Icons.live_tv,
-              '闈炴寮忎細鍛?,
+              '非正式会员',
               () => _controller.setSilent(
                 LiveDmSilentType.rank,
                 isEnable ? 0 : 1,
@@ -263,7 +263,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               theme,
               isEnable,
               Icons.smartphone,
-              '鏈粦瀹氭墜鏈虹敤鎴?,
+              '未绑定手机用户',
               () => _controller.setSilent(
                 LiveDmSilentType.verify,
                 isEnable ? 0 : 1,
@@ -347,7 +347,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
     String value = '';
     showConfirmDialog(
       context: context,
-      title: Text('${isKeyword ? '鍏抽敭璇? : '鐢ㄦ埛'}灞忚斀'),
+      title: Text('${isKeyword ? '关键词' : '用户'}屏蔽'),
       content: TextFormField(
         autofocus: true,
         initialValue: value,
@@ -366,4 +366,3 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
     );
   }
 }
-

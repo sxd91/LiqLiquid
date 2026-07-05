@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/models/common/account_type.dart';
 
 abstract final class ApiType {
@@ -66,7 +66,8 @@ abstract final class ApiType {
       Api.feedDislikeCancel,
       Api.hotList,
       Api.relatedList,
-      Api.hotSearchList, // 涓嶅悓璐﹀彿鎼滅储缁撴灉鍙兘涓嶄竴鏍?      Api.searchDefault,
+      Api.hotSearchList, // 不同账号搜索结果可能不一样
+      Api.searchDefault,
       Api.searchSuggest,
       Api.liveList,
       Api.searchTrending,
@@ -113,4 +114,3 @@ abstract final class ApiType {
     Api.oauth2AccessToken,
   };
 }
-

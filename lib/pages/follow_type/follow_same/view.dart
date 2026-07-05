@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/follow_type/follow_same/controller.dart';
+import 'package:liqliquid/pages/follow_type/follow_same/controller.dart';
 import 'package:liqliquid/pages/follow_type/view.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/parse_int.dart';
@@ -36,9 +36,8 @@ class _FollowSamePageState extends FollowTypePageState<FollowSamePage> {
     title: Obx(
       () {
         final name = controller.name.value;
-        return Text('${name == null ? '' : '鎴戜笌$name鐨?}鍏卞悓鍏虫敞');
+        return Text('${name == null ? '' : '我与$name的'}共同关注');
       },
     ),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/reply/reply_search_type.dart';
+import 'package:liqliquid/models/common/reply/reply_search_type.dart';
 import 'package:liqliquid/pages/video/reply_search_item/child/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:liqliquid/utils/utils.dart';
@@ -59,4 +59,3 @@ class ReplySearchController extends GetxController
     super.onClose();
   }
 }
-

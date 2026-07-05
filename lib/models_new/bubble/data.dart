@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/bubble/base_info.dart';
+import 'package:liqliquid/models_new/bubble/base_info.dart';
 import 'package:liqliquid/models_new/bubble/category.dart';
 import 'package:liqliquid/models_new/bubble/content.dart';
 import 'package:liqliquid/models_new/bubble/sort_info.dart';
@@ -31,4 +31,3 @@ class BubbleData {
         : SortInfo.fromJson(json['sort_info'] as Map<String, dynamic>),
   );
 }
-

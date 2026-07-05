@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models_new/space/space_fav/list.dart';
@@ -58,7 +58,7 @@ class MemberFavItem extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      '${item.count}涓唴瀹?路 ${item.isPublic == 1 ? '绉佸瘑' : '鍏紑'}',
+                      '${item.count}个内容 · ${item.isPublic == 1 ? '私密' : '公开'}',
                       style: TextStyle(
                         fontSize: 12,
                         color: Theme.of(context).colorScheme.outline,
@@ -74,4 +74,3 @@ class MemberFavItem extends StatelessWidget {
     );
   }
 }
-

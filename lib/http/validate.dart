@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/utils/accounts.dart';
@@ -50,4 +50,3 @@ abstract final class ValidateHttp {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/avatars.dart';
 import 'package:liqliquid/common/widgets/image_viewer/hero.dart';
@@ -230,7 +230,7 @@ class UserInfoCard extends StatelessWidget {
                 color: colorScheme.vipColor,
               ),
               child: Text(
-                card.vip?.label?.text ?? '澶т細鍛?,
+                card.vip?.label?.text ?? '大会员',
                 strutStyle: const StrutStyle(
                   height: 1,
                   leading: 0,
@@ -375,7 +375,7 @@ class UserInfoCard extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: ' 璇ヨ处鍙峰皝绂佷腑',
+              text: ' 该账号封禁中',
               style: TextStyle(
                 color: isLight
                     ? colorScheme.onErrorContainer
@@ -474,15 +474,15 @@ class UserInfoCard extends StatelessWidget {
                     ],
                     TextSpan(
                       text: isOwner
-                          ? '缂栬緫璧勬枡'
+                          ? '编辑资料'
                           : switch (relation) {
-                              0 => '鍏虫敞',
-                              1 => '鎮勬倓鍏虫敞',
-                              2 => '宸插叧娉?,
-                              // 3 => '鍥炲叧',
-                              4 || 6 => '宸蹭簰鍏?,
-                              128 => '绉婚櫎榛戝悕鍗?,
-                              -10 => '鐗瑰埆鍏虫敞', // 璇ョ姸鎬佺爜骞朵笉鏄畼鏂圭姸鎬佺爜
+                              0 => '关注',
+                              1 => '悄悄关注',
+                              2 => '已关注',
+                              // 3 => '回关',
+                              4 || 6 => '已互关',
+                              128 => '移除黑名单',
+                              -10 => '特别关注', // 该状态码并不是官方状态码
                               _ => relation.toString(),
                             },
                     ),
@@ -855,7 +855,7 @@ class UserInfoCard extends StatelessWidget {
           colorScheme,
           charges,
           chargeCount,
-          '浜轰负TA鍏呯數',
+          '人为TA充电',
           () => UpowerRankPage.toUpowerRank(
             mid: card.mid!,
             name: card.name!,
@@ -867,7 +867,7 @@ class UserInfoCard extends StatelessWidget {
           colorScheme,
           guards,
           guardCount,
-          '浜哄姞鍏ュぇ鑸捣',
+          '人加入大航海',
           () => MemberGuard.toMemberGuard(
             mid: card.mid!,
             name: card.name!,
@@ -912,7 +912,7 @@ class UserInfoCard extends StatelessWidget {
           const SizedBox(width: 4),
           Flexible(
             child: Text(
-              list.map((e) => e.name).join('銆?),
+              list.map((e) => e.name).join('、'),
               maxLines: 1,
               overflow: .ellipsis,
               style: TextStyle(
@@ -922,7 +922,7 @@ class UserInfoCard extends StatelessWidget {
             ),
           ),
           Text(
-            '${flag ? '绛?{item.items!.length}浜? : ''}涔熷叧娉ㄤ簡TA',
+            '${flag ? '等${item.items!.length}人' : ''}也关注了TA',
             style: TextStyle(fontSize: 13, color: colorScheme.outline),
           ),
           Icon(
@@ -1097,4 +1097,3 @@ Widget _headerWrapper(Widget child) {
     ),
   );
 }
-

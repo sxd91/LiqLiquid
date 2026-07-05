@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
+import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/pages/search_panel/article/controller.dart';
 import 'package:liqliquid/pages/search_panel/article/widgets/item.dart';
@@ -53,7 +53,7 @@ class _SearchArticlePanelState
           children: [
             Obx(
               () => Text(
-                '鎺掑簭: ${controller.articleOrderType.value.label}',
+                '排序: ${controller.articleOrderType.value.label}',
                 maxLines: 1,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
@@ -61,7 +61,7 @@ class _SearchArticlePanelState
             const Spacer(),
             Obx(
               () => Text(
-                '鍒嗗尯: ${controller.articleZoneType!.value.label}',
+                '分区: ${controller.articleZoneType!.value.label}',
                 maxLines: 1,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
@@ -71,7 +71,7 @@ class _SearchArticlePanelState
               width: 32,
               height: 32,
               child: IconButton(
-                tooltip: '绛涢€?,
+                tooltip: '筛选',
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.zero),
                 ),
@@ -106,4 +106,3 @@ class _SearchArticlePanelState
   @override
   Widget get buildLoading => gridSkeleton;
 }
-

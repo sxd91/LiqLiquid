@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_follow/item.dart';
+import 'package:liqliquid/models_new/live/live_follow/item.dart';
 
 class LiveFollowData {
   String? title;
@@ -30,4 +30,3 @@ class LiveFollowData {
     liveCount = json['live_count'] as int?;
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
+import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/models/common/pgc_review_type.dart';
 import 'package:liqliquid/pages/pgc_review/child/controller.dart';
 import 'package:liqliquid/pages/pgc_review/child/view.dart';
@@ -121,7 +121,7 @@ class _PgcReviewPageState extends State<PgcReviewPage>
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
                 children: [
                   DialogOption(
-                    child: const Text('鍐欑煭璇?, style: TextStyle(fontSize: 14)),
+                    child: const Text('写短评', style: TextStyle(fontSize: 14)),
                     onPressed: () {
                       Get.back();
                       showModalBottomSheet(
@@ -138,7 +138,7 @@ class _PgcReviewPageState extends State<PgcReviewPage>
                     },
                   ),
                   DialogOption(
-                    child: const Text('鍐欓暱璇?, style: TextStyle(fontSize: 14)),
+                    child: const Text('写长评', style: TextStyle(fontSize: 14)),
                     onPressed: () => Get
                       ..back()
                       ..toNamed(
@@ -162,4 +162,3 @@ class _PgcReviewPageState extends State<PgcReviewPage>
   @override
   bool get wantKeepAlive => true;
 }
-

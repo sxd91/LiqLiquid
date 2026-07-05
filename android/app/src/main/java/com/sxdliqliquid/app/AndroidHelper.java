@@ -1,4 +1,4 @@
-﻿package com.sxdliqliquid.app;
+package com.sxdliqliquid.app;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -270,4 +270,3 @@ public final class AndroidHelper {
         }
     }
 }
-

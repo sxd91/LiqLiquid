@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/pages/log_table/controller.dart';
@@ -126,4 +126,3 @@ class _LogPageState<T> extends State<LogPage<T>> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/models/common/member/search_type.dart';
 import 'package:liqliquid/pages/member_search/child/view.dart';
@@ -27,7 +27,7 @@ class _MemberSearchPageState extends State<MemberSearchPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: _controller.submit,
             icon: const Icon(Icons.search, size: 22),
           ),
@@ -40,11 +40,11 @@ class _MemberSearchPageState extends State<MemberSearchPage> {
           textInputAction: TextInputAction.search,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            hintText: '鎼滅储',
+            hintText: '搜索',
             visualDensity: .standard,
             border: InputBorder.none,
             suffixIcon: IconButton(
-              tooltip: '娓呯┖',
+              tooltip: '清空',
               icon: const Icon(Icons.clear, size: 22),
               onPressed: _controller.onClear,
             ),
@@ -72,13 +72,13 @@ class _MemberSearchPageState extends State<MemberSearchPage> {
                         Obx(
                           () => Tab(
                             text:
-                                '瑙嗛 ${_controller.counts[0] != -1 ? _controller.counts[0] : ''}',
+                                '视频 ${_controller.counts[0] != -1 ? _controller.counts[0] : ''}',
                           ),
                         ),
                         Obx(
                           () => Tab(
                             text:
-                                '鍔ㄦ€?${_controller.counts[1] != -1 ? _controller.counts[1] : ''}',
+                                '动态 ${_controller.counts[1] != -1 ? _controller.counts[1] : ''}',
                           ),
                         ),
                       ],
@@ -117,7 +117,7 @@ class _MemberSearchPageState extends State<MemberSearchPage> {
                   : Align(
                       alignment: const Alignment(0, -0.5),
                       child: Text(
-                        '鎼滅储銆?{_controller.uname}銆嶇殑鍔ㄦ€併€佽棰?,
+                        '搜索「${_controller.uname}」的动态、视频',
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -128,4 +128,3 @@ class _MemberSearchPageState extends State<MemberSearchPage> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/reorder_mixin.dart';
+import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/http/follow.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/member/tags.dart';
@@ -39,7 +39,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鍏虫敞鍒嗙粍鎺掑簭'),
+        title: const Text('关注分组排序'),
         actions: _customTags.isNotEmpty
             ? [
                 TextButton(
@@ -48,7 +48,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
                       tagids: _customTags.map((e) => e.tagid).join(','),
                     );
                     if (res.isSuccess) {
-                      SmartDialog.showToast('鎺掑簭瀹屾垚');
+                      SmartDialog.showToast('排序完成');
                       final tabs = _defTags + _customTags;
                       widget.controller
                         ..tabs.value = tabs
@@ -61,7 +61,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
                       res.toast();
                     }
                   },
-                  child: const Text('瀹屾垚'),
+                  child: const Text('完成'),
                 ),
                 const SizedBox(width: 16),
               ]
@@ -114,4 +114,3 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
     );
   }
 }
-

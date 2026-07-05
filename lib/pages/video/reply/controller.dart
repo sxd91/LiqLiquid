@@ -1,14 +1,16 @@
-﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show MainListReply, ReplyInfo;
 import 'package:liqliquid/grpc/reply.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/video/video_type.dart';
 import 'package:liqliquid/pages/common/reply_controller.dart';
 import 'package:liqliquid/pages/video/controller.dart';
+import 'package:liqliquid/pages/video/reply/vote/reply_vote_mixin.dart';
 import 'package:liqliquid/utils/id_utils.dart';
 import 'package:get/get.dart';
 
-class VideoReplyController extends ReplyController<MainListReply> {
+class VideoReplyController extends ReplyController<MainListReply>
+    with ReplyVoteMixin {
   VideoReplyController({
     required this.aid,
     required this.videoType,
@@ -38,4 +40,3 @@ class VideoReplyController extends ReplyController<MainListReply> {
     offset: paginationReply?.nextOffset,
   );
 }
-

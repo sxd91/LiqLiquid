@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -24,7 +24,7 @@ class LoginDevicesPageState extends State<LoginDevicesPage> {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('鐧诲綍璁惧')),
+      appBar: AppBar(title: const Text('登录设备')),
       body: refreshIndicator(
         onRefresh: _controller.onRefresh,
         child: CustomScrollView(
@@ -81,9 +81,8 @@ class LoginDevicesPageState extends State<LoginDevicesPage> {
         style: style,
       ),
       trailing: item.isCurrentDevice == true
-          ? Text('(鏈満)', style: style)
+          ? Text('(本机)', style: style)
           : null,
     );
   }
 }
-

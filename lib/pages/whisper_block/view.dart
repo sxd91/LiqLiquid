@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
@@ -28,7 +28,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('娑堟伅灞忚斀璇?)),
+      appBar: AppBar(title: const Text('消息屏蔽词')),
       body: Obx(() => _buildBody(theme, _controller.loadingState.value)),
     );
   }
@@ -50,7 +50,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '鐐瑰嚮灞忚斀璇嶅嵆鍙垹闄?,
+                          '点击屏蔽词即可删除',
                           style: TextStyle(
                             fontSize: 13,
                             color: theme.colorScheme.outline,
@@ -82,8 +82,8 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                                 onTap: (keyword) {
                                   showConfirmDialog(
                                     context: context,
-                                    title: const Text('鍒犻櫎灞忚斀璇嶏紵'),
-                                    content: const Text('璇ュ睆钄借瘝灏嗕笉鍐嶇敓鏁?),
+                                    title: const Text('删除屏蔽词？'),
+                                    content: const Text('该屏蔽词将不再生效'),
                                     onConfirm: () => _controller.onRemove(e),
                                   );
                                 },
@@ -103,7 +103,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                       onPressed: _onAdd,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Icon(Icons.add, size: 22), Text('娣诲姞娑堟伅灞忚斀璇?)],
+                        children: [Icon(Icons.add, size: 22), Text('添加消息屏蔽词')],
                       ),
                     ),
                   ),
@@ -117,13 +117,13 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                   children: [
                     SvgPicture.asset(Assets.error, height: 156),
                     const Text(
-                      '杩樻湭娣诲姞灞忚斀璇?,
+                      '还未添加屏蔽词',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text('娣诲姞鍚庯紝灏嗕笉鍐嶆帴鍙楀寘鍚睆钄借瘝鐨勬秷鎭?),
+                    const Text('添加后，将不再接受包含屏蔽词的消息'),
                     FilledButton.tonal(
                       onPressed: _onAdd,
                       style: FilledButton.styleFrom(
@@ -133,7 +133,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.add, size: 22),
-                          Text('娣诲姞'),
+                          Text('添加'),
                         ],
                       ),
                     ),
@@ -172,7 +172,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    '娣诲姞娑堟伅灞忚斀璇?,
+                    '添加消息屏蔽词',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -194,7 +194,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                 maxLength: _controller.charLimit,
                 decoration: InputDecoration(
                   isDense: true,
-                  hintText: '璇疯緭鍏?,
+                  hintText: '请输入',
                   visualDensity: .standard,
                   hintStyle: const TextStyle(fontSize: 14),
                   contentPadding: const EdgeInsets.symmetric(
@@ -220,7 +220,7 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.add, size: 22), Text('娣诲姞娑堟伅灞忚斀璇?)],
+                  children: [Icon(Icons.add, size: 22), Text('添加消息屏蔽词')],
                 ),
               ),
             ],
@@ -230,4 +230,3 @@ class _WhisperBlockPageState extends State<WhisperBlockPage> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models_new/coin_log/data.dart';
 import 'package:liqliquid/models_new/coin_log/list.dart';
@@ -20,12 +20,11 @@ class CoinLogController extends LogController<CoinLogData, CoinLogItem> {
 
   @override
   final CoinLogItem header = const CoinLogItem(
-    time: '鏃堕棿',
-    delta: '鍙樺寲',
-    reason: '鍘熷洜',
+    time: '时间',
+    delta: '变化',
+    reason: '原因',
   );
 
   @override
-  final String title = '纭竵璁板綍';
+  final String title = '硬币记录';
 }
-

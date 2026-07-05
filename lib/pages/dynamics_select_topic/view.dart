@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:liqliquid/common/widgets/flutter/draggable_scrollable_sheet.dart';
@@ -112,7 +112,7 @@ class _SelectTopicPanelState
               isDense: true,
               filled: true,
               fillColor: theme.colorScheme.onInverseSurface,
-              hintText: '鎼滅储璇濋',
+              hintText: '搜索话题',
               hintStyle: const TextStyle(fontSize: 14),
               prefixIcon: const Padding(
                 padding: EdgeInsets.only(left: 12, right: 4),
@@ -217,4 +217,3 @@ class _SelectTopicPanelState
     onReload: _controller.onReload,
   );
 }
-

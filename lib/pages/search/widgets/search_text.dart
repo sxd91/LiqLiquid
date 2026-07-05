@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
 class SearchText extends StatelessWidget {
@@ -57,4 +57,3 @@ class SearchText extends StatelessWidget {
     );
   }
 }
-

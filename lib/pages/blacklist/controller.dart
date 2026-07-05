@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/black.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
@@ -35,7 +35,7 @@ class BlackListController
   void onRemove(BuildContext context, int index, name, mid) {
     showConfirmDialog(
       context: context,
-      title: Text('纭畾灏?$name 绉诲嚭榛戝悕鍗曪紵'),
+      title: Text('确定将 $name 移出黑名单？'),
       onConfirm: () async {
         final result = await VideoHttp.relationMod(mid: mid, act: 6, reSrc: 11);
         if (result.isSuccess) {
@@ -43,7 +43,7 @@ class BlackListController
             ..value.data!.removeAt(index)
             ..refresh();
           total.value -= 1;
-          SmartDialog.showToast('绉婚櫎鎴愬姛');
+          SmartDialog.showToast('移除成功');
         }
       },
     );
@@ -53,4 +53,3 @@ class BlackListController
   Future<LoadingState<BlackListData>> customGetData() =>
       BlackHttp.blackList(pn: page);
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/interfaces/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/interfaces/v1.pb.dart'
     show SearchArchiveReply;
 import 'package:liqliquid/grpc/space.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -72,4 +72,3 @@ class MemberSearchChildController extends CommonListController {
     };
   }
 }
-

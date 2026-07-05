@@ -1,5 +1,5 @@
-﻿<resources>
-    <string name="app_name">LiqLiquid</string>
-    <string name="search">鎼滅储</string>
-    <string name="offline_video">绂荤嚎瑙嗛</string>
+<resources>
+    <string name="app_name">liqliquid</string>
+    <string name="search">搜索</string>
+    <string name="offline_video">离线视频</string>
 </resources>

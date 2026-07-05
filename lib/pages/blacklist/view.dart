@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -39,7 +39,7 @@ class _BlackListPageState extends State<BlackListPage> {
       appBar: AppBar(
         title: Obx(
           () => Text(
-            '榛戝悕鍗曠鐞?{_blackListController.total.value == -1 ? '' : ': ${_blackListController.total.value}'}',
+            '黑名单管理${_blackListController.total.value == -1 ? '' : ': ${_blackListController.total.value}'}',
           ),
         ),
       ),
@@ -95,7 +95,7 @@ class _BlackListPageState extends State<BlackListPage> {
                       style: const TextStyle(fontSize: 14),
                     ),
                     subtitle: Text(
-                      '娣诲姞鏃堕棿: ${DateFormatUtils.format(item.mtime, format: DateFormatUtils.longFormatDs)}',
+                      '添加时间: ${DateFormatUtils.format(item.mtime, format: DateFormatUtils.longFormatDs)}',
                       maxLines: 1,
                       style: style,
                       overflow: TextOverflow.ellipsis,
@@ -108,7 +108,7 @@ class _BlackListPageState extends State<BlackListPage> {
                         item.uname,
                         item.mid,
                       ),
-                      child: const Text('绉婚櫎'),
+                      child: const Text('移除'),
                     ),
                   );
                 },
@@ -121,4 +121,3 @@ class _BlackListPageState extends State<BlackListPage> {
     };
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show ReplyInfo;
 import 'package:liqliquid/http/reply.dart';
 import 'package:liqliquid/utils/feed_back.dart';
@@ -30,7 +30,7 @@ class ZanButtonGrpc extends StatelessWidget {
     feedBack();
     final int oid = replyItem.oid.toInt();
     final int rpid = replyItem.id.toInt();
-    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?
+    // 1 已点赞 2 不喜欢 0 未操作
     final int action = isDislike ? 0 : 2;
     final res = await ReplyHttp.hateReply(
       type: replyItem.type.toInt(),
@@ -40,7 +40,7 @@ class ZanButtonGrpc extends StatelessWidget {
     );
     // SmartDialog.dismiss();
     if (res.isSuccess) {
-      SmartDialog.showToast(isDislike ? '鍙栨秷韪? : '鐐硅俯鎴愬姛');
+      SmartDialog.showToast(isDislike ? '取消踩' : '点踩成功');
       if (action == 2) {
         if (isLike) replyItem.like -= $fixnum.Int64.ONE;
         replyItem.replyControl.action = $fixnum.Int64.TWO;
@@ -56,7 +56,7 @@ class ZanButtonGrpc extends StatelessWidget {
     onDone();
   }
 
-  // 璇勮鐐硅禐
+  // 评论点赞
   Future<void> onLikeReply(
     BuildContext context,
     bool isProcessing,
@@ -71,7 +71,7 @@ class ZanButtonGrpc extends StatelessWidget {
     feedBack();
     final int oid = replyItem.oid.toInt();
     final int rpid = replyItem.id.toInt();
-    // 1 宸茬偣璧?2 涓嶅枩娆?0 鏈搷浣?
+    // 1 已点赞 2 不喜欢 0 未操作
     final int action = isLike ? 0 : 1;
     final res = await ReplyHttp.likeReply(
       type: replyItem.type.toInt(),
@@ -80,7 +80,7 @@ class ZanButtonGrpc extends StatelessWidget {
       action: action,
     );
     if (res.isSuccess) {
-      SmartDialog.showToast(isLike ? '鍙栨秷璧? : '鐐硅禐鎴愬姛');
+      SmartDialog.showToast(isLike ? '取消赞' : '点赞成功');
       if (action == 1) {
         replyItem
           ..like += $fixnum.Int64.ONE
@@ -138,7 +138,7 @@ class ZanButtonGrpc extends StatelessWidget {
                   : FontAwesomeIcons.thumbsDown,
               size: 16,
               color: isDislike ? primary : outline,
-              semanticLabel: isDislike ? '宸茶俯' : '鐐硅俯',
+              semanticLabel: isDislike ? '已踩' : '点踩',
             ),
           ),
         ),
@@ -162,7 +162,7 @@ class ZanButtonGrpc extends StatelessWidget {
                       : FontAwesomeIcons.thumbsUp,
                   size: 16,
                   color: isLike ? primary : outline,
-                  semanticLabel: isLike ? '宸茶禐' : '鐐硅禐',
+                  semanticLabel: isLike ? '已赞' : '点赞',
                 ),
                 Text(
                   NumUtils.numFormat(replyItem.like.toInt()),
@@ -179,4 +179,3 @@ class ZanButtonGrpc extends StatelessWidget {
     );
   }
 }
-

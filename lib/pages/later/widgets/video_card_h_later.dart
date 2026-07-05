@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -16,7 +16,7 @@ import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
-// 瑙嗛鍗＄墖 - 姘村钩甯冨眬
+// 视频卡片 - 水平布局
 class VideoCardHLater extends StatelessWidget {
   const VideoCardHLater({
     super.key,
@@ -101,14 +101,14 @@ class VideoCardHLater extends StatelessWidget {
                         ),
                         if (videoItem.isCharging == true)
                           const PBadge(
-                            text: '鍏呯數涓撳睘',
+                            text: '充电专属',
                             top: 6.0,
                             right: 6.0,
                             type: PBadgeType.error,
                           )
                         else if (videoItem.rights?.isCooperation == 1)
                           const PBadge(
-                            text: '鍚堜綔',
+                            text: '合作',
                             top: 6.0,
                             right: 6.0,
                           )
@@ -120,14 +120,14 @@ class VideoCardHLater extends StatelessWidget {
                           )
                         else if (videoItem.isPugv ?? false)
                           const PBadge(
-                            text: '璇惧爞',
+                            text: '课堂',
                             top: 6.0,
                             right: 6.0,
                           ),
                         if (progress != null && progress != 0) ...[
                           PBadge(
                             text: progress == -1
-                                ? '宸茬湅瀹?
+                                ? '已看完'
                                 : '${DurationUtils.formatDuration(progress)}/${DurationUtils.formatDuration(videoItem.duration)}',
                             right: 6,
                             bottom: 8,
@@ -253,7 +253,7 @@ class VideoCardHLater extends StatelessWidget {
             right: 0,
             bottom: -8,
             child: iconButton(
-              tooltip: '绉婚櫎',
+              tooltip: '移除',
               onPressed: () => ctr.toViewDel(context, index, videoItem.aid),
               icon: const Icon(Icons.clear),
               iconColor: theme.colorScheme.outline,
@@ -264,4 +264,3 @@ class VideoCardHLater extends StatelessWidget {
     );
   }
 }
-

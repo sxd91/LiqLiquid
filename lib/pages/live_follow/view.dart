@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_v.dart';
+import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -29,7 +29,7 @@ class _LiveFollowPageState extends State<LiveFollowPage> {
         title: Obx(
           () {
             final count = _controller.count.value;
-            return Text(count != null ? '$count浜烘鍦ㄧ洿鎾? : '鍏虫敞鐩存挱');
+            return Text(count != null ? '$count人正在直播' : '关注直播');
           },
         ),
       ),
@@ -89,4 +89,3 @@ class _LiveFollowPageState extends State<LiveFollowPage> {
     };
   }
 }
-

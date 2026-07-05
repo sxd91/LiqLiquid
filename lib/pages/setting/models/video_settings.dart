@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/models/common/video/audio_quality.dart';
 import 'package:liqliquid/models/common/video/cdn_type.dart';
@@ -24,22 +24,22 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 List<SettingsModel> get videoSettings => [
   const SwitchModel(
-    title: '寮€鍚‖瑙?,
-    subtitle: '浠ヨ緝浣庡姛鑰楁挱鏀捐棰戯紝鑻ュ紓甯稿崱姝昏鍏抽棴',
+    title: '开启硬解',
+    subtitle: '以较低功耗播放视频，若异常卡死请关闭',
     leading: Icon(Icons.flash_on_outlined),
     setKey: SettingBoxKey.enableHA,
     defaultVal: true,
   ),
   const SwitchModel(
-    title: '鍏嶇櫥褰?080P',
-    subtitle: '鍏嶇櫥褰曟煡鐪?080P瑙嗛',
+    title: '免登录1080P',
+    subtitle: '免登录查看1080P视频',
     leading: Icon(Icons.hd_outlined),
     setKey: SettingBoxKey.p1080,
     defaultVal: true,
   ),
   NormalModel(
-    title: 'B绔欏畾鍚戞祦閲忔敮鎸?,
-    subtitle: '鑻ュ椁愬惈B绔欏畾鍚戞祦閲忥紝鍒欎細鑷姩浣跨敤銆傚彲鏌ラ槄杩愯惀鍟嗙殑娴侀噺璁板綍纭銆?,
+    title: 'B站定向流量支持',
+    subtitle: '若套餐含B站定向流量，则会自动使用。可查阅运营商的流量记录确认。',
     leading: const Icon(Icons.perm_data_setting_outlined),
     getTrailing: (theme) => IgnorePointer(
       child: Transform.scale(
@@ -56,120 +56,120 @@ List<SettingsModel> get videoSettings => [
     ),
   ),
   NormalModel(
-    title: 'CDN 璁剧疆',
+    title: 'CDN 设置',
     leading: const Icon(MdiIcons.cloudPlusOutline),
     getSubtitle: () =>
-        '褰撳墠浣跨敤锛?{VideoUtils.cdnService.desc}锛岄儴鍒?CDN 鍙兘澶辨晥锛屽鏃犳硶鎾斁璇峰皾璇曞垏鎹?,
+        '当前使用：${VideoUtils.cdnService.desc}，部分 CDN 可能失效，如无法播放请尝试切换',
     onTap: _showCDNDialog,
   ),
   NormalModel(
-    title: '鐩存挱 CDN 璁剧疆',
+    title: '直播 CDN 设置',
     leading: const Icon(MdiIcons.cloudPlusOutline),
-    getSubtitle: () => '褰撳墠浣跨敤锛?{Pref.liveCdnUrl ?? "榛樿"}',
+    getSubtitle: () => '当前使用：${Pref.liveCdnUrl ?? "默认"}',
     onTap: _showLiveCDNDialog,
   ),
   const SwitchModel(
-    title: 'CDN 娴嬮€?,
+    title: 'CDN 测速',
     leading: Icon(Icons.speed),
-    subtitle: '娴嬮€熼€氳繃妯℃嫙鍔犺浇瑙嗛瀹炵幇锛屾敞鎰忔祦閲忔秷鑰楋紝缁撴灉浠呬緵鍙傝€?,
+    subtitle: '测速通过模拟加载视频实现，注意流量消耗，结果仅供参考',
     setKey: SettingBoxKey.cdnSpeedTest,
     defaultVal: true,
   ),
   SwitchModel(
-    title: '闊抽涓嶈窡闅?CDN 璁剧疆',
-    subtitle: '鐩存帴閲囩敤澶囩敤 URL锛屽彲瑙ｅ喅閮ㄥ垎瑙嗛鏃犲０',
+    title: '音频不跟随 CDN 设置',
+    subtitle: '直接采用备用 URL，可解决部分视频无声',
     leading: const Icon(MdiIcons.musicNotePlus),
     setKey: SettingBoxKey.disableAudioCDN,
     defaultVal: false,
     onChanged: (value) => VideoUtils.disableAudioCDN = value,
   ),
   NormalModel(
-    title: '榛樿鐢昏川',
+    title: '默认画质',
     leading: const Icon(Icons.video_settings_outlined),
     getSubtitle: () =>
-        '褰撳墠鐢昏川锛?{VideoQuality.fromCode(Pref.defaultVideoQa).desc}',
+        '当前画质：${VideoQuality.fromCode(Pref.defaultVideoQa).desc}',
     onTap: _showVideoQaDialog,
   ),
   NormalModel(
-    title: '铚傜獫缃戠粶鐢昏川',
+    title: '蜂窝网络画质',
     leading: const Icon(Icons.video_settings_outlined),
     getSubtitle: () =>
-        '褰撳墠鐢昏川锛?{VideoQuality.fromCode(Pref.defaultVideoQaCellular).desc}',
+        '当前画质：${VideoQuality.fromCode(Pref.defaultVideoQaCellular).desc}',
     onTap: _showVideoCellularQaDialog,
   ),
   NormalModel(
-    title: '榛樿闊宠川',
+    title: '默认音质',
     leading: const Icon(Icons.music_video_outlined),
     getSubtitle: () =>
-        '褰撳墠闊宠川锛?{AudioQuality.fromCode(Pref.defaultAudioQa).desc}',
+        '当前音质：${AudioQuality.fromCode(Pref.defaultAudioQa).desc}',
     onTap: _showAudioQaDialog,
   ),
   NormalModel(
-    title: '铚傜獫缃戠粶闊宠川',
+    title: '蜂窝网络音质',
     leading: const Icon(Icons.music_video_outlined),
     getSubtitle: () =>
-        '褰撳墠闊宠川锛?{AudioQuality.fromCode(Pref.defaultAudioQaCellular).desc}',
+        '当前音质：${AudioQuality.fromCode(Pref.defaultAudioQaCellular).desc}',
     onTap: _showAudioCellularQaDialog,
   ),
   NormalModel(
-    title: '鐩存挱榛樿鐢昏川',
+    title: '直播默认画质',
     leading: const Icon(Icons.video_settings_outlined),
-    getSubtitle: () => '褰撳墠鐢昏川锛?{LiveQuality.fromCode(Pref.liveQuality)?.desc}',
+    getSubtitle: () => '当前画质：${LiveQuality.fromCode(Pref.liveQuality)?.desc}',
     onTap: _showLiveQaDialog,
   ),
   NormalModel(
-    title: '铚傜獫缃戠粶鐩存挱榛樿鐢昏川',
+    title: '蜂窝网络直播默认画质',
     leading: const Icon(Icons.video_settings_outlined),
     getSubtitle: () =>
-        '褰撳墠鐢昏川锛?{LiveQuality.fromCode(Pref.liveQualityCellular)?.desc}',
+        '当前画质：${LiveQuality.fromCode(Pref.liveQualityCellular)?.desc}',
     onTap: _showLiveCellularQaDialog,
   ),
   NormalModel(
-    title: '棣栭€夎В鐮佹牸寮?,
+    title: '首选解码格式',
     leading: const Icon(Icons.movie_creation_outlined),
     getSubtitle: () {
       final list = Pref.preferCodecs;
-      return '棣栭€夎В鐮佹牸寮忥細${(list.isEmpty ? '绗竴涓彲鐢? : list.map((i) => i.name).join(","))}锛岃鏍规嵁璁惧鏀寔鎯呭喌涓庨渶姹傝皟鏁?;
+      return '首选解码格式：${(list.isEmpty ? '第一个可用' : list.map((i) => i.name).join(","))}，请根据设备支持情况与需求调整';
     },
     onTap: _showCodecsDialog,
   ),
   if (kDebugMode || Platform.isAndroid)
     NormalModel(
-      title: '闊抽杈撳嚭璁惧',
+      title: '音频输出设备',
       leading: const Icon(Icons.speaker_outlined),
-      getSubtitle: () => '褰撳墠锛?{Pref.audioOutput}',
+      getSubtitle: () => '当前：${Pref.audioOutput}',
       onTap: _showAudioOutputDialog,
     ),
   NormalModel(
-    title: '缂撳啿澶у皬',
+    title: '缓冲大小',
     leading: const Icon(Icons.storage_outlined),
     getSubtitle: () =>
-        '褰撳墠锛?{Pref.bufferSize}MB銆傚悓鏃朵负鍓嶅悜鍜屽悗鍚戠紦鍐插尯澶у皬銆傚浜庣洿鎾祦锛屾棤鍚庡悜缂撳啿澶у皬锛屽叏閮ㄨ浆缁欏墠鍚戯紙姝ら€夐」鍗砿pv鐨?-demuxer-max-bytes锛?-demuxer-max-back-bytes锛?,
+        '当前：${Pref.bufferSize}MB。同时为前向和后向缓冲区大小。对于直播流，无后向缓冲大小，全部转给前向（此选项即mpv的--demuxer-max-bytes，--demuxer-max-back-bytes）',
     onTap: _showBufferSizeDialog,
   ),
   NormalModel(
-    title: '缂撳啿鏃堕暱',
+    title: '缓冲时长',
     leading: const Icon(Icons.av_timer),
     getSubtitle: () =>
-        '褰撳墠锛?{Pref.bufferSec}s銆傚疄闄呯紦鍐蹭负浜岃€呮渶灏忓€笺€傚浜庣洿鎾祦锛岃閫夐」鏃犳晥锛堟閫夐」鍗砿pv鐨?-cache-secs锛?,
+        '当前：${Pref.bufferSec}s。实际缓冲为二者最小值。对于直播流，该选项无效（此选项即mpv的--cache-secs）',
     onTap: _showBufferSecDialog,
   ),
   NormalModel(
-    title: '鑷姩鍚屾',
+    title: '自动同步',
     leading: const Icon(Icons.sync_rounded),
-    getSubtitle: () => '褰撳墠锛?{Pref.autosync}锛堟椤瑰嵆mpv鐨?-autosync锛?,
+    getSubtitle: () => '当前：${Pref.autosync}（此项即mpv的--autosync）',
     onTap: _showAutoSyncDialog,
   ),
   NormalModel(
-    title: '瑙嗛鍚屾',
+    title: '视频同步',
     leading: const Icon(Icons.view_timeline_outlined),
-    getSubtitle: () => '褰撳墠锛?{Pref.videoSync}锛堟椤瑰嵆mpv鐨?-video-sync锛?,
+    getSubtitle: () => '当前：${Pref.videoSync}（此项即mpv的--video-sync）',
     onTap: _showVideoSyncDialog,
   ),
   NormalModel(
-    title: '纭В妯″紡',
+    title: '硬解模式',
     leading: const Icon(Icons.memory_outlined),
-    getSubtitle: () => '褰撳墠锛?{Pref.hardwareDecoding}锛堟椤瑰嵆mpv鐨?-hwdec锛?,
+    getSubtitle: () => '当前：${Pref.hardwareDecoding}（此项即mpv的--hwdec）',
     onTap: _showHwDecDialog,
   ),
 ];
@@ -194,7 +194,7 @@ Future<void> _showLiveCDNDialog(
   String? res = await showDialog<String>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('杈撳叆CDN host'),
+      title: const Text('输入CDN host'),
       content: TextFormField(
         initialValue: host,
         autofocus: true,
@@ -204,13 +204,13 @@ Future<void> _showLiveCDNDialog(
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
         TextButton(
           onPressed: () => Get.back(result: host),
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -237,7 +237,7 @@ Future<void> _showVideoQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '榛樿鐢昏川',
+      title: '默认画质',
       value: Pref.defaultVideoQa,
       values: VideoQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -255,7 +255,7 @@ Future<void> _showVideoCellularQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '铚傜獫缃戠粶鐢昏川',
+      title: '蜂窝网络画质',
       value: Pref.defaultVideoQaCellular,
       values: VideoQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -276,7 +276,7 @@ Future<void> _showAudioQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '榛樿闊宠川',
+      title: '默认音质',
       value: Pref.defaultAudioQa,
       values: AudioQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -294,7 +294,7 @@ Future<void> _showAudioCellularQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '铚傜獫缃戠粶闊宠川',
+      title: '蜂窝网络音质',
       value: Pref.defaultAudioQaCellular,
       values: AudioQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -315,7 +315,7 @@ Future<void> _showLiveQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '鐩存挱榛樿鐢昏川',
+      title: '直播默认画质',
       value: Pref.liveQuality,
       values: LiveQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -333,7 +333,7 @@ Future<void> _showLiveCellularQaDialog(
   final res = await showDialog<int>(
     context: context,
     builder: (context) => SelectDialog<int>(
-      title: '铚傜獫缃戠粶鐩存挱榛樿鐢昏川',
+      title: '蜂窝网络直播默认画质',
       value: Pref.liveQualityCellular,
       values: LiveQuality.values.map((e) => (e.code, e.desc)).toList(),
     ),
@@ -351,7 +351,7 @@ Future<void> _showCodecsDialog(
   final res = await showDialog<List<VideoDecodeFormatType>>(
     context: context,
     builder: (context) => OrderedMultiSelectDialog<VideoDecodeFormatType>(
-      title: '棣栭€夎В鐮佹牸寮?,
+      title: '首选解码格式',
       initValues: Pref.preferCodecs,
       values: {for (final e in VideoDecodeFormatType.values) e: e.name},
     ),
@@ -374,7 +374,7 @@ Future<void> _showAudioOutputDialog(
   final res = await showDialog<List<String>>(
     context: context,
     builder: (context) => OrderedMultiSelectDialog<String>(
-      title: '闊抽杈撳嚭璁惧',
+      title: '音频输出设备',
       initValues: Pref.audioOutput.split(','),
       values: {
         for (final e in AudioOutput.values) e.name: e.label,
@@ -397,7 +397,7 @@ Future<void> _showVideoSyncDialog(
   final res = await showDialog<String>(
     context: context,
     builder: (context) => SelectDialog<String>(
-      title: '瑙嗛鍚屾',
+      title: '视频同步',
       value: Pref.videoSync,
       values: const [
         'audio',
@@ -425,7 +425,7 @@ Future<void> _showHwDecDialog(
   final res = await showDialog<List<String>>(
     context: context,
     builder: (context) => OrderedMultiSelectDialog<String>(
-      title: '纭В妯″紡',
+      title: '硬解模式',
       initValues: Pref.hardwareDecoding.split(','),
       values: {
         for (final e in HwDecType.values) e.hwdec: '${e.hwdec}\n${e.desc}',
@@ -446,7 +446,7 @@ void _showAutoSyncDialog(BuildContext context, VoidCallback setState) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('鑷姩鍚屾'),
+      title: const Text('自动同步'),
       content: TextFormField(
         autofocus: true,
         initialValue: autosync,
@@ -458,7 +458,7 @@ void _showAutoSyncDialog(BuildContext context, VoidCallback setState) {
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -474,7 +474,7 @@ void _showAutoSyncDialog(BuildContext context, VoidCallback setState) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -506,7 +506,7 @@ void _showDecimalDialog(
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -521,7 +521,7 @@ void _showDecimalDialog(
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -534,7 +534,7 @@ void _showBufferSizeDialog(BuildContext context, VoidCallback setState) =>
       setState,
       key: SettingBoxKey.bufferSize,
       defVal: Pref.bufferSize,
-      title: '缂撳啿澶у皬',
+      title: '缓冲大小',
       suffix: 'MB',
     );
 
@@ -544,7 +544,6 @@ void _showBufferSecDialog(BuildContext context, VoidCallback setState) =>
       setState,
       key: SettingBoxKey.bufferSec,
       defVal: Pref.bufferSec,
-      title: '缂撳啿鏃堕暱',
+      title: '缓冲时长',
       suffix: 's',
     );
-

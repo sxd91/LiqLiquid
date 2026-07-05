@@ -1,4 +1,4 @@
-﻿// Copyright 2014 The Flutter Authors. All rights reserved.
+// Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -250,7 +250,7 @@ class CupertinoRichTextField extends StatefulWidget {
     this.toolbarOptions,
     this.showCursor,
     this.autofocus = false,
-    this.obscuringCharacter = '鈥?,
+    this.obscuringCharacter = '•',
     this.obscureText = false,
     this.autocorrect = true,
     SmartDashesType? smartDashesType,
@@ -397,7 +397,7 @@ class CupertinoRichTextField extends StatefulWidget {
     this.toolbarOptions,
     this.showCursor,
     this.autofocus = false,
-    this.obscuringCharacter = '鈥?,
+    this.obscuringCharacter = '•',
     this.obscureText = false,
     this.autocorrect,
     SmartDashesType? smartDashesType,
@@ -963,7 +963,7 @@ class CupertinoRichTextField extends StatefulWidget {
         DiagnosticsProperty<String>(
           'obscuringCharacter',
           obscuringCharacter,
-          defaultValue: '鈥?,
+          defaultValue: '•',
         ),
       )
       ..add(
@@ -2110,4 +2110,3 @@ class _RenderBaselineAlignedStack extends RenderBox
     );
   }
 }
-

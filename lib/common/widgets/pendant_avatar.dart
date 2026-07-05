@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/extra_hittest_stack.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -126,7 +126,7 @@ class PendantAvatar extends StatelessWidget {
                 color: colorScheme.onSecondaryContainer,
               ),
               Text(
-                '鐩存挱涓?,
+                '直播中',
                 style: TextStyle(
                   height: 1,
                   fontSize: fontSize,
@@ -170,4 +170,3 @@ class PendantAvatar extends StatelessWidget {
     );
   }
 }
-

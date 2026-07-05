@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pair.dart';
+import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/live/live_feed_index/card_data_list_item.dart';
@@ -157,4 +157,3 @@ class LiveController extends CommonListController with AccountMixin {
     super.onClose();
   }
 }
-

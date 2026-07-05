@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/coin_log/list.dart';
+import 'package:liqliquid/models_new/coin_log/list.dart';
 
 class CoinLogData {
   CoinLogData({this.list});
@@ -11,4 +11,3 @@ class CoinLogData {
         .toList(),
   );
 }
-

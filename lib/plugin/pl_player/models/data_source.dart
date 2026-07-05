@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/path_utils.dart';
+import 'package:liqliquid/utils/path_utils.dart';
 import 'package:path/path.dart' as path;
 
 sealed class DataSource {
@@ -38,4 +38,3 @@ class FileSource extends DataSource {
              : path.join(dir, typeTag, PathUtils.audioNameType2),
        );
 }
-

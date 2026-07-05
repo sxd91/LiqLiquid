@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
@@ -70,8 +70,8 @@ class _SavePanelState extends State<SavePanel> {
 
   // item
   Object get _item => widget.item;
-  late String viewType = '鏌ョ湅';
-  late String itemType = '鍐呭';
+  late String viewType = '查看';
+  late String itemType = '内容';
 
   //reply
   String? cover;
@@ -87,7 +87,7 @@ class _SavePanelState extends State<SavePanel> {
   void initState() {
     super.initState();
     if (_item case final ReplyInfo reply) {
-      itemType = '璇勮';
+      itemType = '评论';
       final currentRoute = Get.currentRoute;
       late final hasRoot = reply.hasRoot();
 
@@ -227,52 +227,56 @@ class _SavePanelState extends State<SavePanel> {
     try {
       switch (item.type) {
         case 'DYNAMIC_TYPE_AV':
-          viewType = '瑙傜湅';
-          itemType = '瑙嗛';
+          viewType = '观看';
+          itemType = '视频';
           uri = 'bilibili://video/${item.basic!.commentIdStr}';
           break;
 
         case 'DYNAMIC_TYPE_ARTICLE':
-          itemType = '涓撴爮';
+          itemType = '专栏';
           uri = 'bilibili://following/detail/${item.idStr}';
           break;
 
         case 'DYNAMIC_TYPE_LIVE_RCMD':
-          viewType = '瑙傜湅';
-          itemType = '鐩存挱';
+          viewType = '观看';
+          itemType = '直播';
           final roomId = item.modules.moduleDynamic!.major!.liveRcmd!.roomId;
           uri = 'bilibili://live/$roomId';
           break;
 
         case 'DYNAMIC_TYPE_UGC_SEASON':
-          viewType = '瑙傜湅';
-          itemType = '鍚堥泦';
+          viewType = '观看';
+          itemType = '合集';
           final aid = item.modules.moduleDynamic!.major!.ugcSeason!.aid;
           uri = 'bilibili://video/$aid';
           break;
 
         case 'DYNAMIC_TYPE_PGC':
         case 'DYNAMIC_TYPE_PGC_UNION':
-          viewType = '瑙傜湅';
+          viewType = '观看';
           itemType =
-              item.modules.moduleDynamic?.major?.pgc?.badge?.text ?? '鐣墽';
+              item.modules.moduleDynamic?.major?.pgc?.badge?.text ?? '番剧';
           final epid = item.modules.moduleDynamic!.major!.pgc!.epid;
           uri = 'bilibili://pgc/season/ep/$epid';
           break;
 
         // https://www.bilibili.com/medialist/detail/ml12345678
         case 'DYNAMIC_TYPE_MEDIALIST':
-          itemType = '鏀惰棌澶?;
+          itemType = '收藏夹';
           final mediaId = item.modules.moduleDynamic!.major!.medialist!.id;
           uri = 'bilibili://medialist/detail/$mediaId';
           break;
 
-        // 绾枃瀛楀姩鎬佹煡鐪?        // case 'DYNAMIC_TYPE_WORD':
-        // # 瑁呮壆/鍓ч泦鐐硅瘎/鏅€氬垎浜?        // case 'DYNAMIC_TYPE_COMMON_SQUARE':
-        // 杞彂鐨勫姩鎬?        // case 'DYNAMIC_TYPE_FORWARD':
-        // 鍥炬枃鍔ㄦ€佹煡鐪?        // case 'DYNAMIC_TYPE_DRAW':
+        // 纯文字动态查看
+        // case 'DYNAMIC_TYPE_WORD':
+        // # 装扮/剧集点评/普通分享
+        // case 'DYNAMIC_TYPE_COMMON_SQUARE':
+        // 转发的动态
+        // case 'DYNAMIC_TYPE_FORWARD':
+        // 图文动态查看
+        // case 'DYNAMIC_TYPE_DRAW':
         default:
-          itemType = '鍔ㄦ€?;
+          itemType = '动态';
           uri = 'bilibili://following/detail/${item.idStr}';
           break;
       }
@@ -459,7 +463,7 @@ class _SavePanelState extends State<SavePanel> {
                                                   ),
                                                 ),
                                               Text(
-                                                '璇嗗埆浜岀淮鐮侊紝$viewType$itemType',
+                                                '识别二维码，$viewType$itemType',
                                                 textAlign: .end,
                                                 style: TextStyle(
                                                   color: theme
@@ -549,7 +553,7 @@ class _SavePanelState extends State<SavePanel> {
                 children: [
                   iconButton(
                     size: 42,
-                    tooltip: '鍏抽棴',
+                    tooltip: '关闭',
                     icon: const Icon(Icons.clear),
                     onPressed: Get.back,
                     bgColor: theme.colorScheme.onInverseSurface,
@@ -557,7 +561,7 @@ class _SavePanelState extends State<SavePanel> {
                   ),
                   iconButton(
                     size: 42,
-                    tooltip: showBottom ? '闅愯棌' : '鏄剧ず',
+                    tooltip: showBottom ? '隐藏' : '显示',
                     context: context,
                     icon: showBottom
                         ? const Icon(Icons.visibility_off)
@@ -569,14 +573,14 @@ class _SavePanelState extends State<SavePanel> {
                   if (PlatformUtils.isMobile)
                     iconButton(
                       size: 42,
-                      tooltip: '鍒嗕韩',
+                      tooltip: '分享',
                       context: context,
                       icon: const Icon(Icons.share),
                       onPressed: () => _onSaveOrSharePic(true),
                     ),
                   iconButton(
                     size: 42,
-                    tooltip: '淇濆瓨',
+                    tooltip: '保存',
                     context: context,
                     icon: const Icon(Icons.save_alt),
                     onPressed: _onSaveOrSharePic,
@@ -592,4 +596,3 @@ class _SavePanelState extends State<SavePanel> {
 }
 
 enum _CoverType { def16_9, square }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/common/multi_select/base.dart';
+import 'package:liqliquid/pages/common/multi_select/base.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,16 +25,16 @@ class MultiSelectAppBarWidget extends StatelessWidget
       return AppBar(
         bottom: child.bottom,
         leading: IconButton(
-          tooltip: '鍙栨秷',
+          tooltip: '取消',
           onPressed: ctr.handleSelect,
           icon: const Icon(Icons.close_outlined),
         ),
-        title: Obx(() => Text('宸查€? ${ctr.checkedCount}')),
+        title: Obx(() => Text('已选: ${ctr.checkedCount}')),
         actions: [
           TextButton(
             style: style,
             onPressed: () => ctr.handleSelect(checked: true),
-            child: const Text('鍏ㄩ€?),
+            child: const Text('全选'),
           ),
           ...?actions,
           TextButton(
@@ -46,7 +46,7 @@ class MultiSelectAppBarWidget extends StatelessWidget
               ctr.onRemove();
             },
             child: Text(
-              '绉婚櫎',
+              '移除',
               style: TextStyle(color: colorScheme.error),
             ),
           ),
@@ -60,4 +60,3 @@ class MultiSelectAppBarWidget extends StatelessWidget
   @override
   Size get preferredSize => child.preferredSize;
 }
-

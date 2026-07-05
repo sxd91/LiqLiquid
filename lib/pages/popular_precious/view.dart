@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/video_card/video_card_h.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -26,7 +26,7 @@ class _PopularPreciousPageState extends State<PopularPreciousPage>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('鍏ョ珯蹇呭埛')),
+      appBar: AppBar(title: const Text('入站必刷')),
       body: refreshIndicator(
         onRefresh: _controller.onRefresh,
         child: CustomScrollView(
@@ -60,7 +60,7 @@ class _PopularPreciousPageState extends State<PopularPreciousPage>
                   dimension: item.dimension,
                   extraArguments: {
                     'sourceType': SourceType.playlist,
-                    'favTitle': '鍏ョ珯蹇呭埛',
+                    'favTitle': '入站必刷',
                     'mediaId': _controller.mediaId,
                     'desc': true,
                     'oid': item.aid,
@@ -79,4 +79,3 @@ class _PopularPreciousPageState extends State<PopularPreciousPage>
     }
   }
 }
-

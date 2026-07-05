@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -33,7 +33,7 @@ class _ReplyMePageState extends State<ReplyMePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鍥炲鎴戠殑'),
+        title: const Text('回复我的'),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -97,7 +97,7 @@ class _ReplyMePageState extends State<ReplyMePage> {
 
                   void onLongPress() => showConfirmDialog(
                     context: context,
-                    title: const Text('纭畾鍒犻櫎璇ラ€氱煡?'),
+                    title: const Text('确定删除该通知?'),
                     onConfirm: () =>
                         _replyMeController.onRemove(item.id, index),
                   );
@@ -139,14 +139,14 @@ class _ReplyMePageState extends State<ReplyMePage> {
                           ),
                           if (item.isMulti == 1)
                             TextSpan(
-                              text: " 绛変汉",
+                              text: " 等人",
                               style: theme.textTheme.titleSmall!.copyWith(
                                 fontSize: 12,
                               ),
                             ),
                           TextSpan(
                             text:
-                                " 瀵规垜鐨?{item.item?.business}鍙戝竷浜?{item.counts}鏉¤瘎璁?,
+                                " 对我的${item.item?.business}发布了${item.counts}条评论",
                             style: theme.textTheme.titleSmall!.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -206,4 +206,3 @@ class _ReplyMePageState extends State<ReplyMePage> {
     };
   }
 }
-

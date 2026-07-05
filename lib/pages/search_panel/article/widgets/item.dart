@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -88,9 +88,9 @@ class SearchArticleItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text('${item.view}娴忚', style: textStyle),
-                        Text(' 鈥?', style: textStyle),
-                        Text('${item.reply}璇勮', style: textStyle),
+                        Text('${item.view}浏览', style: textStyle),
+                        Text(' • ', style: textStyle),
+                        Text('${item.reply}评论', style: textStyle),
                       ],
                     ),
                   ],
@@ -103,4 +103,3 @@ class SearchArticleItem extends StatelessWidget {
     );
   }
 }
-

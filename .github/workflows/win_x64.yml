@@ -46,18 +46,18 @@ jobs:
 
       - name: Build Windows
         run: |
-          fastforge package --platform windows --targets exe --flutter-build-args="dart-define-from-file=liq_release.json"
+          fastforge package --platform windows --targets exe --flutter-build-args="dart-define-from-file=liqliquid_release.json"
 
       - name: Prepare Upload
         run: |
-          mkdir -p Release/LiqLiquid-Win
-          mkdir -p LiqLiquid-Win-Setup
-          mv build/windows/x64/runner/Release/* Release/LiqLiquid-Win/
-          mv dist/**/*.exe LiqLiquid-Win-Setup/LiqLiquid_windows_${{env.version}}_x64_setup.exe
+          mkdir -p Release/liqliquid-Win
+          mkdir -p liqliquid-Win-Setup
+          mv build/windows/x64/runner/Release/* Release/liqliquid-Win/
+          mv dist/**/*.exe liqliquid-Win-Setup/PiliPlus_windows_${{env.version}}_x64_setup.exe
 
       - name: Compress
         run: |
-          Compress-Archive -Path "Release/LiqLiquid-Win" -DestinationPath "LiqLiquid_windows_${{env.version}}_x64_portable.zip"
+          Compress-Archive -Path "Release/liqliquid-Win" -DestinationPath "PiliPlus_windows_${{env.version}}_x64_portable.zip"
         shell: pwsh
 
       - name: Release
@@ -67,20 +67,19 @@ jobs:
           tag_name: ${{ github.event.inputs.tag }}
           name: ${{ github.event.inputs.tag }}
           files: |
-            LiqLiquid_windows_*.zip
-            LiqLiquid-Win-Setup/LiqLiquid_windows_*.exe
+            PiliPlus_windows_*.zip
+            liqliquid-Win-Setup/PiliPlus_windows_*.exe
 
       - name: Upload windows file release
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Windows-file-x64-release
-          path: LiqLiquid_windows_*.zip
+          path: PiliPlus_windows_*.zip
 
       - name: Upload windows setup release
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Windows-setup-x64-release
-          path: LiqLiquid-Win-Setup/LiqLiquid_windows_*.exe
-
+          path: liqliquid-Win-Setup/PiliPlus_windows_*.exe

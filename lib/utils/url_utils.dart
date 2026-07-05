@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/init.dart';
+import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/search.dart';
 import 'package:liqliquid/utils/accounts/account.dart';
 import 'package:liqliquid/utils/id_utils.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract final class UrlUtils {
-  // 302閲嶅畾鍚戣矾鐢辨埅鍙?
+  // 302重定向路由截取
   static Future<String?> parseRedirectUrl(
     String url, [
     bool returnOri = false,
@@ -38,7 +38,7 @@ abstract final class UrlUtils {
     return redirectUrl;
   }
 
-  // 鍖归厤url璺敱璺宠浆
+  // 匹配url路由跳转
   static Future<void> matchUrlPush(
     String pathSegment,
     String redirectUrl,
@@ -67,4 +67,3 @@ abstract final class UrlUtils {
     }
   }
 }
-

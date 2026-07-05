@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:liqliquid/grpc/bilibili/im/interfaces/v1.pb.dart'
@@ -27,7 +27,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
 
   Int64? msgSeqno;
 
-  //琛ㄦ儏杞崲鍥剧墖瑙勫垯
+  //表情转换图片规则
   List<EmotionInfo>? eInfos;
 
   @override
@@ -50,7 +50,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
       if (msgs.length == 1 &&
           msgs.last.msgType == 18 &&
           msgs.last.msgSource == 18) {
-        //{content: [{"text":"瀵规柟涓诲姩鍥炲鎴栧叧娉ㄤ綘鍓嶏紝鏈€澶氬彂閫?鏉℃秷鎭?,"color_day":"#9499A0","color_nig":"#9499A0"}]}
+        //{content: [{"text":"对方主动回复或关注你前，最多发送1条消息","color_day":"#9499A0","color_nig":"#9499A0"}]}
       } else {
         ackSessionMsg(msgs.last.msgSeqno.toInt());
       }
@@ -61,7 +61,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     return false;
   }
 
-  // 娑堟伅鏍囪宸茶
+  // 消息标记已读
   Future<void> ackSessionMsg(int msgSeqno) async {
     final res = await MsgHttp.ackSessionMsg(
       talkerId: talkerId,
@@ -102,7 +102,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     // }
     // onClearText();
     // scrollController.jumpToTop();
-    // SmartDialog.showToast('鍙戦€佹垚鍔?);
+    // SmartDialog.showToast('发送成功');
     // return;
     assert((message != null) ^ (picMsg != null));
     if (_isSending) return;
@@ -110,7 +110,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     feedBack();
     SmartDialog.dismiss();
     if (!account.isLogin) {
-      SmartDialog.showToast('璇峰厛鐧诲綍');
+      SmartDialog.showToast('请先登录');
       return;
     }
     final res = await ImGrpc.sendMsg(
@@ -127,11 +127,11 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
         loadingState
           ..value.data![index!].msgStatus = 1
           ..refresh();
-        SmartDialog.showToast('鎾ゅ洖鎴愬姛');
+        SmartDialog.showToast('撤回成功');
       } else {
         onRefresh();
         onClearText();
-        SmartDialog.showToast('鍙戦€佹垚鍔?);
+        SmartDialog.showToast('发送成功');
       }
     } else {
       res.toast();
@@ -173,4 +173,3 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/select_mask.dart';
 import 'package:liqliquid/models_new/fav/fav_note/list.dart';
@@ -122,4 +122,3 @@ class FavNoteItem extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/dynamic/dyn_topic_pub_search/page_info.dart';
+import 'package:liqliquid/models_new/dynamic/dyn_topic_pub_search/page_info.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_item.dart';
 
 class TopicPubSearchData {
@@ -20,4 +20,3 @@ class TopicPubSearchData {
             : PageInfo.fromJson(json['page_info'] as Map<String, dynamic>),
       );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_index_condition/sort.dart';
+import 'package:liqliquid/models_new/pgc/pgc_index_condition/sort.dart';
 
 class PgcIndexConditionData {
   List<PgcConditionFilter>? filter;
@@ -16,4 +16,3 @@ class PgcIndexConditionData {
             .toList(),
       );
 }
-

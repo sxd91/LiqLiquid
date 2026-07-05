@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
@@ -37,7 +37,7 @@ class ArticleController extends CommonDynController {
   dynamic get sourceId => commentType == 12 ? 'cv$commentId' : id;
 
   final RxBool isLoaded = false.obs;
-  DynamicItemModel? opusData; // 鏍囬淇℃伅浠巗ummary鑾峰彇, 鍔ㄦ€佹病鏈塮avorite
+  DynamicItemModel? opusData; // 标题信息从summary获取, 动态没有favorite
   ArticleViewData? articleData;
   final stats = Rxn<ModuleStatModel>();
 
@@ -163,7 +163,8 @@ class ArticleController extends CommonDynController {
     return false;
   }
 
-  // 璇锋眰鍔ㄦ€佸唴瀹?  Future<void> _queryContent() async {
+  // 请求动态内容
+  Future<void> _queryContent() async {
     if (type != 'read') {
       isLoaded.value = await queryOpus(id);
     } else {
@@ -195,7 +196,7 @@ class ArticleController extends CommonDynController {
         favorite?.count++;
       }
       stats.refresh();
-      SmartDialog.showToast('${isFav ? '鍙栨秷' : ''}鏀惰棌鎴愬姛');
+      SmartDialog.showToast('${isFav ? '取消' : ''}收藏成功');
     } else {
       res.toast();
     }
@@ -216,7 +217,7 @@ class ArticleController extends CommonDynController {
         like?.count++;
       }
       stats.refresh();
-      SmartDialog.showToast(!isLike ? '鐐硅禐鎴愬姛' : '鍙栨秷璧?);
+      SmartDialog.showToast(!isLike ? '点赞成功' : '取消赞');
     } else {
       res.toast();
     }
@@ -238,4 +239,3 @@ class Summary {
 
   Summary({this.author, this.title, this.cover});
 }
-

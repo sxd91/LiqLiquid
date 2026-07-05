@@ -1,4 +1,4 @@
-﻿import com.android.build.gradle.internal.api.ApkVariantOutputImpl
+import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
@@ -70,7 +70,7 @@ android {
                 resValue(
                     type = "string",
                     name = "app_name",
-                    value = "LiqLiquid dev",
+                    value = "liqliquid dev",
                 )
             }
 //            proguardFiles(

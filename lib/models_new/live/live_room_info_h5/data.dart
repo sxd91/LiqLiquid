@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
 import 'package:liqliquid/models_new/live/live_room_info_h5/anchor_info.dart';
 import 'package:liqliquid/models_new/live/live_room_info_h5/room_info.dart';
 
@@ -25,4 +25,3 @@ class RoomInfoH5Data {
         : WatchedShow.fromJson(json['watched_show'] as Map<String, dynamic>),
   );
 }
-

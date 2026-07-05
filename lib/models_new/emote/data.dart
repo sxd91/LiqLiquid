@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/emote/package.dart';
+import 'package:liqliquid/models_new/emote/package.dart';
 
 class EmoteModelData {
   List<Package>? packages;
@@ -11,4 +11,3 @@ class EmoteModelData {
         .toList(),
   );
 }
-

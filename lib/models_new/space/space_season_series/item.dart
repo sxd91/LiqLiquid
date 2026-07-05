@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_season_series/page.dart';
+import 'package:liqliquid/models_new/space/space_season_series/page.dart';
 import 'package:liqliquid/models_new/space/space_season_series/season.dart';
 
 class SpaceSsData {
@@ -22,4 +22,3 @@ class SpaceSsData {
         .toList(),
   );
 }
-

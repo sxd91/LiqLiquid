@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
 
 class SliderDialog extends StatefulWidget {
@@ -59,16 +59,15 @@ class _SliderDialogState extends State<SliderDialog> {
         TextButton(
           onPressed: Navigator.of(context).pop,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, _tempValue),
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     );
   }
 }
-

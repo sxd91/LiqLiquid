@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
@@ -42,7 +42,7 @@ class _MatchInfoPageState extends CommonDynPageState<MatchInfoPage> {
   Widget build(BuildContext context) {
     final child = Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('姣旇禌璇︽儏')),
+      appBar: AppBar(title: const Text('比赛详情')),
       body: ViewSafeArea(
         child: refreshIndicator(
           onRefresh: controller.onRefresh,
@@ -145,11 +145,11 @@ class _MatchInfoPageState extends CommonDynPageState<MatchInfoPage> {
                             ),
                             onPressed: () =>
                                 PageUtils.toLiveRoom(response.liveRoom),
-                            child: const Text('鐪嬬洿鎾?),
+                            child: const Text('看直播'),
                           )
                         else if (response.contestStatus == 3)
                           Text(
-                            '${DateFormatUtils.dateFormat(response.stime)}${response.contestStatus == 3 ? ' 宸茬粨鏉? : ''}',
+                            '${DateFormatUtils.dateFormat(response.stime)}${response.contestStatus == 3 ? ' 已结束' : ''}',
                             style: TextStyle(
                               color: theme.colorScheme.outline,
                             ),
@@ -195,7 +195,7 @@ class _MatchInfoPageState extends CommonDynPageState<MatchInfoPage> {
         Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: const Text('璇勮璇︽儏'),
+            title: const Text('评论详情'),
             shape: Border(
               bottom: BorderSide(
                 color: theme.colorScheme.outline.withValues(alpha: 0.1),
@@ -218,4 +218,3 @@ class _MatchInfoPageState extends CommonDynPageState<MatchInfoPage> {
     });
   }
 }
-

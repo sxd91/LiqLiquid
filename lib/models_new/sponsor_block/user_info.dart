@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/duration_utils.dart';
+import 'package:liqliquid/utils/duration_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 
 class UserInfo {
@@ -24,11 +24,10 @@ class UserInfo {
       Duration(minutes: minutesSaved.round()),
     );
     if (minutes.isEmpty) {
-      minutes = '0鍒嗛挓';
+      minutes = '0分钟';
     }
-    return ('鎮ㄦ彁浜や簡 ${NumUtils.formatPositiveDecimal(segmentCount)} 鐗囨\n'
-        '鎮ㄤ负澶у鑺傜渷浜?${NumUtils.formatPositiveDecimal(viewCount)} 鐗囨\n'
-        '($minutes 鐨勭敓鍛?');
+    return ('您提交了 ${NumUtils.formatPositiveDecimal(segmentCount)} 片段\n'
+        '您为大家节省了 ${NumUtils.formatPositiveDecimal(viewCount)} 片段\n'
+        '($minutes 的生命)');
   }
 }
-

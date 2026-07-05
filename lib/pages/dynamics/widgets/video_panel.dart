@@ -1,4 +1,4 @@
-﻿// 瑙嗛or鍚堥泦
+// 视频or合集
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -17,7 +17,8 @@ Widget videoSeasonWidget(
   required bool isDetail,
 }) {
   // type archive  ugcSeason
-  // archive 瑙嗛/鏄剧ず鍙戝竷浜?  // ugcSeason 鍚堥泦/涓嶆樉绀哄彂甯冧汉
+  // archive 视频/显示发布人
+  // ugcSeason 合集/不显示发布人
 
   DynamicArchiveModel? video = switch (item.type) {
     'DYNAMIC_TYPE_AV' => item.modules.moduleDynamic?.major?.archive,
@@ -64,7 +65,7 @@ Widget videoSeasonWidget(
                   bottom: null,
                   left: null,
                   type: switch (badge) {
-                    '鍏呯數涓撳睘' => PBadgeType.error,
+                    '充电专属' => PBadgeType.error,
                     _ => PBadgeType.primary,
                   },
                 ),
@@ -106,9 +107,9 @@ Widget videoSeasonWidget(
                           const SizedBox(width: 6),
                         ],
                         if (video.stat case final stat?) ...[
-                          Text('${NumUtils.numFormat(stat.play)}鎾斁'),
+                          Text('${NumUtils.numFormat(stat.play)}播放'),
                           const SizedBox(width: 6),
-                          Text('${NumUtils.numFormat(stat.danmu)}寮瑰箷'),
+                          Text('${NumUtils.numFormat(stat.danmu)}弹幕'),
                         ],
                         const Spacer(),
                         const PlayIcon(size: 50),
@@ -130,4 +131,3 @@ Widget videoSeasonWidget(
     ),
   );
 }
-

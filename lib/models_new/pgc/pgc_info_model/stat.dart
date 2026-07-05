@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/stat_detail.dart';
+import 'package:liqliquid/models_new/video/video_detail/stat_detail.dart';
 
 class PgcStat extends StatDetail {
   PgcStat.fromJson(Map<String, dynamic> json) {
@@ -11,4 +11,3 @@ class PgcStat extends StatDetail {
     view = json["views"];
   }
 }
-

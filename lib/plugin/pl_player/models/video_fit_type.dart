@@ -1,14 +1,14 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:flutter/material.dart' show BoxFit;
 
 enum VideoFitType {
-  fill('鎷変几', boxFit: BoxFit.fill),
-  contain('鑷姩', boxFit: BoxFit.contain),
-  cover('瑁佸壀', boxFit: BoxFit.cover),
-  fitWidth('绛夊', boxFit: BoxFit.fitWidth),
-  fitHeight('绛夐珮', boxFit: BoxFit.fitHeight),
-  none('鍘熷', boxFit: BoxFit.none),
-  scaleDown('闄愬埗', boxFit: BoxFit.scaleDown),
+  fill('拉伸', boxFit: BoxFit.fill),
+  contain('自动', boxFit: BoxFit.contain),
+  cover('裁剪', boxFit: BoxFit.cover),
+  fitWidth('等宽', boxFit: BoxFit.fitWidth),
+  fitHeight('等高', boxFit: BoxFit.fitHeight),
+  none('原始', boxFit: BoxFit.none),
+  scaleDown('限制', boxFit: BoxFit.scaleDown),
   ratio_4x3('4:3', aspectRatio: 4 / 3),
   ratio_16x9('16:9', aspectRatio: Style.aspectRatio16x9),
   ;
@@ -22,4 +22,3 @@ enum VideoFitType {
     this.aspectRatio,
   });
 }
-

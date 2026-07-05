@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/common/common_controller.dart';
 import 'package:liqliquid/pages/hot/controller.dart';
 import 'package:liqliquid/pages/hot/view.dart';
@@ -14,12 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 enum HomeTabType implements EnumWithLabel {
-  live('鐩存挱'),
-  rcmd('鎺ㄨ崘'),
-  hot('鐑棬'),
-  rank('鍒嗗尯'),
-  bangumi('鐣墽'),
-  cinema('褰辫'),
+  live('直播'),
+  rcmd('推荐'),
+  hot('热门'),
+  rank('分区'),
+  bangumi('番剧'),
+  cinema('影视'),
   ;
 
   @override
@@ -44,4 +44,3 @@ enum HomeTabType implements EnumWithLabel {
     HomeTabType.cinema => const PgcPage(tabType: HomeTabType.cinema),
   };
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -49,7 +49,7 @@ class PackageHeaderRes extends PackageHeader {
 
   static PackageHeaderRes? fromBytesData(Uint8List data) {
     if (data.length < 10) {
-      logger.w('鏁版嵁涓嶈冻浠ヨВ鏋怭ackageHeader');
+      logger.w('数据不足以解析PackageHeader');
       return null;
     }
     final byteData = ByteData.sublistView(data);
@@ -117,7 +117,8 @@ abstract class AbstractPackage<T> {
   AbstractPackage({required this.header, required this.body});
 }
 
-//璁よ瘉鍖?class AuthPackage extends AbstractPackage<Message> {
+//认证包
+class AuthPackage extends AbstractPackage<Message> {
   AuthPackage({required super.header, required super.body});
 
   @override
@@ -130,7 +131,8 @@ abstract class AbstractPackage<T> {
   }
 }
 
-//蹇冭烦鍖?class HeartbeatPackage extends AbstractPackage<dynamic> {
+//心跳包
+class HeartbeatPackage extends AbstractPackage<dynamic> {
   HeartbeatPackage({required super.header, super.body});
 
   @override
@@ -195,8 +197,8 @@ class LiveMessageStream {
         return;
       }
       // logger
-      //   ..d('$logTag ===> TCP杩炴帴寤虹珛')
-      //   ..d('$logTag ===> 鍙戦€佽璇佸寘');
+      //   ..d('$logTag ===> TCP连接建立')
+      //   ..d('$logTag ===> 发送认证包');
       _socketSubscription = _channel?.stream.listen(
         onData,
         onDone: close,
@@ -204,7 +206,7 @@ class LiveMessageStream {
       );
       _channel?.sink.add(authPackage.marshal());
     } catch (e) {
-      SmartDialog.showToast("寮瑰箷鍦板潃閾炬帴澶辫触: $e");
+      SmartDialog.showToast("弹幕地址链接失败: $e");
     }
   }
 
@@ -235,7 +237,7 @@ class LiveMessageStream {
       close();
       return;
     }
-    if (kDebugMode) logger.i("$logTag 鐩存挱闂翠俊鎭祦璁よ瘉鎴愬姛 $hashCode");
+    if (kDebugMode) logger.i("$logTag 直播间信息流认证成功 $hashCode");
     int heartBeatCount = 1;
     _timer ??= Timer.periodic(const Duration(seconds: 30), (timer) {
       if (!_active) {
@@ -270,7 +272,7 @@ class LiveMessageStream {
     final header = PackageHeaderRes.fromBytesData(data as Uint8List);
     if (header != null) {
       List<int> decompressedData = const [];
-      //蹇冭烦鍖呭洖澶嶄笉鐢ㄥ鐞?
+      //心跳包回复不用处理
       if (header.operationCode == 3) return;
       if (header.operationCode == 8) {
         _heartBeat();
@@ -309,4 +311,3 @@ class LiveMessageStream {
     _channel = null;
   }
 }
-

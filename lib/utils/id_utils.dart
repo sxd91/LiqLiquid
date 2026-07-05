@@ -1,4 +1,4 @@
-﻿// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'dart:convert' show ascii, base64;
 
@@ -25,7 +25,7 @@ abstract final class IdUtils {
   static final avRegexExact = RegExp(r'^av(\d+)$', caseSensitive: false);
   static final digitOnlyRegExp = RegExp(r'^\d+$');
 
-  /// av杞琤v
+  /// av转bv
   static String av2bv(int aid) {
     final bytes = ['B', 'V', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     int bvIndex = bytes.length - 1;
@@ -42,7 +42,7 @@ abstract final class IdUtils {
     return bytes.join();
   }
 
-  /// bv杞琣v
+  /// bv转av
   static int bv2av(String bvid) {
     final bvidArr = bvid.codeUnits.sublist(3)
       ..swap(0, 6)
@@ -52,7 +52,7 @@ abstract final class IdUtils {
     return (tmp & MASK_CODE) ^ XOR_CODE;
   }
 
-  // 鍖归厤
+  // 匹配
   static AvBvRes matchAvorBv({String? input}) {
     if (input == null || input.isEmpty) {
       return const (av: null, bv: null);
@@ -90,7 +90,7 @@ abstract final class IdUtils {
     return base64Encoded;
   }
 
-  // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/grpc_api/readme.md#x-bili-trace-id-鐢熸垚绠楁硶
+  // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/grpc_api/readme.md#x-bili-trace-id-生成算法
   static String genTraceId() {
     final randomTraceId = StringBuffer(Utils.generateRandomString(24));
 
@@ -109,4 +109,3 @@ typedef AvBvRes = ({int? av, String? bv});
 extension AvBvExt on AvBvRes {
   bool get isNotEmpty => this != const (av: null, bv: null);
 }
-

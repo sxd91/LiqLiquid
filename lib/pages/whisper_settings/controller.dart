@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show GetImSettingsReply, IMSettingType, Setting;
 import 'package:liqliquid/grpc/im.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -45,4 +45,3 @@ class WhisperSettingsController
     return true;
   }
 }
-

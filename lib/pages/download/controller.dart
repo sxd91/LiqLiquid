@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/models_new/download/download_info.dart';
@@ -77,7 +77,7 @@ class DownloadPageController extends GetxController
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('纭畾鍒犻櫎閫変腑瑙嗛锛?),
+      title: const Text('确定删除选中视频？'),
       onConfirm: () async {
         SmartDialog.showLoading();
         final watchProgress = GStorage.watchProgress;
@@ -100,4 +100,3 @@ class DownloadPageController extends GetxController
     );
   }
 }
-

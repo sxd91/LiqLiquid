@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/dynamics/result.dart';
@@ -47,7 +47,7 @@ class _MemberDynamicsPageState extends State<MemberDynamicsPage>
     return widget.mid == null
         ? Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(title: const Text('鎴戠殑鍔ㄦ€?)),
+            appBar: AppBar(title: const Text('我的动态')),
             body: Padding(
               padding: EdgeInsets.only(
                 left: padding.left,
@@ -119,4 +119,3 @@ class _MemberDynamicsPageState extends State<MemberDynamicsPage>
     };
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_audio/statistic.dart';
+import 'package:liqliquid/models_new/space/space_audio/statistic.dart';
 
 class SpaceAudioItem {
   int? id;
@@ -37,4 +37,3 @@ class SpaceAudioItem {
         : Statistic.fromJson(json['statistic'] as Map<String, dynamic>),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space_setting/privacy.dart';
+import 'package:liqliquid/models_new/space_setting/privacy.dart';
 
 class SpaceSettingData {
   Privacy? privacy;
@@ -12,4 +12,3 @@ class SpaceSettingData {
             : Privacy.fromJson(json['privacy'] as Map<String, dynamic>),
       );
 }
-

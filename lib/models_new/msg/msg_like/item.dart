@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_like/content.dart';
+import 'package:liqliquid/models_new/msg/msg_like/content.dart';
 import 'package:liqliquid/models_new/msg/msg_like/user.dart';
 
 class MsgLikeItem {
@@ -31,4 +31,3 @@ class MsgLikeItem {
     noticeState: json['notice_state'] as int?,
   );
 }
-

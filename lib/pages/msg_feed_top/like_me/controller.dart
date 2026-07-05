@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pair.dart';
+import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/msg.dart';
 import 'package:liqliquid/models_new/msg/msg_like/data.dart';
@@ -76,7 +76,7 @@ class LikeMeController
           pair.second.removeAt(index);
         }
         loadingState.refresh();
-        SmartDialog.showToast('鍒犻櫎鎴愬姛');
+        SmartDialog.showToast('删除成功');
       } else {
         res.toast();
       }
@@ -92,10 +92,9 @@ class LikeMeController
     if (res.isSuccess) {
       item.noticeState = noticeState;
       loadingState.refresh();
-      SmartDialog.showToast('璁剧疆鎴愬姛');
+      SmartDialog.showToast('设置成功');
     } else {
       res.toast();
     }
   }
 }
-

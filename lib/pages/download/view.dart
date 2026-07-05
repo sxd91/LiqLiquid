@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/appbar/appbar.dart';
@@ -78,22 +78,22 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                   _controller.handleSelect();
                   final res = await Future.wait(future);
                   if (res.every((e) => e)) {
-                    SmartDialog.showToast('鏇存柊鎴愬姛');
+                    SmartDialog.showToast('更新成功');
                   } else {
-                    SmartDialog.showToast('鏇存柊澶辫触');
+                    SmartDialog.showToast('更新失败');
                   }
                 },
                 child: Text(
-                  '鏇存柊',
+                  '更新',
                   style: TextStyle(color: theme.colorScheme.onSurface),
                 ),
               ),
             ],
             child: AppBar(
-              title: const Text('绂荤嚎缂撳瓨'),
+              title: const Text('离线缓存'),
               actions: [
                 IconButton(
-                  tooltip: '鎼滅储',
+                  tooltip: '搜索',
                   onPressed: () async {
                     await _downloadService.waitForInitialization;
                     if (!mounted) return;
@@ -102,7 +102,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                   icon: const Icon(Icons.search),
                 ),
                 IconButton(
-                  tooltip: '澶氶€?,
+                  tooltip: '多选',
                   onPressed: () {
                     if (enableMultiSelect) {
                       _controller.handleSelect();
@@ -133,7 +133,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                           padding: const EdgeInsets.only(left: 12, bottom: 7),
                           sliver: SliverToBoxAdapter(
                             child: Text(
-                              '姝ｅ湪缂撳瓨 (${_downloadService.waitDownloadQueue.length})',
+                              '正在缓存 (${_downloadService.waitDownloadQueue.length})',
                             ),
                           ),
                         ),
@@ -168,7 +168,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                                 : 7,
                           ),
                           sliver: const SliverToBoxAdapter(
-                            child: Text('宸茬紦瀛樿棰?),
+                            child: Text('已缓存视频'),
                           ),
                         ),
                         SliverGrid.builder(
@@ -237,7 +237,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                     Get.back();
                     showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍒犻櫎锛?),
+                      title: const Text('确定删除？'),
                       onConfirm: () async {
                         await GStorage.watchProgress.deleteAll(
                           pageInfo.entries.map((e) => e.cid.toString()),
@@ -248,7 +248,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                       },
                     );
                   },
-                  child: const Text('鍒犻櫎', style: TextStyle(fontSize: 14)),
+                  child: const Text('删除', style: TextStyle(fontSize: 14)),
                 ),
                 DialogOption(
                   onPressed: () async {
@@ -262,12 +262,12 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                       ),
                     );
                     if (res.every((e) => e)) {
-                      SmartDialog.showToast('鏇存柊鎴愬姛');
+                      SmartDialog.showToast('更新成功');
                     } else {
-                      SmartDialog.showToast('鏇存柊澶辫触');
+                      SmartDialog.showToast('更新失败');
                     }
                   },
-                  child: const Text('鏇存柊寮瑰箷', style: TextStyle(fontSize: 14)),
+                  child: const Text('更新弹幕', style: TextStyle(fontSize: 14)),
                 ),
               ],
             ),
@@ -313,7 +313,7 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                     ),
                   ),
                   PBadge(
-                    text: '${pageInfo.entries.length}涓棰?,
+                    text: '${pageInfo.entries.length}个视频',
                     right: 6.0,
                     bottom: 6.0,
                     isBold: false,
@@ -322,13 +322,13 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
                   if (pageInfo.seasonType case final pgcType?)
                     PBadge(
                       text: switch (pgcType) {
-                        -1 => '璇剧▼',
-                        1 => '鐣墽',
-                        2 => '鐢靛奖',
-                        3 => '绾綍鐗?,
-                        4 => '鍥藉垱',
-                        5 => '鐢佃鍓?,
-                        7 => '缁艰壓',
+                        -1 => '课程',
+                        1 => '番剧',
+                        2 => '电影',
+                        3 => '纪录片',
+                        4 => '国创',
+                        5 => '电视剧',
+                        7 => '综艺',
                         _ => null,
                       },
                       right: 6.0,
@@ -382,4 +382,3 @@ class _DownloadPageState extends State<DownloadPage> with GridMixin {
     );
   }
 }
-

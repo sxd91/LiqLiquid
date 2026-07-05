@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/later/bangumi.dart';
 import 'package:liqliquid/models_new/later/rights.dart';
 import 'package:liqliquid/models_new/later/stat.dart';
@@ -85,4 +85,3 @@ class LaterItemModel with MultiSelectData {
         : Dimension.fromJson(json['dimension'] as Map<String, dynamic>),
   );
 }
-

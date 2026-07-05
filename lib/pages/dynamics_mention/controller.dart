@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_mention/group.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_mention/item.dart';
@@ -55,4 +55,3 @@ class DynMentionController
     updateBtn();
   }
 }
-

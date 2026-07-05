@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
@@ -85,7 +85,7 @@ class LiveRoomController extends GetxController {
         liveTime * 1000,
         DateTime.now().millisecondsSinceEpoch,
       );
-      text += duration.isEmpty ? '鍒氬垰寮€鎾? : '寮€鎾?duration';
+      text += duration.isEmpty ? '刚刚开播' : '开播$duration';
     }
     if (text.isEmpty) {
       return const SizedBox.shrink();
@@ -193,12 +193,12 @@ class LiveRoomController extends GetxController {
     );
     if (res case Success(:final response)) {
       if (response.liveStatus != 1) {
-        _showDialog('褰撳墠鐩存挱闂存湭寮€鎾?);
+        _showDialog('当前直播间未开播');
         return;
       }
       final playurl = response.playurlInfo?.playurl;
       if (playurl == null) {
-        _showDialog('鏃犳硶鑾峰彇鎾斁鍦板潃');
+        _showDialog('无法获取播放地址');
         return;
       }
       ruid = response.uid;
@@ -272,7 +272,8 @@ class LiveRoomController extends GetxController {
         .getOrFirst(formatIndex)
         .codec
         .getOrFirst(codecIndex);
-    // 浠ユ湇鍔＄杩斿洖鐨勭爜鐜囦负鍑?    currentQn = item.currentQn;
+    // 以服务端返回的码率为准
+    currentQn = item.currentQn;
     acceptQnList = item.acceptQn.map((e) {
       return (
         code: e,
@@ -306,7 +307,7 @@ class LiveRoomController extends GetxController {
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍏抽棴',
+              '关闭',
               style: TextStyle(color: ThemeUtils.theme.colorScheme.outline),
             ),
           ),
@@ -319,7 +320,7 @@ class LiveRoomController extends GetxController {
                 ..back()
                 ..back();
             },
-            child: const Text('閫€鍑?),
+            child: const Text('退出'),
           ),
         ],
       ),
@@ -455,7 +456,7 @@ class LiveRoomController extends GetxController {
     super.onClose();
   }
 
-  // 淇敼鐢昏川
+  // 修改画质
   Future<void>? changeQn(int qn) {
     if (currentQn == qn) {
       return null;
@@ -485,7 +486,7 @@ class LiveRoomController extends GetxController {
 
   void addDm(dynamic msg, [DanmakuContentItem<DanmakuExtra>? item]) {
     if (plPlayerController.showDanmaku) {
-      if (item != null) {
+      if (item != null && plPlayerController.enableShowLiveDanmaku.value) {
         danmakuController?.addDanmaku(item);
       }
       if (autoScroll && !disableAutoScroll.value) {
@@ -501,7 +502,7 @@ class LiveRoomController extends GetxController {
   @pragma('vm:notify-debugger-on-exception')
   void _danmakuListener(dynamic obj) {
     try {
-      // logger.i(' 鍘熷寮瑰箷娑堟伅 ======> ${jsonEncode(obj)}');
+      // logger.i(' 原始弹幕消息 ======> ${jsonEncode(obj)}');
       switch (obj['cmd']) {
         case 'DANMU_MSG':
           final info = obj['info'];
@@ -643,7 +644,7 @@ class LiveRoomController extends GetxController {
       anchorId: roomInfoH5.value?.roomInfo?.uid,
     );
     if (res.isSuccess) {
-      SmartDialog.showToast('鐐硅禐鎴愬姛');
+      SmartDialog.showToast('点赞成功');
     } else {
       res.toast();
     }
@@ -652,7 +653,7 @@ class LiveRoomController extends GetxController {
 
   void onSendDanmaku([bool fromEmote = false]) {
     if (kReleaseMode && !isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     Get.key.currentState!.push(
@@ -686,7 +687,7 @@ class LiveRoomController extends GetxController {
 
   void reportSC(SuperChatItem item) {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     autoWrapReportDialog(
@@ -707,4 +708,3 @@ class LiveRoomController extends GetxController {
     );
   }
 }
-

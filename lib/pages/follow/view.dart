@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -59,10 +59,10 @@ class _FollowPageState extends State<FollowPage> {
 
   PreferredSizeWidget get _buildAppBar => AppBar(
     title: _followController.isOwner
-        ? const Text('鎴戠殑鍏虫敞')
+        ? const Text('我的关注')
         : Obx(() {
             final name = _followController.name.value;
-            if (name != null) return Text('$name鐨勫叧娉?);
+            if (name != null) return Text('$name的关注');
             return const SizedBox.shrink();
           }),
     actions: _followController.isOwner
@@ -73,7 +73,7 @@ class _FollowPageState extends State<FollowPage> {
                 _followController.onCreateFavTag,
               ),
               icon: const Icon(Icons.add),
-              tooltip: '鏂板缓鍒嗙粍',
+              tooltip: '新建分组',
             ),
             IconButton(
               onPressed: () {
@@ -83,7 +83,7 @@ class _FollowPageState extends State<FollowPage> {
                 Get.to(FollowTagSortPage(controller: _followController));
               },
               icon: const Icon(Icons.sort),
-              tooltip: '鍒嗙粍鎺掑簭',
+              tooltip: '分组排序',
             ),
             IconButton(
               onPressed: () => Get.toNamed(
@@ -93,7 +93,7 @@ class _FollowPageState extends State<FollowPage> {
                 },
               ),
               icon: const Icon(Icons.search_outlined),
-              tooltip: '鎼滅储',
+              tooltip: '搜索',
             ),
             PopupMenuButton(
               icon: const Icon(Icons.more_vert),
@@ -105,7 +105,7 @@ class _FollowPageState extends State<FollowPage> {
                     mainAxisSize: .min,
                     children: [
                       Icon(Icons.block, size: 19),
-                      Text('榛戝悕鍗曠鐞?),
+                      Text('黑名单管理'),
                     ],
                   ),
                 ),
@@ -205,7 +205,7 @@ class _FollowPageState extends State<FollowPage> {
               String tagName = item.name!;
               showConfirmDialog(
                 context: context,
-                title: const Text('缂栬緫鍒嗙粍鍚嶇О'),
+                title: const Text('编辑分组名称'),
                 content: TextFormField(
                   autofocus: true,
                   initialValue: tagName,
@@ -222,23 +222,22 @@ class _FollowPageState extends State<FollowPage> {
                 },
               );
             },
-            child: const Text('淇敼鍚嶇О', style: TextStyle(fontSize: 14)),
+            child: const Text('修改名称', style: TextStyle(fontSize: 14)),
           ),
           DialogOption(
             onPressed: () {
               Get.back();
               showConfirmDialog(
                 context: context,
-                title: const Text('鍒犻櫎鍒嗙粍'),
-                content: const Text('鍒犻櫎鍚庯紝璇ュ垎缁勪笅鐨勭敤鎴蜂緷鏃т繚鐣欙紵'),
+                title: const Text('删除分组'),
+                content: const Text('删除后，该分组下的用户依旧保留？'),
                 onConfirm: () => _followController.onDelTag(index, item.tagid!),
               );
             },
-            child: const Text('鍒犻櫎鍒嗙粍', style: TextStyle(fontSize: 14)),
+            child: const Text('删除分组', style: TextStyle(fontSize: 14)),
           ),
         ],
       ),
     );
   }
 }
-

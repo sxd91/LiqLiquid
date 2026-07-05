@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class FavFolderInfo {
   int id;
@@ -40,4 +40,3 @@ class FavFolderInfo {
     mediaCount: json['media_count'] as int? ?? 0,
   );
 }
-

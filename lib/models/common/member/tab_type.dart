@@ -1,14 +1,14 @@
-﻿import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 enum MemberTabType {
-  def('榛樿'),
-  home('涓婚〉'),
-  dynamic('鍔ㄦ€?),
-  contribute('鎶曠'),
-  favorite('鏀惰棌'),
-  bangumi('鐣墽'),
-  cheese('璇惧爞'),
-  shop('灏忓簵'),
+  def('默认'),
+  home('主页'),
+  dynamic('动态'),
+  contribute('投稿'),
+  favorite('收藏'),
+  bangumi('番剧'),
+  cheese('课堂'),
+  shop('小店'),
   ;
 
   static bool showMemberShop = Pref.showMemberShop;
@@ -28,4 +28,3 @@ enum MemberTabType {
   final String title;
   const MemberTabType(this.title);
 }
-

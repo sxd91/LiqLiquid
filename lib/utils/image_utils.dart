@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io' show File, Platform;
 import 'dart:math' as math;
 import 'dart:typed_data' show Uint8List;
@@ -30,7 +30,7 @@ abstract final class ImageUtils {
       ? 'Pictures/${Constants.appName}'
       : Constants.appName;
 
-  // 鍥剧墖鍒嗕韩
+  // 图片分享
   static Future<void> onShareImg(String url) async {
     try {
       SmartDialog.showLoading();
@@ -49,7 +49,7 @@ abstract final class ImageUtils {
     }
   }
 
-  // 鑾峰彇瀛樺偍鏉冮檺
+  // 获取存储权限
   static Future<bool> requestPer() async {
     final status = Platform.isAndroid
         ? await Permission.storage.request()
@@ -58,15 +58,15 @@ abstract final class ImageUtils {
         status == PermissionStatus.permanentlyDenied) {
       SmartDialog.show(
         builder: (context) => AlertDialog(
-          title: const Text('鎻愮ず'),
-          content: const Text('瀛樺偍鏉冮檺鏈巿鏉?),
+          title: const Text('提示'),
+          content: const Text('存储权限未授权'),
           actions: [
             TextButton(
               onPressed: () {
                 SmartDialog.dismiss();
                 openAppSettings();
               },
-              child: const Text('鍘绘巿鏉?),
+              child: const Text('去授权'),
             ),
           ],
         ),
@@ -98,7 +98,7 @@ abstract final class ImageUtils {
       if (PlatformUtils.isMobile && !await checkPermissionDependOnSdkInt()) {
         return false;
       }
-      if (!silentDownImg) SmartDialog.showLoading(msg: '姝ｅ湪涓嬭浇');
+      if (!silentDownImg) SmartDialog.showLoading(msg: '正在下载');
 
       String videoName = "video_${Utils.getFileName(liveUrl)}";
       String videoPath = '$tmpDirPath/$videoName';
@@ -110,7 +110,7 @@ abstract final class ImageUtils {
         final imageFile = await CacheManager.manager.getSingleFile(
           url.http2https,
         );
-        if (!silentDownImg) SmartDialog.showLoading(msg: '姝ｅ湪淇濆瓨');
+        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存');
         bool success = await LivePhotoMaker.create(
           coverImage: imageFile.path,
           imagePath: null,
@@ -119,13 +119,13 @@ abstract final class ImageUtils {
           height: height,
         ).whenComplete(File(videoPath).tryDel);
         if (success) {
-          SmartDialog.showToast(' 宸蹭繚瀛?');
+          SmartDialog.showToast(' 已保存 ');
         } else {
-          SmartDialog.showToast('淇濆瓨澶辫触');
+          SmartDialog.showToast('保存失败');
           return false;
         }
       } else {
-        if (!silentDownImg) SmartDialog.showLoading(msg: '姝ｅ湪淇濆瓨');
+        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存');
         await saveFileImg(
           filePath: videoPath,
           fileName: videoName,
@@ -150,7 +150,7 @@ abstract final class ImageUtils {
     if (!silentDownImg) {
       cancelToken = CancelToken();
       SmartDialog.showLoading(
-        msg: '姝ｅ湪涓嬭浇鍘熷浘',
+        msg: '正在下载原图',
         clickMaskDismiss: true,
         onDismiss: cancelToken.cancel,
       );
@@ -196,15 +196,15 @@ abstract final class ImageUtils {
         }
       }
       if (cancelToken?.isCancelled == true) {
-        SmartDialog.showToast('宸插彇娑堜笅杞?);
+        SmartDialog.showToast('已取消下载');
         return false;
       } else {
-        SmartDialog.showToast(success ? ' 宸蹭繚瀛?' : '淇濆瓨澶辫触');
+        SmartDialog.showToast(success ? ' 已保存 ' : '保存失败');
       }
       return success;
     } catch (e) {
       if (cancelToken?.isCancelled == true) {
-        SmartDialog.showToast('宸插彇娑堜笅杞?);
+        SmartDialog.showToast('已取消下载');
       } else {
         SmartDialog.showToast(e.toString());
       }
@@ -259,7 +259,7 @@ abstract final class ImageUtils {
     SaveResult? res;
     fileName += '.$ext';
     if (PlatformUtils.isMobile) {
-      SmartDialog.showLoading(msg: '姝ｅ湪淇濆瓨');
+      SmartDialog.showLoading(msg: '正在保存');
       res = await SaverGallery.saveImage(
         bytes,
         fileName: fileName,
@@ -268,9 +268,9 @@ abstract final class ImageUtils {
       );
       SmartDialog.dismiss();
       if (res.isSuccess) {
-        SmartDialog.showToast(' 宸蹭繚瀛?');
+        SmartDialog.showToast(' 已保存 ');
       } else {
-        SmartDialog.showToast('淇濆瓨澶辫触锛?{res.errorMessage}');
+        SmartDialog.showToast('保存失败，${res.errorMessage}');
       }
     } else {
       SmartDialog.dismiss();
@@ -280,11 +280,11 @@ abstract final class ImageUtils {
         bytes: Uint8List(0),
       );
       if (savePath == null) {
-        SmartDialog.showToast("鍙栨秷淇濆瓨");
+        SmartDialog.showToast("取消保存");
         return null;
       }
       await File(savePath).writeAsBytes(bytes);
-      SmartDialog.showToast(' 宸蹭繚瀛?');
+      SmartDialog.showToast(' 已保存 ');
       res = SaveResult(true, null);
     }
     return res;
@@ -298,7 +298,7 @@ abstract final class ImageUtils {
   }) async {
     final file = File(filePath);
     if (!file.existsSync()) {
-      SmartDialog.showToast("鏂囦欢涓嶅瓨鍦?);
+      SmartDialog.showToast("文件不存在");
       return;
     }
     SaveResult? res;
@@ -316,7 +316,7 @@ abstract final class ImageUtils {
         bytes: Uint8List(0),
       );
       if (savePath == null) {
-        SmartDialog.showToast("鍙栨秷淇濆瓨");
+        SmartDialog.showToast("取消保存");
         return;
       }
       await file.copy(savePath);
@@ -324,11 +324,10 @@ abstract final class ImageUtils {
     }
     if (needToast) {
       if (res.isSuccess) {
-        SmartDialog.showToast(' 宸蹭繚瀛?');
+        SmartDialog.showToast(' 已保存 ');
       } else {
-        SmartDialog.showToast('淇濆瓨澶辫触锛?{res.errorMessage}');
+        SmartDialog.showToast('保存失败，${res.errorMessage}');
       }
     }
   }
 }
-

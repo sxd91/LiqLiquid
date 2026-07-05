@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -78,13 +78,13 @@ class SearchPgcItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Text('璇勫垎:${item.mediaScore?['score']}', style: style),
+                    Text('评分:${item.mediaScore?['score']}', style: style),
                     Row(
                       children: [
                         if (item.areas?.isNotEmpty == true)
                           Text(item.areas!, style: style),
                         const SizedBox(width: 3),
-                        const Text('路'),
+                        const Text('·'),
                         const SizedBox(width: 3),
                         Text(
                           DateFormatUtils.dateFormat(item.pubtime),
@@ -97,7 +97,7 @@ class SearchPgcItem extends StatelessWidget {
                         if (item.styles?.isNotEmpty == true)
                           Text(item.styles!, style: style),
                         const SizedBox(width: 3),
-                        const Text('路'),
+                        const Text('·'),
                         const SizedBox(width: 3),
                         if (item.indexShow?.isNotEmpty == true)
                           Text(item.indexShow!, style: style),
@@ -113,4 +113,3 @@ class SearchPgcItem extends StatelessWidget {
     );
   }
 }
-

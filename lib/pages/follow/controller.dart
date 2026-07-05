@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/member/tags.dart';
 import 'package:liqliquid/utils/accounts.dart';
@@ -43,7 +43,7 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
     final res = await MemberHttp.followUpTags();
     if (res case Success(:final response)) {
       tabs
-        ..assign(MemberTagItemModel(name: '鍏ㄩ儴鍏虫敞'))
+        ..assign(MemberTagItemModel(name: '全部关注'))
         ..addAll(response);
       onInitTab();
       followState.value = Success(tabs.hashCode);
@@ -82,7 +82,7 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
     if (res.isSuccess) {
       item.name = tagName;
       tabs.refresh();
-      SmartDialog.showToast('淇敼鎴愬姛');
+      SmartDialog.showToast('修改成功');
     } else {
       res.toast();
     }
@@ -94,7 +94,7 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
       tabs.removeAt(index);
       onInitTab();
       followState.refresh();
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -107,4 +107,3 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
     super.onClose();
   }
 }
-

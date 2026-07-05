@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models_new/space/space_article/data.dart';
 import 'package:liqliquid/models_new/space/space_article/item.dart';
@@ -37,4 +37,3 @@ class MemberArticleCtr
   Future<LoadingState<SpaceArticleData>> customGetData() =>
       MemberHttp.spaceArticle(mid: mid, page: page);
 }
-

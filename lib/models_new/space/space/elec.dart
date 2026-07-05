@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class Elec {
   int? total;
@@ -33,4 +33,3 @@ class ElecItem extends Owner {
     avatar: json['avatar'] as String?,
   );
 }
-

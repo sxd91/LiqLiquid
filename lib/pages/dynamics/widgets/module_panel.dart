@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/grpc/bilibili/app/listener/v1.pbenum.dart'
@@ -26,7 +26,7 @@ Widget noneWidget(ThemeData theme, String? tips) => Row(
       color: theme.colorScheme.outline,
     ),
     Text(
-      tips ?? '宸插け鏁?,
+      tips ?? '已失效',
       style: TextStyle(color: theme.colorScheme.outline),
     ),
   ],
@@ -56,13 +56,13 @@ Widget module(
           Text(major!.none!.tips!),
         ],
       );
-    // 鍥炬枃
+    // 图文
     case 'DYNAMIC_TYPE_DRAW':
-    // 鏂囩珷
+    // 文章
     case 'DYNAMIC_TYPE_ARTICLE':
     case 'DYNAMIC_TYPE_WORD':
       return const SizedBox.shrink();
-    // 瑙嗛
+    // 视频
     case 'DYNAMIC_TYPE_AV':
     case 'DYNAMIC_TYPE_UGC_SEASON':
     case 'DYNAMIC_TYPE_PGC':
@@ -76,7 +76,7 @@ Widget module(
         isSave: isSave,
         isDetail: isDetail,
       );
-    // 杞彂
+    // 转发
     case 'DYNAMIC_TYPE_FORWARD':
       return forwardPanel(
         context,
@@ -86,7 +86,7 @@ Widget module(
         isDetail: isDetail,
         floor: floor + 1,
       );
-    // 鐩存挱
+    // 直播
     case 'DYNAMIC_TYPE_LIVE_RCMD':
       return liveRcmdPanel(
         context,
@@ -95,7 +95,7 @@ Widget module(
         item: item,
         floor: floor,
       );
-    // 鐩存挱
+    // 直播
     case 'DYNAMIC_TYPE_LIVE':
       return livePanel(
         context,
@@ -104,7 +104,7 @@ Widget module(
         floor: floor,
         isDetail: isDetail,
       );
-    // 娲诲姩
+    // 活动
     case 'DYNAMIC_TYPE_COMMON_SQUARE':
       final common = major?.common ?? major?.upowerCommon;
       if (common == null) return const SizedBox.shrink();
@@ -315,8 +315,7 @@ Widget module(
         padding: floor == 1
             ? const EdgeInsets.symmetric(horizontal: 12)
             : EdgeInsets.zero,
-        child: Text('鏆傛湭鏀寔鐨勭被鍨? \n${item.idStr}\n${item.type}'),
+        child: Text('暂未支持的类型: \n${item.idStr}\n${item.type}'),
       );
   }
 }
-

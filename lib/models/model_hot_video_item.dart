@@ -1,10 +1,11 @@
-﻿import 'package:liqliquid/models/horizontal_video_model.dart';
+import 'package:liqliquid/models/horizontal_video_model.dart';
 import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart';
 
-// 绋嶅悗鍐嶇湅, 鎺掕姒滅瓑缃戦〉杩斿洖涔熶娇鐢ㄨ绫?class HotVideoItemModel extends HorizontalVideoModel with MultiSelectData {
+// 稍后再看, 排行榜等网页返回也使用该类
+class HotVideoItemModel extends HorizontalVideoModel with MultiSelectData {
   int? videos;
   int? tid;
   String? tname;
@@ -39,9 +40,9 @@ import 'package:liqliquid/pages/common/multi_select/base.dart';
     redirectUrl = json['redirect_url'];
     progress = json['progress'];
     if (json['charging_pay']?['level'] != null) {
-      badge = '鍏呯數涓撳睘';
+      badge = '充电专属';
     } else if (json['rights']?['is_cooperation'] == 1) {
-      badge = '鍚堜綔';
+      badge = '合作';
     } else {
       badge = json['pgc_label'];
     }
@@ -86,4 +87,3 @@ class HotStat extends Stat {
 //     content = json["content"] ?? '';
 //   }
 // }
-

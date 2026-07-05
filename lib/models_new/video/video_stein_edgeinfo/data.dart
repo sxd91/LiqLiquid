@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_stein_edgeinfo/edges.dart';
+import 'package:liqliquid/models_new/video/video_stein_edgeinfo/edges.dart';
 
 class EdgeInfoData {
   Edges? edges;
@@ -13,4 +13,3 @@ class EdgeInfoData {
         : Edges.fromJson(json['edges'] as Map<String, dynamic>),
   );
 }
-

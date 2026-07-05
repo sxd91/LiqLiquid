@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/badge.dart';
+import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/badge_type.dart';
 import 'package:liqliquid/models_new/space/space_shop/item.dart';
@@ -105,7 +105,7 @@ class MemberShopItem extends StatelessWidget {
                   ),
                   if (item.itemSourceName?.isNotEmpty == true)
                     Text(
-                      '鏉ヨ嚜${item.itemSourceName}',
+                      '来自${item.itemSourceName}',
                       style: TextStyle(
                         fontSize: 11,
                         color: colorScheme.freeColor,
@@ -120,4 +120,3 @@ class MemberShopItem extends StatelessWidget {
     );
   }
 }
-

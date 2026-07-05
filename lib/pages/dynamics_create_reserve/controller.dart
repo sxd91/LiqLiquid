@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_reserve_info/data.dart';
 import 'package:liqliquid/utils/utils.dart';
@@ -69,4 +69,3 @@ class CreateReserveController extends GetxController {
     }
   }
 }
-

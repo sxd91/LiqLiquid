@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/live.dart';
+import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/live/live_follow/data.dart';
 import 'package:liqliquid/models_new/live/live_follow/item.dart';
@@ -33,4 +33,3 @@ class LiveFollowController
   Future<LoadingState<LiveFollowData>> customGetData() =>
       LiveHttp.liveFollow(page);
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/setting/widgets/checkbox_num_list_tile.dart';
+import 'package:liqliquid/pages/setting/widgets/checkbox_num_list_tile.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,7 +80,7 @@ class _OrderedMultiSelectDialogState<T>
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(
               color: theme.colorScheme.outline,
             ),
@@ -91,10 +91,9 @@ class _OrderedMultiSelectDialogState<T>
             assert(_tempValues.values.isSorted(Comparable.compare));
             Get.back(result: _tempValues.keys.toList());
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     );
   }
 }
-

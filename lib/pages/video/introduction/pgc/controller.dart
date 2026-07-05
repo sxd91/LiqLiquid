@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math' show max;
 
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
@@ -38,8 +38,8 @@ class PgcIntroController extends CommonIntroController {
   int? epId;
 
   late final String pgcType = pgcItem.type == 1 || pgcItem.type == 4
-      ? '杩界暘'
-      : '杩藉墽';
+      ? '追番'
+      : '追剧';
 
   late final bool isPgc;
   late final PgcInfoModel pgcItem;
@@ -75,7 +75,8 @@ class PgcIntroController extends CommonIntroController {
     }
   }
 
-  // 鑾峰彇鐐硅禐/鎶曞竵/鏀惰棌鐘舵€?  Future<void> queryPgcLikeCoinFav() async {
+  // 获取点赞/投币/收藏状态
+  Future<void> queryPgcLikeCoinFav() async {
     final result = await VideoHttp.pgcLikeCoinFav(epId: epId!);
     if (result case Success(:final response)) {
       final hasLike = response.like == 1;
@@ -95,17 +96,17 @@ class PgcIntroController extends CommonIntroController {
     }
   }
 
-  // 锛堝彇娑堬級鐐硅禐
+  // （取消）点赞
   @override
   Future<void> actionLikeVideo() async {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final newVal = !hasLike.value;
     final result = await VideoHttp.likeVideo(bvid: bvid, type: newVal);
     if (result case Success(:final response)) {
-      SmartDialog.showToast(newVal ? response : '鍙栨秷璧?);
+      SmartDialog.showToast(newVal ? response : '取消赞');
       pgcItem.stat?.like += newVal ? 1 : -1;
       hasLike.value = newVal;
     } else {
@@ -116,7 +117,7 @@ class PgcIntroController extends CommonIntroController {
   @override
   int get copyright => 1;
 
-  // 鍒嗕韩瑙嗛
+  // 分享视频
   @override
   void actionShareVideo(BuildContext context) {
     String videoUrl =
@@ -128,14 +129,14 @@ class PgcIntroController extends CommonIntroController {
         contentPadding: const EdgeInsets.symmetric(vertical: 12),
         children: [
           DialogOption(
-            child: const Text('澶嶅埗閾炬帴', style: TextStyle(fontSize: 14)),
+            child: const Text('复制链接', style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               Utils.copyText(videoUrl);
             },
           ),
           DialogOption(
-            child: const Text('鍏跺畠app鎵撳紑', style: TextStyle(fontSize: 14)),
+            child: const Text('其它app打开', style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               PageUtils.launchURL(videoUrl);
@@ -143,7 +144,7 @@ class PgcIntroController extends CommonIntroController {
           ),
           if (PlatformUtils.isMobile)
             DialogOption(
-              child: const Text('鍒嗕韩瑙嗛', style: TextStyle(fontSize: 14)),
+              child: const Text('分享视频', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 final item = pgcItem.episodes?.firstWhereOrNull(
                   (item) => item.epId == epId,
@@ -157,7 +158,7 @@ class PgcIntroController extends CommonIntroController {
             ),
           if (isLogin)
             DialogOption(
-              child: const Text('鍒嗕韩鑷冲姩鎬?, style: TextStyle(fontSize: 14)),
+              child: const Text('分享至动态', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 final item = pgcItem.episodes?.firstWhereOrNull(
@@ -170,12 +171,13 @@ class PgcIntroController extends CommonIntroController {
                   builder: (context) => RepostPanel(
                     rid: epId,
                     /*
-                    1锛氱暘鍓?// 4097
-                    2锛氱數褰?// 4098
-                    3锛氱邯褰曠墖 // 4101
-                    4锛氬浗鍒?// 4100
-                    5锛氱數瑙嗗墽 // 4099
-                    6锛氭极鐢?                    7锛氱患鑹?// 4099
+                    1：番剧 // 4097
+                    2：电影 // 4098
+                    3：纪录片 // 4101
+                    4：国创 // 4100
+                    5：电视剧 // 4099
+                    6：漫画
+                    7：综艺 // 4099
                   */
                     dynType: switch (pgcItem.type) {
                       1 => 4097,
@@ -196,7 +198,7 @@ class PgcIntroController extends CommonIntroController {
           if (isLogin)
             DialogOption(
               child: const Text(
-                '鍒嗕韩鑷虫秷鎭?,
+                '分享至消息',
                 style: TextStyle(fontSize: 14),
               ),
               onPressed: () {
@@ -218,13 +220,13 @@ class PgcIntroController extends CommonIntroController {
                       "source": 16,
                       "thumb": item.cover,
                       "source_desc": switch (pgcItem.type) {
-                        1 => '鐣墽',
-                        2 => '鐢靛奖',
-                        3 => '绾綍鐗?,
-                        4 => '鍥藉垱',
-                        5 => '鐢佃鍓?,
-                        6 => '婕敾',
-                        7 => '缁艰壓',
+                        1 => '番剧',
+                        2 => '电影',
+                        3 => '纪录片',
+                        4 => '国创',
+                        5 => '电视剧',
+                        6 => '漫画',
+                        7 => '综艺',
                         _ => null,
                       },
                     },
@@ -239,7 +241,8 @@ class PgcIntroController extends CommonIntroController {
     );
   }
 
-  // 淇敼鍒哖鎴栫暘鍓у垎闆?  Future<bool> onChangeEpisode(BaseEpisodeItem episode) async {
+  // 修改分P或番剧分集
+  Future<bool> onChangeEpisode(BaseEpisodeItem episode) async {
     try {
       final int epId = episode.epId ?? episode.id!;
       final String bvid = episode.bvid ?? this.bvid;
@@ -251,7 +254,7 @@ class PgcIntroController extends CommonIntroController {
       }
       final String? cover = episode.cover;
 
-      // 閲嶆柊鑾峰彇瑙嗛璧勬簮
+      // 重新获取视频资源
       this.epId = epId;
       this.bvid = bvid;
 
@@ -268,7 +271,7 @@ class PgcIntroController extends CommonIntroController {
         videoDetailCtr.cover.value = cover;
       }
 
-      // 閲嶆柊璇锋眰璇勮
+      // 重新请求评论
       if (videoDetailCtr.showReply) {
         try {
           final replyCtr = Get.find<VideoReplyController>(tag: heroTag)
@@ -294,7 +297,7 @@ class PgcIntroController extends CommonIntroController {
     }
   }
 
-  // 杩界暘
+  // 追番
   Future<void> pgcAdd() async {
     final result = await VideoHttp.pgcAdd(seasonId: pgcItem.seasonId);
     if (result case Success(:final response)) {
@@ -306,7 +309,7 @@ class PgcIntroController extends CommonIntroController {
     }
   }
 
-  // 鍙栨秷杩界暘
+  // 取消追番
   Future<void> pgcDel() async {
     final result = await VideoHttp.pgcDel(seasonId: pgcItem.seasonId);
     if (result case Success(:final response)) {
@@ -349,7 +352,7 @@ class PgcIntroController extends CommonIntroController {
     return true;
   }
 
-  /// 鍒楄〃寰幆鎴栬€呴『搴忔挱鏀炬椂锛岃嚜鍔ㄦ挱鏀句笅涓€涓紱鑷姩杩炴挱鏃讹紝鎾斁鐩稿叧瑙嗛
+  /// 列表循环或者顺序播放时，自动播放下一个；自动连播时，播放相关视频
   @override
   bool nextPlay() {
     try {
@@ -361,7 +364,7 @@ class PgcIntroController extends CommonIntroController {
         (e) => e.cid == videoDetailCtr.cid.value,
       );
       int nextIndex = currentIndex + 1;
-      // 鍒楄〃寰幆
+      // 列表循环
       if (nextIndex >= episodes.length) {
         if (playRepeat == PlayRepeat.listCycle) {
           nextIndex = 0;
@@ -378,15 +381,17 @@ class PgcIntroController extends CommonIntroController {
     }
   }
 
-  // 涓€閿笁杩?  @override
+  // 一键三连
+  @override
   Future<void> actionTriple() async {
     feedBack();
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     if (hasLike.value && hasCoin && hasFav.value) {
-      // 宸茬偣璧炪€佹姇甯併€佹敹钘?      SmartDialog.showToast('宸蹭笁杩?);
+      // 已点赞、投币、收藏
+      SmartDialog.showToast('已三连');
       return;
     }
     final result = await VideoHttp.pgcTriple(epId: epId!, seasonId: seasonId);
@@ -406,9 +411,9 @@ class PgcIntroController extends CommonIntroController {
         hasFav.value = true;
       }
       if (!hasCoin) {
-        SmartDialog.showToast('鎶曞竵澶辫触');
+        SmartDialog.showToast('投币失败');
       } else {
-        SmartDialog.showToast('涓夎繛鎴愬姛');
+        SmartDialog.showToast('三连成功');
       }
     } else {
       result.toast();
@@ -468,10 +473,9 @@ class PgcIntroController extends CommonIntroController {
         : await FavHttp.addFavPugv(seasonId!);
     if (res.isSuccess) {
       this.isFav.value = !isFav;
-      SmartDialog.showToast('${isFav ? '鍙栨秷' : ''}鏀惰棌鎴愬姛');
+      SmartDialog.showToast('${isFav ? '取消' : ''}收藏成功');
     } else {
       res.toast();
     }
   }
 }
-

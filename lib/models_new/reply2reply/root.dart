@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/content.dart';
+import 'package:liqliquid/models_new/reply/content.dart';
 import 'package:liqliquid/models_new/reply/folder.dart';
 import 'package:liqliquid/models_new/reply/member.dart';
 import 'package:liqliquid/models_new/reply/reply_control.dart';
@@ -118,4 +118,3 @@ class ReplyRoot {
     trackInfo: json['track_info'] as String?,
   );
 }
-

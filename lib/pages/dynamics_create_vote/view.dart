@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File;
+import 'dart:io' show File;
 
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -55,7 +55,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text('${_controller.voteId != null ? '' : '鍙戣捣'}鎶曠エ'),
+        title: Text('${_controller.voteId != null ? '' : '发起'}投票'),
       ),
       body: ListView(
         padding: EdgeInsets.only(
@@ -65,7 +65,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
         ),
         children: [
           const Text(
-            '鎶曠エ绫诲瀷',
+            '投票类型',
             style: TextStyle(fontSize: 14),
           ),
           const SizedBox(height: 12),
@@ -79,8 +79,8 @@ class _CreateVotePageState extends State<CreateVotePage> {
               onChanged: (value) => _controller
                 ..title.value = value
                 ..updateCanCreate(),
-              desc: '鎶曠エ鏍囬',
-              hintText: '璇峰～鍐欐爣棰?,
+              desc: '投票标题',
+              hintText: '请填写标题',
               inputFormatters: [LengthLimitingTextInputFormatter(32)],
             ),
           ),
@@ -91,7 +91,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
               key: ValueKey('${_controller.key}desc'),
               initialValue: _controller.desc.value,
               onChanged: (value) => _controller.desc.value = value,
-              desc: '鎶曠エ璇存槑',
+              desc: '投票说明',
               inputFormatters: [LengthLimitingTextInputFormatter(100)],
             ),
           ),
@@ -125,8 +125,8 @@ class _CreateVotePageState extends State<CreateVotePage> {
                       onChanged: (value) => _controller
                         ..options[i].optDesc = value
                         ..updateCanCreate(),
-                      desc: '閫夐」${i + 1}',
-                      hintText: '閫夐」鍐呭锛屾渶澶?0瀛?,
+                      desc: '选项${i + 1}',
+                      hintText: '选项内容，最多20字',
                       inputFormatters: [LengthLimitingTextInputFormatter(20)],
                     ),
                   )
@@ -160,7 +160,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
                         children: [
                           Icon(Icons.add, size: 16),
                           Text(
-                            ' 娣诲姞閫夐」',
+                            ' 添加选项',
                             style: TextStyle(fontSize: 13),
                           ),
                         ],
@@ -176,7 +176,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
             children: [
               SizedBox(
                 width: 100,
-                child: Text('鍗曢€?澶氶€?, style: _leadingStyle),
+                child: Text('单选/多选', style: _leadingStyle),
               ),
               Obx(() {
                 final choiceCnt = _controller.choiceCnt.value;
@@ -191,7 +191,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
                     initialValue: choiceCnt,
                     requestFocus: false,
                     child: Text(
-                      choiceCnt == 1 ? '鍗曢€?        ' : '鏈€澶氶€?choiceCnt椤?,
+                      choiceCnt == 1 ? '单选         ' : '最多选$choiceCnt项',
                     ),
                     onSelected: (value) => _controller.choiceCnt.value = value,
                     itemBuilder: (context) {
@@ -199,7 +199,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
                           .map(
                             (e) => PopupMenuItem(
                               value: e,
-                              child: Text(e == 1 ? '鍗曢€? : '鏈€澶氶€?e椤?),
+                              child: Text(e == 1 ? '单选' : '最多选$e项'),
                             ),
                           )
                           .toList();
@@ -216,7 +216,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
             children: [
               SizedBox(
                 width: 100,
-                child: Text('鎶曠エ鎴鏃堕棿', style: _leadingStyle),
+                child: Text('投票截止时间', style: _leadingStyle),
               ),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
@@ -247,7 +247,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
                           const Duration(minutes: 5)) {
                         _controller.endtime.value = newEndtime;
                       } else {
-                        SmartDialog.showToast('鑷冲皯閫夋嫨5鍒嗛挓涔嬪悗');
+                        SmartDialog.showToast('至少选择5分钟之后');
                       }
                     }
                   }
@@ -271,7 +271,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
             final canCreate = _controller.canCreate.value;
             return FilledButton.tonal(
               onPressed: canCreate ? _controller.onCreate : null,
-              child: const Text('鍙戣捣鎶曠エ'),
+              child: const Text('发起投票'),
             );
           }),
         ],
@@ -337,7 +337,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
           iconButton(
             size: 26,
             iconSize: 18,
-            tooltip: '绉婚櫎',
+            tooltip: '移除',
             icon: const Icon(Icons.clear),
             onPressed: onDel,
             iconColor: theme.colorScheme.onSurfaceVariant,
@@ -379,7 +379,7 @@ class _CreateVotePageState extends State<CreateVotePage> {
                 ..type.value = index
                 ..updateCanCreate(),
               child: Text(
-                '${const ['鏂囧瓧', '鍥剧墖'][index]}鎶曠エ',
+                '${const ['文字', '图片'][index]}投票',
                 style: const TextStyle(fontSize: 14, height: 1),
                 strutStyle: const StrutStyle(
                   height: 1,
@@ -448,4 +448,3 @@ class _CreateVotePageState extends State<CreateVotePage> {
     );
   }
 }
-

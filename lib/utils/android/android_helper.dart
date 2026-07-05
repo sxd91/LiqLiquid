@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:liqliquid/utils/android/bindings.g.dart';
@@ -119,4 +119,3 @@ abstract final class PiliAndroidHelper {
     }
   }
 }
-

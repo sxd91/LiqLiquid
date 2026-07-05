@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models_new/member_guard/data.dart';
 import 'package:liqliquid/models_new/member_guard/guard_top_list.dart';
@@ -44,4 +44,3 @@ class MemberGuardController
   Future<LoadingState<MemberGuardData>> customGetData() =>
       MemberHttp.memberGuard(ruid: ruid, page: page);
 }
-

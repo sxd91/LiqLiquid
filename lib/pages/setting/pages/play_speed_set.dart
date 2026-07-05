@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
@@ -28,7 +28,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
   List<({int id, String title, Icon icon})> sheetMenu = [
     (
       id: 1,
-      title: '璁剧疆涓洪粯璁ゅ€嶉€?,
+      title: '设置为默认倍速',
       icon: const Icon(
         Icons.speed,
         size: 21,
@@ -36,7 +36,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     ),
     (
       id: 2,
-      title: '璁剧疆涓洪粯璁ら暱鎸夊€嶉€?,
+      title: '设置为默认长按倍速',
       icon: const Icon(
         Icons.speed_sharp,
         size: 21,
@@ -44,7 +44,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     ),
     (
       id: -1,
-      title: '鍒犻櫎璇ラ」',
+      title: '删除该项',
       icon: const Icon(
         Icons.delete_outline,
         size: 21,
@@ -54,13 +54,13 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
 
   Box video = GStorage.video;
 
-  // 娣诲姞鑷畾涔夊€嶉€?
+  // 添加自定义倍速
   void onAddSpeed() {
     String initialValue = '';
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('娣诲姞鍊嶉€?),
+        title: const Text('添加倍速'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -70,7 +70,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               initialValue: initialValue,
               keyboardType: const .numberWithOptions(decimal: true),
               decoration: const InputDecoration(
-                labelText: '鑷畾涔夊€嶉€?,
+                labelText: '自定义倍速',
                 border: OutlineInputBorder(borderRadius: .all(.circular(6))),
               ),
               onChanged: (value) => initialValue = value,
@@ -82,7 +82,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍙栨秷',
+              '取消',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -91,7 +91,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               try {
                 final val = double.parse(initialValue);
                 if (speedList.contains(val)) {
-                  SmartDialog.showToast('璇ュ€嶉€熷凡瀛樺湪');
+                  SmartDialog.showToast('该倍速已存在');
                 } else {
                   Get.back();
                   speedList
@@ -104,14 +104,14 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                 SmartDialog.showToast(e.toString());
               }
             },
-            child: const Text('纭'),
+            child: const Text('确认'),
           ),
         ],
       ),
     );
   }
 
-  // 璁惧畾鍊嶉€熷脊绐?
+  // 设定倍速弹窗
   void showBottomSheet(ThemeData theme, int index) {
     showModalBottomSheet(
       context: context,
@@ -154,12 +154,14 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
   //
   void menuAction(int index, int id) {
     double speed = speedList[index];
-    // 璁剧疆
+    // 设置
     if (id == 1) {
-      // 璁剧疆榛樿鍊嶉€?      playSpeedDefault = speed;
+      // 设置默认倍速
+      playSpeedDefault = speed;
       video.put(VideoBoxKey.playSpeedDefault, playSpeedDefault);
     } else if (id == 2) {
-      // 璁剧疆榛樿闀挎寜鍊嶉€?      longPressSpeedDefault = speed;
+      // 设置默认长按倍速
+      longPressSpeedDefault = speed;
       video.put(VideoBoxKey.longPressSpeedDefault, longPressSpeedDefault);
     } else if (id == -1) {
       if ([
@@ -167,7 +169,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
         playSpeedDefault,
         longPressSpeedDefault,
       ].contains(speed)) {
-        SmartDialog.showToast('涓嶆敮鎸佸垹闄ら粯璁ゅ€嶉€?);
+        SmartDialog.showToast('不支持删除默认倍速');
         return;
       }
       speedList.removeAt(index);
@@ -182,7 +184,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鍊嶉€熻缃?),
+        title: const Text('倍速设置'),
         actions: [
           TextButton(
             onPressed: () async {
@@ -190,7 +192,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               speedList = Pref.speedList;
               setState(() {});
             },
-            child: const Text('閲嶇疆'),
+            child: const Text('重置'),
           ),
           const SizedBox(width: 16),
         ],
@@ -206,17 +208,17 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                 bottom: 0,
               ),
               child: Text(
-                '鐐瑰嚮涓嬫柟鎸夐挳璁剧疆榛樿锛堥暱鎸夛級鍊嶉€?,
+                '点击下方按钮设置默认（长按）倍速',
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
             ),
             ListTile(
-              title: const Text('榛樿鍊嶉€?),
+              title: const Text('默认倍速'),
               subtitle: Text(playSpeedDefault.toString()),
             ),
             SetSwitchItem(
-              title: '鍔ㄦ€侀暱鎸夊€嶉€?,
-              subtitle: '鏍规嵁榛樿鍊嶉€熼暱鎸夋椂鑷姩鍙屽€?,
+              title: '动态长按倍速',
+              subtitle: '根据默认倍速长按时自动双倍',
               setKey: SettingBoxKey.enableAutoLongPressSpeed,
               defaultVal: enableAutoLongPressSpeed,
               onChanged: (val) =>
@@ -224,7 +226,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
             ),
             if (!enableAutoLongPressSpeed)
               ListTile(
-                title: const Text('榛樿闀挎寜鍊嶉€?),
+                title: const Text('默认长按倍速'),
                 subtitle: Text(longPressSpeedDefault.toString()),
               ),
             Padding(
@@ -237,13 +239,13 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               child: Row(
                 children: [
                   Text(
-                    '鍊嶉€熷垪琛?,
+                    '倍速列表',
                     style: theme.textTheme.titleMedium,
                   ),
                   const SizedBox(width: 12),
                   TextButton(
                     onPressed: onAddSpeed,
-                    child: const Text('娣诲姞'),
+                    child: const Text('添加'),
                   ),
                 ],
               ),
@@ -274,4 +276,3 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     );
   }
 }
-

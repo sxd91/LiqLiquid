@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -33,7 +33,7 @@ class _LiveAreaPageState extends State<LiveAreaPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鍏ㄩ儴鏍囩'),
+        title: const Text('全部标签'),
         actions: _controller.isLogin
             ? [
                 TextButton(
@@ -42,7 +42,7 @@ class _LiveAreaPageState extends State<LiveAreaPage> {
                     visualDensity: VisualDensity.compact,
                   ),
                   child: Obx(
-                    () => Text(_controller.isEditing.value ? '瀹屾垚' : '缂栬緫'),
+                    () => Text(_controller.isEditing.value ? '完成' : '编辑'),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -174,9 +174,9 @@ class _LiveAreaPageState extends State<LiveAreaPage> {
             Text.rich(
               TextSpan(
                 children: [
-                  const TextSpan(text: '鎴戠殑甯哥敤鏍囩  '),
+                  const TextSpan(text: '我的常用标签  '),
                   TextSpan(
-                    text: '鐐瑰嚮杩涘叆鏍囩',
+                    text: '点击进入标签',
                     style: TextStyle(
                       fontSize: 13,
                       color: theme.colorScheme.outline,
@@ -368,4 +368,3 @@ class _LiveAreaPageState extends State<LiveAreaPage> {
     );
   }
 }
-

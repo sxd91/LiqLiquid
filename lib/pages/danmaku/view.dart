@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
 import 'package:liqliquid/pages/danmaku/controller.dart';
@@ -11,7 +11,7 @@ import 'package:canvas_danmaku/canvas_danmaku.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// 浼犲叆鎾斁鍣ㄦ帶鍒跺櫒锛岀洃鍚挱鏀捐繘搴︼紝鍔犺浇瀵瑰簲寮瑰箷
+/// 传入播放器控制器，监听播放进度，加载对应弹幕
 class PlDanmaku extends StatefulWidget {
   final int cid;
   final PlPlayerController playerController;
@@ -78,7 +78,7 @@ class _PlDanmakuState extends State<PlDanmaku> {
     }
   }
 
-  // 鎾斁鍣ㄧ姸鎬佺洃鍚?
+  // 播放器状态监听
   void playerListener(PlayerStatus status) {
     if (_controller case final controller?) {
       if (status.isPlaying) {
@@ -104,7 +104,8 @@ class _PlDanmakuState extends State<PlDanmaku> {
     }
 
     int currentPosition = position.inMilliseconds;
-    currentPosition -= currentPosition % 100; //鍙栨暣鐧剧殑姣鏁?    if (currentPosition == latestAddedPosition) {
+    currentPosition -= currentPosition % 100; //取整百的毫秒数
+    if (currentPosition == latestAddedPosition) {
       return;
     }
     latestAddedPosition = currentPosition;
@@ -189,4 +190,3 @@ class _PlDanmakuState extends State<PlDanmaku> {
     );
   }
 }
-

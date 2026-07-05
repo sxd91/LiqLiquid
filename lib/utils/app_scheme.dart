@@ -1,4 +1,4 @@
-﻿// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names
 
 import 'dart:async' show StreamSubscription;
 
@@ -82,7 +82,7 @@ abstract final class PiliScheme {
     }
   }
 
-  /// 璺敱璺宠浆
+  /// 路由跳转
   static Future<bool> routePush(
     Uri uri, {
     bool selfHandle = false,
@@ -368,7 +368,7 @@ abstract final class PiliScheme {
             Get.to(
               Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: AppBar(title: const Text('鐩存挱')),
+                appBar: AppBar(title: const Text('直播')),
                 body: const ViewSafeArea(child: LivePage()),
               ),
             );
@@ -377,7 +377,7 @@ abstract final class PiliScheme {
             Get.to(
               Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: AppBar(title: const Text('鎺掕姒?)),
+                appBar: AppBar(title: const Text('排行榜')),
                 body: const ViewSafeArea(child: RankPage()),
               ),
             );
@@ -406,7 +406,7 @@ abstract final class PiliScheme {
           default:
             if (!selfHandle) {
               // if (kDebugMode) debugPrint('$uri');
-              SmartDialog.showToast('鏈煡璺緞:$uri锛岃鎴浘鍙嶉缁欏紑鍙戣€?);
+              SmartDialog.showToast('未知路径:$uri，请截图反馈给开发者');
             }
             return false;
         }
@@ -430,7 +430,7 @@ abstract final class PiliScheme {
         }
         if (!selfHandle) {
           // if (kDebugMode) debugPrint('$uri');
-          SmartDialog.showToast('鏈煡璺緞:$uri锛岃鎴浘鍙嶉缁欏紑鍙戣€?);
+          SmartDialog.showToast('未知路径:$uri，请截图反馈给开发者');
         }
         return false;
     }
@@ -639,7 +639,7 @@ abstract final class PiliScheme {
                 dimension: res!.dimension,
                 extraArguments: {
                   'sourceType': SourceType.playlist,
-                  'favTitle': '鎾斁鍒楄〃',
+                  'favTitle': '播放列表',
                   'mediaId': mediaId,
                   'desc': true,
                   'isContinuePlaying': true,
@@ -655,7 +655,7 @@ abstract final class PiliScheme {
         return false;
       case 'bangumi':
         // www.bilibili.com/bangumi/play/ep{eid}?start_progress={offset}&thumb_up_dm_id={dmid}
-        // if (kDebugMode) debugPrint('鐣墽');
+        // if (kDebugMode) debugPrint('番剧');
         bool hasMatch = PageUtils.viewPgcFromUri(
           path,
           progress: _videoProgress(uri.queryParameters),
@@ -666,7 +666,7 @@ abstract final class PiliScheme {
         launchURL();
         return false;
       case 'video':
-        // if (kDebugMode) debugPrint('鎶曠');
+        // if (kDebugMode) debugPrint('投稿');
         final res = IdUtils.matchAvorBv(input: path);
         if (res.isNotEmpty) {
           final queryParameters = uri.queryParameters;
@@ -710,7 +710,7 @@ abstract final class PiliScheme {
           launchURL();
           return false;
         }
-        // if (kDebugMode) debugPrint('涓撴爮');
+        // if (kDebugMode) debugPrint('专栏');
         String? id = RegExp(
           r'cv(\d+)',
           caseSensitive: false,
@@ -729,7 +729,7 @@ abstract final class PiliScheme {
         launchURL();
         return false;
       case 'space':
-        // if (kDebugMode) debugPrint('涓汉绌洪棿');
+        // if (kDebugMode) debugPrint('个人空间');
         String? mid = uriDigitRegExp.firstMatch(path)?.group(1);
         if (mid != null) {
           PageUtils.toDupNamed(
@@ -877,7 +877,7 @@ abstract final class PiliScheme {
     );
   }
 
-  // 鎶曠璺宠浆
+  // 投稿跳转
   static Future<void> videoPush(
     int? aid,
     String? bvid, {
@@ -890,7 +890,7 @@ abstract final class PiliScheme {
       aid ??= IdUtils.bv2av(bvid!);
       bvid ??= IdUtils.av2bv(aid);
       if (showDialog) {
-        SmartDialog.showLoading<dynamic>(msg: '鑾峰彇涓?..');
+        SmartDialog.showLoading<dynamic>(msg: '获取中...');
       }
       final res = await SearchHttp.ab2cWithDimension(
         bvid: bvid,
@@ -913,8 +913,7 @@ abstract final class PiliScheme {
       }
     } catch (e) {
       SmartDialog.dismiss();
-      SmartDialog.showToast('video鑾峰彇澶辫触: $e');
+      SmartDialog.showToast('video获取失败: $e');
     }
   }
 }
-

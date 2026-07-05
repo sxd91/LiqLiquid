@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_v.dart';
+import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -46,7 +46,7 @@ class _MemberCoinArcPageState extends State<MemberCoinArcPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          '${widget.mid == mid ? '鎴? : '${widget.name}'}鐨勬渶杩戞姇甯?,
+          '${widget.mid == mid ? '我' : '${widget.name}'}的最近投币',
         ),
       ),
       body: refreshIndicator(
@@ -104,4 +104,3 @@ class _MemberCoinArcPageState extends State<MemberCoinArcPage> {
     };
   }
 }
-

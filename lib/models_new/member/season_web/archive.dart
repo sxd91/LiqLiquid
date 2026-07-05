@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/horizontal_video_model.dart';
+import 'package:liqliquid/models/horizontal_video_model.dart';
 import 'package:liqliquid/models/model_video.dart';
 
 class SeasonArchive extends HorizontalVideoModel {
@@ -27,4 +27,3 @@ class ArchiveStat extends BaseStat {
     danmu = json['danmaku'];
   }
 }
-

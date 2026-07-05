@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/pages/search_panel/user/controller.dart';
@@ -54,7 +54,7 @@ class _SearchUserPanelState
           children: [
             Obx(
               () => Text(
-                '鎺掑簭: ${controller.userOrderType!.value.label}',
+                '排序: ${controller.userOrderType!.value.label}',
                 maxLines: 1,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
@@ -62,7 +62,7 @@ class _SearchUserPanelState
             const Spacer(),
             Obx(
               () => Text(
-                '鐢ㄦ埛绫诲瀷: ${controller.userType!.value.label}',
+                '用户类型: ${controller.userType!.value.label}',
                 maxLines: 1,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
@@ -72,7 +72,7 @@ class _SearchUserPanelState
               width: 32,
               height: 32,
               child: IconButton(
-                tooltip: '绛涢€?,
+                tooltip: '筛选',
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.zero),
                 ),
@@ -118,4 +118,3 @@ class _SearchUserPanelState
     itemCount: 10,
   );
 }
-

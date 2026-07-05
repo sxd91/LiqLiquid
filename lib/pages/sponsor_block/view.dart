@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pair.dart';
+import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/http/constants.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -81,7 +81,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text('鏈€鐭墖娈垫椂闀?, style: titleStyle),
+              title: Text('最短片段时长', style: titleStyle),
               content: TextFormField(
                 keyboardType: const .numberWithOptions(decimal: true),
                 controller: _textController,
@@ -93,7 +93,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '鍙栨秷',
+                    '取消',
                     style: TextStyle(color: theme.colorScheme.outline),
                   ),
                 ),
@@ -108,15 +108,15 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                       SmartDialog.showToast(e.toString());
                     }
                   },
-                  child: const Text('纭畾'),
+                  child: const Text('确定'),
                 ),
               ],
             ),
           );
         },
-        title: Text('鏈€鐭墖娈垫椂闀?, style: titleStyle),
+        title: Text('最短片段时长', style: titleStyle),
         subtitle: Text(
-          '蹇界暐鐭簬姝ゆ椂闀跨殑鐗囨',
+          '忽略短于此时长的片段',
           style: subTitleStyle,
         ),
         trailing: Text(
@@ -129,7 +129,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
 
   Widget _aboutItem(TextStyle titleStyle, TextStyle subTitleStyle) => ListTile(
     dense: true,
-    title: Text('鍏充簬绌洪檷鍔╂墜', style: titleStyle),
+    title: Text('关于空降助手', style: titleStyle),
     subtitle: Text(_url, style: subTitleStyle),
     onTap: () => PageUtils.launchURL(_url),
   );
@@ -142,7 +142,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
     builder: (context) {
       return ListTile(
         dense: true,
-        title: Text('鐢ㄦ埛ID', style: titleStyle),
+        title: Text('用户ID', style: titleStyle),
         subtitle: Text(_userId, style: subTitleStyle),
         onTap: () {
           final key = GlobalKey<FormFieldState<String>>();
@@ -151,7 +151,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
             context: context,
             builder: (_) {
               return AlertDialog(
-                title: Text('鐢ㄦ埛ID', style: titleStyle),
+                title: Text('用户ID', style: titleStyle),
                 content: TextFormField(
                   key: key,
                   minLines: 1,
@@ -164,7 +164,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                   decoration: const InputDecoration(errorMaxLines: 2),
                   validator: (value) {
                     if ((value?.length ?? -1) < 30) {
-                      return '鐢ㄦ埛ID瑕佹眰鑷冲皯涓?0涓瓧绗﹂暱搴︾殑绾瓧绗︿覆';
+                      return '用户ID要求至少为30个字符长度的纯字符串';
                     }
                     return null;
                   },
@@ -179,12 +179,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                       setting.put(SettingBoxKey.blockUserID, _userId);
                       (context as Element).markNeedsBuild();
                     },
-                    child: const Text('闅忔満'),
+                    child: const Text('随机'),
                   ),
                   TextButton(
                     onPressed: Get.back,
                     child: Text(
-                      '鍙栨秷',
+                      '取消',
                       style: TextStyle(
                         color: theme.colorScheme.outline,
                       ),
@@ -199,7 +199,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                         (context as Element).markNeedsBuild();
                       }
                     },
-                    child: const Text('纭畾'),
+                    child: const Text('确定'),
                   ),
                 ],
               );
@@ -222,7 +222,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         dense: true,
         onTap: update,
         title: Text(
-          '鏄剧ず璺宠繃Toast',
+          '显示跳过Toast',
           style: titleStyle,
         ),
         trailing: Transform.scale(
@@ -252,12 +252,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         dense: true,
         onTap: update,
         title: Text(
-          '璺宠繃娆℃暟缁熻璺熻釜',
+          '跳过次数统计跟踪',
           style: titleStyle,
         ),
         subtitle: Text(
           // from origin extension
-          '姝ゅ姛鑳借拷韪偍璺宠繃浜嗗摢浜涚墖娈碉紝璁╃敤鎴风煡閬撲粬浠彁浜ょ殑鐗囨甯姪浜嗗灏戜汉銆傚悓鏃剁偣璧炰細浣滀负渚濇嵁锛岀‘淇濆瀮鍦句俊鎭笉浼氭薄鏌撴暟鎹簱銆傚湪鎮ㄦ瘡娆¤烦杩囩墖娈垫椂锛屾垜浠兘浼氬悜鏈嶅姟鍣ㄥ彂閫佷竴鏉℃秷鎭€傚笇鏈涘ぇ瀹跺紑鍚椤硅缃紝浠ヤ究寰楀埌鏇村噯纭殑缁熻鏁版嵁銆?)',
+          '此功能追踪您跳过了哪些片段，让用户知道他们提交的片段帮助了多少人。同时点赞会作为依据，确保垃圾信息不会污染数据库。在您每次跳过片段时，我们都会向服务器发送一条消息。希望大家开启此项设置，以便得到更准确的统计数据。:)',
           style: subTitleStyle,
         ),
         trailing: Transform.scale(
@@ -285,7 +285,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           _getUserInfo();
         },
         title: Text(
-          '鎮ㄧ殑淇℃伅',
+          '您的信息',
           style: titleStyle,
         ),
         subtitle: switch (_userInfo.value) {
@@ -295,7 +295,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
             style: subTitleStyle,
           ),
           Error(:final errMsg) => Text(
-            errMsg ?? '鏈嶅姟鍣ㄩ敊璇?,
+            errMsg ?? '服务器错误',
             style: subTitleStyle.copyWith(color: theme.colorScheme.error),
           ),
         },
@@ -316,7 +316,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text('鏈嶅姟鍣ㄥ湴鍧€', style: titleStyle),
+              title: Text('服务器地址', style: titleStyle),
               content: TextFormField(
                 keyboardType: TextInputType.url,
                 controller: _textController,
@@ -331,12 +331,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                     Request.accountManager.blockServer = _blockServer;
                     (context as Element).markNeedsBuild();
                   },
-                  child: const Text('閲嶇疆'),
+                  child: const Text('重置'),
                 ),
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '鍙栨秷',
+                    '取消',
                     style: TextStyle(
                       color: theme.colorScheme.outline,
                     ),
@@ -352,14 +352,14 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                     _getUserInfo();
                     (context as Element).markNeedsBuild();
                   },
-                  child: const Text('纭畾'),
+                  child: const Text('确定'),
                 ),
               ],
             ),
           );
         },
         title: Text(
-          '鏈嶅姟鍣ㄥ湴鍧€',
+          '服务器地址',
           style: titleStyle,
         ),
         subtitle: Text(
@@ -376,12 +376,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
       Color? color;
       switch (_serverStatus.value) {
         case null:
-          status = '鈥斺€?;
+          status = '——';
         case true:
-          status = '姝ｅ父';
+          status = '正常';
           color = theme.colorScheme.primary;
         case false:
-          status = '閿欒';
+          status = '错误';
           color = theme.colorScheme.error;
       }
       return ListTile(
@@ -390,7 +390,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           _serverStatus.value = null;
           _checkServerStatus();
         },
-        title: Text('鏈嶅姟鍣ㄧ姸鎬?, style: titleStyle),
+        title: Text('服务器状态', style: titleStyle),
         trailing: Text(
           status,
           style: TextStyle(fontSize: 13, color: color),
@@ -481,7 +481,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('绌洪檷鍔╂墜')),
+      appBar: AppBar(title: const Text('空降助手')),
       body: CustomScrollView(
         slivers: [
           dividerL,
@@ -642,4 +642,3 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
     );
   }
 }
-

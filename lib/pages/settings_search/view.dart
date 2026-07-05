@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
 import 'package:liqliquid/pages/search/controller.dart' show DebounceStreamState;
 import 'package:liqliquid/pages/setting/models/extra_settings.dart';
@@ -82,7 +82,7 @@ class _SettingsSearchPageState
           onChanged: ctr!.add,
           decoration: const InputDecoration(
             isDense: true,
-            hintText: '鎼滅储',
+            hintText: '搜索',
             visualDensity: .standard,
             border: InputBorder.none,
           ),
@@ -111,4 +111,3 @@ class _SettingsSearchPageState
     );
   }
 }
-

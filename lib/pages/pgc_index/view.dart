@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/common/widgets/self_sized_horizontal_list.dart';
@@ -46,7 +46,7 @@ class _PgcIndexPageState extends State<PgcIndexPage>
     return widget.indexType == null
         ? Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(title: const Text('绱㈠紩')),
+            appBar: AppBar(title: const Text('索引')),
             body: Obx(() => _buildBody(theme, _ctr.conditionState.value)),
           )
         : Obx(() => _buildBody(theme, _ctr.conditionState.value));
@@ -204,7 +204,7 @@ class _PgcIndexPageState extends State<PgcIndexPage>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  _ctr.isExpand.value ? '鏀惰捣' : '灞曞紑',
+                  _ctr.isExpand.value ? '收起' : '展开',
                   style: TextStyle(
                     color: theme.colorScheme.outline,
                   ),
@@ -254,4 +254,3 @@ class _PgcIndexPageState extends State<PgcIndexPage>
     };
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:math' show max, min;
+import 'dart:math' show max, min;
 
 import 'package:liqliquid/models/common/video/audio_quality.dart';
 import 'package:liqliquid/models/common/video/video_quality.dart';
@@ -149,7 +149,7 @@ class LanguageItem {
   LanguageItem.fromJson(Map<String, dynamic> json) {
     lang = json['lang'];
     isAi = json['production_type'] == 2;
-    title = '${json['title']}${isAi ? '锛圓I锛? : ''}';
+    title = '${json['title']}${isAi ? '（AI）' : ''}';
     subtitleLang = json['subtitle_lang'];
   }
 }
@@ -357,7 +357,7 @@ class Volume {
 
   // final MultiSceneArgs? multiSceneArgs;
 
-  // FFmpeg loudnorm 婊ら暅鐨勬爣鍑嗘湁鏁堣寖鍥达紙https://ffmpeg.org/ffmpeg-filters.html#loudnorm锛?
+  // FFmpeg loudnorm 滤镜的标准有效范围（https://ffmpeg.org/ffmpeg-filters.html#loudnorm）
   static const double minTpValue = -9.0;
   static const double maxTpValue = 0.0;
 
@@ -401,4 +401,3 @@ class Volume {
       measuredTp != 0 ||
       measuredThreshold != 0;
 }
-

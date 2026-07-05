@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image_viewer/hero.dart';
 import 'package:liqliquid/models/common/image_preview_type.dart';
 import 'package:liqliquid/utils/extension/num_ext.dart';
@@ -70,7 +70,7 @@ Widget htmlRender({
             ),
           );
         } catch (err) {
-          if (kDebugMode) debugPrint('閿欒鐨凥TML: $element');
+          if (kDebugMode) debugPrint('错误的HTML: $element');
           return const SizedBox.shrink();
         }
       },
@@ -125,18 +125,15 @@ Widget htmlRender({
       margin: Margins.zero,
     ),
   };
-  return SelectionArea(
-    child: element != null
-        ? Html.fromElement(
-            documentElement: element,
-            extensions: extensions,
-            style: style,
-          )
-        : Html(
-            data: html,
-            extensions: extensions,
-            style: style,
-          ),
-  );
+  return element != null
+      ? Html.fromElement(
+          documentElement: element,
+          extensions: extensions,
+          style: style,
+        )
+      : Html(
+          data: html,
+          extensions: extensions,
+          style: style,
+        );
 }
-

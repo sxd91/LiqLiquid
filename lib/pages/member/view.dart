@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/style.dart';
@@ -169,7 +169,7 @@ class _MemberPageState extends State<MemberPage> {
 
   Widget _reserveBtn(List<ReservationCardItem> list, ColorScheme theme) {
     return IconButton(
-      tooltip: '棰勭害',
+      tooltip: '预约',
       onPressed: () => _showReserveList(list),
       icon: ReserveButton(
         count: list.length,
@@ -245,7 +245,7 @@ class _MemberPageState extends State<MemberPage> {
                         ),
                       ),
                       child: Text(
-                        '${e.isFollow ? '宸? : ''}棰勭害',
+                        '${e.isFollow ? '已' : ''}预约',
                         style: const TextStyle(fontSize: 13),
                       ),
                     );
@@ -255,7 +255,7 @@ class _MemberPageState extends State<MemberPage> {
                         mainAxisSize: .min,
                         children: [
                           iconButton(
-                            tooltip: '棰勭害鍔ㄦ€?,
+                            tooltip: '预约动态',
                             size: 32,
                             iconSize: 20,
                             iconColor: scheme.outline,
@@ -283,7 +283,7 @@ class _MemberPageState extends State<MemberPage> {
                               TextSpan(
                                 text:
                                     '${e.descText1 == null ? '' : '${e.descText1}  '}'
-                                    '${NumUtils.numFormat(e.total)}浜洪绾?,
+                                    '${NumUtils.numFormat(e.total)}人预约',
                               ),
                               if (e.lotteryPrizeInfo case final lottery?) ...[
                                 const TextSpan(text: '\n'),
@@ -333,7 +333,7 @@ class _MemberPageState extends State<MemberPage> {
     if (_userController.reserves?.isNotEmpty ?? false)
       _reserveBtn(_userController.reserves!, theme),
     IconButton(
-      tooltip: '鎼滅储',
+      tooltip: '搜索',
       onPressed: () => Get.toNamed(
         '/memberSearch?mid=$_mid&uname=${_userController.username}',
       ),
@@ -352,7 +352,7 @@ class _MemberPageState extends State<MemberPage> {
                 const Icon(Icons.block, size: 19),
                 const SizedBox(width: 10),
                 Text(
-                  _userController.relation.value != 128 ? '鍔犲叆榛戝悕鍗? : '绉婚櫎榛戝悕鍗?,
+                  _userController.relation.value != 128 ? '加入黑名单' : '移除黑名单',
                 ),
               ],
             ),
@@ -365,7 +365,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(Icons.remove_circle_outline_outlined, size: 19),
                   SizedBox(width: 10),
-                  Text('绉婚櫎绮変笣'),
+                  Text('移除粉丝'),
                 ],
               ),
             ),
@@ -378,7 +378,7 @@ class _MemberPageState extends State<MemberPage> {
               const Icon(Icons.share_outlined, size: 19),
               const SizedBox(width: 10),
               Text(
-                _userController.account.mid != _mid ? '鍒嗕韩UP涓? : '鍒嗕韩鎴戠殑涓婚〉',
+                _userController.account.mid != _mid ? '分享UP主' : '分享我的主页',
               ),
             ],
           ),
@@ -391,7 +391,7 @@ class _MemberPageState extends State<MemberPage> {
               children: [
                 Icon(Icons.add_box_outlined, size: 19),
                 SizedBox(width: 10),
-                Text('娣诲姞鑷虫闈?),
+                Text('添加至桌面'),
               ],
             ),
           ),
@@ -407,7 +407,7 @@ class _MemberPageState extends State<MemberPage> {
         //       children: [
         //         Icon(Icons.electric_bolt, size: 19),
         //         SizedBox(width: 10),
-        //         Text('鍏呯數鎺掕姒?),
+        //         Text('充电排行榜'),
         //       ],
         //     ),
         //   ),
@@ -423,7 +423,7 @@ class _MemberPageState extends State<MemberPage> {
         //       children: [
         //         Icon(Icons.anchor, size: 19),
         //         SizedBox(width: 10),
-        //         Text('澶ц埅娴疯埌闃?),
+        //         Text('大航海舰队'),
         //       ],
         //     ),
         //   ),
@@ -435,7 +435,7 @@ class _MemberPageState extends State<MemberPage> {
               children: [
                 Icon(Icons.extension_outlined, size: 19),
                 SizedBox(width: 10),
-                Text('缃戦〉鎶曠'),
+                Text('网页投稿'),
               ],
             ),
           ),
@@ -457,7 +457,7 @@ class _MemberPageState extends State<MemberPage> {
                   children: [
                     Icon(Icons.upcoming_outlined, size: 19),
                     SizedBox(width: 10),
-                    Text('澶т細鍛樼粡楠?),
+                    Text('大会员经验'),
                   ],
                 ),
               ),
@@ -468,7 +468,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(Icons.devices, size: 18),
                   SizedBox(width: 10),
-                  Text('鐧诲綍璁惧'),
+                  Text('登录设备'),
                 ],
               ),
             ),
@@ -482,7 +482,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(Icons.login, size: 18),
                   SizedBox(width: 10),
-                  Text('鐧诲綍璁板綍'),
+                  Text('登录记录'),
                 ],
               ),
             ),
@@ -496,7 +496,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(FontAwesomeIcons.b, size: 16),
                   SizedBox(width: 10),
-                  Text('纭竵璁板綍'),
+                  Text('硬币记录'),
                 ],
               ),
             ),
@@ -510,7 +510,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(Icons.linear_scale, size: 18),
                   SizedBox(width: 10),
-                  Text('缁忛獙璁板綍'),
+                  Text('经验记录'),
                 ],
               ),
             ),
@@ -521,7 +521,7 @@ class _MemberPageState extends State<MemberPage> {
                 children: [
                   Icon(Icons.settings_outlined, size: 19),
                   SizedBox(width: 10),
-                  Text('绌洪棿璁剧疆'),
+                  Text('空间设置'),
                 ],
               ),
             ),
@@ -534,7 +534,7 @@ class _MemberPageState extends State<MemberPage> {
                   children: [
                     Icon(Icons.more_time_outlined, size: 19),
                     SizedBox(width: 10),
-                    Text('鍏虫敞鏃堕棿'),
+                    Text('关注时间'),
                   ],
                 ),
               ),
@@ -555,7 +555,7 @@ class _MemberPageState extends State<MemberPage> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    '涓炬姤',
+                    '举报',
                     style: TextStyle(color: theme.error),
                   ),
                 ],
@@ -614,7 +614,7 @@ class _MemberPageState extends State<MemberPage> {
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '鍏抽棴',
+                '关闭',
                 style: TextStyle(color: ColorScheme.of(context).outline),
               ),
             ),
@@ -631,7 +631,7 @@ class _MemberPageState extends State<MemberPage> {
     if (res case Success(:final response)) {
       if (response.mtime == null) return;
       _cacheFollowTime =
-          '鍏虫敞鏃堕棿: ${DateFormatUtils.longFormatDs.format(
+          '关注时间: ${DateFormatUtils.longFormatDs.format(
             DateTime.fromMillisecondsSinceEpoch(response.mtime! * 1000),
           )}';
       onShow();
@@ -718,4 +718,3 @@ class _MemberPageState extends State<MemberPage> {
     }
   }
 }
-

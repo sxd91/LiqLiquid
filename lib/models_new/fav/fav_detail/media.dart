@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/cnt_info.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/ogv.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/ugc.dart';
@@ -58,4 +58,3 @@ class FavDetailItemModel with MultiSelectData {
             : Ugc.fromJson(json['ugc'] as Map<String, dynamic>),
       );
 }
-

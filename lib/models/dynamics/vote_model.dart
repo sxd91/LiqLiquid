@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/iterable_ext.dart';
+import 'package:liqliquid/utils/extension/iterable_ext.dart';
 import 'package:liqliquid/utils/parse_int.dart';
 
 class SimpleVoteInfo {
@@ -43,7 +43,7 @@ class VoteInfo extends SimpleVoteInfo {
   int? voterLevel;
   String? face;
   String? name;
-  // 0 鏂囧瓧, 1 鍥剧墖
+  // 0 文字, 1 图片
   int? type;
   int? votePublisher;
   int? duration;
@@ -129,4 +129,3 @@ class Option {
     'img_url': imgUrl,
   };
 }
-

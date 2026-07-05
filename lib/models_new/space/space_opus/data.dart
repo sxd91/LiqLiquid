@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_opus/item.dart';
+import 'package:liqliquid/models_new/space/space_opus/item.dart';
 
 class SpaceOpusData {
   bool? hasMore;
@@ -15,4 +15,3 @@ class SpaceOpusData {
     offset: json['offset'] as String?,
   );
 }
-

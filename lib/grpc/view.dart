@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/viewunite/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/viewunite/v1.pb.dart'
     show ViewReq, ViewReply;
 import 'package:liqliquid/grpc/grpc_req.dart';
 import 'package:liqliquid/grpc/url.dart';
@@ -15,4 +15,3 @@ abstract final class ViewGrpc {
     );
   }
 }
-

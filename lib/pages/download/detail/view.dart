@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
@@ -114,13 +114,13 @@ class _DownloadDetailPageState extends State<DownloadDetailPage>
                   handleSelect();
                   final res = await Future.wait(futures);
                   if (res.every((e) => e)) {
-                    SmartDialog.showToast('鏇存柊鎴愬姛');
+                    SmartDialog.showToast('更新成功');
                   } else {
-                    SmartDialog.showToast('鏇存柊澶辫触');
+                    SmartDialog.showToast('更新失败');
                   }
                 },
                 child: Text(
-                  '鏇存柊',
+                  '更新',
                   style: TextStyle(color: colorScheme.onSurface),
                 ),
               ),
@@ -129,7 +129,7 @@ class _DownloadDetailPageState extends State<DownloadDetailPage>
               title: Text(widget.title),
               actions: [
                 IconButton(
-                  tooltip: '澶氶€?,
+                  tooltip: '多选',
                   onPressed: () {
                     if (enableMultiSelect) {
                       handleSelect();
@@ -194,7 +194,7 @@ class _DownloadDetailPageState extends State<DownloadDetailPage>
   void onRemove() {
     showConfirmDialog(
       context: context,
-      title: const Text('纭畾鍒犻櫎閫変腑瑙嗛锛?),
+      title: const Text('确定删除选中视频？'),
       onConfirm: () async {
         SmartDialog.showLoading();
         final allChecked = this.allChecked.toList();
@@ -228,4 +228,3 @@ class _DownloadDetailPageState extends State<DownloadDetailPage>
     );
   }
 }
-

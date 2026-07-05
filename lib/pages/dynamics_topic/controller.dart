@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/item.dart';
@@ -93,7 +93,7 @@ class DynTopicController
 
   Future<void> onFav() async {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final isFav = this.isFav.value;
@@ -114,7 +114,7 @@ class DynTopicController
 
   Future<void> onLike() async {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final isLike = this.isLike.value;
@@ -131,4 +131,3 @@ class DynTopicController
     }
   }
 }
-

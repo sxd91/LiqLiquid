@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
@@ -111,7 +111,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
         spacing: 16,
         children: [
           Text(
-            '鏈€楂樼敾璐?,
+            '最高画质',
             style: textStyle,
           ),
           Builder(
@@ -157,8 +157,8 @@ class _DownloadPanelState extends State<DownloadPanel> {
                 if (snapshot.data case final data?) {
                   final network = data.contains(ConnectivityResult.wifi)
                       ? 'WIFI'
-                      : '鏁版嵁';
-                  return Text('褰撳墠缃戠粶锛?network', style: textStyle);
+                      : '数据';
+                  return Text('当前网络：$network', style: textStyle);
                 }
                 return const SizedBox.shrink();
               },
@@ -255,10 +255,10 @@ class _DownloadPanelState extends State<DownloadPanel> {
       return false;
     }
 
-    if (kReleaseMode && episode.badge == '浼氬憳' && Accounts.mainEqVideo) {
+    if (kReleaseMode && episode.badge == '会员' && Accounts.mainEqVideo) {
       if (vipStatus != 1) {
         if (!isDownloadAll) {
-          SmartDialog.showToast('闇€瑕佸ぇ浼氬憳');
+          SmartDialog.showToast('需要大会员');
         }
         return false;
       }
@@ -425,7 +425,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
                               ),
                             if (isCharging == true)
                               const PBadge(
-                                text: '鍏呯數涓撳睘',
+                                text: '充电专属',
                                 top: 6,
                                 right: 6,
                                 type: PBadgeType.error,
@@ -436,8 +436,8 @@ class _DownloadPanelState extends State<DownloadPanel> {
                                 top: 6,
                                 right: 6,
                                 type: switch (episode.badge) {
-                                  '棰勫憡' => PBadgeType.gray,
-                                  '闄愬厤' => PBadgeType.free,
+                                  '预告' => PBadgeType.gray,
+                                  '限免' => PBadgeType.free,
                                   _ => PBadgeType.primary,
                                 },
                               ),
@@ -449,7 +449,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
                           color: primary,
                           height: 12,
                           cacheHeight: 12.cacheSize(context),
-                          semanticLabel: '姝ｅ湪鎾斁锛?,
+                          semanticLabel: '正在播放：',
                         ),
                       Expanded(
                         child: Stack(
@@ -541,11 +541,11 @@ class _DownloadPanelState extends State<DownloadPanel> {
       child: Row(
         children: [
           _buildBottomBtn(
-            text: '缂撳瓨鍏ㄩ儴',
+            text: '缓存全部',
             onTap: () {
               showConfirmDialog(
                 context: context,
-                title: const Text('纭畾缂撳瓨鍏ㄩ儴锛?),
+                title: const Text('确定缓存全部？'),
                 onConfirm: () {
                   for (int i = 0; i < widget.episodes.length; i++) {
                     _onDownload(
@@ -567,7 +567,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
             ),
           ),
           _buildBottomBtn(
-            text: '鏌ョ湅缂撳瓨',
+            text: '查看缓存',
             onTap: () => Navigator.of(context).push(
               GetPageRoute(page: () => const DownloadPage()),
             ),
@@ -598,4 +598,3 @@ class _DownloadPanelState extends State<DownloadPanel> {
     );
   }
 }
-

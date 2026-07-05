@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_reply/content.dart';
+import 'package:liqliquid/models_new/msg/msg_reply/content.dart';
 import 'package:liqliquid/models_new/msg/msg_reply/user.dart';
 
 class MsgReplyItem {
@@ -31,4 +31,3 @@ class MsgReplyItem {
     replyTime: json['reply_time'] as int?,
   );
 }
-

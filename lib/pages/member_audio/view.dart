@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -80,7 +80,7 @@ class _MemberAudioState extends State<MemberAudio>
                       child: Row(
                         children: [
                           Text(
-                            '鍏?{_controller.totalSize ?? 0}棣?,
+                            '共${_controller.totalSize ?? 0}首',
                             style: const TextStyle(fontSize: 13),
                           ),
                           Padding(
@@ -94,7 +94,7 @@ class _MemberAudioState extends State<MemberAudio>
                                 color: colorScheme.secondary,
                               ),
                               label: Text(
-                                '鎾斁鍏ㄩ儴',
+                                '播放全部',
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: colorScheme.secondary,
@@ -128,4 +128,3 @@ class _MemberAudioState extends State<MemberAudio>
     };
   }
 }
-

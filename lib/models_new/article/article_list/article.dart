@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/article/article_list/stats.dart';
+import 'package:liqliquid/models_new/article/article_list/stats.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class ArticleListItemModel {
@@ -30,4 +30,3 @@ class ArticleListItemModel {
             : Stats.fromJson(json['stats'] as Map<String, dynamic>),
       );
 }
-

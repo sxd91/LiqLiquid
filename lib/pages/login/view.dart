@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/dial_prefix.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -29,7 +29,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginPageController _loginPageCtr = Get.put(LoginPageController());
-  // 浜岀淮鐮佺敓鎴愭椂闂?
+  // 二维码生成时间
   bool showPassword = false;
   GlobalKey globalKey = GlobalKey();
 
@@ -43,11 +43,11 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         const SizedBox(height: 20),
-        const Text('浣跨敤 bilibili 瀹樻柟 App 鎵爜鐧诲綍'),
+        const Text('使用 bilibili 官方 App 扫码登录'),
         const SizedBox(height: 20),
         Obx(
           () => Text(
-            '鍓╀綑鏈夋晥鏃堕棿: ${_loginPageCtr.qrCodeLeftTime} 绉?,
+            '剩余有效时间: ${_loginPageCtr.qrCodeLeftTime} 秒',
             style: TextStyle(
               fontFeatures: const [FontFeature.tabularFigures()],
               color: theme.colorScheme.primaryFixedDim,
@@ -61,11 +61,11 @@ class _LoginPageState extends State<LoginPage> {
             TextButton.icon(
               onPressed: _loginPageCtr.refreshQRCode,
               icon: const Icon(Icons.refresh),
-              label: const Text('鍒锋柊浜岀淮鐮?),
+              label: const Text('刷新二维码'),
             ),
             TextButton.icon(
               onPressed: () async {
-                SmartDialog.showLoading(msg: '姝ｅ湪鐢熸垚鎴浘');
+                SmartDialog.showLoading(msg: '正在生成截图');
                 final boundary =
                     globalKey.currentContext!.findRenderObject()
                         as RenderRepaintBoundary;
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                 ImageUtils.saveByteImg(bytes: pngBytes, fileName: picName);
               },
               icon: const Icon(Icons.save),
-              label: const Text('淇濆瓨鑷崇浉鍐?),
+              label: const Text('保存至相册'),
             ),
             if (kDebugMode || PlatformUtils.isMobile)
               TextButton.icon(
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                   mode: LaunchMode.externalNonBrowserApplication,
                 ),
                 icon: const Icon(Icons.open_in_browser_outlined),
-                label: const Text('鍏朵粬搴旂敤鎵撳紑'),
+                label: const Text('其他应用打开'),
               ),
           ],
         ),
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
             return GestureDetector(
               onTap: () => Utils.copyText(
                 url,
-                toastText: '宸插鍒跺埌鍓创鏉匡紝鍙矘璐磋嚦宸茬櫥褰曠殑app绉佷俊澶勫彂閫侊紝鐒跺悗鐐瑰嚮宸插彂閫佺殑閾炬帴鎵撳紑',
+                toastText: '已复制到剪贴板，可粘贴至已登录的app私信处发送，然后点击已发送的链接打开',
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '璇峰姟蹇呭湪 ${Constants.appName} 寮€婧愪粨搴撶瓑鍙俊娓犻亾涓嬭浇瀹夎銆?,
+            '请务必在 ${Constants.appName} 开源仓库等可信渠道下载安装。',
             style: theme.textTheme.labelSmall!.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
             ),
@@ -171,12 +171,12 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 20),
-        const Text('浣跨敤Cookie鐧诲綍'),
+        const Text('使用Cookie登录'),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '浣跨敤App绔疉pi瀹炵幇鐨勫姛鑳藉皢涓嶅彲鐢?,
+            '使用App端Api实现的功能将不可用',
             style: theme.textTheme.labelMedium!.copyWith(
               color: theme.colorScheme.primary,
             ),
@@ -204,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
         OutlinedButton.icon(
           onPressed: _loginPageCtr.loginByCookie,
           icon: const Icon(Icons.login),
-          label: const Text('鐧诲綍'),
+          label: const Text('登录'),
         ),
       ],
     );
@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         const SizedBox(height: 20),
-        const Text('浣跨敤璐﹀彿瀵嗙爜鐧诲綍'),
+        const Text('使用账号密码登录'),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -224,8 +224,8 @@ class _LoginPageState extends State<LoginPage> {
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.account_box),
               border: const UnderlineInputBorder(),
-              labelText: '璐﹀彿',
-              hintText: '閭/鎵嬫満鍙?,
+              labelText: '账号',
+              hintText: '邮箱/手机号',
               suffixIcon: IconButton(
                 onPressed: _loginPageCtr.usernameTextController.clear,
                 icon: const Icon(Icons.clear),
@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.password),
               border: const UnderlineInputBorder(),
-              labelText: '瀵嗙爜',
+              labelText: '密码',
               suffixIcon: IconButton(
                 onPressed: _loginPageCtr.passwordTextController.clear,
                 icon: const Icon(Icons.clear),
@@ -259,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
               value: showPassword,
               onChanged: (value) => setState(() => showPassword = value!),
             ),
-            const Text('鏄剧ず瀵嗙爜'),
+            const Text('显示密码'),
             const Spacer(),
             TextButton(
               onPressed: () {
@@ -269,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                   context: context,
                   builder: (context) => SimpleDialog(
                     clipBehavior: Clip.hardEdge,
-                    title: const Text('蹇樿瀵嗙爜锛?),
+                    title: const Text('忘记密码？'),
                     contentPadding: const EdgeInsets.fromLTRB(
                       0.0,
                       2.0,
@@ -279,11 +279,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const Padding(
                         padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-                        child: Text("璇曡瘯鎵爜銆佹墜鏈哄彿鐧诲綍锛屾垨閫夋嫨"),
+                        child: Text("试试扫码、手机号登录，或选择"),
                       ),
                       ListTile(
                         title: const Text(
-                          '鎵惧洖瀵嗙爜锛堟墜鏈虹増锛?,
+                          '找回密码（手机版）',
                         ),
                         leading: const Icon(Icons.smartphone_outlined),
                         subtitle: const Text(
@@ -298,13 +298,13 @@ class _LoginPageState extends State<LoginPage> {
                               'url':
                                   'https://passport.bilibili.com/h5-app/passport/login/findPassword',
                               'type': 'url',
-                              'pageTitle': '蹇樿瀵嗙爜',
+                              'pageTitle': '忘记密码',
                             },
                           ),
                       ),
                       ListTile(
                         title: const Text(
-                          '鎵惧洖瀵嗙爜锛堢數鑴戠増锛?,
+                          '找回密码（电脑版）',
                         ),
                         leading: const Icon(Icons.desktop_windows_outlined),
                         subtitle: const Text(
@@ -319,7 +319,7 @@ class _LoginPageState extends State<LoginPage> {
                               'url':
                                   'https://passport.bilibili.com/pc/passport/findPassword',
                               'type': 'url',
-                              'pageTitle': '蹇樿瀵嗙爜',
+                              'pageTitle': '忘记密码',
                               'uaType': 'pc',
                             },
                           ),
@@ -328,7 +328,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 );
               },
-              child: const Text('蹇樿瀵嗙爜'),
+              child: const Text('忘记密码'),
             ),
             const SizedBox(width: 20),
           ],
@@ -336,16 +336,16 @@ class _LoginPageState extends State<LoginPage> {
         OutlinedButton.icon(
           onPressed: _loginPageCtr.loginByPassword,
           icon: const Icon(Icons.login),
-          label: const Text('鐧诲綍'),
+          label: const Text('登录'),
         ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '鏍规嵁 bilibili 瀹樻柟鐧诲綍鎺ュ彛瑙勮寖锛屽瘑鐮佸皢鍦ㄦ湰鍦板姞鐩愩€佸姞瀵嗗悗浼犺緭銆俓n'
-            '鐩愪笌鍏挜鍧囩敱瀹樻柟鎻愪緵锛涗互 RSA/ECB/PKCS1Padding 鏂瑰紡鍔犲瘑銆俓n'
-            '璐﹀彿瀵嗙爜浠呯敤浜庤鐧诲綍鎺ュ彛锛屼笉浜堜繚瀛橈紱鏈湴浠呭瓨鍌ㄧ櫥褰曞嚟璇併€俓n'
-            '璇峰姟蹇呭湪 ${Constants.appName} 寮€婧愪粨搴撶瓑鍙俊娓犻亾涓嬭浇瀹夎銆?,
+            '根据 bilibili 官方登录接口规范，密码将在本地加盐、加密后传输。\n'
+            '盐与公钥均由官方提供；以 RSA/ECB/PKCS1Padding 方式加密。\n'
+            '账号密码仅用于该登录接口，不予保存；本地仅存储登录凭证。\n'
+            '请务必在 ${Constants.appName} 开源仓库等可信渠道下载安装。',
             textAlign: TextAlign.center,
             style: theme.textTheme.labelSmall!.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
@@ -360,7 +360,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         const SizedBox(height: 20),
-        const Text('浣跨敤鎵嬫満鐭俊楠岃瘉鐮佺櫥褰?),
+        const Text('使用手机短信验证码登录'),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -378,8 +378,8 @@ class _LoginPageState extends State<LoginPage> {
                     return PopupMenuButton(
                       padding: EdgeInsets.zero,
                       tooltip:
-                          '閫夋嫨鍥介檯鍐犵爜锛?
-                          '褰撳墠涓?{_loginPageCtr.selectedCountryCodeId.cname}锛?
+                          '选择国际冠码，'
+                          '当前为${_loginPageCtr.selectedCountryCodeId.cname}，'
                           '+${_loginPageCtr.selectedCountryCodeId.countryId}',
                       onSelected: (item) {
                         _loginPageCtr.selectedCountryCodeId = item;
@@ -430,7 +430,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      labelText: '鎵嬫満鍙?,
+                      labelText: '手机号',
                       suffixIcon: IconButton(
                         onPressed: _loginPageCtr.telTextController.clear,
                         icon: const Icon(Icons.clear),
@@ -458,7 +458,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.sms_outlined),
                       border: InputBorder.none,
-                      labelText: '楠岃瘉鐮?,
+                      labelText: '验证码',
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
@@ -474,8 +474,8 @@ class _LoginPageState extends State<LoginPage> {
                     icon: const Icon(Icons.send),
                     label: Text(
                       _loginPageCtr.smsSendCooldown > 0
-                          ? '绛夊緟${_loginPageCtr.smsSendCooldown}绉?
-                          : '鑾峰彇楠岃瘉鐮?,
+                          ? '等待${_loginPageCtr.smsSendCooldown}秒'
+                          : '获取验证码',
                     ),
                   ),
                 ),
@@ -487,15 +487,15 @@ class _LoginPageState extends State<LoginPage> {
         OutlinedButton.icon(
           onPressed: _loginPageCtr.loginBySmsCode,
           icon: const Icon(Icons.login),
-          label: const Text('鐧诲綍'),
+          label: const Text('登录'),
         ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '鎵嬫満鍙蜂粎鐢ㄤ簬 bilibili 瀹樻柟鍙戦€侀獙璇佺爜涓庣櫥褰曟帴鍙ｏ紝涓嶄簣淇濆瓨锛沑n'
-            '鏈湴浠呭瓨鍌ㄧ櫥褰曞嚟璇併€俓n'
-            '璇峰姟蹇呭湪 ${Constants.appName} 寮€婧愪粨搴撶瓑鍙俊娓犻亾涓嬭浇瀹夎銆?,
+            '手机号仅用于 bilibili 官方发送验证码与登录接口，不予保存；\n'
+            '本地仅存储登录凭证。\n'
+            '请务必在 ${Constants.appName} 开源仓库等可信渠道下载安装。',
             textAlign: TextAlign.center,
             style: theme.textTheme.labelSmall!.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
@@ -518,13 +518,13 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          tooltip: '鍏抽棴',
+          tooltip: '关闭',
           icon: const Icon(Icons.close_outlined),
           onPressed: Get.back,
         ),
         title: Row(
           children: [
-            const Text('鐧诲綍'),
+            const Text('登录'),
             if (isLandscape)
               Expanded(
                 child: Align(
@@ -536,19 +536,19 @@ class _LoginPageState extends State<LoginPage> {
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: [Icon(Icons.password), Text(' 瀵嗙爜')],
+                          children: [Icon(Icons.password), Text(' 密码')],
                         ),
                       ),
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: [Icon(Icons.sms_outlined), Text(' 鐭俊')],
+                          children: [Icon(Icons.sms_outlined), Text(' 短信')],
                         ),
                       ),
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: [Icon(Icons.qr_code), Text(' 鎵爜')],
+                          children: [Icon(Icons.qr_code), Text(' 扫码')],
                         ),
                       ),
                       Tab(
@@ -570,9 +570,9 @@ class _LoginPageState extends State<LoginPage> {
         bottom: !isLandscape
             ? TabBar(
                 tabs: const [
-                  Tab(icon: Icon(Icons.password), text: '瀵嗙爜'),
-                  Tab(icon: Icon(Icons.sms_outlined), text: '鐭俊'),
-                  Tab(icon: Icon(Icons.qr_code), text: '鎵爜'),
+                  Tab(icon: Icon(Icons.password), text: '密码'),
+                  Tab(icon: Icon(Icons.sms_outlined), text: '短信'),
+                  Tab(icon: Icon(Icons.qr_code), text: '扫码'),
                   Tab(icon: Icon(Icons.cookie_outlined), text: 'Cookie'),
                 ],
                 controller: _loginPageCtr.tabController,
@@ -606,4 +606,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

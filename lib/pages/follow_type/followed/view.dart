@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/follow_type/followed/controller.dart';
+import 'package:liqliquid/pages/follow_type/followed/controller.dart';
 import 'package:liqliquid/pages/follow_type/view.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/parse_int.dart';
@@ -35,9 +35,8 @@ class _FollowedPageState extends FollowTypePageState<FollowedPage> {
   PreferredSizeWidget get appBar => AppBar(
     title: Obx(
       () => Text(
-        '鎴戝叧娉ㄧ殑${controller.total.value}浜轰篃鍏虫敞浜?{controller.name.value ?? 'TA'}',
+        '我关注的${controller.total.value}人也关注了${controller.name.value ?? 'TA'}',
       ),
     ),
   );
 }
-

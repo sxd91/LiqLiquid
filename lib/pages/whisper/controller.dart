@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show Offset, Session, SessionMainReply, SessionPageType, ThreeDotItem;
 import 'package:liqliquid/grpc/im.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -28,25 +28,25 @@ class WhisperController extends CommonWhisperController<SessionMainReply> {
     super.onInit();
     msgFeedTopItems = [
       const (
-        name: "鍥炲鎴戠殑",
+        name: "回复我的",
         icon: Icons.message_outlined,
         route: "/replyMe",
         enabled: true,
       ),
       const (
-        name: "@鎴?,
+        name: "@我",
         icon: Icons.alternate_email_outlined,
         route: "/atMe",
         enabled: true,
       ),
       (
-        name: "鏀跺埌鐨勮禐",
+        name: "收到的赞",
         icon: Icons.favorite_border_outlined,
         route: "/likeMe",
         enabled: !Pref.disableLikeMsg,
       ),
       const (
-        name: "绯荤粺閫氱煡",
+        name: "系统通知",
         icon: Icons.notifications_none_outlined,
         route: "/sysMsg",
         enabled: true,
@@ -100,4 +100,3 @@ class WhisperController extends CommonWhisperController<SessionMainReply> {
     return super.onRefresh();
   }
 }
-

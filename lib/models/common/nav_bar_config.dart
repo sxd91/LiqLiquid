@@ -1,4 +1,5 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/dynamics/view.dart';
 import 'package:liqliquid/pages/home/view.dart';
 import 'package:liqliquid/pages/mine/view.dart';
@@ -6,21 +7,21 @@ import 'package:flutter/material.dart';
 
 enum NavigationBarType implements EnumWithLabel {
   home(
-    '棣栭〉',
-    Icon(Icons.home_outlined, size: 24),
-    Icon(Icons.home, size: 24),
+    '首页',
+    Icon(Icons.home_outlined),
+    Icon(Icons.home),
     HomePage(),
   ),
   dynamics(
-    '鍔ㄦ€?,
-    Icon(Icons.motion_photos_on_outlined, size: 21),
-    Icon(Icons.motion_photos_on, size: 21),
+    '动态',
+    Icon(CustomIcons.motion_photos_on_outlined),
+    Icon(CustomIcons.motion_photos_on),
     DynamicsPage(),
   ),
   mine(
-    '鎴戠殑',
-    Icon(Icons.person_outline, size: 24),
-    Icon(Icons.person, size: 24),
+    '我的',
+    Icon(Icons.person_outline),
+    Icon(Icons.person),
     MinePage(),
   ),
   ;
@@ -33,4 +34,3 @@ enum NavigationBarType implements EnumWithLabel {
 
   const NavigationBarType(this.label, this.icon, this.selectIcon, this.page);
 }
-

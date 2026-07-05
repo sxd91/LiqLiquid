@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/view_safe_area.dart';
+import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:flutter/material.dart';
 
 class AppBarAni extends StatelessWidget {
@@ -66,4 +66,3 @@ class AppBarAni extends StatelessWidget {
     );
   }
 }
-

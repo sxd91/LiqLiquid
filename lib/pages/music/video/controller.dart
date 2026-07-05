@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/music.dart';
 import 'package:liqliquid/models_new/music/bgm_detail.dart';
 import 'package:liqliquid/models_new/music/bgm_recommend_list.dart';
@@ -30,4 +30,3 @@ class MusicRecommendController
   Future<LoadingState<List<BgmRecommend>?>> customGetData() =>
       MusicHttp.bgmRecommend(musicId);
 }
-

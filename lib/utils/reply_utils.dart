@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show ReplyInfo;
@@ -121,13 +121,13 @@ abstract final class ReplyUtils {
                 },
               );
             },
-            child: const Text('鐢宠瘔'),
+            child: const Text('申诉'),
           ),
         if (!isManual)
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍏抽棴',
+              '关闭',
               style: TextStyle(color: theme.colorScheme.outline),
             ),
           ),
@@ -136,7 +136,7 @@ abstract final class ReplyUtils {
         context: Get.context!,
         barrierDismissible: isManual,
         builder: (context) => AlertDialog(
-          title: const Text('璇勮妫€鏌ョ粨鏋?),
+          title: const Text('评论检查结果'),
           content: SelectableText(message),
           actions: actions.isEmpty ? null : actions,
         ),
@@ -156,14 +156,14 @@ abstract final class ReplyUtils {
       );
 
       if (res case Error(:final errMsg)) {
-        SmartDialog.showToast('鑾峰彇璇勮涓诲垪琛ㄦ椂鍙戠敓閿欒锛?errMsg');
+        SmartDialog.showToast('获取评论主列表时发生错误：$errMsg');
         return;
       } else if (res case Success(:final response)) {
         final index =
             response.replies?.indexWhere((item) => item.rpid == id) ?? -1;
         if (index != -1) {
           // found
-          showReplyCheckResult('鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勮瘎璁猴紝璇勮姝ｅ父锛乗n\n浣犵殑璇勮锛?message');
+          showReplyCheckResult('无账号状态下找到了你的评论，评论正常！\n\n你的评论：$message');
         } else {
           // not found
 
@@ -178,7 +178,7 @@ abstract final class ReplyUtils {
 
           if (res1 is Error) {
             // not found
-            showReplyCheckResult('鏃犳硶鎵惧埌浣犵殑璇勮銆俓n\n浣犵殑璇勮锛?message', isBan: true);
+            showReplyCheckResult('无法找到你的评论。\n\n你的评论：$message', isBan: true);
           } else {
             // found
 
@@ -196,20 +196,21 @@ abstract final class ReplyUtils {
               // not found
               showReplyCheckResult(
                 res2.errMsg?.startsWith('12022') == true
-                    ? '浣犵殑璇勮琚玸hadow ban锛堜粎鑷繁鍙锛夛紒\n\n浣犵殑璇勮: $message'
-                    : '璇勮涓嶅彲瑙?${res2.errMsg}): $message',
+                    ? '你的评论被shadow ban（仅自己可见）！\n\n你的评论: $message'
+                    : '评论不可见(${res2.errMsg}): $message',
                 isBan: true,
               );
             } else {
               // found
               showReplyCheckResult(
                 isManual
-                    ? '鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勮瘎璁猴紝璇勮姝ｅ父锛乗n\n浣犵殑璇勮锛?message'
+                    ? '无账号状态下找到了你的评论，评论正常！\n\n你的评论：$message'
                     : '''
-浣犺瘎璁虹姸鎬佹湁鐐瑰彲鐤戯紝铏界劧鏃犺处鍙风炕鎵捐瘎璁哄尯鑾峰彇涓嶅埌浣犵殑璇勮锛屼絾鏄棤璐﹀彿鍙€氳繃
+你评论状态有点可疑，虽然无账号翻找评论区获取不到你的评论，但是无账号可通过
 https://api.bilibili.com/x/v2/reply/reply?oid=$oid&pn=1&ps=20&root=$id&type=$type
-鑾峰彇浣犵殑璇勮锛岀枒浼艰瘎璁哄尯琚垝涓ユ垨鑰呰繖鏄綘鐨勮棰戙€?
-浣犵殑璇勮锛?message''',
+获取你的评论，疑似评论区被戒严或者这是你的视频。
+
+你的评论：$message''',
               );
             }
           }
@@ -237,7 +238,7 @@ https://api.bilibili.com/x/v2/reply/reply?oid=$oid&pn=1&ps=20&root=$id&type=$typ
             // not found
           } else {
             // found
-            showReplyCheckResult('鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勮瘎璁猴紝璇勮姝ｅ父锛乗n\n浣犵殑璇勮锛?message');
+            showReplyCheckResult('无账号状态下找到了你的评论，评论正常！\n\n你的评论：$message');
             return;
           }
         }
@@ -265,7 +266,7 @@ https://api.bilibili.com/x/v2/reply/reply?oid=$oid&pn=1&ps=20&root=$id&type=$typ
           } else {
             // found
             showReplyCheckResult(
-              '浣犵殑璇勮琚玸hadow ban锛堜粎鑷繁鍙锛夛紒\n\n浣犵殑璇勮: $message',
+              '你的评论被shadow ban（仅自己可见）！\n\n你的评论: $message',
               isBan: true,
             );
             return;
@@ -273,8 +274,7 @@ https://api.bilibili.com/x/v2/reply/reply?oid=$oid&pn=1&ps=20&root=$id&type=$typ
         }
       }
 
-      showReplyCheckResult('璇勮涓嶅彲瑙? $message', isBan: true);
+      showReplyCheckResult('评论不可见: $message', isBan: true);
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/member_guard/guard_top_list.dart';
+import 'package:liqliquid/models_new/member_guard/guard_top_list.dart';
 
 class MemberGuardData {
   List<GuardItem> guardTopList;
@@ -17,4 +17,3 @@ class MemberGuardData {
         hasMore: json['has_more'] as int?,
       );
 }
-

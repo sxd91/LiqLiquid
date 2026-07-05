@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fan.dart';
+import 'package:liqliquid/http/fan.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models_new/follow/data.dart';
@@ -46,10 +46,9 @@ class FansController extends FollowTypeController {
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('绉婚櫎鎴愬姛');
+      SmartDialog.showToast('移除成功');
     } else {
       res.toast();
     }
   }
 }
-

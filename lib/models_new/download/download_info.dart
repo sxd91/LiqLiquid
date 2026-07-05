@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
+import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart'
     show MultiSelectData;
 
@@ -21,4 +21,3 @@ class DownloadPageInfo with MultiSelectData {
     required this.entries,
   });
 }
-

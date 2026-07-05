@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/common/common_list_controller.dart';
+import 'package:liqliquid/pages/common/common_list_controller.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart';
 
 abstract class MultiSelectController<
@@ -6,4 +6,3 @@ abstract class MultiSelectController<
   T extends MultiSelectData
 > = CommonListController<R, T>
     with CommonMultiSelectMixin<T>, DeleteItemMixin;
-

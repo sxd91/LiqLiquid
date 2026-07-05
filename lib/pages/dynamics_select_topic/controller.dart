@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/search.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_pub_search/data.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_item.dart';
@@ -41,4 +41,3 @@ class SelectTopicController
     super.onClose();
   }
 }
-

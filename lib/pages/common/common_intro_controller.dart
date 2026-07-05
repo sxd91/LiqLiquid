@@ -1,4 +1,4 @@
-﻿import 'dart:async' show FutureOr, Timer;
+import 'dart:async' show FutureOr, Timer;
 
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -29,7 +29,7 @@ abstract class CommonIntroController extends GetxController
   late final String heroTag;
   late String bvid;
 
-  // 鏄惁绋嶅悗鍐嶇湅
+  // 是否稍后再看
   final RxBool hasLater = false.obs;
 
   final Rx<List<VideoTagItem>?> videoTags = Rx<List<VideoTagItem>?>(null);
@@ -62,7 +62,7 @@ abstract class CommonIntroController extends GetxController
 
   void actionShareVideo(BuildContext context);
 
-  // 鍚屾椂瑙傜湅
+  // 同时观看
   final bool isShowOnlineTotal = Pref.enableOnlineTotal;
   late final RxString total = '1'.obs;
   Timer? timer;
@@ -98,7 +98,7 @@ abstract class CommonIntroController extends GetxController
     timer = null;
   }
 
-  // 鏌ョ湅鍚屾椂鍦ㄧ湅浜烘暟
+  // 查看同时在看人数
   Future<void> queryOnlineTotal() async {
     if (!isShowOnlineTotal) {
       return;
@@ -131,7 +131,7 @@ abstract class CommonIntroController extends GetxController
       selectLike: coinWithLike ? 1 : 0,
     );
     if (res.isSuccess) {
-      SmartDialog.showToast('鎶曞竵鎴愬姛');
+      SmartDialog.showToast('投币成功');
       coinNum.value += coin;
       GlobalData().afterCoin(coin);
       stat.coin += coin;
@@ -200,15 +200,15 @@ mixin FavMixin on TripleMixin {
     return this.quickFavId = list.first.id;
   }
 
-  // 鏀惰棌
+  // 收藏
   void showFavBottomSheet(BuildContext context, {bool isLongPress = false}) {
     if (!Accounts.main.isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
-    // 蹇€熸敹钘?&
-    // 鐐规寜 鏀惰棌鑷抽粯璁ゆ枃浠跺す
-    // 闀挎寜閫夋嫨鏂囦欢澶?
+    // 快速收藏 &
+    // 点按 收藏至默认文件夹
+    // 长按选择文件夹
     if (enableQuickFav) {
       if (!isLongPress) {
         actionFavVideo(isQuick: true);
@@ -224,9 +224,9 @@ mixin FavMixin on TripleMixin {
 
   Future<void> actionFavVideo({bool isQuick = false}) async {
     final (rid, type) = getFavRidType;
-    // 鏀惰棌鑷抽粯璁ゆ枃浠跺す
+    // 收藏至默认文件夹
     if (isQuick) {
-      SmartDialog.showLoading(msg: '璇锋眰涓?);
+      SmartDialog.showLoading(msg: '请求中');
       queryVideoInFolder().then((res) async {
         if (res.isSuccess) {
           final hasFav = this.hasFav.value;
@@ -240,7 +240,7 @@ mixin FavMixin on TripleMixin {
           if (result.isSuccess) {
             updateFavCount(hasFav ? -1 : 1);
             this.hasFav.value = !hasFav;
-            SmartDialog.showToast('${hasFav ? '鍙栨秷' : ''}鏀惰棌鎴愬姛');
+            SmartDialog.showToast('${hasFav ? '取消' : ''}收藏成功');
           } else {
             res.toast();
           }
@@ -269,7 +269,7 @@ mixin FavMixin on TripleMixin {
     } catch (e) {
       if (kDebugMode) debugPrint(e.toString());
     }
-    SmartDialog.showLoading(msg: '璇锋眰涓?);
+    SmartDialog.showLoading(msg: '请求中');
     final result = await FavHttp.favVideo(
       resources: '$rid:$type',
       addIds: addMediaIdsNew.join(','),
@@ -284,10 +284,9 @@ mixin FavMixin on TripleMixin {
         updateFavCount(newVal ? 1 : -1);
         hasFav.value = newVal;
       }
-      SmartDialog.showToast('${newVal ? '' : '鍙栨秷'}鏀惰棌鎴愬姛');
+      SmartDialog.showToast('${newVal ? '' : '取消'}收藏成功');
     } else {
       result.toast();
     }
   }
 }
-

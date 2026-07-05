@@ -1,4 +1,4 @@
-﻿// Copyright 2014 The Flutter Authors. All rights reserved.
+// Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -285,7 +285,7 @@ class RenderEditable extends RenderBox
     bool forceLine = true,
     TextHeightBehavior? textHeightBehavior,
     TextWidthBasis textWidthBasis = TextWidthBasis.parent,
-    String obscuringCharacter = '鈥?,
+    String obscuringCharacter = '•',
     bool obscureText = false,
     Locale? locale,
     double cursorWidth = 1.0,
@@ -850,7 +850,7 @@ class RenderEditable extends RenderBox
   /// font.
   ///
   /// In some cases the same Unicode character may be rendered differently depending
-  /// on the locale. For example the '楠? character is rendered differently in
+  /// on the locale. For example the '骨' character is rendered differently in
   /// the Chinese and Japanese locales. In these cases the [locale] may be used
   /// to select a locale-specific font.
   ///
@@ -3402,4 +3402,3 @@ class _CompositeRenderEditablePainter extends RenderEditablePainter {
     return false;
   }
 }
-

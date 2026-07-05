@@ -1,4 +1,4 @@
-﻿part of 'package:liqliquid/common/widgets/flutter/draggable_scrollable_sheet.dart';
+part of 'package:liqliquid/common/widgets/flutter/draggable_scrollable_sheet.dart';
 
 class DynDraggableScrollableSheet extends DraggableScrollableSheet {
   const DynDraggableScrollableSheet({
@@ -89,4 +89,3 @@ class _DynDraggableScrollableSheetScrollPosition
     return super.drag(details, dragCancelCallback);
   }
 }
-

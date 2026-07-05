@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract final class SearchHttp {
-  // 鑾峰彇鎼滅储寤鸿
+  // 获取搜索建议
   static Future<LoadingState<SearchSuggestModel>> searchSuggest({
     required String term,
   }) async {
@@ -42,7 +42,7 @@ abstract final class SearchHttp {
     return const Error(null);
   }
 
-  // 鍒嗙被鎼滅储
+  // 分类搜索
   @pragma('vm:notify-debugger-on-exception')
   static Future<LoadingState<R>> searchByType<R extends SearchNumData>({
     required SearchType searchType,
@@ -95,7 +95,7 @@ abstract final class SearchHttp {
         final vVoucher = dataData['v_voucher'];
         if (vVoucher != null) {
           RequestUtils.validate(vVoucher, onSuccess);
-          return const Error('瑙﹀彂椋庢帶');
+          return const Error('触发风控');
         }
         dynamic data;
         try {
@@ -126,7 +126,7 @@ abstract final class SearchHttp {
         return Error(resData['message'], code: resData['code']);
       }
     } else {
-      return const Error('鏈嶅姟鍣ㄩ敊璇?);
+      return const Error('服务器错误');
     }
   }
 
@@ -160,7 +160,7 @@ abstract final class SearchHttp {
       queryParameters: params,
     );
     if (res.data is! Map) {
-      return const Error('娌℃湁鐩稿叧鏁版嵁');
+      return const Error('没有相关数据');
     }
     if (res.data['code'] == 0) {
       try {
@@ -169,7 +169,7 @@ abstract final class SearchHttp {
         return Error('$e\n\n$s');
       }
     } else {
-      return Error(res.data['message'] ?? '娌℃湁鐩稿叧鏁版嵁');
+      return Error(res.data['message'] ?? '没有相关数据');
     }
   }
 
@@ -262,6 +262,7 @@ abstract final class SearchHttp {
 
   static Future<LoadingState<SearchTrendingData>> searchTrending({
     int limit = 30,
+    bool needsTop = false,
   }) async {
     final res = await Request().get(
       Api.searchTrending,
@@ -270,7 +271,9 @@ abstract final class SearchHttp {
       },
     );
     if (res.data['code'] == 0) {
-      return Success(SearchTrendingData.fromJson(res.data['data']));
+      return Success(
+        SearchTrendingData.fromJson(res.data['data'], needsTop: needsTop),
+      );
     } else {
       return Error(res.data['message']);
     }
@@ -322,4 +325,3 @@ abstract final class SearchHttp {
     }
   }
 }
-

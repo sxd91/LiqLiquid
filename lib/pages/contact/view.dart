@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/pages/fan/view.dart';
 import 'package:liqliquid/pages/follow/child/child_view.dart';
 import 'package:liqliquid/pages/follow_search/view.dart';
@@ -42,12 +42,12 @@ class _ContactPageState extends State<ContactPage>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('閫氳褰?),
+        title: const Text('通讯录'),
         bottom: TabBar(
           controller: _controller,
           tabs: const [
-            Tab(text: '鎴戠殑鍏虫敞'),
-            Tab(text: '鎴戠殑绮変笣'),
+            Tab(text: '我的关注'),
+            Tab(text: '我的粉丝'),
           ],
         ),
         actions: [
@@ -86,4 +86,3 @@ class _ContactPageState extends State<ContactPage>
     );
   }
 }
-

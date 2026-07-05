@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -49,4 +49,3 @@ class LiveAreaDetailController
     super.onClose();
   }
 }
-

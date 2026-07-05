@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/num_ext.dart';
+import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -37,9 +37,9 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
               currentSize = 1.0;
               setFontSize();
             },
-            child: const Text('閲嶇疆'),
+            child: const Text('重置'),
           ),
-          TextButton(onPressed: setFontSize, child: const Text('纭畾')),
+          TextButton(onPressed: setFontSize, child: const Text('确定')),
           const SizedBox(width: 12),
         ],
       ),
@@ -49,7 +49,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
             Expanded(
               child: Center(
                 child: Text(
-                  '褰撳墠瀛椾綋澶у皬:${currentSize == 1.0 ? '榛樿' : currentSize}',
+                  '当前字体大小:${currentSize == 1.0 ? '默认' : currentSize}',
                   style: TextStyle(fontSize: 14 * currentSize),
                 ),
               ),
@@ -66,7 +66,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
               ),
               child: Row(
                 children: [
-                  const Text('灏?),
+                  const Text('小'),
                   Expanded(
                     child: Slider(
                       min: minSize,
@@ -82,7 +82,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
                   ),
                   const SizedBox(width: 5),
                   const Text(
-                    '澶?,
+                    '大',
                     style: TextStyle(fontSize: 20),
                   ),
                 ],
@@ -94,4 +94,3 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
     );
   }
 }
-

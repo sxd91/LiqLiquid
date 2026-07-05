@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/http/browser_ua.dart';
 import 'package:liqliquid/main.dart';
@@ -127,7 +127,7 @@ class _WebviewPageState extends State<WebviewPage> {
                         try {
                           await InAppWebViewController.clearAllCache();
                           await _webViewController?.clearHistory();
-                          SmartDialog.showToast('宸叉竻鐞?);
+                          SmartDialog.showToast('已清理');
                         } catch (e) {
                           SmartDialog.showToast(e.toString());
                         }
@@ -141,7 +141,7 @@ class _WebviewPageState extends State<WebviewPage> {
                         break;
                       case WebviewMenuItem.resetCookie:
                         await LoginUtils.setWebCookie();
-                        SmartDialog.showToast('璁剧疆鎴愬姛锛屽埛鏂版垨閲嶆柊鎵撳紑缃戦〉');
+                        SmartDialog.showToast('设置成功，刷新或重新打开网页');
                         break;
                     }
                   },
@@ -265,7 +265,7 @@ class _WebviewPageState extends State<WebviewPage> {
                       }
                       return AlertDialog(
                         title: Text(
-                          '涓嬭浇鏂囦欢: $suggestedFilename ?',
+                          '下载文件: $suggestedFilename ?',
                           style: const TextStyle(fontSize: 18),
                         ),
                         content: SelectableText(request.url.toString()),
@@ -273,7 +273,7 @@ class _WebviewPageState extends State<WebviewPage> {
                           TextButton(
                             onPressed: Get.back,
                             child: Text(
-                              '鍙栨秷',
+                              '取消',
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.outline,
                               ),
@@ -284,7 +284,7 @@ class _WebviewPageState extends State<WebviewPage> {
                               Get.back();
                               PageUtils.launchURL(request.url.toString());
                             },
-                            child: Text('纭畾 ($fileSize)'),
+                            child: Text('确定 ($fileSize)'),
                           ),
                         ],
                       );
@@ -332,11 +332,11 @@ class _WebviewPageState extends State<WebviewPage> {
             } else if (_prefixRegex.hasMatch(url)) {
               if (context.mounted) {
                 SnackBar snackBar = SnackBar(
-                  content: const Text('褰撳墠缃戦〉灏嗚鎵撳紑澶栭儴閾炬帴锛屾槸鍚︽墦寮€'),
+                  content: const Text('当前网页将要打开外部链接，是否打开'),
                   showCloseIcon: true,
                   persist: false,
                   action: SnackBarAction(
-                    label: '鎵撳紑',
+                    label: '打开',
                     onPressed: () => PageUtils.launchURL(url),
                   ),
                 );
@@ -353,4 +353,3 @@ class _WebviewPageState extends State<WebviewPage> {
     );
   }
 }
-

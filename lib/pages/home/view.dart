@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_height_widget.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -9,12 +9,10 @@ import 'package:liqliquid/pages/mine/controller.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/extension/size_ext.dart';
 import 'package:liqliquid/utils/feed_back.dart';
+import 'package:progressive_blur/progressive_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
-import 'package:liqliquid/common/widgets/progressive_blur_widget.dart';
-import 'package:liqliquid/common/widgets/liquid_stretch.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +23,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends CommonPageState<HomePage>
     with AutomaticKeepAliveClientMixin {
+  // Progressive blur sigma driven by scroll position
+  final RxDouble blurSigma = 0.0.obs;
+
   final _homeController = Get.putOrFind(HomeController.new);
   final _mainController = Get.find<MainController>();
 
@@ -72,27 +73,20 @@ class _HomePageState extends CommonPageState<HomePage>
     } else {
       tabBar = const SizedBox(height: 6);
     }
-    return Stack(
+    return Column(
       children: [
-        Column(
-          children: [
-            if (!_mainController.useSideBar &&
-                MediaQuery.sizeOf(context).isPortrait)
-              customAppBar(theme),
-            tabBar,
-            Expanded(
-              child: onBuild(
-                tabBarView(
-                  controller: _homeController.tabController,
-                  children: _homeController.tabs.map((e) => e.page).toList(),
-                ),
-              ),
-            ),
-          ],
-        ),
         if (!_mainController.useSideBar &&
-            MediaQuery.sizeOf(context).isPortrait && _homeController.hideTopBar)
-          const ProgressiveBlurOverlay(height: 120),
+            MediaQuery.sizeOf(context).isPortrait)
+          Obx(() => ProgressiveBlurWidget(sigma: blurSigma.value, child: customAppBar(theme))),
+        tabBar,
+        Expanded(
+          child: onBuild(
+            tabBarView(
+              controller: _homeController.tabController,
+              children: _homeController.tabs.map((e) => e.page).toList(),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -141,26 +135,26 @@ class _HomePageState extends CommonPageState<HomePage>
         });
       }
     }
-    return Container(
+    // Progressive blur on top bar for glass-morphism scroll effect
+    return ProgressiveBlurWidget(
+      sigma: 10.0,
+      child: Container(
       height: Style.topBarHeight,
       padding: padding,
       child: child,
     );
+      ),
   }
 
   Widget searchBar(ThemeData theme) {
     const borderRadius = BorderRadius.all(Radius.circular(25));
-    return LiquidStretchable(
-      child: Expanded(
+    return Expanded(
       child: SizedBox(
         height: 44,
-        child: LiquidGlass(
+        child: Material(
           borderRadius: borderRadius,
-          glassColor: theme.colorScheme.surface.withValues(alpha: 0.3),
-          child: Material(
-            borderRadius: borderRadius,
-            color: theme.colorScheme.onSecondaryContainer.withValues(alpha: 0.05),
-            child: InkWell(
+          color: theme.colorScheme.onSecondaryContainer.withValues(alpha: 0.05),
+          child: InkWell(
             borderRadius: borderRadius,
             splashColor: theme.colorScheme.primaryContainer.withValues(
               alpha: 0.3,
@@ -177,7 +171,7 @@ class _HomePageState extends CommonPageState<HomePage>
                 Icon(
                   Icons.search_outlined,
                   color: theme.colorScheme.onSecondaryContainer,
-                  semanticLabel: '鎼滅储',
+                  semanticLabel: '搜索',
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -194,9 +188,7 @@ class _HomePageState extends CommonPageState<HomePage>
               ],
             ),
           ),
-          ),
         ),
-      ),
       ),
     );
   }
@@ -207,7 +199,7 @@ Widget userAvatar({
   required MainController mainController,
 }) {
   return Semantics(
-    label: "鎴戠殑",
+    label: "我的",
     child: Obx(
       () {
         if (mainController.accountService.isLogin.value) {
@@ -261,7 +253,7 @@ Widget userAvatar({
           width: 38,
           height: 38,
           child: IconButton(
-            tooltip: '鐐瑰嚮鐧诲綍',
+            tooltip: '点击登录',
             style: IconButton.styleFrom(
               padding: .zero,
               backgroundColor: theme.colorScheme.onInverseSurface,
@@ -286,7 +278,7 @@ Widget msgBadge(MainController mainController) {
         final count = mainController.msgUnReadCount.value;
         final isNumBadge = mainController.msgBadgeMode == .number;
         return IconButton(
-          tooltip: '娑堟伅',
+          tooltip: '消息',
           onPressed: () {
             mainController
               ..msgUnReadCount.value = ''

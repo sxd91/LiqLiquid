@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models_new/video/video_note_list/data.dart';
 import 'package:liqliquid/models_new/video/video_note_list/list.dart';
@@ -39,4 +39,3 @@ class NoteListPageCtr
         page: page,
       );
 }
-

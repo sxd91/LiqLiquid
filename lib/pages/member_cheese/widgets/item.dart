@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
@@ -44,7 +44,7 @@ class MemberCheeseItem extends StatelessWidget {
         if (item.ctime != null) ...[
           const Spacer(),
           Text(
-            '鏀惰棌浜?{DateFormatUtils.dateFormat(int.parse(item.ctime!))}',
+            '收藏于${DateFormatUtils.dateFormat(int.parse(item.ctime!))}',
             style: TextStyle(
               fontSize: 12,
               color: theme.colorScheme.outline,
@@ -62,7 +62,7 @@ class MemberCheeseItem extends StatelessWidget {
             right: 0,
             bottom: -8,
             child: iconButton(
-              tooltip: '绉婚櫎',
+              tooltip: '移除',
               onPressed: onRemove,
               icon: const Icon(Icons.clear),
               iconColor: theme.colorScheme.outline,
@@ -124,4 +124,3 @@ class MemberCheeseItem extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/radio_widget.dart';
+import 'package:liqliquid/common/widgets/radio_widget.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/utils/extension/string_ext.dart';
 import 'package:liqliquid/utils/utils.dart';
@@ -20,7 +20,7 @@ Future<void> autoWrapReportDialog(
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('涓炬姤'),
+      title: const Text('举报'),
       titlePadding: const .only(left: 22, top: 16, right: 22),
       contentPadding: const .symmetric(vertical: 5),
       actionsPadding: const .only(left: 16, right: 16, bottom: 10),
@@ -38,7 +38,7 @@ Future<void> autoWrapReportDialog(
                     children: [
                       const Padding(
                         padding: .only(left: 22, right: 22, bottom: 5),
-                        child: Text('璇烽€夋嫨涓炬姤鐨勭悊鐢憋細'),
+                        child: Text('请选择举报的理由：'),
                       ),
                       RadioGroup(
                         onChanged: (value) {
@@ -66,7 +66,7 @@ Future<void> autoWrapReportDialog(
                             maxLines: 4,
                             initialValue: reasonDesc,
                             decoration: const InputDecoration(
-                              labelText: '涓哄府鍔╁鏍镐汉鍛樻洿蹇鐞嗭紝璇疯ˉ鍏呴棶棰樼被鍨嬪拰鍑虹幇浣嶇疆绛夎缁嗕俊鎭?,
+                              labelText: '为帮助审核人员更快处理，请补充问题类型和出现位置等详细信息',
                               border: OutlineInputBorder(),
                               contentPadding: .all(10),
                               labelStyle: TextStyle(fontSize: 14),
@@ -74,7 +74,7 @@ Future<void> autoWrapReportDialog(
                             ),
                             onChanged: (value) => reasonDesc = value,
                             validator: (value) =>
-                                value.isNullOrEmpty ? '鐞嗙敱涓嶈兘涓虹┖' : null,
+                                value.isNullOrEmpty ? '理由不能为空' : null,
                           ),
                         ),
                     ],
@@ -87,7 +87,7 @@ Future<void> autoWrapReportDialog(
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 6),
               child: CheckBoxText(
-                text: '鎷夐粦璇ョ敤鎴?,
+                text: '拉黑该用户',
                 onChanged: (value) => banUid = value,
               ),
             ),
@@ -97,7 +97,7 @@ Future<void> autoWrapReportDialog(
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -113,17 +113,17 @@ Future<void> autoWrapReportDialog(
               SmartDialog.dismiss();
               if (res.isSuccess) {
                 Get.back();
-                SmartDialog.showToast('涓炬姤鎴愬姛');
+                SmartDialog.showToast('举报成功');
               } else {
                 res.toast();
               }
             } catch (e, s) {
               SmartDialog.dismiss();
-              SmartDialog.showToast('鎻愪氦澶辫触锛?e');
+              SmartDialog.showToast('提交失败：$e');
               Utils.reportError(e, s);
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -193,76 +193,75 @@ class _CheckBoxTextState extends State<CheckBoxText> {
 abstract final class ReportOptions {
   // from https://s1.hdslb.com/bfs/seed/jinkela/comment-h5/static/js/605.chunks.js
   static Map<String, Map<int, String>> get commentReport => const {
-    '杩濆弽娉曞緥娉曡': {9: '杩濇硶杩濊', 2: '鑹叉儏', 10: '浣庝織', 12: '璧屽崥璇堥獥', 23: '杩濇硶淇℃伅澶栭摼'},
-    '璋ｈ█绫讳笉瀹炰俊鎭?: {19: '娑夋斂璋ｈ█', 22: '铏氬亣涓嶅疄淇℃伅', 20: '娑夌ぞ浼氫簨浠惰埃瑷€'},
-    '渚电姱涓汉鏉冪泭': {7: '浜鸿韩鏀诲嚮', 15: '渚电姱闅愮'},
-    '鏈夊绀惧尯鐜': {
-      1: '鍨冨溇骞垮憡',
-      4: '寮曟垬',
-      5: '鍓ч€?,
-      3: '鍒峰睆',
-      8: '瑙嗛涓嶇浉鍏?,
-      18: '杩濊鎶藉',
-      17: '闈掑皯骞翠笉鑹俊鎭?,
+    '违反法律法规': {9: '违法违规', 2: '色情', 10: '低俗', 12: '赌博诈骗', 23: '违法信息外链'},
+    '谣言类不实信息': {19: '涉政谣言', 22: '虚假不实信息', 20: '涉社会事件谣言'},
+    '侵犯个人权益': {7: '人身攻击', 15: '侵犯隐私'},
+    '有害社区环境': {
+      1: '垃圾广告',
+      4: '引战',
+      5: '剧透',
+      3: '刷屏',
+      8: '视频不相关',
+      18: '违规抽奖',
+      17: '青少年不良信息',
     },
-    '鍏朵粬': {0: '鍏朵粬'},
+    '其他': {0: '其他'},
   };
 
   static Map<String, Map<int, String>> get dynamicReport => const {
     '': {
-      4: '鍨冨溇骞垮憡',
-      8: '寮曟垬',
-      1: '鑹叉儏',
-      5: '浜鸿韩鏀诲嚮',
-      3: '杩濇硶淇℃伅',
-      9: '娑夋斂璋ｈ█',
-      10: '娑夌ぞ浼氫簨浠惰埃瑷€',
-      12: '铏氬亣涓嶅疄淇℃伅',
-      13: '杩濇硶淇℃伅澶栭摼',
-      0: '鍏朵粬',
+      4: '垃圾广告',
+      8: '引战',
+      1: '色情',
+      5: '人身攻击',
+      3: '违法信息',
+      9: '涉政谣言',
+      10: '涉社会事件谣言',
+      12: '虚假不实信息',
+      13: '违法信息外链',
+      0: '其他',
     },
   };
 
   static Map<String, Map<int, String>> get danmakuReport => const {
     '': {
-      1: '杩濇硶杩濈',
-      2: '鑹叉儏浣庝織',
-      3: '璧屽崥璇堥獥',
-      4: '浜鸿韩鏀诲嚮',
-      5: '渚电姱闅愮',
-      6: '鍨冨溇骞垮憡',
-      7: '寮曟垬',
-      8: '鍓ч€?,
-      9: '鎭舵剰鍒峰睆',
-      10: '瑙嗛鏃犲叧',
-      12: '闈掑皯骞翠笉鑹俊鎭?,
-      13: '杩濇硶淇℃伅澶栭摼',
-      0: '鍏跺畠', // 11
+      1: '违法违禁',
+      2: '色情低俗',
+      3: '赌博诈骗',
+      4: '人身攻击',
+      5: '侵犯隐私',
+      6: '垃圾广告',
+      7: '引战',
+      8: '剧透',
+      9: '恶意刷屏',
+      10: '视频无关',
+      12: '青少年不良信息',
+      13: '违法信息外链',
+      0: '其它', // 11
     },
   };
 
   static Map<String, Map<int, String>> get liveDanmakuReport => const {
     '': {
-      1: '杩濇硶杩濊',
-      2: '浣庝織鑹叉儏',
-      3: '鍨冨溇骞垮憡',
-      4: '杈遍獋寮曟垬',
-      5: '鏀挎不鏁忔劅',
-      6: '闈掑皯骞翠笉鑹俊鎭?,
-      7: '鍏朵粬', // avoid show form
+      1: '违法违规',
+      2: '低俗色情',
+      3: '垃圾广告',
+      4: '辱骂引战',
+      5: '政治敏感',
+      6: '青少年不良信息',
+      7: '其他', // avoid show form
     },
   };
 
   static Map<String, Map<int, String>> get imMsgReport => const {
     '': {
-      1: '鑹叉儏浣庝織',
-      2: '鏀挎不鏁忔劅',
-      3: '杩濇硶鏈夊',
-      4: '骞垮憡楠氭壈',
-      5: '浜鸿韩鏀诲嚮',
-      6: '璇堥獥',
-      0: '鍏朵粬闂',
+      1: '色情低俗',
+      2: '政治敏感',
+      3: '违法有害',
+      4: '广告骚扰',
+      5: '人身攻击',
+      6: '诈骗',
+      0: '其他问题',
     },
   };
 }
-

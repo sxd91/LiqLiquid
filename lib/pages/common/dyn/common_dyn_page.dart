@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
+import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -10,6 +10,7 @@ import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/common/dyn/common_dyn_controller.dart';
 import 'package:liqliquid/pages/common/fab_mixin.dart';
+import 'package:liqliquid/pages/video/reply/vote/reply_vote_item.dart';
 import 'package:liqliquid/pages/video/reply/widgets/reply_item_grpc.dart';
 import 'package:liqliquid/pages/video/reply_reply/view.dart';
 import 'package:liqliquid/utils/extension/num_ext.dart';
@@ -23,8 +24,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 enum DynType implements EnumWithLabel {
-  reply('璇勮'),
-  reaction('璧炰笌杞彂');
+  reply('评论'),
+  reaction('赞与转发');
 
   @override
   final String label;
@@ -92,13 +93,13 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
       child: Padding(
         padding: const .fromLTRB(12, 2.5, 6, 2.5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Obx(
               () {
                 final count = controller.count.value;
                 return Text(
-                  '${count == -1 ? 0 : NumUtils.numFormat(count)}鏉″洖澶?,
+                  '${count == -1 ? 0 : NumUtils.numFormat(count)}条回复',
                 );
               },
             ),
@@ -120,62 +121,78 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
   }
 
   Widget replyList(LoadingState<List<ReplyInfo>?> loadingState) {
-    return switch (loadingState) {
-      Loading() => SliverList.builder(
-        itemCount: 12,
-        itemBuilder: (context, index) => const VideoReplySkeleton(),
-      ),
-      Success(:final response) =>
-        response != null && response.isNotEmpty
-            ? SliverList.builder(
-                itemCount: response.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == response.length) {
-                    controller.onLoadMore();
-                    return Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(bottom: padding.bottom),
-                      height: 125,
-                      child: Text(
-                        controller.isEnd ? '娌℃湁鏇村浜? : '鍔犺浇涓?..',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: theme.colorScheme.outline,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return ReplyItemGrpc(
-                      replyItem: response[index],
-                      replyLevel: 1,
-                      replyReply: (replyItem, id) =>
-                          replyReply(context, replyItem, id),
-                      onReply: controller.onReply,
-                      onDelete: (item, subIndex) =>
-                          controller.onRemove(index, item, subIndex),
-                      upMid: controller.upMid,
-                      onViewImage: hideFab,
-                      onCheckReply: (item) =>
-                          controller.onCheckReply(item, isManual: true),
-                      onToggleTop: (item) => controller.onToggleTop(
-                        item,
-                        index,
-                        controller.oid,
-                        controller.replyType,
-                      ),
-                    );
-                  }
-                },
-              )
-            : HttpError(
-                errMsg: '杩樻病鏈夎瘎璁?,
-                onReload: controller.onReload,
-              ),
-      Error(:final errMsg) => HttpError(
-        errMsg: errMsg,
-        onReload: controller.onReload,
-      ),
-    };
+    switch (loadingState) {
+      case Loading():
+        return SliverList.builder(
+          itemCount: 12,
+          itemBuilder: (context, index) => const VideoReplySkeleton(),
+        );
+      case Success(:final response):
+        if (response != null && response.isNotEmpty) {
+          var count = response.length + 1;
+          final voteCard = controller.voteCard;
+          final hasVote = voteCard != null;
+          if (hasVote) {
+            count++;
+          }
+          return SliverList.builder(
+            itemCount: count,
+            itemBuilder: (context, index) {
+              if (hasVote) {
+                if (index == 0) {
+                  return buildVoteCard(context, theme.colorScheme, voteCard);
+                } else {
+                  index--;
+                }
+              }
+              if (index == response.length) {
+                controller.onLoadMore();
+                return Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(bottom: padding.bottom),
+                  height: 125,
+                  child: Text(
+                    controller.isEnd ? '没有更多了' : '加载中...',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: theme.colorScheme.outline,
+                    ),
+                  ),
+                );
+              } else {
+                return ReplyItemGrpc(
+                  replyItem: response[index],
+                  replyLevel: 1,
+                  replyReply: (replyItem, id) =>
+                      replyReply(context, replyItem, id),
+                  onReply: controller.onReply,
+                  onDelete: (item, subIndex) =>
+                      controller.onRemove(index, item, subIndex),
+                  upMid: controller.upMid,
+                  onViewImage: hideFab,
+                  onCheckReply: (item) =>
+                      controller.onCheckReply(item, isManual: true),
+                  onToggleTop: (item) => controller.onToggleTop(
+                    item,
+                    index,
+                    controller.oid,
+                    controller.replyType,
+                  ),
+                );
+              }
+            },
+          );
+        }
+        return HttpError(
+          errMsg: '还没有评论',
+          onReload: controller.onReload,
+        );
+      case Error(:final errMsg):
+        return HttpError(
+          errMsg: errMsg,
+          onReload: controller.onReload,
+        );
+    }
   }
 
   void replyReply(BuildContext context, ReplyInfo replyItem, int? id) {
@@ -201,7 +218,7 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: const Text('璇勮璇︽儏'),
+              title: const Text('评论详情'),
               shape: Border(
                 bottom: BorderSide(
                   color: theme.colorScheme.outline.withValues(alpha: 0.1),
@@ -240,7 +257,7 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
   }
 
   Widget ratioWidget(double maxWidth) => IconButton(
-    tooltip: '椤甸潰姣斾緥璋冭妭',
+    tooltip: '页面比例调节',
     onPressed: () => showDialog(
       context: context,
       builder: (context) => Align(
@@ -299,7 +316,7 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
         );
       } catch (_) {}
     },
-    tooltip: '璇勮',
+    tooltip: '评论',
     child: const Icon(Icons.reply),
   );
 
@@ -321,4 +338,3 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
     );
   }
 }
-

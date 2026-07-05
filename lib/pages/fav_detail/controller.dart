@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/fav_order_type.dart';
@@ -41,7 +41,7 @@ mixin BaseFavController
         ..value.data!.removeAt(index)
         ..refresh();
       updateCount?.call(1);
-      SmartDialog.showToast('鍙栨秷鏀惰棌');
+      SmartDialog.showToast('取消收藏');
     } else {
       res.toast();
     }
@@ -51,8 +51,8 @@ mixin BaseFavController
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('鎻愮ず'),
-      content: const Text('纭鍒犻櫎鎵€閫夋敹钘忓悧锛?),
+      title: const Text('提示'),
+      content: const Text('确认删除所选收藏吗？'),
       onConfirm: () async {
         final removeList = allChecked.toSet();
         final res = await FavHttp.favVideo(
@@ -64,7 +64,7 @@ mixin BaseFavController
         if (res.isSuccess) {
           updateCount?.call(removeList.length);
           afterDelete(removeList);
-          SmartDialog.showToast('鍙栨秷鏀惰棌');
+          SmartDialog.showToast('取消收藏');
         } else {
           res.toast();
         }
@@ -173,7 +173,7 @@ class FavDetailController
 
   Future<void> onFav(bool isFav) async {
     if (!account.isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     final res = isFav
@@ -184,7 +184,7 @@ class FavDetailController
       folderInfo
         ..value.favState = isFav ? 0 : 1
         ..refresh();
-      SmartDialog.showToast('${isFav ? '鍙栨秷' : ''}鏀惰棌鎴愬姛');
+      SmartDialog.showToast('${isFav ? '取消' : ''}收藏成功');
     } else {
       res.toast();
     }
@@ -193,7 +193,7 @@ class FavDetailController
   Future<void> cleanFav() async {
     final res = await FavHttp.cleanFav(mediaId: mediaId);
     if (res.isSuccess) {
-      SmartDialog.showToast('娓呴櫎鎴愬姛');
+      SmartDialog.showToast('清除成功');
       Future.delayed(const Duration(milliseconds: 200), onReload);
     } else {
       res.toast();
@@ -204,7 +204,7 @@ class FavDetailController
     if (loadingState.value case Success(:final response)) {
       if (response != null && response.isNotEmpty) {
         if (folderInfo.value.mediaCount > 1000) {
-          SmartDialog.showToast('鍐呭澶鍟︼紒瓒呰繃1000涓嶆敮鎸佹帓搴?);
+          SmartDialog.showToast('内容太多啦！超过1000不支持排序');
           return;
         }
         Get.to(FavSortPage(favDetailController: this));
@@ -236,4 +236,3 @@ class FavDetailController
     );
   }
 }
-

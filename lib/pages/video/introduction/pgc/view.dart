@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
@@ -75,9 +75,9 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
             ],
           ),
           const SizedBox(height: 6),
-          // 鐐硅禐鏀惰棌杞彂 甯冨眬鏍峰紡2
+          // 点赞收藏转发 布局样式2
           if (introController.isPgc) actionGrid(item, introController),
-          // 鐣墽鍒嗛泦
+          // 番剧分集
           if (item.episodes?.isNotEmpty == true)
             PgcPanel(
               heroTag: widget.heroTag,
@@ -156,7 +156,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
         ),
         if (item.rating != null)
           PBadge(
-            text: '璇勫垎 ${item.rating!.score!}',
+            text: '评分 ${item.rating!.score!}',
             top: null,
             right: 6,
             bottom: 6,
@@ -171,7 +171,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
               return iconButton(
                 size: 28,
                 iconSize: 26,
-                tooltip: '${isFav ? '鍙栨秷' : ''}鏀惰棌',
+                tooltip: '${isFav ? '取消' : ''}收藏',
                 onPressed: () => introController.onFavPugv(isFav),
                 icon: isFav
                     ? const Icon(Icons.star_rounded)
@@ -234,7 +234,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
                   },
             child: Text(
               isFollowed
-                  ? '宸?{introController.pgcType}'
+                  ? '已${introController.pgcType}'
                   : introController.pgcType,
             ),
           );
@@ -300,7 +300,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
               const SizedBox(height: 5),
               Expanded(
                 child: Text(
-                  '绠€浠嬶細${item.evaluate}',
+                  '简介：${item.evaluate}',
                   style: TextStyle(fontSize: 13, color: colorScheme.outline),
                 ),
               ),
@@ -398,7 +398,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
               icon: const Icon(FontAwesomeIcons.thumbsUp),
               selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
               selectStatus: introController.hasLike.value,
-              semanticsLabel: '鐐硅禐',
+              semanticsLabel: '点赞',
               text: NumUtils.numFormat(item.stat!.like),
               onStartTriple: introController.onStartTriple,
               onCancelTriple: introController.onCancelTriple,
@@ -411,7 +411,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
               selectIcon: const Icon(FontAwesomeIcons.b),
               onTap: introController.actionCoinVideo,
               selectStatus: introController.hasCoin,
-              semanticsLabel: '鎶曞竵',
+              semanticsLabel: '投币',
               text: NumUtils.numFormat(item.stat!.coin),
             ),
           ),
@@ -426,7 +426,7 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
                 isLongPress: true,
               ),
               selectStatus: introController.hasFav.value,
-              semanticsLabel: '鏀惰棌',
+              semanticsLabel: '收藏',
               text: NumUtils.numFormat(item.stat!.favorite),
             ),
           ),
@@ -437,15 +437,15 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
               onTap: () =>
                   introController.handleAction(introController.viewLater),
               selectStatus: introController.hasLater.value,
-              semanticsLabel: '鍐嶇湅',
-              text: '鍐嶇湅',
+              semanticsLabel: '再看',
+              text: '再看',
             ),
           ),
           ActionItem(
             icon: const Icon(FontAwesomeIcons.shareFromSquare),
             onTap: () => introController.actionShareVideo(context),
             selectStatus: false,
-            semanticsLabel: '杞彂',
+            semanticsLabel: '转发',
             text: NumUtils.numFormat(item.stat!.share),
           ),
         ],
@@ -453,4 +453,3 @@ class _PgcIntroPageState extends State<PgcIntroPage> {
     );
   }
 }
-

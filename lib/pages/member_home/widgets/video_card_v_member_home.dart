@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -13,7 +13,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
-// 瑙嗛鍗＄墖 - 鍨傜洿甯冨眬
+// 视频卡片 - 垂直布局
 class VideoCardVMemberHome extends StatelessWidget {
   final SpaceArchiveItem videoItem;
 
@@ -120,19 +120,19 @@ class VideoCardVMemberHome extends StatelessWidget {
                               .join('|'),
                           top: 6,
                           right: 6,
-                          type: videoItem.badges!.first.text == '鍏呯數涓撳睘'
+                          type: videoItem.badges!.first.text == '充电专属'
                               ? PBadgeType.error
                               : PBadgeType.primary,
                         )
                       else if (videoItem.isCooperation == true)
                         const PBadge(
-                          text: '鍚堜綔',
+                          text: '合作',
                           top: 6,
                           right: 6,
                         )
                       else if (videoItem.isSteins == true)
                         const PBadge(
-                          text: '浜掑姩',
+                          text: '互动',
                           top: 6,
                           right: 6,
                         ),
@@ -164,4 +164,3 @@ class VideoCardVMemberHome extends StatelessWidget {
     );
   }
 }
-

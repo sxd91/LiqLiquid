@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
@@ -566,9 +566,7 @@ class _DynamicDetailPageState
               color: theme.colorScheme.surface,
               border: Border(
                 top: BorderSide(
-                  color: theme.colorScheme.outline.withValues(
-                    alpha: 0.08,
-                  ),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.08),
                 ),
               ),
             ),
@@ -581,7 +579,7 @@ class _DynamicDetailPageState
                       final forward = moduleStat?.forward;
                       return textIconButton(
                         icon: FontAwesomeIcons.shareFromSquare,
-                        text: '杞彂',
+                        text: '转发',
                         stat: forward,
                         onPressed: (_) => showModalBottomSheet(
                           context: context,
@@ -607,7 +605,7 @@ class _DynamicDetailPageState
                 Expanded(
                   child: textIconButton(
                     icon: CustomIcons.share_node,
-                    text: '鍒嗕韩',
+                    text: '分享',
                     stat: null,
                     onPressed: (_) => ShareUtils.shareText(
                       '${HttpString.dynamicShareBaseUrl}/${controller.dynItem.idStr}',
@@ -617,7 +615,7 @@ class _DynamicDetailPageState
                 Expanded(
                   child: textIconButton(
                     icon: FontAwesomeIcons.comment,
-                    text: '璇勮',
+                    text: '评论',
                     stat: moduleStat?.comment,
                     onPressed: _jumpToComment,
                   ),
@@ -628,7 +626,7 @@ class _DynamicDetailPageState
                       return textIconButton(
                         icon: FontAwesomeIcons.thumbsUp,
                         activatedIcon: FontAwesomeIcons.solidThumbsUp,
-                        text: '鐐硅禐',
+                        text: '点赞',
                         stat: moduleStat?.like,
                         onPressed: (iconColor) => RequestUtils.onLikeDynamic(
                           controller.dynItem,
@@ -691,4 +689,3 @@ class _DynamicDetailPageState
     } catch (_) {}
   }
 }
-

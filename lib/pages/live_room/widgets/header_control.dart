@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/style.dart';
@@ -123,7 +123,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (isFullScreen || plPlayerController.isDesktopPip)
             ComBtn(
               height: 30,
-              tooltip: '杩斿洖',
+              tooltip: '返回',
               icon: const Icon(FontAwesomeIcons.arrowLeft, size: 15),
               onTap: () {
                 if (plPlayerController.isDesktopPip) {
@@ -141,7 +141,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
               final isAlwaysOnTop = plPlayerController.isAlwaysOnTop.value;
               return ComBtn(
                 height: 30,
-                tooltip: '${isAlwaysOnTop ? '鍙栨秷' : ''}缃《',
+                tooltip: '${isAlwaysOnTop ? '取消' : ''}置顶',
                 icon: isAlwaysOnTop
                     ? const Icon(
                         size: 18,
@@ -159,7 +159,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (isFullScreen || PlatformUtils.isDesktop)
             ComBtn(
               height: 30,
-              tooltip: '鍙戝脊骞?,
+              tooltip: '发弹幕',
               icon: const Icon(
                 size: 18,
                 Icons.comment_outlined,
@@ -170,7 +170,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (Platform.isAndroid || (PlatformUtils.isDesktop && !isFullScreen))
             ComBtn(
               height: 30,
-              tooltip: '鐢讳腑鐢?,
+              tooltip: '画中画',
               onTap: () {
                 if (PlatformUtils.isDesktop) {
                   plPlayerController.toggleDesktopPip();
@@ -191,7 +191,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
               final onlyPlayAudio = plPlayerController.onlyPlayAudio.value;
               return ComBtn(
                 height: 30,
-                tooltip: '浠呮挱鏀鹃煶棰?,
+                tooltip: '仅播放音频',
                 onTap: () {
                   plPlayerController.onlyPlayAudio.value = !onlyPlayAudio;
                   widget.onPlayAudio();
@@ -216,7 +216,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                   plPlayerController.continuePlayInBackground.value;
               return ComBtn(
                 height: 30,
-                tooltip: '${continuePlayInBackground ? '鍏抽棴' : ''}鍚庡彴鎾斁',
+                tooltip: '${continuePlayInBackground ? '关闭' : ''}后台播放',
                 onTap: plPlayerController.setContinuePlayInBackground,
                 icon: continuePlayInBackground
                     ? const Icon(
@@ -233,7 +233,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             }),
           ComBtn(
             height: 30,
-            tooltip: '瀹氭椂鍏抽棴',
+            tooltip: '定时关闭',
             onTap: () => shutdownTimerService.showScheduleExitDialog(
               context,
               isFullScreen: isFullScreen,
@@ -260,7 +260,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                       spacing: 8,
                       children: [
                         Icon(Icons.alt_route, size: 17),
-                        Text('鍒囨崲璺嚎', style: TextStyle(fontSize: 14)),
+                        Text('切换路线', style: TextStyle(fontSize: 14)),
                       ],
                     ),
                   ),
@@ -270,7 +270,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                       spacing: 8,
                       children: [
                         Icon(Icons.info_outline, size: 17),
-                        Text('鎾斁淇℃伅', style: TextStyle(fontSize: 14)),
+                        Text('播放信息', style: TextStyle(fontSize: 14)),
                       ],
                     ),
                     onTap: () => HeaderControlState.showPlayerInfo(
@@ -286,7 +286,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                         children: [
                           const Icon(Icons.volume_up, size: 17),
                           Text(
-                            '鎾斁鍣ㄩ煶閲? ${player.getProperty('volume').subLength(3)}%',
+                            '播放器音量: ${player.getProperty('volume').subLength(3)}%',
                             style: const TextStyle(fontSize: 14),
                           ),
                         ],
@@ -475,4 +475,3 @@ class _ExpansionTile extends ExpansionTile {
     super.children,
   });
 }
-

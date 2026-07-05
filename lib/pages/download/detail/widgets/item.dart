@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
@@ -71,11 +71,11 @@ class DetailItem extends StatelessWidget {
                     Get.back();
                     showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍒犻櫎璇ヨ棰戯紵'),
+                      title: const Text('确定删除该视频？'),
                       onConfirm: onDelete,
                     );
                   },
-                  child: const Text('鍒犻櫎', style: TextStyle(fontSize: 14)),
+                  child: const Text('删除', style: TextStyle(fontSize: 14)),
                 ),
                 DialogOption(
                   onPressed: () async {
@@ -85,12 +85,12 @@ class DetailItem extends StatelessWidget {
                       isUpdate: true,
                     );
                     if (res) {
-                      SmartDialog.showToast('鏇存柊鎴愬姛');
+                      SmartDialog.showToast('更新成功');
                     } else {
-                      SmartDialog.showToast('鏇存柊澶辫触');
+                      SmartDialog.showToast('更新失败');
                     }
                   },
-                  child: const Text('鏇存柊寮瑰箷', style: TextStyle(fontSize: 14)),
+                  child: const Text('更新弹幕', style: TextStyle(fontSize: 14)),
                 ),
               ],
             ),
@@ -229,7 +229,7 @@ class DetailItem extends StatelessWidget {
                                 ),
                                 PBadge(
                                   text: progress >= entry.totalTimeMilli - 400
-                                      ? '宸茬湅瀹?
+                                      ? '已看完'
                                       : '${DurationUtils.formatDuration(
                                               progress ~/ 1000,
                                             )}/'
@@ -445,4 +445,3 @@ class DetailItem extends StatelessWidget {
     );
   }
 }
-

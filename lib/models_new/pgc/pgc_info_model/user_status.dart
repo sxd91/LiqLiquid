@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_info_model/user_progress.dart';
+import 'package:liqliquid/models_new/pgc/pgc_info_model/user_progress.dart';
 
 class UserStatus {
   UserProgress? progress;
@@ -16,4 +16,3 @@ class UserStatus {
     favored: json['favored'] as int?,
   );
 }
-

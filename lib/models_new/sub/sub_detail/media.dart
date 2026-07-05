@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/fav/fav_detail/cnt_info.dart';
+import 'package:liqliquid/models_new/fav/fav_detail/cnt_info.dart';
 
 class SubDetailItemModel {
   int? id;
@@ -32,4 +32,3 @@ class SubDetailItemModel {
             : CntInfo.fromJson(json['cnt_info'] as Map<String, dynamic>),
       );
 }
-

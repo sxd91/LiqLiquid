@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_rec_video_item.dart';
+import 'package:liqliquid/models/model_rec_video_item.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/id_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';
@@ -16,7 +16,7 @@ class RcmdVideoItemAppModel extends BaseRcmdVideoItemModel {
     cid = json['player_args']?['cid'];
     cover = json['cover'];
     stat = RcmdStat.fromJson(json);
-    // 鏀圭敤player_args涓殑duration浣滀负鍘熷鏁版嵁锛堢鏁帮級
+    // 改用player_args中的duration作为原始数据（秒数）
     duration = json['player_args']?['duration'] ?? 0;
     //duration = json['cover_right_text'];
     title = json['title'];
@@ -24,12 +24,14 @@ class RcmdVideoItemAppModel extends BaseRcmdVideoItemModel {
     rcmdReason = json['rcmd_reason'];
     //     json['bottom_rcmd_reason'] ??
     //     json['top_rcmd_reason'];
-    if (rcmdReason != null && rcmdReason!.contains('璧?)) {
-      // 鏈夋椂鑳藉湪鎺ㄨ崘鍘熷洜閲岃幏寰楃偣璧炴暟
+    if (rcmdReason != null && rcmdReason!.contains('赞')) {
+      // 有时能在推荐原因里获得点赞数
       (stat as RcmdStat).like = NumUtils.parseNum(rcmdReason!);
     }
-    // 鐢变簬app绔痑pi骞朵笉浼氱洿鎺ヨ繑鍥炰笌owner鐨勫叧娉ㄧ姸鎬?    // 鎵€浠ュ€熺敤鎺ㄨ崘鍘熷洜鏄惁涓衡€滃凡鍏虫敞鈥濄€佲€滄柊鍏虫敞鈥濆垽鍒叧娉ㄧ姸鎬侊紝浠庤€屼笌web绔帴鍙ｇ瓑鏁?    isFollowed = const {'宸插叧娉?, '鏂板叧娉?}.contains(rcmdReason);
-    // 濡傛灉鏄紝灏辨棤闇€鍐嶆樉绀烘帹鑽愬師鍥狅紝浜ょ敱view缁熶竴澶勭悊鍗冲彲
+    // 由于app端api并不会直接返回与owner的关注状态
+    // 所以借用推荐原因是否为“已关注”、“新关注”判别关注状态，从而与web端接口等效
+    isFollowed = const {'已关注', '新关注'}.contains(rcmdReason);
+    // 如果是，就无需再显示推荐原因，交由view统一处理即可
     if (isFollowed) rcmdReason = null;
 
     goto = json['goto'];
@@ -102,4 +104,3 @@ class Reason {
     toast = json['toast'];
   }
 }
-

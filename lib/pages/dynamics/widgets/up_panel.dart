@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/dynamic/up_panel_position.dart';
 import 'package:liqliquid/models/dynamics/up.dart';
@@ -102,14 +102,14 @@ class _UpPanelState extends State<UpPanel> {
             },
           ),
         SliverToBoxAdapter(
-          child: upItemBuild(theme, UpItem(face: '', uname: '鍏ㄩ儴鍔ㄦ€?, mid: -1)),
+          child: upItemBuild(theme, UpItem(face: '', uname: '全部动态', mid: -1)),
         ),
         SliverToBoxAdapter(
           child: Obx(
             () => upItemBuild(
               theme,
               UpItem(
-                uname: '鎴?,
+                uname: '我',
                 face: controller.accountService.face.value,
                 mid: Accounts.main.mid,
               ),
@@ -247,4 +247,3 @@ class _UpPanelState extends State<UpPanel> {
     );
   }
 }
-

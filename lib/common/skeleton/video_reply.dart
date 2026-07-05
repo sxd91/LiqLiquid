@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:flutter/material.dart';
 
 class VideoReplySkeleton extends StatelessWidget {
@@ -85,4 +85,3 @@ class VideoReplySkeleton extends StatelessWidget {
     );
   }
 }
-

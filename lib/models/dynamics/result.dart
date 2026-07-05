@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models/common/dynamic/dynamics_type.dart';
@@ -94,7 +94,8 @@ class DynamicsDataModel {
   }
 }
 
-// 鍗曚釜鍔ㄦ€?class DynamicItemModel {
+// 单个动态
+class DynamicItemModel {
   Basic? basic;
   dynamic idStr;
   late ItemModulesModel modules;
@@ -150,21 +151,24 @@ class Fallback {
   );
 }
 
-// 鍗曚釜鍔ㄦ€佽鎯?class ItemModulesModel {
+// 单个动态详情
+class ItemModulesModel {
   ItemModulesModel();
 
   ModuleAuthorModel? moduleAuthor;
   ModuleStatModel? moduleStat;
-  ModuleTag? moduleTag; // 涔熷仛opus鐨則itle鐢?
-  // 鍔ㄦ€?  ModuleDynamicModel? moduleDynamic;
+  ModuleTag? moduleTag; // 也做opus的title用
+
+  // 动态
+  ModuleDynamicModel? moduleDynamic;
   // ModuleInterModel? moduleInter;
   ModuleInteraction? moduleInteraction;
   ModuleDispute? moduleDispute;
 
-  // 涓撴爮
+  // 专栏
   ModuleTop? moduleTop;
   ModuleCollection? moduleCollection;
-  List<ModuleTag>? moduleExtend; // opus鐨則ag
+  List<ModuleTag>? moduleExtend; // opus的tag
   List<ArticleContentModel>? moduleContent;
   ModuleBlocked? moduleBlocked;
   ModuleFold? moduleFold;
@@ -402,7 +406,8 @@ class Basic {
   }
 }
 
-// 鍗曚釜鍔ㄦ€佽鎯?- 浣滆€呬俊鎭?class ModuleAuthorModel extends Avatar {
+// 单个动态详情 - 作者信息
+class ModuleAuthorModel extends Avatar {
   String? pubAction;
   String? pubTime;
   int? pubTs;
@@ -463,7 +468,8 @@ class Fan {
   );
 }
 
-// 鍗曚釜鍔ㄦ€佽鎯?- 鍔ㄦ€佷俊鎭?class ModuleDynamicModel {
+// 单个动态详情 - 动态信息
+class ModuleDynamicModel {
   ModuleDynamicModel({
     this.additional,
     this.desc,
@@ -763,8 +769,8 @@ class ReserveBtn {
   ReserveBtn.fromJson(Map<String, dynamic> json) {
     status = safeToInt(json['status']);
     type = safeToInt(json['type']);
-    checkText = json['check']?['text'] ?? '宸查绾?;
-    uncheckText = json['uncheck']?['text'] ?? '棰勭害';
+    checkText = json['check']?['text'] ?? '已预约';
+    uncheckText = json['uncheck']?['text'] ?? '预约';
     disable = safeToInt(json['uncheck']?['disable']);
     jumpText = json['jump_style']?['text'];
     jumpUrl = json['jump_url'];
@@ -1091,7 +1097,7 @@ class Badge {
   String? text;
 
   Badge.fromJson(Map<String, dynamic> json) {
-    text = json['text'] == '鎶曠瑙嗛' ? null : json['text'];
+    text = json['text'] == '投稿视频' ? null : json['text'];
   }
 }
 
@@ -1297,7 +1303,8 @@ class ModuleTag {
   }
 }
 
-// 鍔ㄦ€佺姸鎬?杞彂銆佽瘎璁恒€佺偣璧?class ModuleStatModel {
+// 动态状态 转发、评论、点赞
+class ModuleStatModel {
   ModuleStatModel({
     this.comment,
     this.forward,
@@ -1324,7 +1331,8 @@ class ModuleTag {
   }
 }
 
-// 鍔ㄦ€佺姸鎬?class DynamicStat {
+// 动态状态
+class DynamicStat {
   DynamicStat({
     this.count,
     this.status,
@@ -1355,4 +1363,3 @@ class Stat {
     play = json['play'];
   }
 }
-

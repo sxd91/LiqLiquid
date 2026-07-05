@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart'
@@ -53,7 +53,7 @@ class DownloadSearchController
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('纭畾鍒犻櫎閫変腑瑙嗛锛?),
+      title: const Text('确定删除选中视频？'),
       onConfirm: () async {
         SmartDialog.showLoading();
         final allChecked = this.allChecked.toSet();
@@ -78,4 +78,3 @@ class DownloadSearchController
     );
   }
 }
-

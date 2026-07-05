@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/more_btn.dart';
@@ -101,7 +101,7 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
                         children: [
                           const SizedBox(width: 16),
                           Text(
-                            '杩界暘鏃堕棿琛?,
+                            '追番时间表',
                             style: theme.textTheme.titleMedium,
                           ),
                           const SizedBox(width: 16),
@@ -138,14 +138,14 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
                                 (item) {
                                   return Tab(
                                     text:
-                                        '${item.date} ${item.isToday == 1 ? '浠婂ぉ' : '鍛?{const [
-                                                '涓€',
-                                                '浜?,
-                                                '涓?,
-                                                '鍥?,
-                                                '浜?,
-                                                '鍏?,
-                                                '鏃?,
+                                        '${item.date} ${item.isToday == 1 ? '今天' : '周${const [
+                                                '一',
+                                                '二',
+                                                '三',
+                                                '四',
+                                                '五',
+                                                '六',
+                                                '日',
                                               ][item.dayOfWeek! - 1]}'}',
                                   );
                                 },
@@ -230,7 +230,7 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '鎺ㄨ崘',
+            '推荐',
             style: theme.textTheme.titleMedium,
           ),
           moreTextButton(
@@ -240,17 +240,17 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
                 Get.to(const PgcIndexPage());
               } else {
                 List<String> titles = const [
-                  '鍏ㄩ儴',
-                  '鐢靛奖',
-                  '鐢佃鍓?,
-                  '绾綍鐗?,
-                  '缁艰壓',
+                  '全部',
+                  '电影',
+                  '电视剧',
+                  '纪录片',
+                  '综艺',
                 ];
                 List<int> types = const [102, 2, 5, 3, 7];
                 Get.to(
                   Scaffold(
                     resizeToAvoidBottomInset: false,
-                    appBar: AppBar(title: const Text('绱㈠紩')),
+                    appBar: AppBar(title: const Text('索引')),
                     body: DefaultTabController(
                       length: types.length,
                       child: Builder(
@@ -357,13 +357,13 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
       children: [
         Obx(
           () => Text(
-            '鏈€杩?{widget.tabType == HomeTabType.bangumi ? '杩界暘' : '杩藉墽'}${controller.followCount.value == -1 ? '' : ' ${controller.followCount.value}'}',
+            '最近${widget.tabType == HomeTabType.bangumi ? '追番' : '追剧'}${controller.followCount.value == -1 ? '' : ' ${controller.followCount.value}'}',
             style: theme.textTheme.titleMedium,
           ),
         ),
         const Spacer(),
         IconButton(
-          tooltip: '鍒锋柊',
+          tooltip: '刷新',
           onPressed: () => controller
             ..followPage = 1
             ..followEnd = false
@@ -378,7 +378,7 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: moreTextButton(
-                    text: '鏌ョ湅鍏ㄩ儴',
+                    text: '查看全部',
                     onTap: () => Get.toNamed(
                       '/fav',
                       arguments: widget.tabType == HomeTabType.bangumi
@@ -421,7 +421,7 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
               )
             : Center(
                 child: Text(
-                  '杩樻病鏈?{widget.tabType == HomeTabType.bangumi ? '杩界暘' : '杩藉墽'}',
+                  '还没有${widget.tabType == HomeTabType.bangumi ? '追番' : '追剧'}',
                 ),
               ),
       Error(:final errMsg) => Container(
@@ -435,4 +435,3 @@ class _PgcPageState extends State<PgcPage> with AutomaticKeepAliveClientMixin {
     };
   }
 }
-

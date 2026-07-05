@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/music/bgm_detail.dart';
@@ -63,4 +63,3 @@ abstract final class MusicHttp {
     }
   }
 }
-

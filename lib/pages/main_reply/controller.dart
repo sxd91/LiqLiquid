@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show MainListReply, ReplyInfo;
 import 'package:liqliquid/grpc/reply.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -34,4 +34,3 @@ class MainReplyController extends ReplyController<MainListReply> {
   @override
   List<ReplyInfo>? getDataList(MainListReply response) => response.replies;
 }
-

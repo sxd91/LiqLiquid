@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
@@ -88,7 +88,7 @@ class FavVideoItem extends StatelessWidget {
               ),
             ),
           Text(
-            '${item.mediaCount}涓唴瀹?,
+            '${item.mediaCount}个内容',
             style: TextStyle(
               fontSize: fontSize,
               color: color,
@@ -107,4 +107,3 @@ class FavVideoItem extends StatelessWidget {
     );
   }
 }
-

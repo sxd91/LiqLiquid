@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models_new/sub/sub/data.dart';
@@ -21,24 +21,24 @@ class SubController extends CommonListController<SubData, SubItemModel> {
   @override
   Future<void> queryData([bool isRefresh = true]) {
     if (!account.isLogin) {
-      loadingState.value = const Error('璐﹀彿鏈櫥褰?);
+      loadingState.value = const Error('账号未登录');
       return Future.syncValue(null);
     }
     return super.queryData(isRefresh);
   }
 
-  // 鍙栨秷璁㈤槄
+  // 取消订阅
   void cancelSub(SubItemModel subFolderItem) {
     showDialog(
       context: Get.context!,
       builder: (context) => AlertDialog(
-        title: const Text('鎻愮ず'),
-        content: const Text('纭畾鍙栨秷璁㈤槄鍚楋紵'),
+        title: const Text('提示'),
+        content: const Text('确定取消订阅吗？'),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍙栨秷',
+              '取消',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -52,13 +52,13 @@ class SubController extends CommonListController<SubData, SubItemModel> {
                 loadingState
                   ..value.data!.remove(subFolderItem)
                   ..refresh();
-                SmartDialog.showToast('鍙栨秷璁㈤槄鎴愬姛');
+                SmartDialog.showToast('取消订阅成功');
               } else {
                 res.toast();
               }
               Get.back();
             },
-            child: const Text('纭畾'),
+            child: const Text('确定'),
           ),
         ],
       ),
@@ -80,4 +80,3 @@ class SubController extends CommonListController<SubData, SubItemModel> {
     mid: account.mid,
   );
 }
-

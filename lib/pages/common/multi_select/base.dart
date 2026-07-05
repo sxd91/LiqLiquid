@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';
 import 'package:get/get.dart';
 
@@ -178,4 +178,3 @@ mixin DeleteItemMixin<R, T extends MultiSelectData>
 //     }
 //   }
 // }
-

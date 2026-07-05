@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show SearchItem;
@@ -78,4 +78,3 @@ class _ReplySearchChildPageState extends State<ReplySearchChildPage>
   @override
   bool get wantKeepAlive => true;
 }
-

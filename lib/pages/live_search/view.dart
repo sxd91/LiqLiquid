@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/models/common/live/live_search_type.dart';
 import 'package:liqliquid/pages/live_search/child/view.dart';
@@ -27,7 +27,7 @@ class _LiveSearchPageState extends State<LiveSearchPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: _controller.submit,
             icon: const Icon(Icons.search, size: 22),
           ),
@@ -40,11 +40,11 @@ class _LiveSearchPageState extends State<LiveSearchPage> {
           textInputAction: TextInputAction.search,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            hintText: '鎼滅储鎴块棿鎴栦富鎾?,
+            hintText: '搜索房间或主播',
             visualDensity: .standard,
             border: InputBorder.none,
             suffixIcon: IconButton(
-              tooltip: '娓呯┖',
+              tooltip: '清空',
               icon: const Icon(Icons.clear, size: 22),
               onPressed: _controller.onClear,
             ),
@@ -69,13 +69,13 @@ class _LiveSearchPageState extends State<LiveSearchPage> {
                     Obx(
                       () => Tab(
                         text:
-                            '姝ｅ湪鐩存挱 ${_controller.counts[0] != -1 ? _controller.counts[0] : ''}',
+                            '正在直播 ${_controller.counts[0] != -1 ? _controller.counts[0] : ''}',
                       ),
                     ),
                     Obx(
                       () => Tab(
                         text:
-                            '涓绘挱 ${_controller.counts[1] != -1 ? _controller.counts[1] : ''}',
+                            '主播 ${_controller.counts[1] != -1 ? _controller.counts[1] : ''}',
                       ),
                     ),
                   ],
@@ -112,4 +112,3 @@ class _LiveSearchPageState extends State<LiveSearchPage> {
     );
   }
 }
-

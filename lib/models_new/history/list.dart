@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/history/history.dart';
+import 'package:liqliquid/models_new/history/history.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
@@ -64,4 +64,3 @@ class HistoryItemModel with MultiSelectData {
         liveStatus: json['live_status'] as int?,
       );
 }
-

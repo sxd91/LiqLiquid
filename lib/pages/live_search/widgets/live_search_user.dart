@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/image_type.dart';
 import 'package:liqliquid/models_new/live/live_search/user_item.dart';
@@ -61,7 +61,7 @@ class LiveSearchUserItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '鍒嗗尯: ${item.areaName ?? ''}    鍏虫敞鏁? ${NumUtils.numFormat(item.fansNum ?? 0)}',
+                  '分区: ${item.areaName ?? ''}    关注数: ${NumUtils.numFormat(item.fansNum ?? 0)}',
                   style: style,
                 ),
               ],
@@ -72,4 +72,3 @@ class LiveSearchUserItem extends StatelessWidget {
     );
   }
 }
-

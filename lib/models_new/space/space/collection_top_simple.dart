@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space/top.dart';
+import 'package:liqliquid/models_new/space/space/top.dart';
 
 class CollectionTopSimple {
   Top? top;
@@ -15,4 +15,3 @@ class CollectionTopSimple {
     );
   }
 }
-

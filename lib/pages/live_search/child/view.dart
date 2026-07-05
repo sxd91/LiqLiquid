@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -129,4 +129,3 @@ class _LiveSearchChildPageState extends State<LiveSearchChildPage>
   @override
   bool get wantKeepAlive => true;
 }
-

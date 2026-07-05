@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 
 class ImUserInfosData {
   int? mid;
@@ -38,4 +38,3 @@ class ImUserInfosData {
               ),
       );
 }
-

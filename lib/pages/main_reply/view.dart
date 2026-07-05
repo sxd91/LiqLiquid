@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
+import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -59,7 +59,7 @@ class _MainReplyPageState extends State<MainReplyPage>
     final colorScheme = ColorScheme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('鏌ョ湅璇勮')),
+      appBar: AppBar(title: const Text('查看评论')),
       body: NotificationListener<UserScrollNotification>(
         onNotification: (notification) {
           final direction = notification.direction;
@@ -106,7 +106,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                 );
               } catch (_) {}
             },
-            tooltip: '璇勮',
+            tooltip: '评论',
             child: const Icon(Icons.reply),
           ),
         ),
@@ -136,7 +136,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                       margin: EdgeInsets.only(bottom: padding.bottom),
                       height: 125,
                       child: Text(
-                        _controller.isEnd ? '娌℃湁鏇村浜? : '鍔犺浇涓?..',
+                        _controller.isEnd ? '没有更多了' : '加载中...',
                         style: TextStyle(
                           fontSize: 12,
                           color: colorScheme.outline,
@@ -166,7 +166,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                 },
               )
             : HttpError(
-                errMsg: '杩樻病鏈夎瘎璁?,
+                errMsg: '还没有评论',
                 onReload: _controller.onReload,
               ),
       Error(:final errMsg) => HttpError(
@@ -183,13 +183,13 @@ class _MainReplyPageState extends State<MainReplyPage>
       child: Padding(
         padding: const .fromLTRB(12, 2.5, 6, 2.5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Obx(
               () {
                 final count = _controller.count.value;
                 return Text(
-                  '${count == -1 ? 0 : NumUtils.numFormat(count)}鏉″洖澶?,
+                  '${count == -1 ? 0 : NumUtils.numFormat(count)}条回复',
                 );
               },
             ),
@@ -223,7 +223,7 @@ class _MainReplyPageState extends State<MainReplyPage>
         Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: const Text('璇勮璇︽儏'),
+            title: const Text('评论详情'),
             shape: Border(
               bottom: BorderSide(
                 color: colorScheme.outline.withValues(alpha: 0.1),
@@ -248,4 +248,3 @@ class _MainReplyPageState extends State<MainReplyPage>
     });
   }
 }
-

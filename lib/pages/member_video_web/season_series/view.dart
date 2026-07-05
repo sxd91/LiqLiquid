@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/member/archive_sort_type_app.dart';
+import 'package:liqliquid/models/common/member/archive_sort_type_app.dart';
 import 'package:liqliquid/models/common/member/web_ss_type.dart';
 import 'package:liqliquid/models_new/member/season_web/archive.dart';
 import 'package:liqliquid/models_new/member/season_web/data.dart';
@@ -51,4 +51,3 @@ class _MemberSSWebState
   @override
   List<ArchiveSortTypeApp> get values => ArchiveSortTypeApp.values;
 }
-

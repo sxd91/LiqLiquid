@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/stat_detail.dart';
+import 'package:liqliquid/models_new/video/video_detail/stat_detail.dart';
 
 class VideoStat extends StatDetail {
   VideoStat.fromJson(Map<String, dynamic> json) {
@@ -11,4 +11,3 @@ class VideoStat extends StatDetail {
     like = json['like'] as int? ?? 0;
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -387,7 +387,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     super.dispose();
   }
 
-  // 鍔ㄦ€佹瀯寤哄簳閮ㄦ帶鍒舵潯
+  // 动态构建底部控制条
   Widget buildBottomControl(
     VideoDetailController videoDetailController,
     bool isLandscape,
@@ -404,15 +404,16 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     Widget progressWidget(
       BottomControlType bottomControl,
     ) => switch (bottomControl) {
-      /// 鎾斁鏆傚仠
+      /// 播放暂停
       BottomControlType.playOrPause => PlayOrPauseButton(
         plPlayerController: plPlayerController,
       ),
 
-      /// 涓婁竴闆?      BottomControlType.pre => ComBtn(
+      /// 上一集
+      BottomControlType.pre => ComBtn(
         width: widgetWidth,
         height: 30,
-        tooltip: '涓婁竴闆?,
+        tooltip: '上一集',
         icon: const Icon(
           Icons.skip_previous,
           size: 22,
@@ -420,15 +421,16 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         ),
         onTap: () {
           if (!introController.prevPlay()) {
-            SmartDialog.showToast('宸茬粡鏄涓€闆嗕簡');
+            SmartDialog.showToast('已经是第一集了');
           }
         },
       ),
 
-      /// 涓嬩竴闆?      BottomControlType.next => ComBtn(
+      /// 下一集
+      BottomControlType.next => ComBtn(
         width: widgetWidth,
         height: 30,
-        tooltip: '涓嬩竴闆?,
+        tooltip: '下一集',
         icon: const Icon(
           Icons.skip_next,
           size: 22,
@@ -436,12 +438,12 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         ),
         onTap: () {
           if (!introController.nextPlay()) {
-            SmartDialog.showToast('宸茬粡鏄渶鍚庝竴闆嗕簡');
+            SmartDialog.showToast('已经是最后一集了');
           }
         },
       ),
 
-      /// 鏃堕棿杩涘害
+      /// 时间进度
       BottomControlType.time => Obx(
         () => _VideoTime(
           position: DurationUtils.formatDuration(
@@ -453,7 +455,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         ),
       ),
 
-      /// 楂樿兘杩涘害鏉?      BottomControlType.dmChart => Obx(
+      /// 高能进度条
+      BottomControlType.dmChart => Obx(
         () {
           final list = videoDetailController.dmTrend.value?.dataOrNull;
           if (list != null && list.isNotEmpty) {
@@ -461,7 +464,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             return ComBtn(
               width: widgetWidth,
               height: 30,
-              tooltip: '楂樿兘杩涘害鏉?,
+              tooltip: '高能进度条',
               icon: DisabledIcon(
                 disable: !show,
                 child: const Icon(
@@ -477,12 +480,12 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 瓒呭垎杈ㄧ巼
+      /// 超分辨率
       BottomControlType.superResolution => Obx(
         () {
           final type = plPlayerController.superResolutionType.value;
           return PopupMenuButton<SuperResolutionType>(
-            tooltip: '瓒呭垎杈ㄧ巼',
+            tooltip: '超分辨率',
             requestFocus: false,
             initialValue: type,
             color: Colors.black.withValues(alpha: 0.8),
@@ -516,7 +519,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 鍒嗘淇℃伅
+      /// 分段信息
       BottomControlType.viewPoints => Obx(
         () {
           if (videoDetailController.viewPointList.isNotEmpty) {
@@ -524,7 +527,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             return ComBtn(
               width: widgetWidth,
               height: 30,
-              tooltip: '鍒嗘淇℃伅',
+              tooltip: '分段信息',
               icon: DisabledIcon(
                 iconSize: 22,
                 color: Colors.white,
@@ -549,11 +552,11 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 閫夐泦
+      /// 选集
       BottomControlType.episode => ComBtn(
         width: widgetWidth,
         height: 30,
-        tooltip: '閫夐泦',
+        tooltip: '选集',
         icon: const Icon(
           Icons.list,
           size: 22,
@@ -604,12 +607,12 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 鐢婚潰姣斾緥
+      /// 画面比例
       BottomControlType.fit => Obx(
         () {
           final fit = plPlayerController.videoFit.value;
           return PopupMenuButton<VideoFitType>(
-            tooltip: '鐢婚潰姣斾緥',
+            tooltip: '画面比例',
             requestFocus: false,
             initialValue: fit,
             color: Colors.black.withValues(alpha: 0.8),
@@ -648,7 +651,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           final list = videoDetailController.languages.value;
           if (list != null && list.isNotEmpty) {
             return PopupMenuButton<String>(
-              tooltip: '缈昏瘧',
+              tooltip: '翻译',
               requestFocus: false,
               initialValue: videoDetailController.currLang.value,
               color: Colors.black.withValues(alpha: 0.8),
@@ -659,7 +662,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     value: '',
                     onTap: () => videoDetailController.setLanguage(''),
                     child: const Text(
-                      "鍏抽棴缈昏瘧",
+                      "关闭翻译",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
@@ -697,13 +700,13 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 瀛楀箷
+      /// 字幕
       BottomControlType.subtitle => Obx(
         () {
           if (videoDetailController.subtitles.isNotEmpty) {
             final val = videoDetailController.vttSubtitlesIndex.value;
             return PopupMenuButton<int>(
-              tooltip: '瀛楀箷',
+              tooltip: '字幕',
               requestFocus: false,
               initialValue: val,
               color: Colors.black.withValues(alpha: 0.8),
@@ -714,7 +717,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     height: 35,
                     onTap: () => videoDetailController.setSubtitle(0),
                     child: const Text(
-                      "鍏抽棴瀛楀箷",
+                      "关闭字幕",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
@@ -757,10 +760,10 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 鎾斁閫熷害
+      /// 播放速度
       BottomControlType.speed => Obx(
         () => PopupMenuButton<double>(
-          tooltip: '鍊嶉€?,
+          tooltip: '倍速',
           requestFocus: false,
           initialValue: plPlayerController.playbackSpeed,
           color: Colors.black.withValues(alpha: 0.8),
@@ -775,7 +778,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     child: Text(
                       "${speed}X",
                       style: const TextStyle(color: Colors.white, fontSize: 13),
-                      semanticsLabel: "$speed鍊嶉€?,
+                      semanticsLabel: "$speed倍速",
                     ),
                   ),
                 )
@@ -786,7 +789,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             child: Text(
               "${plPlayerController.playbackSpeed}X",
               style: const TextStyle(color: Colors.white, fontSize: 13),
-              semanticsLabel: "${plPlayerController.playbackSpeed}鍊嶉€?,
+              semanticsLabel: "${plPlayerController.playbackSpeed}倍速",
             ),
           ),
         ),
@@ -810,7 +813,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               .toSet()
               .length;
           return PopupMenuButton<int>(
-            tooltip: '鐢昏川',
+            tooltip: '画质',
             requestFocus: false,
             initialValue: currentVideoQa.code,
             color: Colors.black.withValues(alpha: 0.8),
@@ -836,7 +839,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                         ..currentVideoQa.value = newQa
                         ..updatePlayer();
 
-                      SmartDialog.showToast("鐢昏川宸插彉涓猴細${newQa.desc}");
+                      SmartDialog.showToast("画质已变为：${newQa.desc}");
 
                       // update
                       if (!plPlayerController.tempPlayerConf) {
@@ -872,11 +875,11 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         },
       ),
 
-      /// 鍏ㄥ睆
+      /// 全屏
       BottomControlType.fullscreen => ComBtn(
         width: widgetWidth,
         height: 30,
-        tooltip: isFullScreen ? '閫€鍑哄叏灞? : '鍏ㄥ睆',
+        tooltip: isFullScreen ? '退出全屏' : '全屏',
         icon: isFullScreen
             ? const Icon(Icons.fullscreen_exit, size: 24, color: Colors.white)
             : const Icon(Icons.fullscreen, size: 24, color: Colors.white),
@@ -1015,7 +1018,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           if (!plPlayerController.enableSlideVolumeBrightness) {
             return;
           }
-          // 宸﹁竟鍖哄煙
+          // 左边区域
           if (PlatformUtils.isDesktop) {
             _gestureType = .right;
           } else {
@@ -1025,13 +1028,13 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           if (!plPlayerController.enableSlideFS) {
             return;
           }
-          // 鍏ㄥ睆
+          // 全屏
           _gestureType = .center;
         } else {
           if (!plPlayerController.enableSlideVolumeBrightness) {
             return;
           }
-          // 鍙宠竟鍖哄煙
+          // 右边区域
           _gestureType = .right;
         }
       }
@@ -1041,7 +1044,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     Offset delta = details.focalPointDelta;
 
     if (_gestureType == .horizontal) {
-      // live妯″紡涓嬬鐢?
+      // live模式下禁用
       if (plPlayerController.isLive) return;
 
       final height = maxHeight * 0.125;
@@ -1069,7 +1072,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                 color: colorScheme.secondaryContainer,
               ),
               child: Text(
-                '鏉惧紑鎵嬫寚锛屽彇娑堣繘閫€',
+                '松开手指，取消进退',
                 style: TextStyle(color: colorScheme.onSecondaryContainer),
               ),
             ),
@@ -1082,14 +1085,15 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
       _onHorizontalDragUpdate(delta.dx);
     } else if (_gestureType == .left) {
-      // 宸﹁竟鍖哄煙 馃憟
+      // 左边区域 👈
       final double level = maxHeight * 3;
       final double brightness = (_brightnessValue.value - delta.dy / level)
           .clamp(0.0, 1.0);
       setBrightness(brightness);
     } else if (_gestureType == .center) {
-      // 鍏ㄥ睆
-      const double threshold = 2.5; // 婊戝姩闃堝€?      double cumulativeDy = details.localFocalPoint.dy - _initialFocalPoint!.dy;
+      // 全屏
+      const double threshold = 2.5; // 滑动阈值
+      double cumulativeDy = details.localFocalPoint.dy - _initialFocalPoint!.dy;
 
       void fullScreenTrigger(bool status) {
         plPlayerController.triggerFullScreen(status: status);
@@ -1111,7 +1115,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         }
       }
     } else if (_gestureType == .right) {
-      // 鍙宠竟鍖哄煙
+      // 右边区域
       final double level = maxHeight * 0.5;
       EasyThrottle.throttle(
         'setVolume',
@@ -1386,7 +1390,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             },
           ),
 
-        /// 闀挎寜鍊嶉€?toast
+        /// 长按倍速 toast
         if (!isLive)
           IgnorePointer(
             ignoring: true,
@@ -1411,7 +1415,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                       ),
                       child: Obx(
                         () => Text(
-                          '${plPlayerController.enableAutoLongPressSpeed ? (plPlayerController.longPressStatus.value ? plPlayerController.lastPlaybackSpeed : plPlayerController.playbackSpeed) * 2 : plPlayerController.longPressSpeed}鍊嶉€熶腑',
+                          '${plPlayerController.enableAutoLongPressSpeed ? (plPlayerController.longPressStatus.value ? plPlayerController.lastPlaybackSpeed : plPlayerController.playbackSpeed) * 2 : plPlayerController.longPressSpeed}倍速中',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 13,
@@ -1425,7 +1429,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             ),
           ),
 
-        /// 鏃堕棿杩涘害 toast
+        /// 时间进度 toast
         if (!isLive)
           IgnorePointer(
             ignoring: true,
@@ -1480,7 +1484,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             ),
           ),
 
-        /// 闊抽噺馃攰 鎺у埗鏉″睍绀?        IgnorePointer(
+        /// 音量🔊 控制条展示
+        IgnorePointer(
           ignoring: true,
           child: Align(
             alignment: Alignment.center,
@@ -1530,7 +1535,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           ),
         ),
 
-        /// 浜害馃尀 鎺у埗鏉″睍绀?        IgnorePointer(
+        /// 亮度🌞 控制条展示
+        IgnorePointer(
           ignoring: true,
           child: Align(
             alignment: Alignment.center,
@@ -1577,7 +1583,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           ),
         ),
 
-        // 澶撮儴銆佸簳閮ㄦ帶鍒舵潯
+        // 头部、底部控制条
         Positioned.fill(
           top: -1,
           bottom: -1,
@@ -1680,14 +1686,14 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           ..removeListener(listener)
                           ..dispose();
                       },
-                      child: const Text('杩樺師灞忓箷'),
+                      child: const Text('还原屏幕'),
                     ),
                   ),
                 )
               : const SizedBox.shrink(),
         ),
 
-        /// 杩涘害鏉?live妯″紡涓嬬鐢?
+        /// 进度条 live模式下禁用
         if (!isLive)
           Positioned(
             bottom: -2.2,
@@ -1786,7 +1792,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           ),
 
         if (isFullScreen || plPlayerController.isDesktopPip) ...[
-          // 閿?
+          // 锁
           if (plPlayerController.showFsLockBtn)
             ViewSafeArea(
               right: false,
@@ -1807,7 +1813,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           final controlsLock =
                               plPlayerController.controlsLock.value;
                           return ComBtn(
-                            tooltip: controlsLock ? '瑙ｉ攣' : '閿佸畾',
+                            tooltip: controlsLock ? '解锁' : '锁定',
                             icon: controlsLock
                                 ? const Icon(
                                     FontAwesomeIcons.lock,
@@ -1830,7 +1836,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               ),
             ),
 
-          // 鎴浘
+          // 截图
           if (plPlayerController.showFsScreenshotBtn)
             ViewSafeArea(
               left: false,
@@ -1848,7 +1854,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                         child: ComBtn(
-                          tooltip: '鎴浘',
+                          tooltip: '截图',
                           icon: const Icon(
                             Icons.photo_camera,
                             size: 20,
@@ -1890,7 +1896,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                         Assets.buffering,
                         height: 25,
                         cacheHeight: 25.cacheSize(context),
-                        semanticLabel: "鍔犺浇涓?,
+                        semanticLabel: "加载中",
                         color: Colors.white,
                       ),
                       if (plPlayerController.isBuffering.value)
@@ -1898,7 +1904,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           final buffered = plPlayerController.buffered.value;
                           if (buffered == 0) {
                             return const Text(
-                              '鍔犺浇涓?..',
+                              '加载中...',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -1923,7 +1929,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           }
         }),
 
-        /// 鐐瑰嚮 蹇繘/蹇€€
+        /// 点击 快进/快退
         if (!isLive)
           Obx(() {
             final mountSeekBackwardButton =
@@ -2080,7 +2086,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
         await showDialog<bool>(
           context: Get.context!,
           builder: (context) => AlertDialog(
-            title: const Text('鍔ㄦ€佹埅鍥?),
+            title: const Text('动态截图'),
             content: Column(
               spacing: 12,
               mainAxisSize: MainAxisSize.min,
@@ -2092,7 +2098,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                   videoDuration: duration,
                 ),
                 PopupMenuText(
-                  title: '閫夋嫨鐢昏川',
+                  title: '选择画质',
                   value: () => qa.code,
                   onSelected: (value) {
                     final video = videoDetailController.findVideoByQa(value);
@@ -2112,7 +2118,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                   getSelectTitle: (_) => qa.shortDesc,
                 ),
                 PopupMenuText(
-                  title: 'webp棰勮',
+                  title: 'webp预设',
                   value: () => preset,
                   onSelected: (value) {
                     preset = value;
@@ -2124,7 +2130,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                   getSelectTitle: (i) => '${i.name}(${i.desc})',
                 ),
                 Text(
-                  '*杞爜浣跨敤CPU锛岄€熷害鍙兘鎱簬鎾斁锛岃涓嶈閫夋嫨杩囬暱鐨勬椂闂存鎴栬繃楂樼敾璐?,
+                  '*转码使用CPU，速度可能慢于播放，请不要选择过长的时间段或过高画质',
                   style: theme.textTheme.bodySmall,
                 ),
               ],
@@ -2133,7 +2139,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               TextButton(
                 onPressed: Get.back,
                 child: Text(
-                  '鍙栨秷',
+                  '取消',
                   style: TextStyle(
                     color: theme.colorScheme.outline,
                   ),
@@ -2145,7 +2151,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     Get.back(result: true);
                   }
                 },
-                child: const Text('纭畾'),
+                child: const Text('确定'),
               ),
             ],
           ),
@@ -2172,7 +2178,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
     SmartDialog.showLoading(
       backType: SmartBackType.normal,
-      builder: (_) => LoadingWidget(progress: progress, msg: '姝ｅ湪淇濆瓨锛屽彲鑳介渶瑕佽緝闀挎椂闂?),
+      builder: (_) => LoadingWidget(progress: progress, msg: '正在保存，可能需要较长时间'),
       onDismiss: () async {
         if (progress.value < 1.0) {
           mpv.dispose();
@@ -2184,7 +2190,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             needToast: true,
           );
         } else {
-          SmartDialog.showToast('杞爜鍑虹幇閿欒鎴栧凡鍙栨秷');
+          SmartDialog.showToast('转码出现错误或已取消');
         }
         if (isPlay) ctr.play();
       },
@@ -2227,7 +2233,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     );
   }
 
-  static final _timeRegExp = RegExp(r'(?:\d+[:锛歖)?\d+[:锛歖[0-5]?\d(?!\d)');
+  static final _timeRegExp = RegExp(r'(?:\d+[:：])?\d+[:：][0-5]?\d(?!\d)');
 
   int? _getValidOffset(String data) {
     if (_timeRegExp.firstMatch(data) case final timeStr?) {
@@ -2405,4 +2411,3 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
     );
   }
 }
-

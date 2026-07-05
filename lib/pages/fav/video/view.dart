@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
@@ -89,4 +89,3 @@ class _FavVideoPageState extends State<FavVideoPage>
     };
   }
 }
-

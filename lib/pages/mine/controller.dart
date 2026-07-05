@@ -1,4 +1,5 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models/common/account_type.dart';
@@ -27,9 +28,9 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
 
   int? favFolderCount;
 
-  // 鐢ㄦ埛淇℃伅 澶村儚銆佹樀绉般€乴v
+  // 用户信息 头像、昵称、lv
   final Rx<UserInfoData> userInfo = UserInfoData().obs;
-  // 鐢ㄦ埛鐘舵€?鍔ㄦ€併€佸叧娉ㄣ€佺矇涓?
+  // 用户状态 动态、关注、粉丝
   final Rx<UserStat> userStat = const UserStat().obs;
 
   final Rx<ThemeType> themeType = Pref.themeType.obs;
@@ -40,45 +41,40 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
   static RxBool anonymity =
       (Accounts.account.isNotEmpty && !Accounts.heartbeat.isLogin).obs;
 
-  late final list =
-      <({IconData icon, double size, String title, VoidCallback onTap})>[
-        (
-          size: 23,
-          icon: MdiIcons.folderDownloadOutline,
-          title: '绂荤嚎缂撳瓨',
-          onTap: () => Get.toNamed('/download'),
-        ),
-        (
-          size: 23,
-          icon: Icons.history,
-          title: '瑙傜湅璁板綍',
-          onTap: () {
-            if (isLogin) {
-              Get.toNamed('/history');
-            }
-          },
-        ),
-        (
-          size: 20,
-          icon: Icons.subscriptions_outlined,
-          title: '鎴戠殑璁㈤槄',
-          onTap: () {
-            if (isLogin) {
-              Get.toNamed('/subscription');
-            }
-          },
-        ),
-        (
-          size: 21,
-          icon: Icons.watch_later_outlined,
-          title: '绋嶅悗鍐嶇湅',
-          onTap: () {
-            if (isLogin) {
-              Get.toNamed('/later');
-            }
-          },
-        ),
-      ];
+  late final list = <({IconData icon, String title, VoidCallback onTap})>[
+    (
+      icon: CustomIcons.folderDownloadOutline,
+      title: '离线缓存',
+      onTap: () => Get.toNamed('/download'),
+    ),
+    (
+      icon: CustomIcons.history,
+      title: '观看记录',
+      onTap: () {
+        if (isLogin) {
+          Get.toNamed('/history');
+        }
+      },
+    ),
+    (
+      icon: CustomIcons.subscriptions_outlined,
+      title: '我的订阅',
+      onTap: () {
+        if (isLogin) {
+          Get.toNamed('/subscription');
+        }
+      },
+    ),
+    (
+      icon: CustomIcons.watch_later_outlined,
+      title: '稍后再看',
+      onTap: () {
+        if (isLogin) {
+          Get.toNamed('/later');
+        }
+      },
+    ),
+  ];
 
   @override
   void onInit() {
@@ -93,7 +89,7 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
 
   bool get isLogin {
     if (!accountService.isLogin.value) {
-      // SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      // SmartDialog.showToast('账号未登录');
       return false;
     }
     return true;
@@ -117,7 +113,7 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
     } else {
       final errMsg = res.toString();
       SmartDialog.showToast(errMsg);
-      if (errMsg == '璐﹀彿鏈櫥褰?) {
+      if (errMsg == '账号未登录') {
         _onLogoutMain();
         return;
       }
@@ -152,7 +148,7 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
 
   static void onChangeAnonymity() {
     if (Accounts.account.isEmpty) {
-      SmartDialog.showToast('璇峰厛鐧诲綍');
+      SmartDialog.showToast('请先登录');
       return;
     }
     final newVal = !anonymity.value;
@@ -186,16 +182,16 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
                     children: <Widget>[
                       const Icon(MdiIcons.incognito, size: 20),
                       const SizedBox(width: 10),
-                      Text('宸茶繘鍏ユ棤鐥曟ā寮?, style: theme.textTheme.titleMedium),
+                      Text('已进入无痕模式', style: theme.textTheme.titleMedium),
                     ],
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '鎼滅储涓嶆惡甯﹁韩浠戒俊鎭痋n'
-                    '涓嶄骇鐢熸煡璇㈡垨鎾斁璁板綍\n'
-                    '鐐硅禐绛夊叾瀹冩搷浣滀笉鍙楀奖鍝峔n'
-                    '鎾斁杩涘害淇℃伅璺熼殢瑙嗛鍙栨祦\n'
-                    '(鍓嶅線闅愮璁剧疆浜嗚В璇︽儏)',
+                    '搜索不携带身份信息\n'
+                    '不产生查询或播放记录\n'
+                    '点赞等其它操作不受影响\n'
+                    '播放进度信息跟随视频取流\n'
+                    '(前往隐私设置了解详情)',
                     style: theme.textTheme.bodySmall,
                   ),
                   Row(
@@ -204,17 +200,17 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
                       TextButton(
                         onPressed: () {
                           SmartDialog.dismiss(result: true);
-                          SmartDialog.showToast('宸茶涓烘案涔呮棤鐥曟ā寮?);
+                          SmartDialog.showToast('已设为永久无痕模式');
                         },
-                        child: Text('淇濆瓨涓烘案涔?, style: style),
+                        child: Text('保存为永久', style: style),
                       ),
                       const SizedBox(width: 10),
                       TextButton(
                         onPressed: () {
                           SmartDialog.dismiss();
-                          SmartDialog.showToast('宸茶涓轰复鏃舵棤鐥曟ā寮?);
+                          SmartDialog.showToast('已设为临时无痕模式');
                         },
-                        child: Text('浠呮湰娆★紙榛樿锛?, style: style),
+                        child: Text('仅本次（默认）', style: style),
                       ),
                     ],
                   ),
@@ -255,7 +251,7 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
                 children: [
                   const Icon(MdiIcons.incognitoOff, size: 20),
                   const SizedBox(width: 10),
-                  Text('宸查€€鍑烘棤鐥曟ā寮?, style: theme.textTheme.titleMedium),
+                  Text('已退出无痕模式', style: theme.textTheme.titleMedium),
                 ],
               ),
             ),
@@ -311,4 +307,3 @@ class MineController extends CommonDataController<FavFolderData, FavFolderData>
     }
   }
 }
-

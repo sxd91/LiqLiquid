@@ -1,5 +1,5 @@
-﻿<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sxdliqliquid.app">
 
     <queries>
         <intent>
@@ -41,8 +41,8 @@
         android:enableOnBackInvokedCallback="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        tools:replace="android:allowBackup">
+        android:label="liqliquid"
+        tools:replace="android:allowBackup,android:label">
         <meta-data
             android:name="io.flutter.embedding.android.EnableImpeller"
             android:value="false" />
@@ -77,7 +77,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter android:label="LiqLiquid">
+            <intent-filter android:label="liqliquid">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -103,7 +103,7 @@
                 <!--<data android:host="bangumi.bilibili.com"/>-->
                 <!--<data android:host="space.bilibili.com"/>-->
             </intent-filter>
-            <intent-filter android:label="LiqLiquid">
+            <intent-filter android:label="liqliquid">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="com.sxdliqliquid.app.SHORTCUT" />
@@ -259,5 +259,3 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 </manifest>
-
-

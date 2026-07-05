@@ -1,15 +1,14 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 
 enum SkipType implements EnumWithLabel {
-  alwaysSkip('鎬绘槸璺宠繃'),
-  skipOnce('璺宠繃涓€娆?),
-  skipManually('鎵嬪姩璺宠繃'),
-  showOnly('浠呮樉绀?),
-  disable('绂佺敤'),
+  alwaysSkip('总是跳过'),
+  skipOnce('跳过一次'),
+  skipManually('手动跳过'),
+  showOnly('仅显示'),
+  disable('禁用'),
   ;
 
   @override
   final String label;
   const SkipType(this.label);
 }
-

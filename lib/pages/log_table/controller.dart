@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/common/common_list_controller.dart';
+import 'package:liqliquid/pages/common/common_list_controller.dart';
 
 abstract class LogController<R, T> extends CommonListController<R, T> {
   @override
@@ -13,4 +13,3 @@ abstract class LogController<R, T> extends CommonListController<R, T> {
 
   List<(int, String)> getFlexAndText(T item);
 }
-

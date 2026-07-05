@@ -1,4 +1,4 @@
-﻿// 鍐呭
+// 内容
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/flutter/text/text.dart' as custom_text;
 import 'package:liqliquid/common/widgets/image_grid/image_grid_view.dart';
@@ -111,7 +111,7 @@ Widget _contextMenuBuilder(EditableTextState state, String text) {
   return AdaptiveTextSelectionToolbar.buttonItems(
     buttonItems: state.contextMenuButtonItems
       ..add(
-        ContextMenuButtonItem(label: '鏂囨湰', onPressed: () => _onCopyText(text)),
+        ContextMenuButtonItem(label: '文本', onPressed: () => _onCopyText(text)),
       ),
     anchors: state.contextMenuAnchors,
   );
@@ -131,4 +131,3 @@ void _onCopyText(String text) {
     ),
   );
 }
-

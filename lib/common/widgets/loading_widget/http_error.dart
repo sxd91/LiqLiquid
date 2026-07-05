@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -32,7 +32,7 @@ class HttpError extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
           child: SelectableText(
-            errMsg ?? '娌℃湁鏁版嵁',
+            errMsg ?? '没有数据',
             textAlign: TextAlign.center,
             style: theme.textTheme.titleSmall,
             scrollPhysics: const NeverScrollableScrollPhysics(),
@@ -47,7 +47,7 @@ class HttpError extends StatelessWidget {
               shadowColor: Colors.transparent,
             ),
             child: Text(
-              btnText ?? '鐐瑰嚮閲嶈瘯',
+              btnText ?? '点击重试',
               style: TextStyle(color: theme.colorScheme.primary),
             ),
           ),
@@ -61,4 +61,3 @@ class HttpError extends StatelessWidget {
         : SizedBox(width: double.infinity, child: child);
   }
 }
-

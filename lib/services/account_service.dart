@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/models/user/info.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -42,4 +42,3 @@ mixin AccountMixin on GetLifeCycleBase {
     super.onClose();
   }
 }
-

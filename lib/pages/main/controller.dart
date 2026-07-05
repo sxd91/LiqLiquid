@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/grpc/dyn.dart';
@@ -348,4 +348,3 @@ class MainController extends GetxController
     }
   }
 }
-

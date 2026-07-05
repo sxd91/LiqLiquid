@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
 
 class LiveSearchRoomItemModel {
   int? roomid;
@@ -31,4 +31,3 @@ class LiveSearchRoomItemModel {
               ),
       );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
@@ -35,7 +35,7 @@ class _LikeMePageState extends State<LikeMePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鏀跺埌鐨勮禐'),
+        title: const Text('收到的赞'),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -92,7 +92,7 @@ class _LikeMePageState extends State<LikeMePage> {
             return SliverMainAxisGroup(
               slivers: [
                 if (latest.isNotEmpty) ...[
-                  _buildHeader(theme, '鏈€鏂?),
+                  _buildHeader(theme, '最新'),
                   SliverList.separated(
                     itemBuilder: (context, index) {
                       if (total.isEmpty && index == latest.length - 1) {
@@ -107,7 +107,7 @@ class _LikeMePageState extends State<LikeMePage> {
                   ),
                 ],
                 if (total.isNotEmpty) ...[
-                  _buildHeader(theme, '绱'),
+                  _buildHeader(theme, '累计'),
                   SliverList.separated(
                     itemBuilder: (context, index) {
                       if (index == total.length - 1) {
@@ -202,12 +202,12 @@ class _LikeMePageState extends State<LikeMePage> {
                 Get.back();
                 showConfirmDialog(
                   context: context,
-                  title: const Text('鍒犻櫎'),
-                  content: const Text('璇ユ潯閫氱煡鍒犻櫎鍚庯紝褰撴湁鏂扮偣璧炴椂浼氶噸鏂板嚭鐜板湪鍒楄〃锛屾槸鍚︾户缁紵'),
+                  title: const Text('删除'),
+                  content: const Text('该条通知删除后，当有新点赞时会重新出现在列表，是否继续？'),
                   onConfirm: () => onRemove(item.id),
                 );
               },
-              child: const Text('鍒犻櫎', style: TextStyle(fontSize: 14)),
+              child: const Text('删除', style: TextStyle(fontSize: 14)),
             ),
             DialogOption(
               onPressed: () {
@@ -215,8 +215,8 @@ class _LikeMePageState extends State<LikeMePage> {
                 if (isNotice) {
                   showConfirmDialog(
                     context: context,
-                    title: const Text('涓嶅啀閫氱煡'),
-                    content: const Text('杩欐潯鍐呭鐨勭偣璧炲皢涓嶅啀閫氱煡锛屼絾浠嶅彲鍦ㄥ垪琛ㄥ唴鏌ョ湅锛屾槸鍚︾户缁紵'),
+                    title: const Text('不再通知'),
+                    content: const Text('这条内容的点赞将不再通知，但仍可在列表内查看，是否继续？'),
                     onConfirm: () =>
                         _likeMeController.onSetNotice(item, isNotice),
                   );
@@ -225,7 +225,7 @@ class _LikeMePageState extends State<LikeMePage> {
                 }
               },
               child: Text(
-                isNotice ? '涓嶅啀閫氱煡' : '鎺ユ敹閫氱煡',
+                isNotice ? '不再通知' : '接收通知',
                 style: const TextStyle(fontSize: 14),
               ),
             ),
@@ -270,14 +270,14 @@ class _LikeMePageState extends State<LikeMePage> {
             ),
             if (item.counts! > 1)
               TextSpan(
-                text: ' 绛?{item.counts}浜?,
+                text: ' 等${item.counts}人',
                 style: theme.textTheme.titleSmall!.copyWith(
                   fontSize: 12,
                   height: 1.5,
                 ),
               ),
             TextSpan(
-              text: ' 璧炰簡鎴戠殑${item.item?.business}',
+              text: ' 赞了我的${item.item?.business}',
               style: theme.textTheme.titleSmall!.copyWith(
                 height: 1.5,
                 color: theme.colorScheme.onSurfaceVariant,
@@ -336,4 +336,3 @@ class _LikeMePageState extends State<LikeMePage> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_info_model/area.dart';
+import 'package:liqliquid/models_new/pgc/pgc_info_model/area.dart';
 import 'package:liqliquid/models_new/pgc/pgc_info_model/brief.dart';
 import 'package:liqliquid/models_new/pgc/pgc_info_model/cooperator.dart';
 import 'package:liqliquid/models_new/pgc/pgc_info_model/episode.dart';
@@ -100,4 +100,3 @@ class PgcInfoModel {
         : Brief.fromJson(json['brief'] as Map<String, dynamic>),
   );
 }
-

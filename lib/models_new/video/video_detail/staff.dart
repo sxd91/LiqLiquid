@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 
 class Staff {
   dynamic mid;
@@ -27,4 +27,3 @@ class Staff {
         : BaseOfficialVerify.fromJson(json['official']);
   }
 }
-

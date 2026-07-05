@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/blacklist/list.dart';
+import 'package:liqliquid/models_new/blacklist/list.dart';
 
 class BlackListData {
   List<BlackListItem>? list;
@@ -13,4 +13,3 @@ class BlackListData {
     total: json['total'] as int?,
   );
 }
-

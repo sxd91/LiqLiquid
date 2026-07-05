@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
@@ -66,7 +66,7 @@ class WhisperSessionItem extends StatelessWidget {
                 Get.back();
                 onSetTop(item.isPinned, item.id);
               },
-              child: Text(item.isPinned ? '绉婚櫎缃《' : '缃《'),
+              child: Text(item.isPinned ? '移除置顶' : '置顶'),
             ),
             if (item.id.privateId.hasTalkerUid())
               DialogOption(
@@ -74,7 +74,7 @@ class WhisperSessionItem extends StatelessWidget {
                   Get.back();
                   onSetMute(item.isMuted, item.id.privateId.talkerUid);
                 },
-                child: Text('${item.isMuted ? '鍏抽棴' : '寮€鍚?}鍏嶆墦鎵?),
+                child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'),
               ),
             if (item.id.privateId.hasTalkerUid())
               DialogOption(
@@ -82,12 +82,12 @@ class WhisperSessionItem extends StatelessWidget {
                   Get.back();
                   showConfirmDialog(
                     context: context,
-                    title: const Text('纭畾鍒犻櫎璇ュ璇濓紵'),
+                    title: const Text('确定删除该对话？'),
                     onConfirm: () =>
                         onRemove(item.id.privateId.talkerUid.toInt()),
                   );
                 },
-                child: const Text('鍒犻櫎'),
+                child: const Text('删除'),
               ),
           ],
         ),
@@ -100,25 +100,25 @@ class WhisperSessionItem extends StatelessWidget {
                 PopupMenuItem(
                   height: 42,
                   onTap: () => onSetTop(item.isPinned, item.id),
-                  child: Text(item.isPinned ? '绉婚櫎缃《' : '缃《'),
+                  child: Text(item.isPinned ? '移除置顶' : '置顶'),
                 ),
                 if (item.id.privateId.hasTalkerUid())
                   PopupMenuItem(
                     height: 42,
                     onTap: () =>
                         onSetMute(item.isMuted, item.id.privateId.talkerUid),
-                    child: Text('${item.isMuted ? '鍏抽棴' : '寮€鍚?}鍏嶆墦鎵?),
+                    child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'),
                   ),
                 if (item.id.privateId.hasTalkerUid())
                   PopupMenuItem(
                     height: 42,
                     onTap: () => showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍒犻櫎璇ュ璇濓紵'),
+                      title: const Text('确定删除该对话？'),
                       onConfirm: () =>
                           onRemove(item.id.privateId.talkerUid.toInt()),
                     ),
-                    child: const Text('鍒犻櫎'),
+                    child: const Text('删除'),
                   ),
               ],
             )
@@ -319,4 +319,3 @@ class WhisperSessionItem extends StatelessWidget {
     );
   }
 }
-

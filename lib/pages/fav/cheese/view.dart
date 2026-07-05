@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -66,7 +66,7 @@ class _FavCheesePageState extends State<FavCheesePage>
                     item: item,
                     onRemove: () => showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍙栨秷鏀惰棌璇ヨ鍫傦紵'),
+                      title: const Text('确定取消收藏该课堂？'),
                       onConfirm: () =>
                           _controller.onRemove(index, item.seasonId!),
                     ),
@@ -82,4 +82,3 @@ class _FavCheesePageState extends State<FavCheesePage>
     };
   }
 }
-

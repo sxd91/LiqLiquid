@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 
 enum ContributeType {
   video(Api.spaceArchive),
@@ -12,4 +12,3 @@ enum ContributeType {
   final String api;
   const ContributeType(this.api);
 }
-

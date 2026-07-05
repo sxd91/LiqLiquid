@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_h.dart';
+import 'package:liqliquid/common/skeleton/video_card_h.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/video_card/video_card_h.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -109,4 +109,3 @@ class _SearchAllPanelState
     itemCount: 10,
   );
 }
-

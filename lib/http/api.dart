@@ -1,4 +1,4 @@
-﻿import 'package:LiqLiquid/http/constants.dart';
+import 'package:liqliquid/http/constants.dart';
 
 abstract final class Api {
   // 推荐视频
@@ -40,19 +40,19 @@ abstract final class Api {
 
   /// https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/action.md
   // 点赞 Post
-  /// aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  /// bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
-  /// like        num        操作方式        必要        1：点赞 2：取消赞
-  // csrf        str        CSRF Token（位于cookie）        必要
+  /// aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  /// bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
+  /// like	num	操作方式	必要	1：点赞 2：取消赞
+  // csrf	str	CSRF Token（位于cookie）	必要
   // https://api.bilibili.com/x/web-interface/archive/like
   // static const String likeVideo = '/x/web-interface/archive/like';
 
   // 改用app端点赞接口
   static const String likeVideo = '${HttpString.appBaseUrl}/x/v2/view/like';
   //判断视频是否被点赞（双端）Get
-  // access_key        str        APP登录Token        APP方式必要
-  /// aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  /// bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
+  // access_key	str	APP登录Token	APP方式必要
+  /// aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  /// bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
   // https://api.bilibili.com/x/web-interface/archive/has/like
   // static const String hasLikeVideo = '/x/web-interface/archive/has/like';
 
@@ -61,18 +61,18 @@ abstract final class Api {
   // 视频点踩 web端不支持
 
   // 点踩 Post(app端)
-  /// access_key str        APP登录Token 必要
-  /// aid num        稿件avid        必要
+  /// access_key str	APP登录Token 必要
+  /// aid num	稿件avid	必要
   ///
   static const String dislikeVideo =
       '${HttpString.appBaseUrl}/x/v2/view/dislike';
 
   // 投币视频（web端）POST
-  /// aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  /// bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
-  /// multiply        num        投币数量        必要        上限为2
-  /// select_like        num        是否附加点赞        非必要        0：不点赞 1：同时点赞 默认为0
-  // csrf        str        CSRF Token（位于cookie）        必要
+  /// aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  /// bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
+  /// multiply	num	投币数量	必要	上限为2
+  /// select_like	num	是否附加点赞	非必要	0：不点赞 1：同时点赞 默认为0
+  // csrf	str	CSRF Token（位于cookie）	必要
   // https://api.bilibili.com/x/web-interface/coin/add
   // static const String coinVideo = '/x/web-interface/coin/add';
 
@@ -80,9 +80,9 @@ abstract final class Api {
   static const String coinVideo = '${HttpString.appBaseUrl}/x/v2/view/coin/add';
 
   // 判断视频是否被投币（双端）GET
-  // access_key        str        APP登录Token        APP方式必要
-  /// aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  /// bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
+  // access_key	str	APP登录Token	APP方式必要
+  /// aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  /// bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
   /// https://api.bilibili.com/x/web-interface/archive/coins
   // static const String hasCoinVideo = '/x/web-interface/archive/coins';
 
@@ -99,12 +99,12 @@ abstract final class Api {
   static const String favResourceList = '/x/v3/fav/resource/list';
 
   // 收藏视频（双端）POST
-  // access_key        str        APP登录Token        APP方式必要
-  /// rid        num        稿件avid        必要
-  /// type        num        必须为2        必要
-  /// add_media_ids        nums        需要加入的收藏夹mlid        非必要        同时添加多个，用,（%2C）分隔
-  /// del_media_ids        nums        需要取消的收藏夹mlid        非必要        同时取消多个，用,（%2C）分隔
-  // csrf        str        CSRF Token（位于cookie）        Cookie方式必要
+  // access_key	str	APP登录Token	APP方式必要
+  /// rid	num	稿件avid	必要
+  /// type	num	必须为2	必要
+  /// add_media_ids	nums	需要加入的收藏夹mlid	非必要	同时添加多个，用,（%2C）分隔
+  /// del_media_ids	nums	需要取消的收藏夹mlid	非必要	同时取消多个，用,（%2C）分隔
+  // csrf	str	CSRF Token（位于cookie）	Cookie方式必要
   // https://api.bilibili.com/medialist/gateway/coll/resource/deal
   // https://api.bilibili.com/x/v3/fav/resource/deal
   static const String favVideo = '/x/v3/fav/resource/batch-deal';
@@ -128,24 +128,24 @@ abstract final class Api {
 
   // 分享视频 （Web端） POST
   // https://api.bilibili.com/x/web-interface/share/add
-  // aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  // bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
-  // csrf        str        CSRF Token（位于cookie）        必要
+  // aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  // bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
+  // csrf	str	CSRF Token（位于cookie）	必要
 
   // 一键三连
   // https://api.bilibili.com/x/web-interface/archive/like/triple
-  // aid        num        稿件avid        必要（可选）        avid与bvid任选一个
-  // bvid        str        稿件bvid        必要（可选）        avid与bvid任选一个
-  // csrf        str        CSRF Token（位于cookie）        必要
+  // aid	num	稿件avid	必要（可选）	avid与bvid任选一个
+  // bvid	str	稿件bvid	必要（可选）	avid与bvid任选一个
+  // csrf	str	CSRF Token（位于cookie）	必要
   static const String ugcTriple = '/x/web-interface/archive/like/triple';
 
   static const String pgcTriple = '/pgc/season/episode/like/triple';
 
   // 获取指定用户创建的所有收藏夹信息
   // 该接口也能查询目标内容id存在于那些收藏夹中
-  // up_mid        num        目标用户mid        必要
-  // type        num        目标内容属性        非必要        默认为全部 0：全部 2：视频稿件
-  // rid        num        目标 视频稿件avid
+  // up_mid	num	目标用户mid	必要
+  // type	num	目标内容属性	非必要	默认为全部 0：全部 2：视频稿件
+  // rid	num	目标 视频稿件avid
   static const String favFolder = '/x/v3/fav/folder/created/list-all';
 
   static const String copyToview = '/x/v2/history/toview/copy';
@@ -411,7 +411,7 @@ abstract final class Api {
 
   // github 获取最新版
   static const String latestApp =
-      'https://api.github.com/repos/bggRGjQaUbCoE/PiliPlus/releases';
+      'https://api.github.com/repos/sxd91/LiqLiquid/releases';
 
   // 多少人在看
   // https://api.bilibili.com/x/player/online/total?aid=913663681&cid=1203559746&bvid=BV1MM4y1s7NZ&ts=56427838
@@ -589,20 +589,20 @@ abstract final class Api {
       '${HttpString.passBaseUrl}/x/safecenter/captcha/pre';
 
   /// 密码登录时风控发送手机验证码
-  ///sms_type        str        loginTelCheck
-  /// tmp_code        str        验证标记代码        来自数据处理中的解析出的参数tmp_token
-  /// gee_challenge        str        极验id        申请人机验证时得到(data->gee_challenge)
-  /// gee_seccode        str        极验key        人机验证后得到(result->geetest_seccode)
-  /// gee_validate        str        极验result        人机验证后得到(result->geetest_validate)
-  /// recaptcha_token        str        验证token        申请人机验证时得到(data->recaptcha_token)
+  ///sms_type	str	loginTelCheck
+  /// tmp_code	str	验证标记代码	来自数据处理中的解析出的参数tmp_token
+  /// gee_challenge	str	极验id	申请人机验证时得到(data->gee_challenge)
+  /// gee_seccode	str	极验key	人机验证后得到(result->geetest_seccode)
+  /// gee_validate	str	极验result	人机验证后得到(result->geetest_validate)
+  /// recaptcha_token	str	验证token	申请人机验证时得到(data->recaptcha_token)
   static const String safeCenterSmsCode =
       '${HttpString.passBaseUrl}/x/safecenter/common/sms/send';
 
-  /// type        str        loginTelCheck
-  /// code        int        验证码内容
-  /// tmp_code        str        验证标记代码        来自数据处理中的解析出的参数tmp_token
-  /// request_id        str        验证请求标记        来自数据处理中的解析出的参数requestId
-  /// captcha_key        str        验证秘钥        来自申请验证码的captcha_key（data->captcha_key）
+  /// type	str	loginTelCheck
+  /// code	int	验证码内容
+  /// tmp_code	str	验证标记代码	来自数据处理中的解析出的参数tmp_token
+  /// request_id	str	验证请求标记	来自数据处理中的解析出的参数requestId
+  /// captcha_key	str	验证秘钥	来自申请验证码的captcha_key（data->captcha_key）
   static const String safeCenterSmsVerify =
       '${HttpString.passBaseUrl}/x/safecenter/login/tel/verify';
 

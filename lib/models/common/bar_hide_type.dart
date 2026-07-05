@@ -1,12 +1,11 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 
 enum BarHideType with EnumWithLabel {
-  instant('鍗虫椂'),
-  sync('鍚屾'),
+  instant('即时'),
+  sync('同步'),
   ;
 
   @override
   final String label;
   const BarHideType(this.label);
 }
-

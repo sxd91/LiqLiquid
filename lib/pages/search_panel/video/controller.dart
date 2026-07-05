@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/search/search_type.dart';
@@ -165,7 +165,7 @@ class SearchVideoController
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 10),
-                const Text('鍙戝竷鏃堕棿', style: TextStyle(fontSize: 16)),
+                const Text('发布时间', style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
@@ -225,12 +225,12 @@ class SearchVideoController
                   spacing: 8,
                   children: [
                     Expanded(child: dateWidget()),
-                    const Text('鑷?, style: TextStyle(fontSize: 13)),
+                    const Text('至', style: TextStyle(fontSize: 13)),
                     Expanded(child: dateWidget(false)),
                   ],
                 ),
                 const SizedBox(height: 20),
-                const Text('鍐呭鏃堕暱', style: TextStyle(fontSize: 16)),
+                const Text('内容时长', style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
@@ -255,7 +255,7 @@ class SearchVideoController
                   ).toList(),
                 ),
                 const SizedBox(height: 20),
-                const Text('鍐呭鍒嗗尯', style: TextStyle(fontSize: 16)),
+                const Text('内容分区', style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
@@ -287,4 +287,3 @@ class SearchVideoController
     );
   }
 }
-

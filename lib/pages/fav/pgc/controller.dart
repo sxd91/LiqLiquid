@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models_new/fav/fav_pgc/data.dart';
@@ -50,7 +50,7 @@ class FavPgcController
     enableMultiSelect.value = false;
   }
 
-  // 鍙栨秷杩界暘
+  // 取消追番
   Future<void> pgcDel(int index, seasonId) async {
     final result = await VideoHttp.pgcDel(seasonId: seasonId);
     if (result case Success(:final response)) {
@@ -122,4 +122,3 @@ class FavPgcController
     }
   }
 }
-

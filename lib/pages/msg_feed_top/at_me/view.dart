@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -33,7 +33,7 @@ class _AtMePageState extends State<AtMePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('@鎴戠殑'),
+        title: const Text('@我的'),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -95,7 +95,7 @@ class _AtMePageState extends State<AtMePage> {
                   final item = response[index];
                   void onLongPress() => showConfirmDialog(
                     context: context,
-                    title: const Text('纭畾鍒犻櫎璇ラ€氱煡?'),
+                    title: const Text('确定删除该通知?'),
                     onConfirm: () => _atMeController.onRemove(item.id!, index),
                   );
                   return ListTile(
@@ -130,7 +130,7 @@ class _AtMePageState extends State<AtMePage> {
                             ),
                           ),
                           TextSpan(
-                            text: " 鍦?{item.item?.business}涓瑻浜嗘垜",
+                            text: " 在${item.item?.business}中@了我",
                             style: theme.textTheme.titleSmall!.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -184,4 +184,3 @@ class _AtMePageState extends State<AtMePage> {
     };
   }
 }
-

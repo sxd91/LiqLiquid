@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_contribution_rank/item.dart';
+import 'package:liqliquid/models_new/live/live_contribution_rank/item.dart';
 
 class LiveContributionRankData {
   List<LiveContributionRankItem>? item;
@@ -17,4 +17,3 @@ class LiveContributionRankData {
             .toList(),
       );
 }
-

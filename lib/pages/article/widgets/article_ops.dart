@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/models_new/article/article_view/ops.dart';
@@ -33,7 +33,7 @@ class ArticleOpus extends StatelessWidget {
           final item = _ops[index];
           switch (item.insert) {
             case String e:
-              return SelectableText(e);
+              return Text(e);
             case Insert(:final card):
               if (card != null) {
                 if (card.url?.isNotEmpty == true) {
@@ -90,4 +90,3 @@ class ArticleOpus extends StatelessWidget {
     );
   }
 }
-

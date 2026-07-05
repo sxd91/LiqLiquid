@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/dynamics/article_content_model.dart';
+import 'package:liqliquid/models/dynamics/article_content_model.dart';
 
 class ArticleOpus {
   List<ArticleContentModel>? content;
@@ -9,4 +9,3 @@ class ArticleOpus {
     }
   }
 }
-

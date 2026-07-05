@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert' show jsonDecode, jsonEncode;
 import 'dart:io' show Directory, File;
 
@@ -601,4 +601,3 @@ extension SetNotifierExt on SetNotifier {
     }
   }
 }
-

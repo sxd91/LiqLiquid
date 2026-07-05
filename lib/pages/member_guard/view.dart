@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
+import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -56,7 +56,7 @@ class _MemberGuardState extends State<MemberGuard> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('$_userName鐨勮埌闃?{_count == null ? '' : '($_count)'}'),
+        title: Text('$_userName的舰队${_count == null ? '' : '($_count)'}'),
       ),
       body: refreshIndicator(
         onRefresh: _controller.onRefresh,
@@ -205,4 +205,3 @@ class _MemberGuardState extends State<MemberGuard> {
     );
   }
 }
-

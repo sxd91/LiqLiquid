@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_like/item.dart';
+import 'package:liqliquid/models_new/msg/msg_like/item.dart';
 
 class Latest {
   List<MsgLikeItem>? items;
@@ -13,4 +13,3 @@ class Latest {
     lastViewAt: json['last_view_at'] as int?,
   );
 }
-

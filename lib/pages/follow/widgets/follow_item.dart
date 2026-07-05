@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/pages/share/view.dart' show UserModel;
 import 'package:liqliquid/utils/feed_back.dart';
@@ -41,7 +41,7 @@ class FollowItem extends StatelessWidget {
           backgroundColor: isFollow ? colorScheme.onInverseSurface : null,
         ),
         child: Text(
-          '${isFollow ? '宸? : ''}鍏虫敞',
+          '${isFollow ? '已' : ''}关注',
           style: const TextStyle(fontSize: 12),
         ),
       );
@@ -107,4 +107,3 @@ class FollowItem extends StatelessWidget {
     );
   }
 }
-

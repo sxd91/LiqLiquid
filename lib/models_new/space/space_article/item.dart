@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_article/stats.dart';
+import 'package:liqliquid/models_new/space/space_article/stats.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class SpaceArticleItem {
@@ -27,4 +27,3 @@ class SpaceArticleItem {
         publishTimeText: json['publish_time_text'] as String?,
       );
 }
-

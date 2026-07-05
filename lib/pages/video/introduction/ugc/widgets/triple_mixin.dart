@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/pages/video/pay_coins/view.dart';
 import 'package:liqliquid/utils/global_data.dart';
@@ -9,13 +9,13 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 mixin TripleMixin on GetxController, TickerProvider {
-  // 鏄惁鐐硅禐
+  // 是否点赞
   final RxBool hasLike = false.obs;
-  // 鎶曞竵鏁伴噺
+  // 投币数量
   final RxNum coinNum = RxNum(0);
-  // 鏄惁鎶曞竵
+  // 是否投币
   bool get hasCoin => coinNum.value != 0;
-  // 鏄惁鏀惰棌
+  // 是否收藏
   final RxBool hasFav = false.obs;
 
   bool get hasTriple => hasLike.value && hasCoin && hasFav.value;
@@ -36,7 +36,7 @@ mixin TripleMixin on GetxController, TickerProvider {
 
   void actionCoinVideo() {
     if (!isLogin) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
 
@@ -44,12 +44,12 @@ mixin TripleMixin on GetxController, TickerProvider {
     final copyright = this.copyright;
     final hasCopyright = isHasCopyright(copyright);
     if (reachCoinLimit(hasCopyright, coinNum)) {
-      SmartDialog.showToast('杈惧埌鎶曞竵涓婇檺鍟');
+      SmartDialog.showToast('达到投币上限啦~');
       return;
     }
 
     if (GlobalData().coins != null && GlobalData().coins! < 1) {
-      SmartDialog.showToast('纭竵涓嶈冻');
+      SmartDialog.showToast('硬币不足');
       // return;
     }
 
@@ -84,6 +84,8 @@ mixin TripleMixin on GetxController, TickerProvider {
     _timer = null;
   }
 
+  bool get isTripling => _tripleAnimCtr?.status == .forward;
+
   static final _duration = PlatformUtils.isMobile
       ? const Duration(milliseconds: 200)
       : const Duration(milliseconds: 255);
@@ -92,7 +94,7 @@ mixin TripleMixin on GetxController, TickerProvider {
     _timer ??= Timer(_duration, () {
       HapticFeedback.lightImpact();
       if (hasTriple) {
-        SmartDialog.showToast('宸插畬鎴愪笁杩?);
+        SmartDialog.showToast('已完成三连');
       } else {
         tripleAnimCtr.forward().whenComplete(() {
           tripleAnimCtr.reset();
@@ -104,7 +106,7 @@ mixin TripleMixin on GetxController, TickerProvider {
   }
 
   void onCancelTriple([bool isTapUp = false]) {
-    if (tripleAnimCtr.status == AnimationStatus.forward) {
+    if (tripleAnimCtr.status == .forward) {
       tripleAnimCtr.reverse();
     } else if (_timer != null && _timer!.tick == 0) {
       _cancelTimer();
@@ -121,4 +123,3 @@ mixin TripleMixin on GetxController, TickerProvider {
     super.onClose();
   }
 }
-

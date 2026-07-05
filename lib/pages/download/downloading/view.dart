@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/appbar/appbar.dart';
+import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -46,10 +46,10 @@ class _DownloadingPageState extends State<DownloadingPage>
           appBar: MultiSelectAppBarWidget(
             ctr: this,
             child: AppBar(
-              title: const Text('姝ｅ湪缂撳瓨'),
+              title: const Text('正在缓存'),
               actions: [
                 IconButton(
-                  tooltip: '澶氶€?,
+                  tooltip: '多选',
                   onPressed: () {
                     if (enableMultiSelect) {
                       handleSelect();
@@ -105,7 +105,7 @@ class _DownloadingPageState extends State<DownloadingPage>
   void onRemove() {
     showConfirmDialog(
       context: context,
-      title: const Text('纭畾鍒犻櫎閫変腑瑙嗛锛?),
+      title: const Text('确定删除选中视频？'),
       onConfirm: () async {
         SmartDialog.showLoading();
         final allChecked = this.allChecked.toSet();
@@ -132,4 +132,3 @@ class _DownloadingPageState extends State<DownloadingPage>
     );
   }
 }
-

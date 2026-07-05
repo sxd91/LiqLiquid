@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/http/msg.dart';
@@ -54,7 +54,7 @@ class MemberDynamicsController
       loadingState
         ..value.data!.removeWhere((item) => item.idStr == dynamicId)
         ..refresh();
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -71,21 +71,20 @@ class MemberDynamicsController
         ..moduleAuthor?.isTop = false;
       if (isTop) {
         loadingState.refresh();
-        SmartDialog.showToast('鍙栨秷缃《鎴愬姛');
+        SmartDialog.showToast('取消置顶成功');
       } else {
         final item = list.firstWhere((item) => item.idStr == dynamicId);
         item.modules
-          ..moduleTag = ModuleTag(text: '缃《')
+          ..moduleTag = ModuleTag(text: '置顶')
           ..moduleAuthor?.isTop = true;
         list
           ..remove(item)
           ..insert(0, item);
         loadingState.refresh();
-        SmartDialog.showToast('缃《鎴愬姛');
+        SmartDialog.showToast('置顶成功');
       }
     } else {
       res.toast();
     }
   }
 }
-

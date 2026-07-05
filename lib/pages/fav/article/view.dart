@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -64,7 +64,7 @@ class _FavArticlePageState extends State<FavArticlePage>
                     item: item,
                     onDelete: () => showConfirmDialog(
                       context: context,
-                      title: const Text('纭畾鍙栨秷鏀惰棌锛?),
+                      title: const Text('确定取消收藏？'),
                       onConfirm: () =>
                           _favArticleController.onRemove(index, item.opusId!),
                     ),
@@ -80,4 +80,3 @@ class _FavArticlePageState extends State<FavArticlePage>
     };
   }
 }
-

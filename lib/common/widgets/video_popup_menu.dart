@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models/common/account_type.dart';
@@ -57,13 +57,13 @@ class VideoPopupMenu extends StatelessWidget {
                     () => Utils.copyText(videoItem.bvid!),
                   ),
                   _VideoCustomAction(
-                    '绋嶅悗鍐嶇湅',
+                    '稍后再看',
                     const Icon(MdiIcons.clockTimeEightOutline, size: 16),
                     () => UserHttp.toViewLater(bvid: videoItem.bvid),
                   ),
                   if (videoItem.cid != null && Pref.enableAi)
                     _VideoCustomAction(
-                      'AI鎬荤粨',
+                      'AI总结',
                       const Icon(CustomIcons.ai_circle, size: 16),
                       () async {
                         final res = await UgcIntroController.getAiConclusion(
@@ -92,39 +92,39 @@ class VideoPopupMenu extends StatelessWidget {
                 ],
                 if (videoItem is! SpaceArchiveItem) ...[
                   _VideoCustomAction(
-                    '璁块棶锛?{videoItem.owner.name}',
+                    '访问：${videoItem.owner.name}',
                     const Icon(MdiIcons.accountCircleOutline, size: 16),
                     () => Get.toNamed('/member?mid=${videoItem.owner.mid}'),
                   ),
                   _VideoCustomAction(
-                    '涓嶆劅鍏磋叮',
+                    '不感兴趣',
                     const Icon(MdiIcons.thumbDownOutline, size: 16),
                     () {
                       String? accessKey = Accounts.get(
                         AccountType.recommend,
                       ).accessKey;
                       if (accessKey == null || accessKey == "") {
-                        SmartDialog.showToast("璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍");
+                        SmartDialog.showToast("请退出账号后重新登录");
                         return;
                       }
                       if (videoItem case final RcmdVideoItemAppModel item) {
                         ThreePoint? tp = item.threePoint;
                         if (tp == null) {
-                          SmartDialog.showToast("鏈兘鑾峰彇threePoint");
+                          SmartDialog.showToast("未能获取threePoint");
                           return;
                         }
                         if (tp.dislikeReasons == null && tp.feedbacks == null) {
                           SmartDialog.showToast(
-                            "鏈兘鑾峰彇dislikeReasons鎴杅eedbacks",
+                            "未能获取dislikeReasons或feedbacks",
                           );
                           return;
                         }
                         Widget actionButton(Reason? r, Reason? f) {
                           return SearchText(
-                            text: r?.name ?? f?.name ?? '鏈煡',
+                            text: r?.name ?? f?.name ?? '未知',
                             onTap: (_) async {
                               Get.back();
-                              SmartDialog.showLoading(msg: '姝ｅ湪鎻愪氦');
+                              SmartDialog.showLoading(msg: '正在提交');
                               final res = await VideoHttp.feedDislike(
                                 reasonId: r?.id,
                                 feedbackId: f?.id,
@@ -151,7 +151,7 @@ class VideoPopupMenu extends StatelessWidget {
                               contentPadding: const .fromLTRB(24, 16, 24, 24),
                               children: [
                                 if (tp.dislikeReasons != null) ...[
-                                  const Text('鎴戜笉鎯崇湅'),
+                                  const Text('我不想看'),
                                   const SizedBox(height: 5),
                                   Wrap(
                                     spacing: 8.0,
@@ -163,7 +163,7 @@ class VideoPopupMenu extends StatelessWidget {
                                 ],
                                 if (tp.feedbacks != null) ...[
                                   const SizedBox(height: 5),
-                                  const Text('鍙嶉'),
+                                  const Text('反馈'),
                                   const SizedBox(height: 5),
                                   Wrap(
                                     spacing: 8.0,
@@ -178,7 +178,7 @@ class VideoPopupMenu extends StatelessWidget {
                                   child: FilledButton.tonal(
                                     onPressed: () async {
                                       SmartDialog.showLoading(
-                                        msg: '姝ｅ湪鎻愪氦',
+                                        msg: '正在提交',
                                       );
                                       final res =
                                           await VideoHttp.feedDislikeCancel(
@@ -187,14 +187,14 @@ class VideoPopupMenu extends StatelessWidget {
                                           );
                                       SmartDialog.dismiss();
                                       SmartDialog.showToast(
-                                        res.isSuccess ? "鎴愬姛" : res.toString(),
+                                        res.isSuccess ? "成功" : res.toString(),
                                       );
                                       Get.back();
                                     },
                                     style: FilledButton.styleFrom(
                                       visualDensity: VisualDensity.compact,
                                     ),
-                                    child: const Text("鎾ら攢"),
+                                    child: const Text("撤销"),
                                   ),
                                 ),
                               ],
@@ -207,7 +207,7 @@ class VideoPopupMenu extends StatelessWidget {
                           builder: (context) => SimpleDialog(
                             contentPadding: const .all(24),
                             children: [
-                              const Center(child: Text("web绔殏涓嶆敮鎸佺簿缁嗛€夋嫨")),
+                              const Center(child: Text("web端暂不支持精细选择")),
                               const SizedBox(height: 5),
                               Wrap(
                                 spacing: 5.0,
@@ -217,14 +217,14 @@ class VideoPopupMenu extends StatelessWidget {
                                   FilledButton.tonal(
                                     onPressed: () async {
                                       Get.back();
-                                      SmartDialog.showLoading(msg: '姝ｅ湪鎻愪氦');
+                                      SmartDialog.showLoading(msg: '正在提交');
                                       final res = await VideoHttp.dislikeVideo(
                                         bvid: videoItem.bvid!,
                                         type: true,
                                       );
                                       SmartDialog.dismiss();
                                       if (res.isSuccess) {
-                                        SmartDialog.showToast('鐐硅俯鎴愬姛');
+                                        SmartDialog.showToast('点踩成功');
                                         onRemove?.call();
                                       } else {
                                         res.toast();
@@ -233,25 +233,25 @@ class VideoPopupMenu extends StatelessWidget {
                                     style: FilledButton.styleFrom(
                                       visualDensity: .compact,
                                     ),
-                                    child: const Text("鐐硅俯"),
+                                    child: const Text("点踩"),
                                   ),
                                   FilledButton.tonal(
                                     onPressed: () async {
                                       Get.back();
-                                      SmartDialog.showLoading(msg: '姝ｅ湪鎻愪氦');
+                                      SmartDialog.showLoading(msg: '正在提交');
                                       final res = await VideoHttp.dislikeVideo(
                                         bvid: videoItem.bvid!,
                                         type: false,
                                       );
                                       SmartDialog.dismiss();
                                       SmartDialog.showToast(
-                                        res.isSuccess ? '鍙栨秷韪? : res.toString(),
+                                        res.isSuccess ? '取消踩' : res.toString(),
                                       );
                                     },
                                     style: FilledButton.styleFrom(
                                       visualDensity: .compact,
                                     ),
-                                    child: const Text("鎾ら攢"),
+                                    child: const Text("撤销"),
                                   ),
                                 ],
                               ),
@@ -262,22 +262,22 @@ class VideoPopupMenu extends StatelessWidget {
                     },
                   ),
                   _VideoCustomAction(
-                    '鎷夐粦锛?{videoItem.owner.name}',
+                    '拉黑：${videoItem.owner.name}',
                     const Icon(MdiIcons.cancel, size: 16),
                     () => showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text('鎻愮ず'),
+                          title: const Text('提示'),
                           content: Text(
-                            '纭畾鎷夐粦:${videoItem.owner.name}(${videoItem.owner.mid})?'
-                            '\n\n娉細琚媺榛戠殑Up鍙互鍦ㄩ殣绉佽缃?榛戝悕鍗曠鐞嗕腑瑙ｉ櫎',
+                            '确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
+                            '\n\n注：被拉黑的Up可以在隐私设置-黑名单管理中解除',
                           ),
                           actions: [
                             TextButton(
                               onPressed: Get.back,
                               child: Text(
-                                '鐐归敊浜?,
+                                '点错了',
                                 style: TextStyle(
                                   color: ColorScheme.of(context).outline,
                                 ),
@@ -297,7 +297,7 @@ class VideoPopupMenu extends StatelessWidget {
                                   res.toast();
                                 }
                               },
-                              child: const Text('纭'),
+                              child: const Text('确认'),
                             ),
                           ],
                         );
@@ -306,7 +306,7 @@ class VideoPopupMenu extends StatelessWidget {
                   ),
                 ],
                 _VideoCustomAction(
-                  "${MineController.anonymity.value ? '閫€鍑? : '杩涘叆'}鏃犵棔妯″紡",
+                  "${MineController.anonymity.value ? '退出' : '进入'}无痕模式",
                   MineController.anonymity.value
                       ? const Icon(MdiIcons.incognitoOff, size: 16)
                       : const Icon(MdiIcons.incognito, size: 16),
@@ -330,4 +330,3 @@ class VideoPopupMenu extends StatelessWidget {
     );
   }
 }
-

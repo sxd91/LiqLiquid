@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space/item.dart';
+import 'package:liqliquid/models_new/space/space/item.dart';
 
 class UgcSeason {
   int? count;
@@ -13,4 +13,3 @@ class UgcSeason {
         .toList(),
   );
 }
-

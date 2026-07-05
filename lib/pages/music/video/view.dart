@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -101,7 +101,7 @@ class _MusicRecommendPageState extends State<MusicRecommendPage>
                 return count == null
                     ? const SizedBox.shrink()
                     : Text(
-                        '鍏?count鏉¤棰?,
+                        '共$count条视频',
                         style: theme.textTheme.labelMedium,
                       );
               }),
@@ -112,4 +112,3 @@ class _MusicRecommendPageState extends State<MusicRecommendPage>
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -104,7 +104,7 @@ class _LiveAreaDetailPageState extends State<LiveAreaDetailPage> {
                       iconButton(
                         iconSize: 20,
                         tooltip:
-                            '鍒囨崲${_controller.showFirstFrame ? '灏侀潰' : '棣栧抚'}',
+                            '切换${_controller.showFirstFrame ? '封面' : '首帧'}',
                         icon: _controller.showFirstFrame
                             ? const Icon(MdiIcons.alphaFBox)
                             : const Icon(MdiIcons.image),
@@ -116,7 +116,7 @@ class _LiveAreaDetailPageState extends State<LiveAreaDetailPage> {
                       ),
                       iconButton(
                         iconSize: 20,
-                        tooltip: '鏄剧ず鑿滃崟',
+                        tooltip: '显示菜单',
                         icon: const Icon(Icons.menu),
                         onPressed: () =>
                             _showTags(context, theme, bottom, response),
@@ -251,4 +251,3 @@ class _LiveAreaDetailPageState extends State<LiveAreaDetailPage> {
     );
   }
 }
-

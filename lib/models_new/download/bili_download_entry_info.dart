@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform, Process;
+import 'dart:io' show Platform, Process;
 
 import 'package:liqliquid/models/common/video/video_type.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart'
@@ -72,7 +72,7 @@ class BiliDownloadEntryInfo with MultiSelectData {
       itemBuilder: (_) => [
         PopupMenuItem(
           height: 38,
-          child: const Text('鏌ョ湅璇︽儏椤?, style: TextStyle(fontSize: 13)),
+          child: const Text('查看详情页', style: TextStyle(fontSize: 13)),
           onTap: () {
             if (ep case final ep?) {
               if (ep.from == VideoType.pugv.name) {
@@ -102,7 +102,7 @@ class BiliDownloadEntryInfo with MultiSelectData {
         if (PlatformUtils.isDesktop)
           PopupMenuItem(
             height: 38,
-            child: const Text('鎵撳紑鏈湴鏂囦欢澶?, style: TextStyle(fontSize: 13)),
+            child: const Text('打开本地文件夹', style: TextStyle(fontSize: 13)),
             onTap: () async {
               try {
                 final String executable;
@@ -125,7 +125,7 @@ class BiliDownloadEntryInfo with MultiSelectData {
           PopupMenuItem(
             height: 38,
             child: Text(
-              '璁块棶${ownerName != null ? '锛?ownerName' : '鐢ㄦ埛涓婚〉'}',
+              '访问${ownerName != null ? '：$ownerName' : '用户主页'}',
               style: const TextStyle(fontSize: 13),
             ),
             onTap: () => Get.toNamed('/member?mid=$mid'),
@@ -408,18 +408,18 @@ class EpInfo {
 }
 
 enum DownloadStatus {
-  downloading('姝ｅ湪涓嬭浇'),
-  audioDownloading('姝ｅ湪涓嬭浇闊抽'),
-  getDanmaku('鑾峰彇寮瑰箷'),
-  getPlayUrl('鑾峰彇鎾斁鍦板潃'),
+  downloading('正在下载'),
+  audioDownloading('正在下载音频'),
+  getDanmaku('获取弹幕'),
+  getPlayUrl('获取播放地址'),
   //
-  completed('涓嬭浇瀹屾垚'),
-  failDownload('涓嬭浇澶辫触'),
-  failDownloadAudio('闊抽涓嬭浇澶辫触'),
-  failDanmaku('鑾峰彇寮瑰箷澶辫触'),
-  failPlayUrl('鑾峰彇鎾斁鍦板潃澶辫触'),
-  pause('鏆傚仠涓?),
-  wait('绛夊緟涓?),
+  completed('下载完成'),
+  failDownload('下载失败'),
+  failDownloadAudio('音频下载失败'),
+  failDanmaku('获取弹幕失败'),
+  failPlayUrl('获取播放地址失败'),
+  pause('暂停中'),
+  wait('等待中'),
   ;
 
   final String message;
@@ -427,4 +427,3 @@ enum DownloadStatus {
 
   bool get isDownloading => index <= 3;
 }
-

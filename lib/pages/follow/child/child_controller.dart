@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/follow.dart';
+import 'package:liqliquid/http/follow.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/http/user.dart';
@@ -90,4 +90,3 @@ class FollowChildController
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math' show min;
 import 'dart:ui';
 
@@ -65,7 +65,8 @@ import 'package:liqliquid/utils/theme_utils.dart';
 import 'package:liqliquid/utils/utils.dart';
 import 'package:liqliquid/utils/video_utils.dart';
 import 'package:collection/collection.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+    show ExtendedNestedScrollViewState;
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -76,7 +77,7 @@ import 'package:media_kit/media_kit.dart' hide Subtitle;
 
 class VideoDetailController extends GetxController
     with GetTickerProviderStateMixin, BlockMixin {
-  /// 璺敱浼犲弬
+  /// 路由传参
   late final Map args;
   late String bvid;
   late int aid;
@@ -87,13 +88,14 @@ class VideoDetailController extends GetxController
   late final String heroTag;
   late final RxString cover;
 
-  // 瑙嗛绫诲瀷 榛樿鎶曠瑙嗛
+  // 视频类型 默认投稿视频
   late final VideoType videoType;
   @override
   late final isUgc = videoType == VideoType.ugc;
   VideoType? _actualVideoType;
 
-  // 椤甸潰鏉ユ簮 绋嶅悗鍐嶇湅 鏀惰棌澶?  late bool isPlayAll;
+  // 页面来源 稍后再看 收藏夹
+  late bool isPlayAll;
   late SourceType sourceType;
   late BiliDownloadEntryInfo entry;
   late bool isFileSource;
@@ -101,18 +103,19 @@ class VideoDetailController extends GetxController
   late final RxList<MediaListItemModel> mediaList = <MediaListItemModel>[].obs;
   late String watchLaterTitle;
 
-  /// tabs鐩稿叧閰嶇疆
+  /// tabs相关配置
   late TabController tabCtr;
 
-  // 璇锋眰杩斿洖鐨勮棰戜俊鎭?  late PlayUrlModel data;
+  // 请求返回的视频信息
+  late PlayUrlModel data;
   final RxBool videoState = false.obs;
 
-  /// 鎾斁鍣ㄩ厤缃?鐢昏川 闊宠川 瑙ｇ爜鏍煎紡
+  /// 播放器配置 画质 音质 解码格式
   final Rxn<VideoQuality> currentVideoQa = Rxn<VideoQuality>();
   AudioQuality? currentAudioQa;
   late VideoDecodeFormatType currentDecodeFormats;
 
-  // 鏄惁寮€濮嬭嚜鍔ㄦ挱鏀?瀛樺湪澶歱鐨勬儏鍐典笅锛岀浜宲闇€瑕佷负true
+  // 是否开始自动播放 存在多p的情况下，第二p需要为true
   final RxBool _autoPlay = Pref.autoPlayEnable.obs;
 
   final videoPlayerKey = GlobalKey();
@@ -134,14 +137,15 @@ class VideoDetailController extends GetxController
     return pos == null || pos == 0 ? '' : '?t=${pos / 1000}';
   }
 
-  // 浜害
+  // 亮度
   double? brightness;
 
   late final headerCtrKey = GlobalKey<TimeBatteryMixin>();
 
   Box setting = GStorage.setting;
 
-  // 棰勮鐨勮В鐮佹牸寮?  late List<VideoDecodeFormatType> preferCodecs = Pref.preferCodecs;
+  // 预设的解码格式
+  late List<VideoDecodeFormatType> preferCodecs = Pref.preferCodecs;
 
   bool get showReply => isFileSource
       ? false
@@ -166,8 +170,7 @@ class VideoDetailController extends GetxController
   late final RxDouble scrollRatio = 0.0.obs;
 
   ScrollController? _scrollCtr;
-  ScrollController get scrollCtr =>
-      _scrollCtr ??= ScrollController()..addListener(scrollListener);
+  ScrollController get scrollCtr => _scrollCtr ??= ScrollController();
 
   late bool isExpanding = false;
   late bool isCollapsing = false;
@@ -310,26 +313,6 @@ class VideoDetailController extends GetxController
         }
       }
     } catch (_) {}
-  }
-
-  void scrollListener() {
-    if (scrollCtr.hasClients) {
-      if (scrollCtr.offset == 0) {
-        scrollRatio.value = 0;
-      } else {
-        double offset = scrollCtr.offset - (videoHeight - minVideoHeight);
-        if (offset > 0) {
-          scrollRatio.value = clampDouble(
-            offset.toPrecision(2) /
-                (minVideoHeight - kToolbarHeight).toPrecision(2),
-            0.0,
-            1.0,
-          );
-        } else {
-          scrollRatio.value = 0;
-        }
-      }
-    }
   }
 
   final isLoginVideo = Accounts.get(AccountType.video).isLogin;
@@ -503,7 +486,7 @@ class VideoDetailController extends GetxController
                   );
                   if (res.isSuccess) {
                     mediaList.removeAt(index);
-                    SmartDialog.showToast('鍙栨秷鏀惰棌');
+                    SmartDialog.showToast('取消收藏');
                   } else {
                     res.toast();
                   }
@@ -587,8 +570,8 @@ class VideoDetailController extends GetxController
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               fontSize: 14,
               text: item is SegmentModel
-                  ? '璺宠繃: ${item.segmentType.shortTitle}'
-                  : '涓婃鐪嬪埌绗?{(item as int) + 1}P锛岀偣鍑昏烦杞?,
+                  ? '跳过: ${item.segmentType.shortTitle}'
+                  : '上次看到第${(item as int) + 1}P，点击跳转',
               onTap: (_) {
                 if (item is int) {
                   try {
@@ -597,10 +580,10 @@ class VideoDetailController extends GetxController
                     Part part =
                         ugcIntroController.videoDetail.value.pages![item];
                     ugcIntroController.onChangeEpisode(part);
-                    SmartDialog.showToast('宸茶烦鑷崇${item + 1}P');
+                    SmartDialog.showToast('已跳至第${item + 1}P');
                   } catch (e) {
                     if (kDebugMode) debugPrint('$e');
-                    SmartDialog.showToast('璺宠浆澶辫触');
+                    SmartDialog.showToast('跳转失败');
                   }
                   onRemoveItem(listData.indexOf(item), item);
                 } else if (item is SegmentModel) {
@@ -618,9 +601,10 @@ class VideoDetailController extends GetxController
   ({int mode, int fontSize, Color color})? dmConfig;
   String? savedDanmaku;
 
-  /// 鍙戦€佸脊骞?  Future<void> showShootDanmakuSheet() async {
+  /// 发送弹幕
+  Future<void> showShootDanmakuSheet() async {
     if (plPlayerController.dmState.contains(cid.value)) {
-      SmartDialog.showToast('UP涓诲凡鍏抽棴寮瑰箷');
+      SmartDialog.showToast('UP主已关闭弹幕');
       return;
     }
     final isPlaying =
@@ -657,7 +641,7 @@ class VideoDetailController extends GetxController
   }
 
   VideoItem findVideoByQa(int qa, {bool setCodecs = false}) {
-    /// 鏍规嵁currentVideoQa鍜宑urrentDecodeFormats 閲嶆柊璁剧疆videoUrl
+    /// 根据currentVideoQa和currentDecodeFormats 重新设置videoUrl
     final videoList = data.dash!.video!.where((i) => i.id == qa).toList();
 
     final currentCodes = currentDecodeFormats.codes;
@@ -690,7 +674,7 @@ class VideoDetailController extends GetxController
     return bestVideo ?? videoList.first;
   }
 
-  /// 鏇存柊鐢昏川銆侀煶璐?
+  /// 更新画质、音质
   void updatePlayer() {
     final currentVideoQa = this.currentVideoQa.value;
     if (currentVideoQa == null) return;
@@ -703,7 +687,7 @@ class VideoDetailController extends GetxController
     firstVideo = findVideoByQa(currentVideoQa.code, setCodecs: true);
     videoUrl = VideoUtils.getCdnUrl(firstVideo.playUrls);
 
-    /// 鏍规嵁currentAudioQa 閲嶆柊璁剧疆audioUrl
+    /// 根据currentAudioQa 重新设置audioUrl
     if (currentAudioQa != null) {
       final firstAudio = data.dash!.audio!.firstWhere(
         (i) => i.id == currentAudioQa!.code,
@@ -797,7 +781,7 @@ class VideoDetailController extends GetxController
   void setLanguage(String language) {
     if (currLang.value == language) return;
     if (!isLoginVideo) {
-      SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+      SmartDialog.showToast('账号未登录');
       return;
     }
     currLang.value = language;
@@ -806,7 +790,7 @@ class VideoDetailController extends GetxController
 
   Volume? volume;
 
-  // 瑙嗛閾炬帴
+  // 视频链接
   /// TODO: merge [DownloadHttp.getVideoUrl].
   Future<void> queryVideoUrl({
     bool fromReset = false,
@@ -868,9 +852,9 @@ class VideoDetailController extends GetxController
         }
       }
 
-      if (data.acceptDesc?.contains('璇曠湅') == true) {
+      if (data.acceptDesc?.contains('试看') == true) {
         SmartDialog.showToast(
-          '璇ヨ棰戜负涓撳睘瑙嗛锛屼粎鎻愪緵璇曠湅',
+          '该视频为专属视频，仅提供试看',
           displayTime: const Duration(seconds: 3),
         );
       }
@@ -879,7 +863,7 @@ class VideoDetailController extends GetxController
         videoUrl = VideoUtils.getCdnUrl(first.playUrls);
         audioUrl = '';
 
-        // 瀹為檯涓篎LV/MP4鏍煎紡锛屼絾宸茶娣樻卑锛岃繖閲屼粎鍋氬厹搴曞鐞?
+        // 实际为FLV/MP4格式，但已被淘汰，这里仅做兜底处理
         final videoQuality = VideoQuality.fromCode(data.quality!);
         firstVideo = VideoItem(
           id: data.quality!,
@@ -895,7 +879,7 @@ class VideoDetailController extends GetxController
         return;
       }
       if (data.dash == null) {
-        SmartDialog.showToast('瑙嗛璧勬簮涓嶅瓨鍦?);
+        SmartDialog.showToast('视频资源不存在');
         _autoPlay.value = false;
         videoState.value = false;
         if (plPlayerController.isFullScreen.value) {
@@ -906,23 +890,25 @@ class VideoDetailController extends GetxController
       }
       final List<VideoItem> videoList = data.dash!.video!;
       // if (kDebugMode) debugPrint("allVideosList:${allVideosList}");
-      // 褰撳墠鍙挱鏀剧殑鏈€楂樿川閲忚棰?
+      // 当前可播放的最高质量视频
       final curHighestVideoQa = videoList.first.quality.code;
-      // 棰勮鐨勭敾璐ㄤ负null锛屽垯褰撳墠鍙敤鐨勬渶楂樿川閲?
+      // 预设的画质为null，则当前可用的最高质量
       int targetVideoQa = curHighestVideoQa;
       if (data.acceptQuality?.isNotEmpty == true &&
           plPlayerController.cacheVideoQa! <= curHighestVideoQa) {
-        // 濡傛灉棰勮鐨勭敾璐ㄤ綆浜庡綋鍓嶆渶楂?        targetVideoQa = data.acceptQuality!.findClosestTarget(
+        // 如果预设的画质低于当前最高
+        targetVideoQa = data.acceptQuality!.findClosestTarget(
           (e) => e <= plPlayerController.cacheVideoQa!,
           (a, b) => a > b ? a : b,
         );
       }
       currentVideoQa.value = VideoQuality.fromCode(targetVideoQa);
 
-      /// 浼樺厛椤哄簭 璁剧疆涓寚瀹氳В鐮佹牸寮?-> 褰撳墠鍙€夌殑棣栦釜瑙ｇ爜鏍煎紡
+      /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
       final supportFormats = data.supportFormats!;
 
-      // 鏍规嵁鐢昏川閫夌紪鐮佹牸寮?      currentDecodeFormats = VideoUtils.selectCodec(
+      // 根据画质选编码格式
+      currentDecodeFormats = VideoUtils.selectCodec(
         supportFormats
             .firstWhere(
               (e) => e.quality == targetVideoQa,
@@ -932,12 +918,12 @@ class VideoDetailController extends GetxController
         preferCodecs,
       );
 
-      /// 鍙栧嚭绗﹀悎褰撳墠鐢昏川鐨剉ideoList
+      /// 取出符合当前画质的videoList
       final videosList = videoList
           .where((e) => e.quality.code == targetVideoQa)
           .toList();
 
-      /// 鍙栧嚭绗﹀悎褰撳墠瑙ｇ爜鏍煎紡鐨剉ideoItem
+      /// 取出符合当前解码格式的videoItem
       firstVideo = videosList.firstWhere(
         (e) => currentDecodeFormats.codes.any(e.codecs!.startsWith),
         orElse: () => videosList.first,
@@ -946,7 +932,8 @@ class VideoDetailController extends GetxController
 
       videoUrl = VideoUtils.getCdnUrl(firstVideo.playUrls);
 
-      /// 浼樺厛椤哄簭 璁剧疆涓寚瀹氳川閲?-> 褰撳墠鍙€夌殑鏈€楂樿川閲?      AudioItem? firstAudio;
+      /// 优先顺序 设置中指定质量 -> 当前可选的最高质量
+      AudioItem? firstAudio;
       final audioList = data.dash?.audio;
       if (audioList != null && audioList.isNotEmpty) {
         final List<int> audioIds = audioList.map((map) => map.id!).toList();
@@ -1025,7 +1012,7 @@ class VideoDetailController extends GetxController
   late final showVP = true.obs;
   late final viewPointList = <ViewPointSegment>[].obs;
 
-  // 璁惧畾瀛楀箷杞ㄩ亾
+  // 设定字幕轨道
   Future<void> setSubtitle(int index) async {
     if (index <= 0) {
       await plPlayerController.videoPlayerController?.setSubtitleTrack(.no());
@@ -1240,9 +1227,7 @@ class VideoDetailController extends GetxController
     introScrollCtr?.dispose();
     introScrollCtr = null;
     tabCtr.dispose();
-    _scrollCtr
-      ?..removeListener(scrollListener)
-      ..dispose();
+    _scrollCtr?.dispose();
     animController
       ?..removeListener(_animListener)
       ..dispose();
@@ -1260,10 +1245,6 @@ class VideoDetailController extends GetxController
     defaultST = null;
     videoUrl = null;
     audioUrl = null;
-
-    if (scrollRatio.value != 0) {
-      scrollRatio.refresh();
-    }
 
     // danmaku
     savedDanmaku = null;
@@ -1516,7 +1497,7 @@ class VideoDetailController extends GetxController
       context: Get.context!,
       builder: (context) => AlertDialog(
         constraints: Style.dialogFixedConstraints,
-        title: const Text('鎾斁鍦板潃'),
+        title: const Text('播放地址'),
         content: Column(
           spacing: 20,
           mainAxisSize: MainAxisSize.min,
@@ -1542,7 +1523,7 @@ class VideoDetailController extends GetxController
               this.audioUrl = audioUrl;
               playerInit();
             },
-            child: const Text('纭畾'),
+            child: const Text('确定'),
           ),
         ],
       ),
@@ -1562,7 +1543,7 @@ class VideoDetailController extends GetxController
     if (res case Success(:final response)) {
       final first = response.durl?.firstOrNull;
       if (first == null || first.playUrls.isEmpty) {
-        SmartDialog.showToast('涓嶆敮鎸佹姇灞?);
+        SmartDialog.showToast('不支持投屏');
         return;
       }
       final url = VideoUtils.getCdnUrl(first.playUrls);
@@ -1594,4 +1575,3 @@ class VideoDetailController extends GetxController
     }
   }
 }
-

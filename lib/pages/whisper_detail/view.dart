@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io' show File;
 
 import 'package:liqliquid/common/assets.dart';
@@ -104,7 +104,7 @@ class _WhisperDetailPageState
         ),
         actions: [
           IconButton(
-            tooltip: '璁剧疆',
+            tooltip: '设置',
             onPressed: () => Get.to(
               WhisperLinkSettingPage(
                 talkerUid: _whisperDetailController.talkerId,
@@ -206,7 +206,7 @@ class _WhisperDetailPageState
               msgType: 5,
               index: index,
             ),
-            child: const Text('鎾ゅ洖', style: TextStyle(fontSize: 14)),
+            child: const Text('撤回', style: TextStyle(fontSize: 14)),
           )
         else
           PopupMenuItem(
@@ -224,7 +224,7 @@ class _WhisperDetailPageState
                         : ReportOptions.imMsgReport['']![reasonType]!,
                   ),
             ),
-            child: const Text('涓炬姤', style: TextStyle(fontSize: 14)),
+            child: const Text('举报', style: TextStyle(fontSize: 14)),
           ),
       ],
     );
@@ -249,7 +249,7 @@ class _WhisperDetailPageState
                   );
                 },
                 dense: true,
-                title: const Text('鎾ゅ洖', style: TextStyle(fontSize: 14)),
+                title: const Text('撤回', style: TextStyle(fontSize: 14)),
               )
             : ListTile(
                 onTap: () {
@@ -269,7 +269,7 @@ class _WhisperDetailPageState
                   );
                 },
                 dense: true,
-                title: const Text('涓炬姤', style: TextStyle(fontSize: 14)),
+                title: const Text('举报', style: TextStyle(fontSize: 14)),
               ),
       ),
     );
@@ -292,7 +292,7 @@ class _WhisperDetailPageState
                   : PanelType.emoji,
             ),
             icon: const Icon(Icons.emoji_emotions),
-            tooltip: '琛ㄦ儏',
+            tooltip: '表情',
           ),
           Expanded(
             child: Listener(
@@ -315,7 +315,7 @@ class _WhisperDetailPageState
                   textInputAction: TextInputAction.newline,
                   decoration: InputDecoration(
                     filled: true,
-                    hintText: '鍙戜釜娑堟伅鑱婅亰鍛梸',
+                    hintText: '发个消息聊聊呗~',
                     fillColor: theme.colorScheme.surface,
                     border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -351,7 +351,7 @@ class _WhisperDetailPageState
                       );
                       if (pickedFile != null) {
                         final path = pickedFile.path;
-                        SmartDialog.showLoading(msg: '姝ｅ湪涓婁紶鍥剧墖');
+                        SmartDialog.showLoading(msg: '正在上传图片');
                         final result = await MsgHttp.uploadBfs(
                           path: path,
                           biz: 'im',
@@ -370,7 +370,7 @@ class _WhisperDetailPageState
                             'original': 1,
                             'size': response.imgSize,
                           };
-                          SmartDialog.showLoading(msg: '姝ｅ湪鍙戦€?);
+                          SmartDialog.showLoading(msg: '正在发送');
                           await _whisperDetailController
                               .sendMsg(
                                 picMsg: picMsg,
@@ -397,7 +397,7 @@ class _WhisperDetailPageState
                       ? Icons.send
                       : Icons.add_photo_alternate_outlined,
                 ),
-                tooltip: enablePublish ? '鍙戦€? : '鍥剧墖',
+                tooltip: enablePublish ? '发送' : '图片',
               );
             },
           ),
@@ -420,4 +420,3 @@ class _WhisperDetailPageState
   @override
   void onSave() {}
 }
-

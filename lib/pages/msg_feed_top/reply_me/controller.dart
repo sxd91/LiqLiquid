@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/msg.dart';
 import 'package:liqliquid/models_new/msg/msg_reply/data.dart';
 import 'package:liqliquid/models_new/msg/msg_reply/item.dart';
@@ -44,11 +44,10 @@ class ReplyMeController
         loadingState
           ..value.data!.removeAt(index)
           ..refresh();
-        SmartDialog.showToast('鍒犻櫎鎴愬姛');
+        SmartDialog.showToast('删除成功');
       } else {
         res.toast();
       }
     } catch (_) {}
   }
 }
-

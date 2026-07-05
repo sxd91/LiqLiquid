@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
+import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/colored_box_transition.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -68,10 +68,10 @@ class VideoReplyReplyPanel extends CommonSlidePage {
       () => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('璇勮璇︽儏'),
+          title: const Text('评论详情'),
           actions: [
             IconButton(
-              tooltip: '鍓嶅線',
+              tooltip: '前往',
               onPressed: uri == null
                   ? null
                   : () => PiliScheme.routePush(uri, businessId: type),
@@ -159,9 +159,9 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(isDialogue ? '瀵硅瘽鍒楄〃' : '璇勮璇︽儏'),
+                      Text(isDialogue ? '对话列表' : '评论详情'),
                       IconButton(
-                        tooltip: '鍏抽棴',
+                        tooltip: '关闭',
                         icon: const Icon(Icons.close, size: 20),
                         onPressed: Get.back,
                       ),
@@ -246,16 +246,16 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
     return SliverPinnedHeader(
       backgroundColor: colorScheme.surface,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 2.5, 6, 2.5),
+        padding: const .fromLTRB(12, 2.5, 6, 2.5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Obx(
               () {
                 final count = _controller.count.value;
                 return count != -1
                     ? Text(
-                        '鐩稿叧鍥炲鍏?{NumUtils.numFormat(count)}鏉?,
+                        '相关回复共${NumUtils.numFormat(count)}条',
                         style: const TextStyle(fontSize: 13),
                       )
                     : const SizedBox.shrink();
@@ -299,7 +299,7 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
               alignment: Alignment.center,
               margin: .only(bottom: MediaQuery.viewPaddingOf(context).bottom),
               child: Text(
-                _controller.isEnd ? '娌℃湁鏇村浜? : '鍔犺浇涓?..',
+                _controller.isEnd ? '没有更多了' : '加载中...',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,
@@ -315,7 +315,8 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
                 ColorTween(
                   begin: colorScheme.onInverseSurface,
                   end: colorScheme.surface,
-                  // 鍓?.8s涓嶅彉, 鍚?.2s寮€濮嬪姩鐢?                ).chain(CurveTween(curve: const Interval(0.8, 1.0))),
+                  // 前0.8s不变, 后0.2s开始动画
+                ).chain(CurveTween(curve: const Interval(0.8, 1.0))),
               ),
               child: child,
             );
@@ -352,11 +353,10 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
       ),
       jumpToDialogue: () {
         if (!_controller.setIndexById(replyItem.parent)) {
-          SmartDialog.showToast('璇勮鍙兘宸茶鍒犻櫎');
+          SmartDialog.showToast('评论可能已被删除');
         }
       },
       onCheckReply: (item) => _controller.onCheckReply(item, isManual: true),
     );
   }
 }
-

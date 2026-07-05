@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
@@ -11,7 +11,7 @@ import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/route_aware_mixin.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
-import 'package:liqliquid/common/widgets/sliver/sliver_pinned_dynamic_header.dart';
+import 'package:liqliquid/common/widgets/sliver/video_header.dart';
 import 'package:liqliquid/common/widgets/svg/play_icon.dart';
 import 'package:liqliquid/models/common/episode_panel_type.dart';
 import 'package:liqliquid/models_new/pgc/pgc_info_model/result.dart';
@@ -165,7 +165,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     addObserverMobile(this);
   }
 
-  // 鑾峰彇瑙嗛璧勬簮锛屽垵濮嬪寲鎾斁鍣?
+  // 获取视频资源，初始化播放器
   void videoSourceInit() {
     videoDetailController.queryVideoUrl(autoFullScreenFlag: true);
     if (videoDetailController.autoPlay) {
@@ -204,7 +204,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     return plPlayerController?.play();
   }
 
-  // 鎾斁鍣ㄧ姸鎬佺洃鍚?  Future<void> playerListener(PlayerStatus status) async {
+  // 播放器状态监听
+  Future<void> playerListener(PlayerStatus status) async {
     final isPlaying = status.isPlaying;
     try {
       if (videoDetailController.scrollCtr.hasClients) {
@@ -247,7 +248,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
 
       bool exitFlag = true;
 
-      /// 椤哄簭鎾斁 鍒楄〃寰幆
+      /// 顺序播放 列表循环
       if (shutdownTimerService.isWaiting) {
         shutdownTimerService.handleWaiting();
       } else {
@@ -279,12 +280,12 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     }
   }
 
-  // 缁х画鎾斁鎴栭噸鏂版挱鏀?
+  // 继续播放或重新播放
   void continuePlay() {
     plPlayerController!.play();
   }
 
-  /// 鏈紑鍚嚜鍔ㄦ挱鏀炬椂瑙﹀彂鎾斁
+  /// 未开启自动播放时触发播放
   Future<void>? handlePlay() {
     if (!videoDetailController.isFileSource) {
       if (videoDetailController.isQuerying) {
@@ -358,7 +359,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }
 
   @override
-  // 绂诲紑褰撳墠椤甸潰鏃?
+  // 离开当前页面时
   void didPushNext() {
     super.didPushNext();
     isShowing = false;
@@ -386,7 +387,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }
 
   @override
-  // 杩斿洖褰撳墠椤甸潰鏃?
+  // 返回当前页面时
   void didPopNext() {
     super.didPopNext();
 
@@ -492,24 +493,21 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                     () {
                       final scrollRatio =
                           videoDetailController.scrollRatio.value;
-                      final flag =
-                          isPortrait &&
-                          videoDetailController.scrollCtr.offset != 0;
                       return AppBar(
-                        backgroundColor: flag && scrollRatio > 0
+                        toolbarHeight: 0,
+                        backgroundColor: isPortrait && scrollRatio > 0
                             ? Color.lerp(
                                 Colors.black,
                                 themeData.colorScheme.surface,
                                 scrollRatio,
                               )
                             : Colors.black,
-                        toolbarHeight: 0,
                         systemOverlayStyle: Platform.isAndroid
                             ? SystemUiOverlayStyle(
                                 statusBarIconBrightness:
-                                    flag && scrollRatio >= 0.5
+                                    isPortrait && scrollRatio >= 0.5
                                     ? themeData.brightness.reverse
-                                    : Brightness.light,
+                                    : .light,
                                 systemNavigationBarIconBrightness:
                                     themeData.brightness.reverse,
                               )
@@ -556,179 +554,20 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                   ? videoDetailController.animHeight
                   : videoDetailController.videoHeight;
               return [
-                SliverPinnedDynamicHeader(
+                VideoHeader(
                   minExtent: kToolbarHeight,
                   maxExtent: height,
+                  minVideoHeight: videoDetailController.minVideoHeight,
+                  onScrollRatioChanged: videoDetailController.scrollRatio.call,
                   child: Stack(
-                    clipBehavior: Clip.none,
+                    clipBehavior: .none,
                     children: [
                       SizedBox(
                         width: maxWidth,
                         height: height,
-                        child: videoPlayer(
-                          width: maxWidth,
-                          height: height,
-                        ),
+                        child: videoPlayer(width: maxWidth, height: height),
                       ),
-                      Obx(
-                        () {
-                          Widget toolbar() => Opacity(
-                            opacity: videoDetailController.scrollRatio.value,
-                            child: Container(
-                              color: themeData.colorScheme.surface,
-                              alignment: Alignment.topCenter,
-                              child: SizedBox(
-                                height: kToolbarHeight,
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          SizedBox(
-                                            width: 42,
-                                            height: 34,
-                                            child: IconButton(
-                                              tooltip: '杩斿洖',
-                                              icon: Icon(
-                                                FontAwesomeIcons.arrowLeft,
-                                                size: 15,
-                                                color: themeData
-                                                    .colorScheme
-                                                    .onSurface,
-                                              ),
-                                              onPressed: Get.back,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 42,
-                                            height: 34,
-                                            child: IconButton(
-                                              tooltip: '杩斿洖涓婚〉',
-                                              icon: Icon(
-                                                FontAwesomeIcons.house,
-                                                size: 15,
-                                                color: themeData
-                                                    .colorScheme
-                                                    .onSurface,
-                                              ),
-                                              onPressed: videoDetailController
-                                                  .plPlayerController
-                                                  .onCloseAll,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(
-                                            Icons.play_arrow_rounded,
-                                            color:
-                                                themeData.colorScheme.primary,
-                                          ),
-                                          Text(
-                                            '${videoDetailController.playedTime == null
-                                                ? '绔嬪嵆'
-                                                : plPlayerController!.isCompleted
-                                                ? '閲嶆柊'
-                                                : '缁х画'}鎾斁',
-                                            style: TextStyle(
-                                              color:
-                                                  themeData.colorScheme.primary,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child:
-                                          videoDetailController.playedTime ==
-                                              null
-                                          ? _moreBtn(
-                                              themeData.colorScheme.onSurface,
-                                            )
-                                          : SizedBox(
-                                              width: 42,
-                                              height: 34,
-                                              child: IconButton(
-                                                tooltip: "鏇村璁剧疆",
-                                                style: const ButtonStyle(
-                                                  padding:
-                                                      WidgetStatePropertyAll(
-                                                        EdgeInsets.zero,
-                                                      ),
-                                                ),
-                                                onPressed: () =>
-                                                    (videoDetailController
-                                                                .headerCtrKey
-                                                                .currentState
-                                                            as HeaderControlState?)
-                                                        ?.showSettingSheet(),
-                                                icon: Icon(
-                                                  Icons.more_vert_outlined,
-                                                  size: 19,
-                                                  color: themeData
-                                                      .colorScheme
-                                                      .onSurface,
-                                                ),
-                                              ),
-                                            ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                          return videoDetailController.scrollRatio.value == 0 ||
-                                  videoDetailController.scrollCtr.offset == 0 ||
-                                  !isPortrait
-                              ? const SizedBox.shrink()
-                              : Positioned.fill(
-                                  bottom: -2,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (!videoDetailController.isFileSource) {
-                                        if (videoDetailController.isQuerying) {
-                                          if (kDebugMode) {
-                                            debugPrint('handlePlay: querying');
-                                          }
-                                          return;
-                                        }
-                                        if (videoDetailController.videoUrl ==
-                                                null ||
-                                            videoDetailController.audioUrl ==
-                                                null) {
-                                          if (kDebugMode) {
-                                            debugPrint(
-                                              'handlePlay: videoUrl/audioUrl not initialized',
-                                            );
-                                          }
-                                          videoDetailController.queryVideoUrl();
-                                          return;
-                                        }
-                                      }
-                                      videoDetailController.scrollRatio.value =
-                                          0;
-                                      if (plPlayerController == null ||
-                                          videoDetailController.playedTime ==
-                                              null) {
-                                        handlePlay();
-                                      } else {
-                                        plPlayerController!.onDoubleTapCenter();
-                                      }
-                                    },
-                                    behavior: HitTestBehavior.opaque,
-                                    child: toolbar(),
-                                  ),
-                                );
-                        },
-                      ),
+                      _buildHeaderOverlay(),
                     ],
                   ),
                 ),
@@ -759,6 +598,163 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                 ],
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOverlayToolBar(double scrollRatio) {
+    final Icon icon;
+    final double spacing;
+    final String playStat;
+    if (videoDetailController.playedTime == null) {
+      spacing = 2;
+      icon = Icon(
+        Icons.play_arrow_rounded,
+        color: themeData.colorScheme.primary,
+      );
+      playStat = '立即';
+    } else if (plPlayerController!.isCompleted) {
+      spacing = 4;
+      icon = Icon(
+        size: 18,
+        Icons.replay_rounded,
+        color: themeData.colorScheme.primary,
+      );
+      playStat = '重新';
+    } else {
+      spacing = 2;
+      icon = Icon(
+        Icons.play_arrow_rounded,
+        color: themeData.colorScheme.primary,
+      );
+      playStat = '继续';
+    }
+    final playBtn = Row(
+      spacing: spacing,
+      mainAxisSize: .min,
+      children: [
+        icon,
+        Text(
+          '$playStat播放',
+          style: TextStyle(color: themeData.colorScheme.primary),
+        ),
+      ],
+    );
+    return Opacity(
+      opacity: videoDetailController.scrollRatio.value,
+      child: Container(
+        color: themeData.colorScheme.surface,
+        alignment: .topCenter,
+        child: SizedBox(
+          height: kToolbarHeight,
+          child: Stack(
+            clipBehavior: .none,
+            children: [
+              Align(
+                alignment: .centerLeft,
+                child: Row(
+                  mainAxisSize: .min,
+                  children: [
+                    SizedBox(
+                      width: 42,
+                      height: 34,
+                      child: IconButton(
+                        tooltip: '返回',
+                        icon: Icon(
+                          FontAwesomeIcons.arrowLeft,
+                          size: 15,
+                          color: themeData.colorScheme.onSurface,
+                        ),
+                        onPressed: Get.back,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 42,
+                      height: 34,
+                      child: IconButton(
+                        tooltip: '返回主页',
+                        icon: Icon(
+                          FontAwesomeIcons.house,
+                          size: 15,
+                          color: themeData.colorScheme.onSurface,
+                        ),
+                        onPressed:
+                            videoDetailController.plPlayerController.onCloseAll,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Center(child: playBtn),
+              Align(
+                alignment: .centerRight,
+                child: videoDetailController.playedTime == null
+                    ? _moreBtn(themeData.colorScheme.onSurface)
+                    : SizedBox(
+                        width: 42,
+                        height: 34,
+                        child: IconButton(
+                          tooltip: "更多设置",
+                          style: const ButtonStyle(
+                            padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                          ),
+                          onPressed: () =>
+                              (videoDetailController.headerCtrKey.currentState
+                                      as HeaderControlState?)
+                                  ?.showSettingSheet(),
+                          icon: Icon(
+                            Icons.more_vert_outlined,
+                            size: 19,
+                            color: themeData.colorScheme.onSurface,
+                          ),
+                        ),
+                      ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderOverlay() {
+    return Obx(
+      () {
+        final scrollRatio = videoDetailController.scrollRatio.value;
+        if (scrollRatio == 0) {
+          return const SizedBox.shrink();
+        }
+        return Positioned.fill(
+          bottom: -2,
+          child: GestureDetector(
+            onTap: () {
+              if (!videoDetailController.isFileSource) {
+                if (videoDetailController.isQuerying) {
+                  if (kDebugMode) {
+                    debugPrint('handlePlay: querying');
+                  }
+                  return;
+                }
+                if (videoDetailController.videoUrl == null ||
+                    videoDetailController.audioUrl == null) {
+                  if (kDebugMode) {
+                    debugPrint('handlePlay: videoUrl/audioUrl not initialized');
+                  }
+                  videoDetailController.queryVideoUrl();
+                  return;
+                }
+              }
+              if (plPlayerController == null ||
+                  videoDetailController.playedTime == null) {
+                handlePlay();
+              } else {
+                plPlayerController!.onDoubleTapCenter();
+              }
+            },
+            behavior: .opaque,
+            child: _buildOverlayToolBar(scrollRatio),
           ),
         );
       },
@@ -962,7 +958,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildTabBar(
-                    introText: '鐩稿叧瑙嗛',
+                    introText: '相关视频',
                     showIntro: videoDetailController.isFileSource
                         ? true
                         : showIntro,
@@ -1116,7 +1112,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                     width: 42,
                     height: 34,
                     child: IconButton(
-                      tooltip: '杩斿洖',
+                      tooltip: '返回',
                       icon: const Icon(
                         FontAwesomeIcons.arrowLeft,
                         size: 15,
@@ -1135,7 +1131,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                     width: 42,
                     height: 34,
                     child: IconButton(
-                      tooltip: '杩斿洖涓婚〉',
+                      tooltip: '返回主页',
                       icon: const Icon(
                         FontAwesomeIcons.house,
                         size: 15,
@@ -1170,7 +1166,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
             right: 12,
             bottom: 10,
             child: IconButton(
-              tooltip: '鎾斁',
+              tooltip: '播放',
               onPressed: handlePlay,
               icon: const PlayIcon(),
             ),
@@ -1191,38 +1187,38 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     itemBuilder: (BuildContext context) => <PopupMenuEntry>[
       PopupMenuItem(
         onTap: introController.viewLater,
-        child: const Text('绋嶅悗鍐嶇湅'),
+        child: const Text('稍后再看'),
       ),
       if (videoDetailController.epId == null)
         PopupMenuItem(
           onTap: () => videoDetailController.showNoteList(context),
-          child: const Text('鏌ョ湅绗旇'),
+          child: const Text('查看笔记'),
         ),
       if (!videoDetailController.isFileSource)
         PopupMenuItem(
           onTap: () => videoDetailController.onDownload(this.context),
-          child: const Text('缂撳瓨瑙嗛'),
+          child: const Text('缓存视频'),
         ),
       if (videoDetailController.cover.value.isNotEmpty)
         PopupMenuItem(
           onTap: () =>
               ImageUtils.downloadImg([videoDetailController.cover.value]),
-          child: const Text('淇濆瓨灏侀潰'),
+          child: const Text('保存封面'),
         ),
       if (!videoDetailController.isFileSource && videoDetailController.isUgc)
         PopupMenuItem(
           onTap: videoDetailController.toAudioPage,
-          child: const Text('鍚煶棰?),
+          child: const Text('听音频'),
         ),
       PopupMenuItem(
         onTap: () {
           if (!Accounts.main.isLogin) {
-            SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+            SmartDialog.showToast('账号未登录');
           } else {
             PageUtils.reportVideo(videoDetailController.aid);
           }
         },
-        child: const Text('涓炬姤'),
+        child: const Text('举报'),
       ),
     ],
   );
@@ -1327,9 +1323,9 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }) {
     List<String> tabs = [
       if (showIntro)
-        videoDetailController.isFileSource ? '绂荤嚎瑙嗛' : introText ?? '绠€浠?,
-      if (videoDetailController.showReply) '璇勮',
-      if (_shouldShowSeasonPanel) '鎾斁鍒楄〃',
+        videoDetailController.isFileSource ? '离线视频' : introText ?? '简介',
+      if (videoDetailController.showReply) '评论',
+      if (_shouldShowSeasonPanel) '播放列表',
     ];
     if (videoDetailController.tabCtr.length != tabs.length) {
       videoDetailController.tabCtr.dispose();
@@ -1362,10 +1358,10 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
           }
           String text = tabs[value];
           if (videoDetailController.isFileSource ||
-              text == '绠€浠? ||
-              text == '鐩稿叧瑙嗛') {
+              text == '简介' ||
+              text == '相关视频') {
             videoDetailController.introScrollCtr?.animToTop();
-          } else if (text.startsWith('璇勮')) {
+          } else if (text.startsWith('评论')) {
             _videoReplyController.animateToTop();
           }
         }
@@ -1377,11 +1373,11 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
         }
       },
       tabs: tabs.map((text) {
-        if (text == '璇勮') {
+        if (text == '评论') {
           return Obx(() {
             final count = _videoReplyController.count.value;
             return Tab(
-              text: '璇勮${count == -1 ? '' : ' ${NumUtils.numFormat(count)}'}',
+              text: '评论${count == -1 ? '' : ' ${NumUtils.numFormat(count)}'}',
             );
           });
         } else {
@@ -1423,7 +1419,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                         ),
                         onPressed: videoDetailController.showShootDanmakuSheet,
                         child: Text(
-                          '鍙戝脊骞?,
+                          '发弹幕',
                           style: TextStyle(
                             fontSize: 12,
                             color: themeData.colorScheme.onSurfaceVariant,
@@ -1884,7 +1880,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     heroTag: heroTag,
   );
 
-  // ai鎬荤粨
+  // ai总结
   void showAiBottomSheet() {
     videoDetailController.childKey.currentState?.showBottomSheet(
       backgroundColor: Colors.transparent,
@@ -1979,7 +1975,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
 
   void onReversePlay({required bool isSeason}) {
     if (isSeason && videoDetailController.isPlayAll) {
-      SmartDialog.showToast('褰撳墠涓烘挱鏀惧叏閮紝鍚堥泦涓嶆敮鎸佸€掑簭');
+      SmartDialog.showToast('当前为播放全部，合集不支持倒序');
       return;
     }
 
@@ -2075,4 +2071,3 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     );
   }
 }
-

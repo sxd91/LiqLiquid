@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/dynamic/v2.pb.dart';
+import 'package:liqliquid/grpc/bilibili/app/dynamic/v2.pb.dart';
 import 'package:liqliquid/grpc/bilibili/app/interfaces/v1.pb.dart'
     show SearchArchiveReply, SearchArchiveReq;
 import 'package:liqliquid/grpc/bilibili/pagination.pb.dart';
@@ -42,4 +42,3 @@ abstract final class SpaceGrpc {
     );
   }
 }
-

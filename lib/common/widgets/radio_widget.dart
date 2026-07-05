@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
 class RadioWidget<T> extends StatefulWidget {
@@ -152,4 +152,3 @@ class _RadioRegistry<T> extends RadioGroupRegistry<T> {
   @override
   void unregisterClient(RadioClient<T> radio) {}
 }
-

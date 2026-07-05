@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_review/author.dart';
+import 'package:liqliquid/models_new/pgc/pgc_review/author.dart';
 import 'package:liqliquid/models_new/pgc/pgc_review/stat.dart';
 
 class PgcReviewItemModel {
@@ -38,4 +38,3 @@ class PgcReviewItemModel {
             : Stat.fromJson(json['stat'] as Map<String, dynamic>),
       );
 }
-

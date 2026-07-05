@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
@@ -28,7 +28,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>LiqLiquid</string>
+		<string>PiliPlus</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -36,7 +36,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>LiqLiquid</string>
+		<string>PiliPlus</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
@@ -71,11 +71,11 @@
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>璇峰厑璁窤PP淇濆瓨鍥剧墖鍒扮浉鍐?/string>
+		<string>请允许APP保存图片到相册</string>
 		<key>NSCameraUsageDescription</key>
-		<string>App闇€瑕佹偍鐨勫悓鎰?鎵嶈兘璁块棶鐩稿唽</string>
+		<string>App需要您的同意,才能访问相册</string>
 		<key>NSAppleMusicUsageDescription</key>
-		<string>App闇€瑕佹偍鐨勫悓鎰?鎵嶈兘璁块棶濯掍綋璧勬枡搴?/string>
+		<string>App需要您的同意,才能访问媒体资料库</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
 			<string>https</string>
@@ -115,7 +115,7 @@
 					</dict>
 				</array>
 			</dict>
-			<!-- 褰撳叾浠栧簲鐢ㄧ▼搴忔垨绯荤粺閫氳繃 bilibili -->
+			<!-- 当其他应用程序或系统通过 bilibili -->
 			<dict>
 				<key>CFBundleURLName</key>
 				<string>bilibili</string>
@@ -132,7 +132,7 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSLocalNetworkUsageDescription</key>
-		<string>闇€瑕佽闂湰鍦扮綉缁滀互鍙戠幇鍜岃繛鎺?DLNA 鎶曞睆璁惧</string>
+		<string>需要访问本地网络以发现和连接 DLNA 投屏设备</string>
 		<key>NSBonjourServices</key>
 		<array>
 			<string>_ssdp._udp</string>
@@ -141,4 +141,3 @@
 		</array>
 	</dict>
 </plist>
-

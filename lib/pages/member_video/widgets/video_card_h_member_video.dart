@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -15,7 +15,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
-// 瑙嗛鍗＄墖 - 姘村钩甯冨眬
+// 视频卡片 - 水平布局
 class VideoCardHMemberVideo extends StatelessWidget {
   const VideoCardHMemberVideo({
     super.key,
@@ -104,7 +104,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      '涓婃瑙傜湅',
+                                      '上次观看',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -121,7 +121,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                     .join('|'),
                                 right: 6.0,
                                 top: 6.0,
-                                type: videoItem.badges!.first.text == '鍏呯數涓撳睘'
+                                type: videoItem.badges!.first.text == '充电专属'
                                     ? PBadgeType.error
                                     : PBadgeType.primary,
                               ),
@@ -155,7 +155,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                       text:
                                           videoItem.history!.progress ==
                                               videoItem.history!.duration
-                                          ? '宸茬湅瀹?
+                                          ? '已看完'
                                           : '${DurationUtils.formatDuration(videoItem.history!.progress)}/${DurationUtils.formatDuration(videoItem.history!.duration)}',
                                       right: 6.0,
                                       bottom: 6.0,
@@ -262,4 +262,3 @@ class VideoCardHMemberVideo extends StatelessWidget {
     );
   }
 }
-

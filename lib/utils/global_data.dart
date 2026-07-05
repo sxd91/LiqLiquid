@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 class GlobalData {
   int imgQuality = Pref.picQuality;
@@ -17,12 +17,12 @@ class GlobalData {
 
   bool showMedal = Pref.showMedal;
 
-  // 绉佹湁鏋勯€犲嚱鏁?  GlobalData._();
+  // 私有构造函数
+  GlobalData._();
 
-  // 鍗曚緥瀹炰緥
+  // 单例实例
   static final GlobalData _instance = GlobalData._();
 
-  // 鑾峰彇鍏ㄥ眬瀹炰緥
+  // 获取全局实例
   factory GlobalData() => _instance;
 }
-

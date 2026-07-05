@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models_new/history/data.dart';
@@ -76,7 +76,8 @@ class HistoryController
     return false;
   }
 
-  // 瑙傜湅鍘嗗彶鏆傚仠鐘舵€?  Future<void> historyStatus() async {
+  // 观看历史暂停状态
+  Future<void> historyStatus() async {
     final res = await UserHttp.historyStatus(account: account);
     if (res case Success(:final response)) {
       baseCtr.pauseStatus.value = response;
@@ -86,12 +87,12 @@ class HistoryController
     }
   }
 
-  // 鍒犻櫎鏌愭潯鍘嗗彶璁板綍
+  // 删除某条历史记录
   void delHistory(HistoryItemModel item) {
     _onDelete({item});
   }
 
-  // 鍒犻櫎宸茬湅鍘嗗彶璁板綍
+  // 删除已看历史记录
   void onDelViewedHistory() {
     final viewedList = loadingState.value.dataOrNull
         ?.where((e) => e.progress == -1)
@@ -99,12 +100,12 @@ class HistoryController
     if (viewedList != null && viewedList.isNotEmpty) {
       _onDelete(viewedList);
     } else {
-      SmartDialog.showToast('鏃犲凡鐪嬭褰?);
+      SmartDialog.showToast('无已看记录');
     }
   }
 
   Future<void> _onDelete(Set<HistoryItemModel> removeList) async {
-    SmartDialog.showLoading(msg: '璇锋眰涓?);
+    SmartDialog.showLoading(msg: '请求中');
     final res = await UserHttp.delHistory(
       removeList
           .map((item) => '${item.history.business}_${item.kid}')
@@ -114,18 +115,19 @@ class HistoryController
     SmartDialog.dismiss();
     if (res.isSuccess) {
       afterDelete(removeList);
-      SmartDialog.showToast('宸插垹闄?);
+      SmartDialog.showToast('已删除');
     } else {
       res.toast();
     }
   }
 
-  // 鍒犻櫎閫変腑鐨勮褰?  @override
+  // 删除选中的记录
+  @override
   void onRemove() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('鎻愮ず'),
-      content: const Text('纭鍒犻櫎鎵€閫夊巻鍙茶褰曞悧锛?),
+      title: const Text('提示'),
+      content: const Text('确认删除所选历史记录吗？'),
       onConfirm: () => _onDelete(allChecked.toSet()),
     );
   }
@@ -150,4 +152,3 @@ class HistoryController
     return super.onReload();
   }
 }
-

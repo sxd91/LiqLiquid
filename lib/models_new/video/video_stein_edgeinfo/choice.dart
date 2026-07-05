@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/episode.dart';
+import 'package:liqliquid/models_new/video/video_detail/episode.dart';
 
 class Choice extends BaseEpisodeItem {
   String? option;
@@ -15,4 +15,3 @@ class Choice extends BaseEpisodeItem {
     option: json['option'] as String?,
   );
 }
-

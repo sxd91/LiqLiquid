@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -31,13 +31,13 @@ abstract final class SponsorBlock {
 
   static Error getErrMsg(Response res) {
     String statusMessage = switch (res.statusCode) {
-      200 => '鎰忔枡涔嬪鐨勫搷搴?,
-      400 => '鍙傛暟閿欒',
-      403 => '琚嚜鍔ㄥ鏍告満鍒舵嫆缁?,
-      404 => '鏈壘鍒版暟鎹?,
-      409 => '閲嶅鎻愪氦',
-      429 => '鎻愪氦澶揩锛堣Е鍙戦€熺巼鎺у埗锛?,
-      500 => '鏈嶅姟鍣ㄦ棤娉曡幏鍙栦俊鎭?,
+      200 => '意料之外的响应',
+      400 => '参数错误',
+      403 => '被自动审核机制拒绝',
+      404 => '未找到数据',
+      409 => '重复提交',
+      429 => '提交太快（触发速率控制）',
+      500 => '服务器无法获取信息',
       -1 => res.data['message'].toString(), // DioException
       _ => res.statusMessage ?? res.statusCode.toString(),
     };
@@ -45,7 +45,7 @@ abstract final class SponsorBlock {
       final data = res.data;
       if (res.statusCode == 200 ||
           (data is String && data.isNotEmpty && data.length < 200)) {
-        statusMessage = '$statusMessage锛?data';
+        statusMessage = '$statusMessage：$data';
       }
     }
     return Error(statusMessage, code: res.statusCode);
@@ -171,11 +171,12 @@ abstract final class SponsorBlock {
   }
 
   /// {
-  ///   "bvID": string,     // B绔欒棰態VID
-  ///   "cid": string,      // 瑙嗛CID
-  ///   "ytbID": string,    // YouTube瑙嗛ID
-  ///   "UUID": string,     // 缁戝畾璁板綍鐨刄UID锛堜笉鏄棰戜腑鐗囨鐨刄UID锛屾槸缁戝畾璁板綍鏈韩鐨刄UID锛?  ///   "votes": int,       // 缁戝畾璁板綍鐨勬姇绁ㄦ暟
-  ///   "locked": int,      // 缁戝畾璁板綍鏄惁閿佸畾
+  ///   "bvID": string,     // B站视频BVID
+  ///   "cid": string,      // 视频CID
+  ///   "ytbID": string,    // YouTube视频ID
+  ///   "UUID": string,     // 绑定记录的UUID（不是视频中片段的UUID，是绑定记录本身的UUID）
+  ///   "votes": int,       // 绑定记录的投票数
+  ///   "locked": int,      // 绑定记录是否锁定
   /// }
   /// TODO: show port video info dialog
   static Future<LoadingState<String>> getPortVideo({
@@ -229,4 +230,3 @@ abstract final class SponsorBlock {
     return getErrMsg(res);
   }
 }
-

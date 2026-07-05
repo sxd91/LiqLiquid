@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/widgets.dart'
     show WidgetsBinding, WidgetsBindingObserver;
 
@@ -13,4 +13,3 @@ void removeObserverMobile(WidgetsBindingObserver observer) {
     WidgetsBinding.instance.removeObserver(observer);
   }
 }
-

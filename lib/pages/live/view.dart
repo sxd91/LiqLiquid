@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_v.dart';
+import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/button/more_btn.dart';
@@ -111,7 +111,7 @@ class _LivePageState extends State<LivePage>
                                   horizontal: 8,
                                   vertical: 5,
                                 ),
-                                text: isFirst ? '鎺ㄨ崘' : item.title!,
+                                text: isFirst ? '推荐' : item.title!,
                                 bgColor: isCurr
                                     ? theme.colorScheme.secondaryContainer
                                     : Colors.transparent,
@@ -133,7 +133,7 @@ class _LivePageState extends State<LivePage>
                       size: 26,
                       iconSize: 18,
                       context: context,
-                      tooltip: '鍒囨崲${controller.showFirstFrame ? '灏侀潰' : '棣栧抚'}',
+                      tooltip: '切换${controller.showFirstFrame ? '封面' : '首帧'}',
                       icon: controller.showFirstFrame
                           ? const Icon(MdiIcons.alphaFBox)
                           : const Icon(MdiIcons.image),
@@ -147,7 +147,7 @@ class _LivePageState extends State<LivePage>
                       size: 26,
                       iconSize: 16,
                       context: context,
-                      tooltip: '娓告垙璧涗簨',
+                      tooltip: '游戏赛事',
                       icon: const Icon(Icons.gamepad),
                       onPressed: () => Get.toNamed(
                         '/webview',
@@ -163,7 +163,7 @@ class _LivePageState extends State<LivePage>
                       size: 26,
                       iconSize: 16,
                       context: context,
-                      tooltip: '鍏ㄩ儴鏍囩',
+                      tooltip: '全部标签',
                       icon: const Icon(Icons.widgets),
                       onPressed: () => Get.to(const LiveAreaPage()),
                     ),
@@ -271,7 +271,7 @@ class _LivePageState extends State<LivePage>
               Text.rich(
                 TextSpan(
                   children: [
-                    const TextSpan(text: '鎴戠殑鍏虫敞  '),
+                    const TextSpan(text: '我的关注  '),
                     TextSpan(
                       text: totalCount.toString(),
                       style: TextStyle(
@@ -280,7 +280,7 @@ class _LivePageState extends State<LivePage>
                       ),
                     ),
                     TextSpan(
-                      text: '浜烘鍦ㄧ洿鎾?,
+                      text: '人正在直播',
                       style: TextStyle(
                         fontSize: 13,
                         color: theme.colorScheme.outline,
@@ -397,4 +397,3 @@ class _LivePageState extends State<LivePage>
     );
   }
 }
-

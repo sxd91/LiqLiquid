@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/pair.dart';
@@ -51,14 +51,14 @@ class WebDav {
   }
 
   String _getFileName() {
-    return 'liqliquid_settings_${DeviceUtils.platformName}.json';
+    return 'piliplus_settings_${DeviceUtils.platformName}.json';
   }
 
   Future<void> backup() async {
     if (_client == null) {
       final res = await init();
       if (!res.first) {
-        SmartDialog.showToast('澶囦唤澶辫触锛岃妫€鏌ラ厤缃? ${res.second}');
+        SmartDialog.showToast('备份失败，请检查配置: ${res.second}');
         return;
       }
     }
@@ -70,9 +70,9 @@ class WebDav {
         await _client!.remove(path);
       } catch (_) {}
       await _client!.write(path, utf8.encode(data));
-      SmartDialog.showToast('澶囦唤鎴愬姛');
+      SmartDialog.showToast('备份成功');
     } catch (e) {
-      SmartDialog.showToast('澶囦唤澶辫触: $e');
+      SmartDialog.showToast('备份失败: $e');
     }
   }
 
@@ -80,7 +80,7 @@ class WebDav {
     if (_client == null) {
       final res = await init();
       if (!res.first) {
-        SmartDialog.showToast('鎭㈠澶辫触锛岃妫€鏌ラ厤缃? ${res.second}');
+        SmartDialog.showToast('恢复失败，请检查配置: ${res.second}');
         return;
       }
     }
@@ -89,11 +89,9 @@ class WebDav {
       final path = '$_webdavDirectory/$_fileName';
       final data = await _client!.read(path);
       await GStorage.importAllSettings(utf8.decode(data));
-      SmartDialog.showToast('鎭㈠鎴愬姛');
+      SmartDialog.showToast('恢复成功');
     } catch (e) {
-      SmartDialog.showToast('鎭㈠澶辫触: $e');
+      SmartDialog.showToast('恢复失败: $e');
     }
   }
 }
-
-

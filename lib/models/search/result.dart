@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/horizontal_video_model.dart';
+import 'package:liqliquid/models/horizontal_video_model.dart';
 import 'package:liqliquid/models/model_avatar.dart';
 import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models/model_video.dart';
@@ -90,23 +90,25 @@ class SearchVideoItemModel extends HorizontalVideoModel {
     stat = SearchStat.fromJson(json);
     switch (json['type']) {
       case 'ketang':
-        badge = '璇惧爞';
+        badge = '课堂';
         isPugv = true;
       case 'live_room':
-        badge = '鐩存挱';
+        badge = '直播';
         isLive = true;
         roomId = json['roomid'];
       default:
         if (json['is_union_video'] == 1) {
-          badge = '鍚堜綔';
+          badge = '合作';
         }
     }
   }
 }
 
 class SearchStat extends BaseStat {
-  // 鏀惰棌鏁?  int? favorite;
-  // 璇勮鏁?  int? reply;
+  // 收藏数
+  int? favorite;
+  // 评论数
+  int? reply;
 
   SearchStat.fromJson(Map<String, dynamic> json) {
     view = json['play'];
@@ -447,4 +449,3 @@ class SearchArticleItemModel {
     categoryName = json['category_name'];
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/blacklist/data.dart';
@@ -26,4 +26,3 @@ abstract final class BlackHttp {
     }
   }
 }
-

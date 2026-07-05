@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/dynamics/result.dart';
+import 'package:liqliquid/models/dynamics/result.dart';
 
 class TopicCardItem {
   DynamicItemModel? dynamicCardItem;
@@ -15,4 +15,3 @@ class TopicCardItem {
     topicType: json['topic_type'] as String?,
   );
 }
-

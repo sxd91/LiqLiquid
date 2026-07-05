@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/dynamics/result.dart';
+import 'package:liqliquid/models/dynamics/result.dart';
 import 'package:liqliquid/pages/dynamics_repost/view.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 import 'package:liqliquid/utils/page_utils.dart';
@@ -53,13 +53,13 @@ class ActionPanel extends StatelessWidget {
                   FontAwesomeIcons.shareFromSquare,
                   size: 16,
                   color: outline,
-                  semanticLabel: "杞彂",
+                  semanticLabel: "转发",
                 ),
                 style: btnStyle,
                 label: Text(
                   forward.count != null
                       ? NumUtils.numFormat(forward.count)
-                      : '杞彂',
+                      : '转发',
                 ),
               );
             },
@@ -76,11 +76,11 @@ class ActionPanel extends StatelessWidget {
               FontAwesomeIcons.comment,
               size: 16,
               color: outline,
-              semanticLabel: "璇勮",
+              semanticLabel: "评论",
             ),
             style: btnStyle,
             label: Text(
-              comment.count != null ? NumUtils.numFormat(comment.count) : '璇勮',
+              comment.count != null ? NumUtils.numFormat(comment.count) : '评论',
             ),
           ),
         ),
@@ -93,7 +93,7 @@ class ActionPanel extends StatelessWidget {
                     : FontAwesomeIcons.thumbsUp,
                 size: 16,
                 color: like.status! ? primary : outline,
-                semanticLabel: like.status! ? "宸茶禐" : "鐐硅禐",
+                semanticLabel: like.status! ? "已赞" : "点赞",
               );
               return TextButton.icon(
                 onPressed: () => RequestUtils.onLikeDynamic(
@@ -112,7 +112,7 @@ class ActionPanel extends StatelessWidget {
                   transitionBuilder: (child, animation) =>
                       ScaleTransition(scale: animation, child: child),
                   child: Text(
-                    like.count != null ? NumUtils.numFormat(like.count) : '鐐硅禐',
+                    like.count != null ? NumUtils.numFormat(like.count) : '点赞',
                     key: ValueKey<int?>(like.count),
                     style: TextStyle(color: like.status! ? primary : outline),
                   ),
@@ -125,4 +125,3 @@ class ActionPanel extends StatelessWidget {
     );
   }
 }
-

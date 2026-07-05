@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/cnt_info.dart';
 
 class SubItemModel {
@@ -64,4 +64,3 @@ class SubItemModel {
         : CntInfo.fromJson(json['cnt_info']),
   );
 }
-

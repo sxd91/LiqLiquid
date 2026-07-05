@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_item.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class DynTopicItem extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(left: 23),
           child: Text(
-            '${NumUtils.numFormat(item.view)}娴忚 路 ${NumUtils.numFormat(item.discuss)}璁ㄨ',
+            '${NumUtils.numFormat(item.view)}浏览 · ${NumUtils.numFormat(item.discuss)}讨论',
             style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
         ),
@@ -51,4 +51,3 @@ class DynTopicItem extends StatelessWidget {
     );
   }
 }
-

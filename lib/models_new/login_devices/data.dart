@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/login_devices/device.dart';
+import 'package:liqliquid/models_new/login_devices/device.dart';
 
 class LoginDevicesData {
   List<LoginDevice>? devices;
@@ -12,4 +12,3 @@ class LoginDevicesData {
             .toList(),
       );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/box_ext.dart';
+import 'package:liqliquid/utils/extension/box_ext.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -65,4 +65,3 @@ abstract final class DanmakuOptions {
     });
   }
 }
-

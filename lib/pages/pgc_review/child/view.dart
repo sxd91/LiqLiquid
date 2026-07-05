@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
+import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
@@ -127,7 +127,7 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
         children: [
           if (item.author!.mid == Accounts.main.mid) ...[
             DialogOption(
-              child: const Text('缂栬緫', style: TextStyle(fontSize: 14)),
+              child: const Text('编辑', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 showModalBottomSheet(
@@ -147,19 +147,19 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
               },
             ),
             DialogOption(
-              child: const Text('鍒犻櫎', style: TextStyle(fontSize: 14)),
+              child: const Text('删除', style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 showConfirmDialog(
                   context: context,
-                  title: const Text('鍒犻櫎鐭瘎锛屽悓鏃跺垹闄よ瘎鍒嗭紵'),
+                  title: const Text('删除短评，同时删除评分？'),
                   onConfirm: () => _controller.onDel(index, item.reviewId!),
                 );
               },
             ),
           ],
           DialogOption(
-            child: const Text('涓炬姤', style: TextStyle(fontSize: 14)),
+            child: const Text('举报', style: TextStyle(fontSize: 14)),
             onPressed: () => Get
               ..back()
               ..toNamed(
@@ -377,7 +377,7 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
     child: Padding(
       padding: const EdgeInsets.fromLTRB(12, 2.5, 6, 2.5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: .spaceBetween,
         children: [
           Obx(
             () {
@@ -385,7 +385,7 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
               return count == null
                   ? const SizedBox.shrink()
                   : Text(
-                      '${NumUtils.numFormat(count)}鏉＄偣璇?,
+                      '${NumUtils.numFormat(count)}条点评',
                       style: const TextStyle(fontSize: 13),
                     );
             },
@@ -416,4 +416,3 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
   @override
   bool get wantKeepAlive => true;
 }
-

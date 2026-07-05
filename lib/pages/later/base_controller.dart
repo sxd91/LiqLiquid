@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/later_view_type.dart';
+import 'package:liqliquid/models/common/later_view_type.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -19,4 +19,3 @@ class LaterBaseController extends GetxController {
     GStorage.setting.put(SettingBoxKey.enablePlayAll, isPlayAll);
   }
 }
-

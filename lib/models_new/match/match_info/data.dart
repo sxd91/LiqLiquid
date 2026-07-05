@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/match/match_info/contest.dart';
+import 'package:liqliquid/models_new/match/match_info/contest.dart';
 
 class MatchInfoData {
   MatchContest? contest;
@@ -11,4 +11,3 @@ class MatchInfoData {
         : MatchContest.fromJson(json['contest'] as Map<String, dynamic>),
   );
 }
-

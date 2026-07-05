@@ -1,4 +1,4 @@
-﻿// Copyright 2014 The Flutter Authors. All rights reserved.
+// Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -182,7 +182,7 @@ class SystemContextMenu extends StatefulWidget {
         case ContextMenuButtonType.liveTextInput:
           items.add(const IOSSystemContextMenuItemLiveText());
         case ContextMenuButtonType.delete:
-        // No native iOS system menu button for Delete 鈥?intentionally ignored.
+        // No native iOS system menu button for Delete — intentionally ignored.
         case ContextMenuButtonType.custom:
         // Custom items are provided explicitly via SystemContextMenu.items,
         // not via defaults. Intentionally ignore in default mapping.
@@ -230,4 +230,3 @@ class _SystemContextMenuState extends State<SystemContextMenu> {
     return const SizedBox.shrink();
   }
 }
-

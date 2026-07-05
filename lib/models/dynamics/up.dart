@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/follow/list.dart';
+import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/utils/parse_int.dart';
 
 class FollowUpModel {
@@ -102,4 +102,3 @@ class UpItem {
   @override
   int get hashCode => mid.hashCode;
 }
-

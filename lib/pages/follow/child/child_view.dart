@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/button/more_btn.dart';
@@ -209,7 +209,7 @@ class _FollowChildPageState extends State<FollowChildPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '鎴戜滑鐨勫叡鍚屽叧娉?,
+                            '我们的共同关注',
                             style: TextStyle(
                               color: colorScheme.onSurfaceVariant,
                             ),
@@ -238,7 +238,7 @@ class _FollowChildPageState extends State<FollowChildPage>
                         bottom: 6,
                       ),
                       child: Text(
-                        '鍏ㄩ儴鍏虫敞',
+                        '全部关注',
                         style: TextStyle(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -256,4 +256,3 @@ class _FollowChildPageState extends State<FollowChildPage>
   bool get wantKeepAlive =>
       widget.onSelect != null || widget.controller?.tabController != null;
 }
-

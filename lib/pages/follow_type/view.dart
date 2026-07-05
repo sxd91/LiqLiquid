@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -76,4 +76,3 @@ abstract class FollowTypePageState<T extends StatefulWidget> extends State<T> {
 
   Widget buildItem(int index, FollowItemModel item) => FollowItem(item: item);
 }
-

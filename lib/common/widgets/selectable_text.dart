@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
 Widget selectableText(
@@ -38,4 +38,3 @@ Widget selectableRichText(
     scrollPhysics: const NeverScrollableScrollPhysics(),
   );
 }
-

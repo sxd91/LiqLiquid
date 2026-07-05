@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/fav/note/child_view.dart';
+import 'package:liqliquid/pages/fav/note/child_view.dart';
 import 'package:liqliquid/pages/fav/note/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +69,8 @@ class _FavNotePageState extends State<FavNotePage>
                 labelColor: theme.colorScheme.onSecondaryContainer,
                 unselectedLabelColor: theme.colorScheme.outline,
                 tabs: const [
-                  Tab(text: '鏈彂甯冪瑪璁?),
-                  Tab(text: '鍏紑绗旇'),
+                  Tab(text: '未发布笔记'),
+                  Tab(text: '公开笔记'),
                 ],
                 onTap: (index) {
                   try {
@@ -102,7 +102,7 @@ class _FavNotePageState extends State<FavNotePage>
             //       }
             //     }
             //   },
-            //   child: const Text('绠＄悊'),
+            //   child: const Text('管理'),
             // ),
             // const SizedBox(width: 12),
           ],
@@ -121,4 +121,3 @@ class _FavNotePageState extends State<FavNotePage>
     );
   }
 }
-

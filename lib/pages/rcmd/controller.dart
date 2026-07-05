@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -57,4 +57,3 @@ class RcmdController extends CommonListController {
     return queryData();
   }
 }
-

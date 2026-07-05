@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/android/bindings.g.dart';
+import 'package:liqliquid/utils/android/bindings.g.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/widgets.dart' show WidgetsBinding, Size;
 
@@ -20,4 +20,3 @@ abstract final class DeviceUtils {
       ? 'pad'
       : 'phone';
 }
-

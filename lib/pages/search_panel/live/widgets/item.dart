@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -127,7 +127,7 @@ class LiveItem extends StatelessWidget {
             style: const TextStyle(fontSize: 11, color: Colors.white),
           ),
           Text(
-            '${NumUtils.numFormat(online)}鍥磋',
+            '${NumUtils.numFormat(online)}围观',
             style: const TextStyle(fontSize: 11, color: Colors.white),
           ),
         ],
@@ -135,4 +135,3 @@ class LiveItem extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿package com.sxdliqliquid.app
+package com.sxdliqliquid.app
 
 import android.content.Intent
 import android.content.res.Configuration

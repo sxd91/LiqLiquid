@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models_new/live/live_feed_index/card_data_list_item.dart';
@@ -6,7 +6,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
-// 瑙嗛鍗＄墖 - 鍨傜洿甯冨眬
+// 视频卡片 - 垂直布局
 class LiveCardVApp extends StatelessWidget {
   final CardLiveItem item;
   final bool showFirstFrame;
@@ -141,4 +141,3 @@ class LiveCardVApp extends StatelessWidget {
     );
   }
 }
-

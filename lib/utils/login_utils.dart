@@ -1,4 +1,4 @@
-﻿import 'dart:async' show FutureOr;
+import 'dart:async' show FutureOr;
 import 'dart:io' show Platform;
 
 import 'package:liqliquid/http/loading_state.dart';
@@ -71,7 +71,7 @@ abstract final class LoginUtils {
       if (errMsg == '账号未登录') {
         await Accounts.deleteAll({account});
         SmartDialog.showNotify(
-          msg: '登录失败，请检查Cookie是否正确！',
+          msg: '登录失败，请检查cookie是否正确，$errMsg',
           notifyType: .warning,
         );
       } else {
@@ -137,4 +137,3 @@ abstract final class LoginUtils {
     return ((dec ~/ 10) << 4) | (dec % 10);
   }
 }
-

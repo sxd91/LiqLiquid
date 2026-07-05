@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/only_layout_widget.dart';
+import 'package:liqliquid/common/widgets/only_layout_widget.dart';
 import 'package:flutter/material.dart';
 
 class SelfSizedHorizontalList extends StatefulWidget {
@@ -57,4 +57,3 @@ class _SelfSizedHorizontalListState extends State<SelfSizedHorizontalList> {
     );
   }
 }
-

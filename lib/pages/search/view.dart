@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/widgets/dialog/export_import.dart';
 import 'package:liqliquid/common/widgets/disabled_icon.dart';
@@ -96,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
       Obx(
         () => _searchController.showUidBtn.value
             ? IconButton(
-                tooltip: 'UID鎼滅储鐢ㄦ埛',
+                tooltip: 'UID搜索用户',
                 icon: const Icon(Icons.person_outline, size: 22),
                 onPressed: () => Get.toNamed(
                   '/member?mid=${_searchController.controller.text}',
@@ -105,12 +105,12 @@ class _SearchPageState extends State<SearchPage> {
             : const SizedBox.shrink(),
       ),
       IconButton(
-        tooltip: '娓呯┖',
+        tooltip: '清空',
         icon: const Icon(Icons.clear, size: 22),
         onPressed: _searchController.onClear,
       ),
       IconButton(
-        tooltip: '鎼滅储',
+        tooltip: '搜索',
         onPressed: _searchController.submit,
         icon: const Icon(Icons.search, size: 22),
       ),
@@ -124,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
       onChanged: _searchController.onChange,
       decoration: InputDecoration(
         visualDensity: .standard,
-        hintText: _searchController.hintText ?? '鎼滅储',
+        hintText: _searchController.hintText ?? '搜索',
         border: InputBorder.none,
       ),
       onSubmitted: (value) => _searchController.submit(),
@@ -177,7 +177,7 @@ class _SearchPageState extends State<SearchPage> {
     bool isTrending = true,
   }) {
     final text = Text(
-      isTrending ? '澶у閮藉湪鎼? : '鎼滅储鍙戠幇',
+      isTrending ? '大家都在搜' : '搜索发现',
       strutStyle: const StrutStyle(leading: 0, height: 1),
       style: theme.textTheme.titleMedium!.copyWith(
         height: 1,
@@ -226,7 +226,7 @@ class _SearchPageState extends State<SearchPage> {
                               child: Row(
                                 children: [
                                   Text(
-                                    '瀹屾暣姒滃崟',
+                                    '完整榜单',
                                     strutStyle: const StrutStyle(
                                       leading: 0,
                                       height: 1,
@@ -261,7 +261,7 @@ class _SearchPageState extends State<SearchPage> {
                       color: secondary,
                     ),
                     label: Text(
-                      '鍒锋柊',
+                      '刷新',
                       strutStyle: const StrutStyle(leading: 0, height: 1),
                       style: TextStyle(
                         height: 1,
@@ -314,7 +314,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: Row(
                     children: [
                       Text(
-                        '鎼滅储鍘嗗彶',
+                        '搜索历史',
                         strutStyle: const StrutStyle(leading: 0, height: 1),
                         style: theme.textTheme.titleMedium!.copyWith(
                           height: 1,
@@ -340,7 +340,7 @@ class _SearchPageState extends State<SearchPage> {
                           color: secondary,
                         ),
                         label: Text(
-                          '娓呯┖',
+                          '清空',
                           style: TextStyle(
                             height: 1,
                             color: secondary,
@@ -384,7 +384,7 @@ class _SearchPageState extends State<SearchPage> {
       bool enable = _searchController.recordSearchHistory.value;
       return IconButton(
         iconSize: 22,
-        tooltip: enable ? '璁板綍鎼滅储' : '鏃犵棔鎼滅储',
+        tooltip: enable ? '记录搜索' : '无痕搜索',
         icon: DisabledIcon(
           disable: !enable,
           child: Icon(
@@ -411,7 +411,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget get _exportBtn => IconButton(
     iconSize: 22,
-    tooltip: '瀵煎叆/瀵煎嚭鍘嗗彶璁板綍',
+    tooltip: '导入/导出历史记录',
     icon: Icon(
       Icons.import_export_outlined,
       color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.8),
@@ -423,7 +423,7 @@ class _SearchPageState extends State<SearchPage> {
     ),
     onPressed: () => showImportExportDialog<List>(
       context,
-      title: '鍘嗗彶璁板綍',
+      title: '历史记录',
       localFileName: () => 'search',
       onExport: () => jsonEncode(_searchController.historyList),
       onImport: (json) {
@@ -455,4 +455,3 @@ class _SearchPageState extends State<SearchPage> {
     };
   }
 }
-

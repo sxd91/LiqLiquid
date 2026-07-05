@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/pair.dart';
@@ -66,7 +66,7 @@ abstract final class DynamicsHttp {
         return Error('$e\n\n$s');
       }
     } else {
-      return Error(code == 4101132 ? '娌℃湁鏁版嵁' : res.data['message']);
+      return Error(code == 4101132 ? '没有数据' : res.data['message']);
     }
   }
 
@@ -105,7 +105,8 @@ abstract final class DynamicsHttp {
     int? vmid,
     int? pn,
     int ps = 20,
-    String orderType = '', // ''=>鏈€杩戝叧娉紝'attention'=>鏈€甯歌闂?  }) async {
+    String orderType = '', // ''=>最近关注，'attention'=>最常访问
+  }) async {
     final res = await Request().get(
       Api.followings,
       queryParameters: {
@@ -123,8 +124,8 @@ abstract final class DynamicsHttp {
     }
   }
 
-  // 鍔ㄦ€佺偣璧?
-    static Future likeDynamic({
+  // 动态点赞
+  // static Future likeDynamic({
   //   required String? dynamicId,
   //   required int? up,
   // }) async {
@@ -146,7 +147,7 @@ abstract final class DynamicsHttp {
   //   }
   // }
 
-  // 鍔ㄦ€佺偣璧?
+  // 动态点赞
   static Future<LoadingState<void>> thumbDynamic({
     required String? dynamicId,
     required int? up,
@@ -396,7 +397,7 @@ abstract final class DynamicsHttp {
     if (res.data['code'] == 0) {
       final voteInfo = VoteInfo.fromSeparatedJson(res.data['data']);
       return voteInfo.voteId == null
-          ? const Error('鏃犳晥鐨勬姇绁╥d')
+          ? const Error('无效的投票id')
           : Success(voteInfo);
     } else {
       return Error(res.data['message']);
@@ -846,4 +847,3 @@ abstract final class DynamicsHttp {
     }
   }
 }
-

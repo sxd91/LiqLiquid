@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/models_new/pgc/pgc_info_model/episode.dart';
@@ -41,7 +41,8 @@ class PgcPanel extends StatefulWidget {
 class _PgcPanelState extends State<PgcPanel> {
   late int currentIndex;
   late final ScrollController listViewScrollCtr;
-  // 榛樿鏈紑閫?  late final bool vipStatus;
+  // 默认未开通
+  late final bool vipStatus;
   late int cid;
   late final VideoDetailController videoDetailCtr;
   late final StreamSubscription<int> _listener;
@@ -100,10 +101,10 @@ class _PgcPanelState extends State<PgcPanel> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('鍚堥泦 '),
+              const Text('合集 '),
               Expanded(
                 child: Text(
-                  ' 姝ｅ湪鎾斁锛?{currEpisode.longTitle ?? currEpisode.title}',
+                  ' 正在播放：${currEpisode.longTitle ?? currEpisode.title}',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 12, color: theme.outline),
                 ),
@@ -124,9 +125,9 @@ class _PgcPanelState extends State<PgcPanel> {
                     cid,
                   ),
                   child: Text(
-                    widget.newEp?.desc?.contains('杩炶浇') == true
-                        ? '杩炶浇涓紝鏇存柊鑷?{Utils.isStringNumeric(widget.newEp!.title!) ? '绗?{widget.newEp!.title}璇? : '${widget.newEp!.title}'}'
-                        : widget.newEp?.desc ?? '鏌ョ湅鍏ㄩ儴',
+                    widget.newEp?.desc?.contains('连载') == true
+                        ? '连载中，更新至${Utils.isStringNumeric(widget.newEp!.title!) ? '第${widget.newEp!.title}话' : '${widget.newEp!.title}'}'
+                        : widget.newEp?.desc ?? '查看全部',
                     style: const TextStyle(fontSize: 13),
                   ),
                 ),
@@ -167,8 +168,8 @@ class _PgcPanelState extends State<PgcPanel> {
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           onTap: () {
-            if (item.badge == '浼氬憳' && Accounts.mainEqVideo && vipStatus) {
-              SmartDialog.showToast('闇€瑕佸ぇ浼氬憳');
+            if (item.badge == '会员' && Accounts.mainEqVideo && vipStatus) {
+              SmartDialog.showToast('需要大会员');
             }
             widget.onChangeEpisode(item);
           },
@@ -195,12 +196,12 @@ class _PgcPanelState extends State<PgcPanel> {
                                     color: theme.primary,
                                     height: 12,
                                     cacheHeight: 12.cacheSize(context),
-                                    semanticLabel: "姝ｅ湪鎾斁锛?,
+                                    semanticLabel: "正在播放：",
                                   ),
                                 ),
                               ),
                             TextSpan(
-                              text: item.title ?? '绗?{index + 1}璇?,
+                              text: item.title ?? '第${index + 1}话',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: color,
@@ -212,11 +213,11 @@ class _PgcPanelState extends State<PgcPanel> {
                     ),
                     if (item.badge?.isNotEmpty == true) ...[
                       const SizedBox(width: 2),
-                      if (item.badge == '浼氬憳')
+                      if (item.badge == '会员')
                         SvgPicture.asset(
                           Assets.vipIcon,
                           height: 16,
-                          semanticsLabel: "澶т細鍛?,
+                          semanticsLabel: "大会员",
                         )
                       else
                         Text(
@@ -224,8 +225,8 @@ class _PgcPanelState extends State<PgcPanel> {
                           style: TextStyle(
                             fontSize: 11,
                             color: switch (item.badge) {
-                              '闄愬厤' => theme.freeColor,
-                              '棰勫憡' => theme.onSurfaceVariant,
+                              '限免' => theme.freeColor,
+                              '预告' => theme.onSurfaceVariant,
                               _ => theme.primary,
                             },
                           ),
@@ -251,4 +252,3 @@ class _PgcPanelState extends State<PgcPanel> {
     );
   }
 }
-

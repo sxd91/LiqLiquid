@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/fav/fav_pgc/new_ep.dart';
+import 'package:liqliquid/models_new/fav/fav_pgc/new_ep.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart';
 
 class FavPgcItemModel with MultiSelectData {
@@ -37,4 +37,3 @@ class FavPgcItemModel with MultiSelectData {
     progress: json['progress'] == '' ? null : json['progress'],
   );
 }
-

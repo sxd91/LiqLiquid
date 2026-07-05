@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/custom_tooltip.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -224,8 +224,7 @@ class _EmotePanelState extends State<EmotePanel>
     child: TextButton.icon(
       onPressed: _emotePanelController.onReload,
       icon: const Icon(Icons.refresh),
-      label: Text(errMsg ?? '娌℃湁鏁版嵁'),
+      label: Text(errMsg ?? '没有数据'),
     ),
   );
 }
-

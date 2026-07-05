@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/follow/data.dart';
+import 'package:liqliquid/models_new/follow/data.dart';
 import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';
 import 'package:liqliquid/pages/follow/widgets/follow_item.dart';
@@ -54,4 +54,3 @@ class _FollowSearchPageState
     );
   }
 }
-

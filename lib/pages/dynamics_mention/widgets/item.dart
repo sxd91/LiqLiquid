@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
+import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/image_type.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_mention/item.dart';
 import 'package:liqliquid/utils/num_utils.dart';
@@ -35,7 +35,7 @@ class DynMentionItem extends StatelessWidget {
           style: const TextStyle(fontSize: 14),
         ),
         subtitle: Text(
-          '${NumUtils.numFormat(item.fans)}绮変笣',
+          '${NumUtils.numFormat(item.fans)}粉丝',
           style: TextStyle(color: Theme.of(context).colorScheme.outline),
         ),
         trailing: Checkbox(
@@ -51,4 +51,3 @@ class DynMentionItem extends StatelessWidget {
     );
   }
 }
-

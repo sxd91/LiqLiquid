@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/fav_type.dart';
@@ -54,7 +54,7 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鎴戠殑鏀惰棌'),
+        title: const Text('我的收藏'),
         actions: [
           Obx(
             () => _showVideoFavMenu.value
@@ -74,7 +74,7 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
                       },
                     ),
                     icon: const Icon(Icons.add),
-                    tooltip: '鏂板缓鏀惰棌澶?,
+                    tooltip: '新建收藏夹',
                   )
                 : const SizedBox.shrink(),
           ),
@@ -84,7 +84,7 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
                     onPressed: () {
                       if (_favController.loadingState.value.isSuccess) {
                         if (!_favController.isEnd) {
-                          SmartDialog.showToast('鍔犺浇鍏ㄩ儴鏀惰棌澶瑰啀鎺掑簭');
+                          SmartDialog.showToast('加载全部收藏夹再排序');
                           return;
                         }
                         Get.to(
@@ -93,7 +93,7 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
                       }
                     },
                     icon: const Icon(Icons.sort),
-                    tooltip: '鏀惰棌澶规帓搴?,
+                    tooltip: '收藏夹排序',
                   )
                 : const SizedBox.shrink(),
           ),
@@ -120,7 +120,7 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
                       }
                     },
                     icon: const Icon(Icons.search_outlined),
-                    tooltip: '鎼滅储',
+                    tooltip: '搜索',
                   )
                 : const SizedBox.shrink(),
           ),
@@ -161,4 +161,3 @@ class _FavPageState extends State<FavPage> with SingleTickerProviderStateMixin {
     );
   }
 }
-

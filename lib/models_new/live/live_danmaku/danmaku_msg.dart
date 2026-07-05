@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/live/live_danmaku/live_emote.dart';
 import 'package:liqliquid/models_new/live/live_medal_wall/uinfo_medal.dart';
 import 'package:liqliquid/pages/danmaku/danmaku_model.dart';
@@ -72,4 +72,3 @@ class DanmakuMsg {
     'medal': ?medalInfo?.toJson(),
   };
 }
-

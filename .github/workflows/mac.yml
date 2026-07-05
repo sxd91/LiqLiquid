@@ -35,16 +35,16 @@ jobs:
         run: lib/scripts/patch.ps1 macOS
 
       - name: Build Mac
-        run: flutter build macos --release --dart-define-from-file=liq_release.json
+        run: flutter build macos --release --dart-define-from-file=liqliquid_release.json
 
       - name: Prepare Upload
         run: |
           npm install --global create-dmg
-          create-dmg build/macos/Build/Products/Release/LiqLiquid.app || true
+          create-dmg build/macos/Build/Products/Release/liqliquid.app || true
         continue-on-error: true
 
       - name: Rename DMG
-        run: mv LiqLiquid*.dmg LiqLiquid_macos_${{ env.version }}.dmg
+        run: mv liqliquid*.dmg PiliPlus_macos_${{ env.version }}.dmg
 
       - name: Release
         if: ${{ github.event.inputs.tag != '' }}
@@ -53,12 +53,11 @@ jobs:
           tag_name: ${{ github.event.inputs.tag }}
           name: ${{ github.event.inputs.tag }}
           files: |
-            LiqLiquid_macos_*.dmg
+            PiliPlus_macos_*.dmg
 
       - name: Upload macos release
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: macOS-release
-          path: LiqLiquid_macos_*.dmg
-
+          path: PiliPlus_macos_*.dmg

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/models/common/reply/reply_search_type.dart';
 import 'package:liqliquid/pages/video/reply_search_item/child/view.dart';
@@ -40,7 +40,7 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: _controller.submit,
             icon: const Icon(Icons.search, size: 22),
           ),
@@ -53,11 +53,11 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
           textInputAction: TextInputAction.search,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            hintText: '鎼滅储',
+            hintText: '搜索',
             visualDensity: .standard,
             border: InputBorder.none,
             suffixIcon: IconButton(
-              tooltip: '娓呯┖',
+              tooltip: '清空',
               icon: const Icon(Icons.clear, size: 22),
               onPressed: _controller.onClear,
             ),
@@ -71,8 +71,8 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
             TabBar(
               controller: _controller.tabController,
               tabs: const [
-                Tab(text: '瑙嗛'),
-                Tab(text: '涓撴爮'),
+                Tab(text: '视频'),
+                Tab(text: '专栏'),
               ],
               onTap: (index) {
                 if (!_controller.tabController.indexIsChanging) {
@@ -105,4 +105,3 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
     );
   }
 }
-

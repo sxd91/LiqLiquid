@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart' as common_style;
+import 'package:liqliquid/common/style.dart' as common_style;
 import 'package:liqliquid/models/dynamics/result.dart';
 import 'package:liqliquid/models/dynamics/vote_model.dart';
 import 'package:liqliquid/utils/color_utils.dart';
@@ -137,9 +137,10 @@ class Word {
     fontLevel = json['font_level'];
   }
 
-  // font_level 鏄犲皠澶勭悊锛?  //   "small"   鈫?13px
-  //   "regular" 鈫?16px锛堜笌鏃х増 HTML 涓撴爮鍩哄噯涓€鑷达級
-  //   鍏朵綑/null 鈫?鍚?regular
+  // font_level 映射处理：
+  //   "small"   → 13px
+  //   "regular" → 16px（与旧版 HTML 专栏基准一致）
+  //   其余/null → 同 regular
   double get effectiveFontSize =>
       fontSize ?? (fontLevel == 'small' ? 13.0 : 16.0);
 }
@@ -421,4 +422,3 @@ class Code {
     lang = json['lang'];
   }
 }
-

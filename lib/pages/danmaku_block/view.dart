@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -97,7 +97,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
           icon: const Icon(Icons.delete_outlined),
           onPressed: () => showConfirmDialog(
             context: context,
-            title: const Text('纭畾鍒犻櫎璇ヨ鍒欙紵'),
+            title: const Text('确定删除该规则？'),
             onConfirm: () => _controller.danmakuFilterDel(
               tabIndex,
               itemIndex,
@@ -143,15 +143,15 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
     assert((itemIndex == null) == (itemId == null));
     String filter = initFilter;
     final hintText = switch (type) {
-      DmBlockType.keyword => '杈撳叆杩囨护鐨勫叧閿瘝锛屽叾瀹冪被鍒鍒囨崲鏍囩椤靛悗娣诲姞',
-      DmBlockType.regex => '杈撳叆//涔嬮棿鐨勬鍒欒〃杈惧紡锛屾棤闇€鍖呭惈澶村熬鐨?/"',
+      DmBlockType.keyword => '输入过滤的关键词，其它类别请切换标签页后添加',
+      DmBlockType.regex => '输入//之间的正则表达式，无需包含头尾的"/"',
       DmBlockType.uid => '输入用户UID',
     };
     final isUid = type == DmBlockType.uid;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${itemId != null ? "编辑" : "添加新的"}${type.label}瑙勫垯'),
+        title: Text('${itemId != null ? "编辑" : "添加新的"}${type.label}规则'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,7 +177,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
             ),
           ),
           TextButton(
-            child: const Text('纭畾'),
+            child: const Text('确定'),
             onPressed: () async {
               if (filter != initFilter) {
                 Get.back();
@@ -204,4 +204,3 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
     );
   }
 }
-

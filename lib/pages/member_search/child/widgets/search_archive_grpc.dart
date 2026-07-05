@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
@@ -88,7 +88,7 @@ class SearchArchiveGrpc extends StatelessWidget {
                             ),
                             if (item.isPugv)
                               const PBadge(
-                                text: '璇惧爞',
+                                text: '课堂',
                                 top: 6.0,
                                 right: 6.0,
                               ),
@@ -144,7 +144,7 @@ class SearchArchiveGrpc extends StatelessWidget {
                     spacing: 6,
                     children: [
                       Icon(MdiIcons.clockTimeEightOutline, size: 16),
-                      Text('绋嶅悗鍐嶇湅', style: TextStyle(fontSize: 13)),
+                      Text('稍后再看', style: TextStyle(fontSize: 13)),
                     ],
                   ),
                 ),
@@ -220,4 +220,3 @@ class SearchArchiveGrpc extends StatelessWidget {
     );
   }
 }
-

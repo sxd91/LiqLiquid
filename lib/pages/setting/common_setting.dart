@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/setting_type.dart';
+import 'package:liqliquid/models/common/setting_type.dart';
 import 'package:liqliquid/pages/setting/models/model.dart';
 import 'package:flutter/material.dart';
 
@@ -63,4 +63,3 @@ class _CommonSettingState extends State<CommonSetting> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:jnigen/jnigen.dart';
 
@@ -21,4 +21,3 @@ void main(List<String> args) {
     ),
   );
 }
-

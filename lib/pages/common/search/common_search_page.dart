@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/appbar/appbar.dart';
+import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -54,7 +54,7 @@ abstract class CommonSearchPageState<S extends StatefulWidget, R, T>
     final AppBar bar = AppBar(
       actions: [
         IconButton(
-          tooltip: '鎼滅储',
+          tooltip: '搜索',
           onPressed: controller.onRefresh,
           icon: const Icon(Icons.search_outlined, size: 22),
         ),
@@ -68,11 +68,11 @@ abstract class CommonSearchPageState<S extends StatefulWidget, R, T>
         textInputAction: TextInputAction.search,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          hintText: '鎼滅储',
+          hintText: '搜索',
           visualDensity: .standard,
           border: InputBorder.none,
           suffixIcon: IconButton(
-            tooltip: '娓呯┖',
+            tooltip: '清空',
             icon: const Icon(Icons.clear, size: 22),
             onPressed: () => controller
               ..loadingState.value = LoadingState.loading()
@@ -109,4 +109,3 @@ abstract class CommonSearchPageState<S extends StatefulWidget, R, T>
 
   Widget buildList(List<T> list);
 }
-

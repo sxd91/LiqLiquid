@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -13,9 +13,8 @@ import 'package:liqliquid/utils/duration_utils.dart';
 import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:liqliquid/common/navigation/hero_page_transitions.dart';
 
-// 瑙嗛鍗＄墖 - 姘村钩甯冨眬
+// 视频卡片 - 水平布局
 class VideoCardH extends StatelessWidget {
   const VideoCardH({
     super.key,
@@ -108,27 +107,27 @@ class VideoCardH extends StatelessWidget {
                           clipBehavior: .none,
                           children: [
                             Hero(
-                              tag: HeroNavigator.heroTag(videoItem.bvid ?? videoItem.aid, 'cover'),
+                              tag: videoItem.bvid ?? videoItem.aid.toString(),
                               child: NetworkImgLayer(
                                 src: videoItem.cover,
                                 width: maxWidth,
-                              height: maxHeight,
-                            ),
+                                height: maxHeight,
                               ),
+                            ),
                             if (videoItem.badge case final badge?)
                               PBadge(
                                 text: badge,
                                 top: 6.0,
                                 right: 6.0,
                                 type: switch (badge) {
-                                  '鍏呯數涓撳睘' => .error,
+                                  '充电专属' => .error,
                                   _ => .primary,
                                 },
                               ),
                             if (progress != null && progress != 0) ...[
                               PBadge(
                                 text: progress == -1
-                                    ? '宸茬湅瀹?
+                                    ? '已看完'
                                     : '${DurationUtils.formatDuration(progress)}/${DurationUtils.formatDuration(videoItem.duration)}',
                                 right: 6,
                                 bottom: 8,

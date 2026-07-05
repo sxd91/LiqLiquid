@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_ai_conclusion/outline.dart';
+import 'package:liqliquid/models_new/video/video_ai_conclusion/outline.dart';
 
 class AiConclusionResult {
   String? summary;
@@ -17,4 +17,3 @@ class AiConclusionResult {
             .toList(),
       );
 }
-

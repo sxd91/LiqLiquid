@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/custom_icon.dart';
@@ -72,9 +72,9 @@ class _FullScreenScSizeState extends State<FullScreenScSize> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鍏ㄥ睆 SC 澶у皬璁剧疆'),
+        title: const Text('全屏 SC 大小设置'),
         actions: [
-          TextButton(onPressed: _onReset, child: const Text('閲嶇疆')),
+          TextButton(onPressed: _onReset, child: const Text('重置')),
         ],
       ),
       body: Padding(padding: _padding, child: _buildBody),
@@ -137,4 +137,3 @@ class _FullScreenScSizeState extends State<FullScreenScSize> {
     GStorage.setting.put(SettingBoxKey.fullScreenSCWidth, _width);
   }
 }
-

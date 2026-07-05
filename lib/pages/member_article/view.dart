@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/space/space_article/item.dart';
@@ -83,4 +83,3 @@ class _MemberArticleState extends State<MemberArticle>
     };
   }
 }
-

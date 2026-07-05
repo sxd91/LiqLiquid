@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:liqliquid/http/api.dart';
@@ -98,4 +98,3 @@ class HomeController extends GetxController
     } catch (_) {}
   }
 }
-

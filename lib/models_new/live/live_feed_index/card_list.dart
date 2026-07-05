@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/card_data.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/card_data.dart';
 
 class LiveCardList {
   String? cardType;
@@ -13,4 +13,3 @@ class LiveCardList {
         : CardData.fromJson(json['card_data'] as Map<String, dynamic>),
   );
 }
-

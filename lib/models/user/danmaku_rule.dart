@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
+import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
 import 'package:liqliquid/models/user/danmaku_block.dart';
 
 class RuleFilter {
@@ -40,4 +40,3 @@ class RuleFilter {
         dmRegExp.any((i) => i.hasMatch(elem.content));
   }
 }
-

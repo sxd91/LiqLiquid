@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show SelectItem, Setting, SettingSwitch;
@@ -167,4 +167,3 @@ class ImSettingsItem extends StatelessWidget {
     return const SizedBox.shrink();
   }
 }
-

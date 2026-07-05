@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_h.dart';
+import 'package:liqliquid/common/skeleton/video_card_h.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -141,7 +141,7 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
     final count = _controller.count;
     if (count != null) {
       return Text(
-        '鍏?count瑙嗛',
+        '共$count视频',
         style: const TextStyle(fontSize: 13),
       );
     }
@@ -312,7 +312,7 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
                   Get.toNamed('/editProfile');
                 } else {
                   if (!account.isLogin) {
-                    SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+                    SmartDialog.showToast('账号未登录');
                     return;
                   }
                   RequestUtils.actionRelationMod(
@@ -329,10 +329,10 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
               },
               child: Text(
                 widget.mid == account.mid
-                    ? '缂栬緫璧勬枡'
+                    ? '编辑资料'
                     : memberInfoModel.isFollowed == true
-                    ? '宸插叧娉?
-                    : '鍏虫敞',
+                    ? '已关注'
+                    : '关注',
                 maxLines: 1,
                 style: const TextStyle(fontSize: 14),
               ),
@@ -347,7 +347,7 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
               ),
               onPressed: () => Get.toNamed('/member?mid=${widget.mid}'),
               child: const Text(
-                '鏌ョ湅涓婚〉',
+                '查看主页',
                 maxLines: 1,
                 style: TextStyle(fontSize: 14),
               ),
@@ -410,4 +410,3 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
     ),
   );
 }
-

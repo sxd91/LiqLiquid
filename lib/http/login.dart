@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/http/api.dart';
@@ -81,7 +81,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 鑾峰彇salt涓嶱ubKey
+  // 获取salt与PubKey
   static Future getWebKey() async {
     final res = await Request().get(Api.getWebKey);
     //data: {'disable_rcmd': 0, 'local_id': LoginUtils.generateBuvid()});
@@ -188,7 +188,7 @@ abstract final class LoginHttp {
   //   }
   // }
 
-  // app绔瘑鐮佺櫥褰?
+  // app端密码登录
   static Future loginByPwd({
     required String username,
     required String password,
@@ -263,7 +263,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // app绔煭淇￠獙璇佺爜鐧诲綍
+  // app端短信验证码登录
   static Future loginBySms({
     required String captchaKey,
     required String tel,
@@ -325,7 +325,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 瀵嗙爜鐧诲綍鏃堕鎺ч獙璇佹墜鏈?
+  // 密码登录时风控验证手机
   static Future safeCenterGetInfo({
     required String tmpCode,
   }) async {
@@ -347,7 +347,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 椋庢帶楠岃瘉鎵嬫満鍓嶇殑鏋侀獙楠岃瘉鐮?
+  // 风控验证手机前的极验验证码
   static Future preCapture() async {
     final res = await Request().post(Api.preCapture);
 
@@ -363,7 +363,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 椋庢帶楠岃瘉鎵嬫満锛氬彂閫佺煭淇￠獙璇佺爜
+  // 风控验证手机：发送短信验证码
   static Future safeCenterSmsCode({
     String? smsType,
     required String tmpCode,
@@ -406,7 +406,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 椋庢帶楠岃瘉鎵嬫満锛氭彁浜ょ煭淇￠獙璇佺爜
+  // 风控验证手机：提交短信验证码
   static Future safeCenterSmsVerify({
     String? type,
     required String code,
@@ -448,7 +448,7 @@ abstract final class LoginHttp {
     }
   }
 
-  // 椋庢帶楠岃瘉鎵嬫満锛氱敤oauthCode鎹㈠洖accessToken
+  // 风控验证手机：用oauthCode换回accessToken
   static Future oauth2AccessToken({
     required String code,
   }) async {
@@ -530,4 +530,3 @@ abstract final class LoginHttp {
     }
   }
 }
-

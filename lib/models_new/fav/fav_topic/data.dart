@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/fav/fav_topic/topic_list.dart';
+import 'package:liqliquid/models_new/fav/fav_topic/topic_list.dart';
 
 class FavTopicData {
   TopicList? topicList;
@@ -11,4 +11,3 @@ class FavTopicData {
         : TopicList.fromJson(json['topic_list'] as Map<String, dynamic>),
   );
 }
-

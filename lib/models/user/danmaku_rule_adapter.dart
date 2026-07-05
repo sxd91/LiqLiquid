@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/user/danmaku_rule.dart';
+import 'package:liqliquid/models/user/danmaku_rule.dart';
 import 'package:hive_ce/hive.dart';
 
 class RuleFilterAdapter extends TypeAdapter<RuleFilter> {
@@ -35,4 +35,3 @@ class RuleFilterAdapter extends TypeAdapter<RuleFilter> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
+import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/member/tags.dart';
@@ -54,13 +54,13 @@ class _GroupPanelState extends State<GroupPanel> {
       return;
     }
     feedBack();
-    // 淇濆瓨
+    // 保存
     final res = await MemberHttp.addUsers(
       widget.mid.toString(),
       tags.isEmpty ? '0' : tags.join(','),
     );
     if (res.isSuccess) {
-      SmartDialog.showToast('淇濆瓨鎴愬姛');
+      SmartDialog.showToast('保存成功');
       Get.back(result: tags);
     } else {
       res.toast();
@@ -131,17 +131,17 @@ class _GroupPanelState extends State<GroupPanel> {
         AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            tooltip: '鍏抽棴',
+            tooltip: '关闭',
             onPressed: Get.back,
             icon: const Icon(Icons.close_outlined),
           ),
-          title: const Text('璁剧疆鍏虫敞鍒嗙粍'),
+          title: const Text('设置关注分组'),
           actions: [
             TextButton.icon(
               onPressed: () =>
                   RequestUtils.createFavTag(context, _onCreateFavTag),
               icon: Icon(Icons.add, color: theme.colorScheme.primary),
-              label: const Text('鏂板缓鍒嗙粍'),
+              label: const Text('新建分组'),
               style: const ButtonStyle(
                 visualDensity: .compact,
                 padding: WidgetStatePropertyAll(
@@ -166,7 +166,7 @@ class _GroupPanelState extends State<GroupPanel> {
           child: FilledButton.tonal(
             onPressed: onSave,
             style: const ButtonStyle(visualDensity: .compact),
-            child: Obx(() => Text(showDefaultBtn.value ? '淇濆瓨鑷抽粯璁ゅ垎缁? : '淇濆瓨')),
+            child: Obx(() => Text(showDefaultBtn.value ? '保存至默认分组' : '保存')),
           ),
         ),
       ],
@@ -185,4 +185,3 @@ class _GroupPanelState extends State<GroupPanel> {
     }
   }
 }
-

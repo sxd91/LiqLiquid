@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/whisper_item.dart';
+import 'package:liqliquid/common/skeleton/whisper_item.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';
@@ -29,10 +29,10 @@ class _WhisperPageState extends State<WhisperPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('娑堟伅'),
+        title: const Text('消息'),
         actions: [
           IconButton(
-            tooltip: '鏂板绮変笣',
+            tooltip: '新增粉丝',
             onPressed: () => Get.toNamed(
               '/webview',
               parameters: {
@@ -195,7 +195,7 @@ class _WhisperPageState extends State<WhisperPage> {
               ),
               onTap: () {
                 if (!item.enabled) {
-                  SmartDialog.showToast('宸茬鐢?);
+                  SmartDialog.showToast('已禁用');
                   return;
                 }
                 _controller.unreadCounts[index] = 0;
@@ -208,4 +208,3 @@ class _WhisperPageState extends State<WhisperPage> {
     );
   }
 }
-

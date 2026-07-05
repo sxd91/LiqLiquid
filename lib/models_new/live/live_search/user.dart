@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_search/user_item.dart';
+import 'package:liqliquid/models_new/live/live_search/user_item.dart';
 
 class User {
   List<LiveSearchUserItemModel>? list;
@@ -13,4 +13,3 @@ class User {
     totalUser: json['total_user'] as int?,
   );
 }
-

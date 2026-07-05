@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/common/member/archive_order_type_web.dart';
 import 'package:liqliquid/models_new/member/search_archive/data.dart';
@@ -44,7 +44,7 @@ class MemberVideoWebCtr
       final tags = data.list?.tags;
       if (tags?.isNotEmpty ?? false) {
         this.tags = tags!
-          ..insert(0, ListTag(tid: 0, name: '鍏ㄩ儴绫诲瀷', count: _totalCount));
+          ..insert(0, ListTag(tid: 0, name: '全部类型', count: _totalCount));
       }
     }
     return false;
@@ -61,4 +61,3 @@ class MemberVideoWebCtr
         specialType: specialType,
       );
 }
-

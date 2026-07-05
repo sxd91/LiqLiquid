@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/avatars.dart';
+import 'package:liqliquid/common/widgets/avatars.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/dynamics/result.dart';
@@ -220,7 +220,7 @@ class DynamicPanel extends StatelessWidget {
       ),
       TextSpan(
         children: [
-          TextSpan(text: moduleFold.statement ?? '灞曞紑'),
+          TextSpan(text: moduleFold.statement ?? '展开'),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: Icon(
@@ -302,4 +302,3 @@ class DynamicPanel extends StatelessWidget {
     return child;
   }
 }
-

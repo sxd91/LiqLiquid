@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_fav/list.dart';
+import 'package:liqliquid/models_new/space/space_fav/list.dart';
 
 class MediaListResponse {
   int? count;
@@ -15,4 +15,3 @@ class MediaListResponse {
     );
   }
 }
-

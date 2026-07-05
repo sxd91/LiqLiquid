@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:liqliquid/models/model_owner.dart';
@@ -29,30 +29,30 @@ abstract final class GStorage {
     regAdapter();
 
     await Future.wait([
-      // 鐧诲綍鐢ㄦ埛淇℃伅
+      // 登录用户信息
       Hive.openBox<UserInfoData>(
         'userInfo',
         compactionStrategy: (int entries, int deletedEntries) {
           return deletedEntries > 2;
         },
       ).then((res) => userInfo = res),
-      // 鏈湴缂撳瓨
+      // 本地缓存
       Hive.openBox(
         'localCache',
         compactionStrategy: (int entries, int deletedEntries) {
           return deletedEntries > 4;
         },
       ).then((res) => localCache = res),
-      // 璁剧疆
+      // 设置
       Hive.openBox('setting').then((res) => setting = res),
-      // 鎼滅储鍘嗗彶
+      // 搜索历史
       Hive.openBox(
         'historyWord',
         compactionStrategy: (int entries, int deletedEntries) {
           return deletedEntries > 10;
         },
       ).then((res) => historyWord = res),
-      // 瑙嗛璁剧疆
+      // 视频设置
       Hive.openBox('video').then((res) => video = res),
       Accounts.init(),
       Hive.openBox<int>(
@@ -166,4 +166,3 @@ abstract final class GStorage {
     }
   }
 }
-

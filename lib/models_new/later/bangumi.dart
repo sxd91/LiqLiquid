@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/later/season.dart';
+import 'package:liqliquid/models_new/later/season.dart';
 
 class Bangumi {
   int? epId;
@@ -16,4 +16,3 @@ class Bangumi {
         : Season.fromJson(json['season'] as Map<String, dynamic>),
   );
 }
-

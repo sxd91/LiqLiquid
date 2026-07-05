@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/pages/fan/controller.dart';
 import 'package:liqliquid/pages/follow_type/view.dart';
@@ -55,10 +55,10 @@ class _FansPageState extends FollowTypePageState<FansPage> {
   PreferredSizeWidget? get appBar => widget.showName
       ? AppBar(
           title: controller.isOwner
-              ? const Text('鎴戠殑绮変笣')
+              ? const Text('我的粉丝')
               : Obx(() {
                   final name = controller.name.value;
-                  if (name != null) return Text('$name鐨勭矇涓?);
+                  if (name != null) return Text('$name的粉丝');
                   return const SizedBox.shrink();
                 }),
         )
@@ -68,7 +68,7 @@ class _FansPageState extends FollowTypePageState<FansPage> {
   Widget buildItem(int index, FollowItemModel item) {
     void onRemove() => showConfirmDialog(
       context: context,
-      title: Text('纭畾绉婚櫎 ${item.uname} 锛?),
+      title: Text('确定移除 ${item.uname} ？'),
       onConfirm: () => controller.onRemoveFan(index, item.mid),
     );
 
@@ -93,4 +93,3 @@ class _FansPageState extends FollowTypePageState<FansPage> {
     );
   }
 }
-

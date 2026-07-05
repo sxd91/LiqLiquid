@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
@@ -43,12 +43,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:protobuf/protobuf.dart';
 
-/// view灞傛牴鎹?status 鍒ゆ柇娓叉煋閫昏緫
+/// view层根据 status 判断渲染逻辑
 abstract final class VideoHttp {
   static RegExp zoneRegExp = RegExp(Pref.banWordForZone, caseSensitive: false);
   static bool enableFilter = zoneRegExp.pattern.isNotEmpty;
 
-  // 棣栭〉鎺ㄨ崘瑙嗛
+  // 首页推荐视频
   static Future<LoadingState<List<RcmdVideoItemModel>>> rcmdVideoList({
     required int ps,
     required int freshIdx,
@@ -68,7 +68,7 @@ abstract final class VideoHttp {
     if (res.data['code'] == 0) {
       List<RcmdVideoItemModel> list = <RcmdVideoItemModel>[];
       for (final i in res.data['data']['item']) {
-        //杩囨护鎺塴ive涓巃d锛屼互鍙婃媺榛戠敤鎴?
+        //过滤掉live与ad，以及拉黑用户
         if (i['goto'] == 'av' &&
             (i['owner'] != null &&
                 !GlobalData().blackMids.contains(i['owner']['mid']))) {
@@ -84,7 +84,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 娣诲姞棰濆鐨刲oginState鍙橀噺妯℃嫙鏈櫥褰曠姸鎬?
+  // 添加额外的loginState变量模拟未登录状态
   static Future<LoadingState<List<RcmdVideoItemAppModel>>> rcmdVideoListApp({
     required int freshIdx,
   }) async {
@@ -100,7 +100,7 @@ abstract final class VideoHttp {
       'flush': 5,
       'fnval': 976,
       'fnver': 0,
-      'force_host': 2, //浣跨敤https
+      'force_host': 2, //使用https
       'fourk': 1,
       'guidance': 0,
       'https_url_req': 0,
@@ -141,7 +141,7 @@ abstract final class VideoHttp {
     if (res.data['code'] == 0) {
       List<RcmdVideoItemAppModel> list = <RcmdVideoItemAppModel>[];
       for (final i in res.data['data']['items']) {
-        // 灞忚斀鎺ㄥ箍鍜屾媺榛戠敤鎴?
+        // 屏蔽推广和拉黑用户
         if (i['card_goto'] != 'ad_av' &&
             i['card_goto'] != 'ad_web_s' &&
             i['ad_info'] == null &&
@@ -164,7 +164,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鏈€鐑棰?
+  // 最热视频
   static Future<LoadingState<List<HotVideoItemModel>>> hotVideoList({
     required int pn,
     required int ps,
@@ -196,7 +196,8 @@ abstract final class VideoHttp {
     }
   }
 
-  // 瑙嗛娴?  @pragma('vm:notify-debugger-on-exception')
+  // 视频流
+  @pragma('vm:notify-debugger-on-exception')
   static Future<LoadingState<PlayUrlModel>> videoUrl({
     int? avid,
     String? bvid,
@@ -218,7 +219,7 @@ abstract final class VideoHttp {
       'season_id': ?seasonId,
       'cid': cid,
       'qn': qn ?? 80,
-      // 鑾峰彇鎵€鏈夋牸寮忕殑瑙嗛
+      // 获取所有格式的视频
       'fnval': 4048,
       'fourk': 1,
       'fnver': 0,
@@ -226,7 +227,7 @@ abstract final class VideoHttp {
       'gaia_source': 'pre-load',
       'isGaiaAvoided': true,
       'web_location': 1315873,
-      // 鍏嶇櫥褰曟煡鐪?080p
+      // 免登录查看1080p
       if (tryLook) 'try_look': 1,
       'dm_img_list': '[]',
       'dm_img_str': dmImgStr,
@@ -277,13 +278,13 @@ abstract final class VideoHttp {
 
   static String _parseVideoErr(int? code, String? msg) {
     return switch (code) {
-      -404 => '瑙嗛涓嶅瓨鍦ㄦ垨宸茶鍒犻櫎',
-      87008 => '褰撳墠瑙嗛鍙兘鏄笓灞炶棰戯紝鍙兘闇€鍖呮湀鍏呯數瑙傜湅($msg})',
-      _ => '閿欒($code): $msg',
+      -404 => '视频不存在或已被删除',
+      87008 => '当前视频可能是专属视频，可能需包月充电观看($msg})',
+      _ => '错误($code): $msg',
     };
   }
 
-  // 瑙嗛淇℃伅 鏍囬銆佺畝浠?
+  // 视频信息 标题、简介
   static Future<LoadingState<VideoDetailData>> videoIntro({
     required String bvid,
   }) async {
@@ -313,7 +314,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鐩稿叧瑙嗛
+  // 相关视频
   static Future<LoadingState<List<HotVideoItemModel>?>> relatedVideoList({
     required String bvid,
   }) async {
@@ -334,7 +335,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鑾峰彇鐐硅禐/鎶曞竵/鏀惰棌鐘舵€?pgc
+  // 获取点赞/投币/收藏状态 pgc
   static Future<LoadingState<PgcLCF>> pgcLikeCoinFav({
     required Object epId,
   }) async {
@@ -349,7 +350,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鎶曞竵
+  // 投币
   static Future<LoadingState<void>> coinVideo({
     required String bvid,
     required int multiply,
@@ -373,7 +374,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 涓€閿笁杩?pgc
+  // 一键三连 pgc
   static Future<LoadingState<PgcTriple>> pgcTriple({
     required Object epId,
     Object? seasonId,
@@ -398,7 +399,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 涓€閿笁杩?
+  // 一键三连
   static Future<LoadingState<UgcTriple>> ugcTriple({
     required String bvid,
   }) async {
@@ -430,7 +431,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 锛堝彇娑堬級鐐硅禐
+  // （取消）点赞
   static Future<LoadingState<String>> likeVideo({
     required String bvid,
     required bool type,
@@ -447,13 +448,13 @@ abstract final class VideoHttp {
     }
   }
 
-  // 锛堝彇娑堬級鐐硅俯
+  // （取消）点踩
   static Future<LoadingState<void>> dislikeVideo({
     required String bvid,
     required bool type,
   }) async {
     if (Accounts.main.accessKey.isNullOrEmpty) {
-      return const Error('璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍');
+      return const Error('请退出账号后重新登录');
     }
     final res = await Request().post(
       Api.dislikeVideo,
@@ -470,7 +471,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ弽棣?
+  // 推送不感兴趣反馈
   static Future<LoadingState<void>> feedDislike({
     required String goto,
     required int id,
@@ -478,7 +479,7 @@ abstract final class VideoHttp {
     int? feedbackId,
   }) async {
     if (Accounts.get(AccountType.recommend).accessKey.isNullOrEmpty) {
-      return const Error('璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍');
+      return const Error('请退出账号后重新登录');
     }
     assert((reasonId != null) ^ (feedbackId != null));
     final res = await Request().get(
@@ -499,7 +500,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鎺ㄩ€佷笉鎰熷叴瓒ｅ彇娑?
+  // 推送不感兴趣取消
   static Future<LoadingState<void>> feedDislikeCancel({
     required String goto,
     required int id,
@@ -507,7 +508,7 @@ abstract final class VideoHttp {
     int? feedbackId,
   }) async {
     if (Accounts.get(AccountType.recommend).accessKey.isNullOrEmpty) {
-      return const Error('璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍');
+      return const Error('请退出账号后重新登录');
     }
     final res = await Request().get(
       Api.feedDislikeCancel,
@@ -527,14 +528,14 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鍙戣〃璇勮 replyAdd
+  // 发表评论 replyAdd
 
-  // type	num	璇勮鍖虹被鍨嬩唬鐮?蹇呰	绫诲瀷浠ｇ爜瑙佽〃
-  // oid	num	鐩爣璇勮鍖篿d	蹇呰
-  // root	num	鏍硅瘎璁簉pid	闈炲繀瑕?浜岀骇璇勮浠ヤ笂浣跨敤
-  // parent	num	鐖惰瘎璁簉pid	闈炲繀瑕?浜岀骇璇勮鍚屾牴璇勮id 澶т簬浜岀骇璇勮涓鸿鍥炲鐨勮瘎璁篿d
-  // message	str	鍙戦€佽瘎璁哄唴瀹?蹇呰	鏈€澶?000瀛楃
-  // plat	num	鍙戦€佸钩鍙版爣璇?闈炲繀瑕?1锛歸eb绔?2锛氬畨鍗撳鎴风  3锛歩os瀹㈡埛绔? 4锛歸p瀹㈡埛绔?
+  // type	num	评论区类型代码	必要	类型代码见表
+  // oid	num	目标评论区id	必要
+  // root	num	根评论rpid	非必要	二级评论以上使用
+  // parent	num	父评论rpid	非必要	二级评论同根评论id 大于二级评论为要回复的评论id
+  // message	str	发送评论内容	必要	最大1000字符
+  // plat	num	发送平台标识	非必要	1：web端 2：安卓客户端  3：ios客户端  4：wp客户端
   static Future<LoadingState<ReplyInfo?>> replyAdd({
     required int type,
     required int oid,
@@ -601,11 +602,11 @@ abstract final class VideoHttp {
       GStorage.reply?.delete(rpid.toString());
       return const Success(null);
     } else {
-      return const Error('璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍');
+      return const Error('请退出账号后重新登录');
     }
   }
 
-  // 鎿嶄綔鐢ㄦ埛鍏崇郴
+  // 操作用户关系
   static Future<LoadingState<void>> relationMod({
     required int mid,
     required int act,
@@ -673,7 +674,7 @@ abstract final class VideoHttp {
     );
   }
 
-  // 瑙嗛鎾斁杩涘害
+  // 视频播放进度
   static Future<void> heartBeat({
     Object? aid,
     Object? bvid,
@@ -718,7 +719,7 @@ abstract final class VideoHttp {
     );
   }
 
-  // 娣诲姞杩界暘
+  // 添加追番
   static Future<LoadingState<String>> pgcAdd({int? seasonId}) async {
     final res = await Request().post(
       Api.pgcAdd,
@@ -732,7 +733,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鍙栨秷杩界暘
+  // 取消追番
   static Future<LoadingState<String>> pgcDel({int? seasonId}) async {
     final res = await Request().post(
       Api.pgcDel,
@@ -766,7 +767,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // 鏌ョ湅瑙嗛鍚屾椂鍦ㄧ湅浜烘暟
+  // 查看视频同时在看人数
   static Future<LoadingState<String>> onlineTotal({
     int? aid,
     String? bvid,
@@ -881,7 +882,7 @@ abstract final class VideoHttp {
     return false;
   }
 
-  // 瑙嗛鎺掕
+  // 视频排行
   static Future<LoadingState<List<HotVideoItemModel>>> getRankVideoList(
     int rid,
   ) async {
@@ -910,7 +911,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // pgc 鎺掕
+  // pgc 排行
   static Future<LoadingState<List<PgcRankItemModel>?>> pgcRankList({
     int day = 3,
     required int seasonType,
@@ -933,7 +934,7 @@ abstract final class VideoHttp {
     }
   }
 
-  // pgc season 鎺掕
+  // pgc season 排行
   static Future<LoadingState<List<PgcRankItemModel>?>> pgcSeasonRankList({
     int day = 3,
     required int seasonType,
@@ -1093,4 +1094,3 @@ abstract final class VideoHttp {
     return Error(res.data['message']);
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/video_card/video_card_h.dart';
@@ -74,7 +74,7 @@ class _HotPageState extends State<HotPage>
                     _buildEntranceItem(
                       iconUrl:
                           'https://i0.hdslb.com/bfs/archive/a3f11218aaf4521b4967db2ae164ecd3052586b9.png',
-                      title: '鎺掕姒?,
+                      title: '排行榜',
                       onTap: () {
                         try {
                           final homeController = Get.find<HomeController>();
@@ -87,7 +87,7 @@ class _HotPageState extends State<HotPage>
                             Get.to(
                               Scaffold(
                                 resizeToAvoidBottomInset: false,
-                                appBar: AppBar(title: const Text('鎺掕姒?)),
+                                appBar: AppBar(title: const Text('排行榜')),
                                 body: const ViewSafeArea(child: RankPage()),
                               ),
                             );
@@ -98,13 +98,13 @@ class _HotPageState extends State<HotPage>
                     _buildEntranceItem(
                       iconUrl:
                           'https://i0.hdslb.com/bfs/archive/552ebe8c4794aeef30ebd1568b59ad35f15e21ad.png',
-                      title: '姣忓懆蹇呯湅',
+                      title: '每周必看',
                       onTap: () => Get.toNamed('/popularSeries'),
                     ),
                     _buildEntranceItem(
                       iconUrl:
                           'https://i0.hdslb.com/bfs/archive/3693ec9335b78ca57353ac0734f36a46f3d179a9.png',
-                      title: '鍏ョ珯蹇呭埛',
+                      title: '入站必刷',
                       onTap: () => Get.toNamed('/popularPrecious'),
                     ),
                   ],
@@ -150,4 +150,3 @@ class _HotPageState extends State<HotPage>
     };
   }
 }
-

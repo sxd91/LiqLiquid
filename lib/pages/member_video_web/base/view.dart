@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -48,7 +48,7 @@ abstract class BaseVideoWebState<
             () {
               final order = controller.order.value;
               return PopupMenuButton<V>(
-                tooltip: '鎺掑簭',
+                tooltip: '排序',
                 icon: const Icon(Icons.sort),
                 initialValue: order,
                 onSelected: controller.queryBySort,
@@ -136,7 +136,7 @@ abstract class BaseVideoWebState<
     final count = controller.count;
     if (count == null) return null;
     return Text(
-      '鍏?$count 瑙嗛',
+      '共 $count 视频',
       style: const TextStyle(height: 1),
       strutStyle: const StrutStyle(leading: 0, height: 1),
     );
@@ -154,7 +154,7 @@ abstract class BaseVideoWebState<
     final backwardBtn = iconButton(
       size: size,
       iconSize: iconSize,
-      tooltip: canBackward ? '涓婁竴椤? : null,
+      tooltip: canBackward ? '上一页' : null,
       icon: const Icon(Icons.keyboard_arrow_left),
       onPressed: canBackward ? () => controller.jumpToPage(page - 1) : null,
     );
@@ -162,7 +162,7 @@ abstract class BaseVideoWebState<
     final forwardBtn = iconButton(
       size: size,
       iconSize: iconSize,
-      tooltip: canForward ? '涓嬩竴椤? : null,
+      tooltip: canForward ? '下一页' : null,
       icon: const Icon(Icons.keyboard_arrow_right),
       onPressed: canForward ? () => controller.jumpToPage(page + 1) : null,
     );
@@ -201,13 +201,13 @@ abstract class BaseVideoWebState<
 
     showConfirmDialog(
       context: context,
-      title: const Text('璺宠嚦: '),
+      title: const Text('跳至: '),
       content: TextFormField(
         autofocus: true,
         initialValue: pageStr,
         onChanged: (value) => pageStr = value,
         decoration: const InputDecoration(
-          labelText: '椤垫暟',
+          labelText: '页数',
           border: OutlineInputBorder(),
         ),
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -220,4 +220,3 @@ abstract class BaseVideoWebState<
     );
   }
 }
-

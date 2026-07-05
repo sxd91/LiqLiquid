@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
+import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
 import 'package:liqliquid/models_new/video/video_detail/episode.dart'
     show BaseEpisodeItem;
 
@@ -58,4 +58,3 @@ class EpisodeItem extends BaseEpisodeItem {
     play: json['play'] as int?,
   );
 }
-

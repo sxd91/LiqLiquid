@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/dynamic/dynamics_type.dart';
 import 'package:liqliquid/models/common/dynamic/up_panel_position.dart';
@@ -35,7 +35,7 @@ class _DynamicsPageState extends CommonPageState<DynamicsPage>
       height: 34,
       margin: EdgeInsets.only(left: !isRight ? 16 : 0, right: isRight ? 16 : 0),
       child: IconButton(
-        tooltip: '鍙戝竷鍔ㄦ€?,
+        tooltip: '发布动态',
         style: ButtonStyle(
           padding: const WidgetStatePropertyAll(EdgeInsets.zero),
           backgroundColor: WidgetStatePropertyAll(
@@ -205,4 +205,3 @@ class _DynamicsPageState extends CommonPageState<DynamicsPage>
     );
   }
 }
-

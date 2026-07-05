@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/dynamics/up.dart';
+import 'package:liqliquid/models/dynamics/up.dart';
 import 'package:liqliquid/models/model_avatar.dart';
 
 class FollowItemModel extends UpItem {
@@ -29,4 +29,3 @@ class FollowItemModel extends UpItem {
               ),
       );
 }
-

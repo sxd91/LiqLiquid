@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/data.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
@@ -17,7 +17,7 @@ class FavController extends CommonListController<FavFolderData, FavFolderInfo> {
   @override
   Future<void> queryData([bool isRefresh = true]) {
     if (!account.isLogin) {
-      loadingState.value = const Error('璐﹀彿鏈櫥褰?);
+      loadingState.value = const Error('账号未登录');
       return Future.syncValue(null);
     }
     return super.queryData(isRefresh);
@@ -38,4 +38,3 @@ class FavController extends CommonListController<FavFolderData, FavFolderInfo> {
     mid: account.mid,
   );
 }
-

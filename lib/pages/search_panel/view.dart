@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/search/search_type.dart';
@@ -80,4 +80,3 @@ abstract class CommonSearchPanelState<
 
   Widget buildList(ThemeData theme, List<T> list);
 }
-

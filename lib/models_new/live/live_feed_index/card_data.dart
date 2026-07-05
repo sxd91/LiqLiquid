@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/card_data_item.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/card_data_item.dart';
 import 'package:liqliquid/models_new/live/live_feed_index/card_data_list_item.dart';
 
 class CardData {
@@ -31,4 +31,3 @@ class CardData {
         : CardLiveItem.fromJson(json['small_card_v1'] as Map<String, dynamic>),
   );
 }
-

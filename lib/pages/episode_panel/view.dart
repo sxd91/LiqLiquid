@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
@@ -433,13 +433,13 @@ class _EpisodePanelState extends State<EpisodePanel>
           type: .transparency,
           child: InkWell(
             onTap: () {
-              if (episode.badge == "浼氬憳" &&
+              if (episode.badge == "会员" &&
                   Accounts.mainEqVideo &&
                   vipStatus != 1) {
-                SmartDialog.showToast('闇€瑕佸ぇ浼氬憳');
+                SmartDialog.showToast('需要大会员');
                 // return;
               }
-              SmartDialog.showToast('鍒囨崲鍒帮細$title');
+              SmartDialog.showToast('切换到：$title');
               widget.onClose?.call();
 
               widget.onChangeEpisode(episode).then((res) {
@@ -488,7 +488,7 @@ class _EpisodePanelState extends State<EpisodePanel>
                           ),
                         if (isCharging == true)
                           const PBadge(
-                            text: '鍏呯數涓撳睘',
+                            text: '充电专属',
                             top: 6,
                             right: 6,
                             type: PBadgeType.error,
@@ -499,8 +499,8 @@ class _EpisodePanelState extends State<EpisodePanel>
                             top: 6,
                             right: 6,
                             type: switch (episode.badge) {
-                              '棰勫憡' => PBadgeType.gray,
-                              '闄愬厤' => PBadgeType.free,
+                              '预告' => PBadgeType.gray,
+                              '限免' => PBadgeType.free,
                               _ => PBadgeType.primary,
                             },
                           ),
@@ -512,7 +512,7 @@ class _EpisodePanelState extends State<EpisodePanel>
                       color: primary,
                       height: 12,
                       cacheHeight: 12.cacheSize(context),
-                      semanticLabel: "姝ｅ湪鎾斁锛?,
+                      semanticLabel: "正在播放：",
                     ),
                   Expanded(
                     child: Column(
@@ -580,7 +580,7 @@ class _EpisodePanelState extends State<EpisodePanel>
     return switch (loadingState) {
       Success(:final response) => iconButton(
         iconSize: 22,
-        tooltip: response ? '鍙栨秷璁㈤槄' : '璁㈤槄',
+        tooltip: response ? '取消订阅' : '订阅',
         icon: response
             ? const Icon(Icons.notifications_off_outlined)
             : const Icon(Icons.notifications_active_outlined),
@@ -590,7 +590,7 @@ class _EpisodePanelState extends State<EpisodePanel>
             seasonId: widget.seasonId,
           );
           if (res.isSuccess) {
-            SmartDialog.showToast('${response ? '鍙栨秷' : ''}璁㈤槄鎴愬姛');
+            SmartDialog.showToast('${response ? '取消' : ''}订阅成功');
             _favState!.value = Success(!response);
             widget.ugcIntroController?.seasonFavState[widget.seasonId] =
                 !response;
@@ -605,7 +605,7 @@ class _EpisodePanelState extends State<EpisodePanel>
 
   Widget get _buildReverseBtn => iconButton(
     iconSize: 22,
-    tooltip: widget.isReversed == true ? '姝ｅ簭鎾斁' : '鍊掑簭鎾斁',
+    tooltip: widget.isReversed == true ? '正序播放' : '倒序播放',
     icon: widget.isReversed == true
         ? const Icon(MdiIcons.sortDescending)
         : const Icon(MdiIcons.sortAscending),
@@ -642,19 +642,19 @@ class _EpisodePanelState extends State<EpisodePanel>
         if (_favState != null) Obx(() => _buildFavBtn(_favState!.value)),
         iconButton(
           iconSize: 22,
-          tooltip: '璺宠嚦椤堕儴',
+          tooltip: '跳至顶部',
           icon: const Icon(Icons.vertical_align_top),
           onPressed: _animToTopOrBottom,
         ),
         iconButton(
           iconSize: 22,
-          tooltip: '璺宠嚦搴曢儴',
+          tooltip: '跳至底部',
           icon: const Icon(Icons.vertical_align_bottom),
           onPressed: () => _animToTopOrBottom(top: false),
         ),
         iconButton(
           iconSize: 22,
-          tooltip: '璺宠嚦褰撳墠',
+          tooltip: '跳至当前',
           icon: const Icon(Icons.my_location),
           onPressed: () async {
             final currentTabIndex = _currentTabIndex.value;
@@ -682,7 +682,7 @@ class _EpisodePanelState extends State<EpisodePanel>
             final currentTabIndex = _currentTabIndex.value;
             return iconButton(
               iconSize: 22,
-              tooltip: _isReversed[currentTabIndex] ? '椤哄簭' : '鍊掑簭',
+              tooltip: _isReversed[currentTabIndex] ? '顺序' : '倒序',
               icon: !_isReversed[currentTabIndex]
                   ? const Icon(MdiIcons.sortNumericAscending)
                   : const Icon(MdiIcons.sortNumericDescending),
@@ -695,7 +695,7 @@ class _EpisodePanelState extends State<EpisodePanel>
         if (widget.onClose != null)
           iconButton(
             iconSize: 22,
-            tooltip: '鍏抽棴',
+            tooltip: '关闭',
             icon: const Icon(Icons.close),
             onPressed: widget.onClose,
           ),
@@ -703,4 +703,3 @@ class _EpisodePanelState extends State<EpisodePanel>
     ),
   );
 }
-

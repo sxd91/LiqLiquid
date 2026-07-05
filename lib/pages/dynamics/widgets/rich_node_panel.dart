@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -17,9 +17,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
-const _linkFoldedText = '缃戦〉閾炬帴';
+const _linkFoldedText = '网页链接';
 
-// 瀵屾枃鏈?TextSpan? richNode(
+// 富文本
+TextSpan? richNode(
   BuildContext context, {
   required ThemeData theme,
   required DynamicItemModel item,
@@ -39,7 +40,8 @@ const _linkFoldedText = '缃戦〉閾炬帴';
       :final title,
       :final summary,
     )) {
-      // 鍔ㄦ€侀〉闈?richTextNodes 灞傜骇鍙兘涓庝富椤靛姩鎬佸眰绾т笉鍚?      richTextNodes = summary?.richTextNodes;
+      // 动态页面 richTextNodes 层级可能与主页动态层级不同
+      richTextNodes = summary?.richTextNodes;
       if (title != null && title.isNotEmpty) {
         if (richTextNodes == null || richTextNodes.isEmpty) {
           return TextSpan(
@@ -73,7 +75,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
               ),
             );
             break;
-          // @鐢ㄦ埛
+          // @用户
           case 'RICH_TEXT_NODE_TYPE_AT':
             spanChildren.add(
               TextSpan(
@@ -84,7 +86,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
               ),
             );
             break;
-          // 璇濋
+          // 话题
           case 'RICH_TEXT_NODE_TYPE_TOPIC':
             spanChildren.add(
               TextSpan(
@@ -103,7 +105,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
               ),
             );
             break;
-          // 缃戦〉閾炬帴
+          // 网页链接
           case 'RICH_TEXT_NODE_TYPE_WEB':
             final hasLink = i.jumpUrl?.isNotEmpty ?? false;
             if (!hasLink) {
@@ -131,7 +133,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
                 ),
               );
             break;
-          // 鎶曠エ
+          // 投票
           case 'RICH_TEXT_NODE_TYPE_VOTE':
             spanChildren
               ..add(
@@ -146,7 +148,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
               )
               ..add(
                 TextSpan(
-                  text: '鎶曠エ锛?{i.text}',
+                  text: '投票：${i.text}',
                   style: style,
                   recognizer: NoDeadlineTapGestureRecognizer()
                     ..onTap = () {
@@ -159,7 +161,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
                 ),
               );
             break;
-          // 琛ㄦ儏
+          // 表情
           case 'RICH_TEXT_NODE_TYPE_EMOJI' when (i.emoji != null):
             final size = i.emoji!.size * 20.0;
             spanChildren.add(
@@ -173,7 +175,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
               ),
             );
             break;
-          // 鎶藉
+          // 抽奖
           case 'RICH_TEXT_NODE_TYPE_LOTTERY':
             spanChildren
               ..add(
@@ -225,7 +227,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
                 ),
               );
             break;
-          // 鎶曠
+          // 投稿
           case 'RICH_TEXT_NODE_TYPE_BV':
             spanChildren
               ..add(
@@ -366,8 +368,7 @@ const _linkFoldedText = '缃戦〉閾炬帴';
       return TextSpan(children: spanChildren);
     }
   } catch (err) {
-    if (kDebugMode) debugPrint('鉂宺ich_node_panel err: $err');
+    if (kDebugMode) debugPrint('❌rich_node_panel err: $err');
     return null;
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/search.dart';
 import 'package:liqliquid/models/common/search/search_type.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -75,4 +75,3 @@ class SearchAllController
     }
   }
 }
-

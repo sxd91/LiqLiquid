@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/services/audio_handler.dart';
+import 'package:liqliquid/services/audio_handler.dart';
 import 'package:liqliquid/services/audio_session.dart';
 
 VideoPlayerServiceHandler? videoPlayerServiceHandler;
@@ -9,4 +9,3 @@ Future<void> setupServiceLocator() async {
   videoPlayerServiceHandler = audio;
   audioSessionHandler = AudioSessionHandler();
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
+import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
 import 'package:liqliquid/utils/bili_utils.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class FavFolderItem extends StatelessWidget {
             maxLines: 1,
           ),
           Text(
-            ' 鍏?{item.mediaCount}鏉¤棰?路 ${BiliUtils.isPublicFavText(item.attr)}',
+            ' 共${item.mediaCount}条视频 · ${BiliUtils.isPublicFavText(item.attr)}',
             style: theme.textTheme.labelSmall!.copyWith(
               color: theme.colorScheme.outline,
             ),
@@ -74,4 +74,3 @@ class FavFolderItem extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -35,7 +35,7 @@ class Request {
       _http11Dio ??= _enableHttp2 ? _cloneHttp11Dio() : dio;
   factory Request() => _instance;
 
-  /// 设置Cookie
+  /// 设置cookie
   static void setCookie() {
     accountManager = AccountManager();
     dio.interceptors.add(accountManager);
@@ -60,8 +60,7 @@ class Request {
   }
 
   static Future<void> buvidActive(Account account) async {
-    // 这样线程不安全? 但仍按预期进行
-    if (account.activated) return;
+    // 这样线程不安全, 但仍按预期进行
     if (account.activated) return;
     account.activated = true;
     try {
@@ -155,7 +154,7 @@ class Request {
               ..badCertificateCallback = (cert, host, port) => true
           : () => HttpClient()
               ..idleTimeout = const Duration(seconds: 15)
-              ..autoUncompress = false, // Http2Adapter没有自动解压，统一行为
+              ..autoUncompress = false, // Http2Adapter没有自动解压, 统一行为
     );
 
     final connectionManager = _enableHttp2
@@ -200,15 +199,15 @@ class Request {
    * config it and create
    */
   Request._internal() {
-    // BaseOptions、Options、RequestOptions 都可以配置参数，优先级依次递增，且可以根据优先级覆盖参数
+    //BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
     BaseOptions options = BaseOptions(
-      // 请求基地址，可以包含子路径
+      //请求基地址,可以包含子路径
       baseUrl: HttpString.apiBaseUrl,
-      // 连接服务器超时时间，单位是毫秒
+      //连接服务器超时时间，单位是毫秒.
       connectTimeout: const Duration(milliseconds: 10000),
-      // 响应流上前两次接收到数据的间隔，单位为毫秒。
+      //响应流上前后两次接受到数据的间隔，单位为毫秒。
       receiveTimeout: const Duration(milliseconds: 10000),
-      // Http请求头
+      //Http请求头.
       headers: {
         'user-agent': 'Dart/3.6 (dart:io)', // Http2Adapter不会自动添加标头
         if (!_enableHttp2) 'connection': 'keep-alive',
@@ -232,8 +231,7 @@ class Request {
       );
     }
 
-    // 日志拦截器 输出请求、响应内容(kDebugMode) {
-
+    // 日志拦截器 输出请求、响应内容
     if (kDebugMode) {
       dio.interceptors.add(
         LogInterceptor(
@@ -273,7 +271,8 @@ class Request {
       return Response(
         data: {
           'message': await AccountManager.dioError(e),
-        }, // 灏嗚嚜瀹氫箟 Map 鏁版嵁璧嬪€肩粰 Response 鐨?data 灞炴€?        statusCode: e.response?.statusCode ?? -1,
+        }, // 将自定义 Map 数据赋值给 Response 的 data 属性
+        statusCode: e.response?.statusCode ?? -1,
         requestOptions: e.requestOptions,
       );
     }
@@ -303,7 +302,8 @@ class Request {
       return Response(
         data: {
           'message': await AccountManager.dioError(e),
-        }, // 灏嗚嚜瀹氫箟 Map 鏁版嵁璧嬪€肩粰 Response 鐨?data 灞炴€?        statusCode: e.response?.statusCode ?? -1,
+        }, // 将自定义 Map 数据赋值给 Response 的 data 属性
+        statusCode: e.response?.statusCode ?? -1,
         requestOptions: e.requestOptions,
       );
     }
@@ -358,4 +358,3 @@ class Request {
     allowMalformed: true,
   );
 }
-

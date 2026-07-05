@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -34,7 +34,7 @@ abstract final class ReplyHttp {
               'type': type,
               'pagination_str':
                   '{"offset":"${nextOffset.replaceAll('"', '\\"')}"}',
-              'mode': sort + 2, //2:鎸夋椂闂存帓搴忥紱3锛氭寜鐑害鎺掑簭
+              'mode': sort + 2, //2:按时间排序；3：按热度排序
             },
             options: !isLogin ? options : null,
           )
@@ -112,7 +112,7 @@ abstract final class ReplyHttp {
     }
   }
 
-  // 璇勮鐐硅禐
+  // 评论点赞
   static Future<LoadingState<void>> likeReply({
     required int type,
     required int oid,
@@ -258,4 +258,3 @@ abstract final class ReplyHttp {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart' show ReloadMixin;
+import 'package:liqliquid/common/widgets/scroll_physics.dart' show ReloadMixin;
 import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/reply.dart';
@@ -52,8 +52,8 @@ class DynamicDetailController extends CommonDynController with ReloadMixin {
       action: isPrivate ? 'public_pub' : 'private_pub',
     );
     if (res.isSuccess) {
-      dynItem.modules.moduleAuthor?.badgeText = isPrivate ? null : '浠呰嚜宸卞彲瑙?;
-      SmartDialog.showToast('璁剧疆鎴愬姛');
+      dynItem.modules.moduleAuthor?.badgeText = isPrivate ? null : '仅自己可见';
+      SmartDialog.showToast('设置成功');
     } else {
       res.toast();
     }
@@ -81,4 +81,3 @@ class DynamicDetailController extends CommonDynController with ReloadMixin {
     return super.onReload();
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_audio/item.dart';
+import 'package:liqliquid/models_new/space/space_audio/item.dart';
 
 class SpaceAudioData {
   int? totalSize;
@@ -16,4 +16,3 @@ class SpaceAudioData {
         .toList(),
   );
 }
-

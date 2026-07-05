@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/appbar/appbar.dart';
+import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
@@ -128,7 +128,7 @@ class _HistoryPageState extends State<HistoryPage>
                         }
                       },
                       tabs: [
-                        const Tab(text: '鍏ㄩ儴'),
+                        const Tab(text: '全部'),
                         ...tabs.map((item) => Tab(text: item.name)),
                       ],
                     ),
@@ -157,11 +157,11 @@ class _HistoryPageState extends State<HistoryPage>
   }
 
   AppBar get _buildAppBar => AppBar(
-    title: const Text('瑙傜湅璁板綍'),
+    title: const Text('观看记录'),
     bottom: _buildPauseTip,
     actions: [
       IconButton(
-        tooltip: '鎼滅储',
+        tooltip: '搜索',
         onPressed: () => Get.toNamed('/historySearch'),
         icon: const Icon(Icons.search_outlined),
       ),
@@ -171,8 +171,8 @@ class _HistoryPageState extends State<HistoryPage>
             onTap: () => _historyController.baseCtr.onPauseHistory(context),
             child: Text(
               !_historyController.baseCtr.pauseStatus.value
-                  ? '鏆傚仠瑙傜湅璁板綍'
-                  : '鎭㈠瑙傜湅璁板綍',
+                  ? '暂停观看记录'
+                  : '恢复观看记录',
             ),
           ),
           PopupMenuItem(
@@ -193,11 +193,11 @@ class _HistoryPageState extends State<HistoryPage>
                 }
               },
             ),
-            child: const Text('娓呯┖瑙傜湅璁板綍'),
+            child: const Text('清空观看记录'),
           ),
           PopupMenuItem(
             onTap: currCtr().onDelViewedHistory,
-            child: const Text('鍒犻櫎宸茬湅璁板綍'),
+            child: const Text('删除已看记录'),
           ),
         ],
       ),
@@ -262,7 +262,7 @@ class _HistoryPageState extends State<HistoryPage>
                           color: theme.onSecondaryContainer,
                         ),
                       ),
-                      const TextSpan(text: ' 鍘嗗彶璁板綍鍔熻兘宸插叧闂?),
+                      const TextSpan(text: ' 历史记录功能已关闭'),
                     ],
                   ),
                 ),
@@ -276,7 +276,7 @@ class _HistoryPageState extends State<HistoryPage>
                     horizontal: 10,
                   ),
                   child: Text(
-                    '鐐瑰嚮寮€鍚?,
+                    '点击开启',
                     strutStyle: const StrutStyle(height: 1, leading: 0),
                     style: TextStyle(height: 1, color: theme.primary),
                   ),
@@ -294,4 +294,3 @@ class _HistoryPageState extends State<HistoryPage>
   @override
   bool get wantKeepAlive => widget.type != null;
 }
-

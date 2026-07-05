@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
@@ -183,34 +183,34 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
         Row(
           children: [
             Text(
-              '寮瑰箷瀛楀彿',
+              '弹幕字号',
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
               ),
             ),
             const SizedBox(width: 16),
-            _buildFontSizeItem(18, '灏?),
+            _buildFontSizeItem(18, '小'),
             const SizedBox(width: 5),
-            _buildFontSizeItem(25, '鏍囧噯'),
+            _buildFontSizeItem(25, '标准'),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
             Text(
-              '寮瑰箷鏍峰紡',
+              '弹幕样式',
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
               ),
             ),
             const SizedBox(width: 16),
-            _buildPositionItem(1, '婊氬姩'),
+            _buildPositionItem(1, '滚动'),
             const SizedBox(width: 5),
-            _buildPositionItem(5, '椤堕儴'),
+            _buildPositionItem(5, '顶部'),
             const SizedBox(width: 5),
-            _buildPositionItem(4, '搴曢儴'),
+            _buildPositionItem(4, '底部'),
           ],
         ),
         const SizedBox(height: 12),
@@ -218,7 +218,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '寮瑰箷棰滆壊',
+              '弹幕颜色',
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
@@ -347,7 +347,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
             () {
               final isEmoji = panelType.value == PanelType.emoji;
               return iconButton(
-                tooltip: '寮瑰箷鏍峰紡',
+                tooltip: '弹幕样式',
                 onPressed: () {
                   updatePanelType(
                     isEmoji ? PanelType.keyboard : PanelType.emoji,
@@ -382,7 +382,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
                   onSubmitted: onSubmitted,
                   focusNode: focusNode,
                   decoration: InputDecoration(
-                    hintText: "杈撳叆寮瑰箷鍐呭",
+                    hintText: "输入弹幕内容",
                     border: InputBorder.none,
                     hintStyle: TextStyle(
                       fontSize: 15,
@@ -410,7 +410,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
           const SizedBox(width: 12),
           Obx(
             () => iconButton(
-              tooltip: '鍙戦€?,
+              tooltip: '发送',
               iconSize: 22,
               iconColor: enablePublish.value
                   ? themeData.colorScheme.primary
@@ -445,7 +445,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
 
   @override
   Future<void> onCustomPublish({List? pictures}) async {
-    SmartDialog.showLoading(msg: '鍙戦€佷腑...');
+    SmartDialog.showLoading(msg: '发送中...');
     bool isColorful = _color.value == Colors.transparent;
     final res = await DanmakuHttp.shootDanmaku(
       oid: widget.cid,
@@ -461,7 +461,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
     if (res case Success(:final response)) {
       hasPub = true;
       Get.back();
-      SmartDialog.showToast('鍙戦€佹垚鍔?);
+      SmartDialog.showToast('发送成功');
       VideoDanmaku? extra;
       if (response.dmid case final dmid?) {
         extra = VideoDanmaku(
@@ -488,4 +488,3 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
     }
   }
 }
-

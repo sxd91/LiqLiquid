@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_hot_video_item.dart';
+import 'package:liqliquid/models/model_hot_video_item.dart';
 
 class PopularPreciousData {
   int? mediaId;
@@ -14,4 +14,3 @@ class PopularPreciousData {
             .toList(),
       );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_rank/pgc_rank_item_model.dart';
+import 'package:liqliquid/models_new/pgc/pgc_rank/pgc_rank_item_model.dart';
 
 class Data {
   List<PgcRankItemModel>? list;
@@ -15,4 +15,3 @@ class Data {
     seasonType: json['season_type'] as int?,
   );
 }
-

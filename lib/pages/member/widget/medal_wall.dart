@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models_new/live/live_medal_wall/data.dart';
@@ -19,7 +19,7 @@ class MedalWall extends StatelessWidget {
     final colorScheme = ColorScheme.of(context);
     return AlertDialog(
       clipBehavior: .hardEdge,
-      title: const Text('绮変笣鍕嬬珷澧?),
+      title: const Text('粉丝勋章墙'),
       contentPadding: const .symmetric(vertical: 16),
       constraints: const BoxConstraints.tightFor(width: 380),
       content: CustomScrollView(
@@ -49,7 +49,7 @@ class MedalWall extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: colorScheme.outline),
                   TextSpan(
                     children: [
-                      const TextSpan(text: '鍏辨嫢鏈?'),
+                      const TextSpan(text: '共拥有 '),
                       TextSpan(
                         text: response.count.toString(),
                         style: TextStyle(
@@ -57,7 +57,7 @@ class MedalWall extends StatelessWidget {
                           color: colorScheme.primary,
                         ),
                       ),
-                      const TextSpan(text: ' 鏋氱矇涓濆媼绔?),
+                      const TextSpan(text: ' 枚粉丝勋章'),
                     ],
                   ),
                 ),
@@ -127,7 +127,7 @@ class MedalWall extends StatelessWidget {
                           color: colorScheme.btnColor,
                         ),
                         child: const Text(
-                          '浣╂埓涓?,
+                          '佩戴中',
                           style: TextStyle(
                             height: 1,
                             fontSize: 10,
@@ -149,4 +149,3 @@ class MedalWall extends StatelessWidget {
     );
   }
 }
-

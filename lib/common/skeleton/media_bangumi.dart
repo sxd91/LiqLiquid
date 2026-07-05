@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:flutter/material.dart';
 
@@ -80,4 +80,3 @@ class _MediaPgcSkeletonState extends State<MediaPgcSkeleton> {
     );
   }
 }
-

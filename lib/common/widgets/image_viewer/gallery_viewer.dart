@@ -1,18 +1,18 @@
-﻿/*
- * This file is part of PiliPlus
+/*
+ * This file is part of liqliquid
  *
- * LiqLiquid is free software: you can redistribute it and/or modify
+ * liqliquid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LiqLiquid is distributed in the hope that it will be useful,
+ * liqliquid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with PiliPlus.  If not, see <https://www.gnu.org/licenses/>.
+ * along with liqliquid.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 import 'dart:io' show File, Platform;
@@ -545,21 +545,21 @@ class _GalleryViewerState extends State<GalleryViewer>
                 Get.back();
                 ImageUtils.onShareImg(item.url);
               },
-              child: const Text('鍒嗕韩', style: TextStyle(fontSize: 14)),
+              child: const Text('分享', style: TextStyle(fontSize: 14)),
             ),
           DialogOption(
             onPressed: () {
               Get.back();
               Utils.copyText(item.url);
             },
-            child: const Text('澶嶅埗閾炬帴', style: TextStyle(fontSize: 14)),
+            child: const Text('复制链接', style: TextStyle(fontSize: 14)),
           ),
           DialogOption(
             onPressed: () {
               Get.back();
               ImageUtils.downloadImg([item.url]);
             },
-            child: const Text('淇濆瓨鍥剧墖', style: TextStyle(fontSize: 14)),
+            child: const Text('保存图片', style: TextStyle(fontSize: 14)),
           ),
           if (PlatformUtils.isDesktop)
             DialogOption(
@@ -567,7 +567,7 @@ class _GalleryViewerState extends State<GalleryViewer>
                 Get.back();
                 PageUtils.launchURL(item.url);
               },
-              child: const Text('缃戦〉鎵撳紑', style: TextStyle(fontSize: 14)),
+              child: const Text('网页打开', style: TextStyle(fontSize: 14)),
             )
           else if (widget.sources.length > 1)
             DialogOption(
@@ -577,7 +577,7 @@ class _GalleryViewerState extends State<GalleryViewer>
                   widget.sources.map((item) => item.url).toList(),
                 );
               },
-              child: const Text('淇濆瓨鍏ㄩ儴鍥剧墖', style: TextStyle(fontSize: 14)),
+              child: const Text('保存全部图片', style: TextStyle(fontSize: 14)),
             ),
           if (item.sourceType == SourceType.livePhoto)
             DialogOption(
@@ -591,7 +591,7 @@ class _GalleryViewerState extends State<GalleryViewer>
                 );
               },
               child: Text(
-                '淇濆瓨${Platform.isIOS ? ' Live Photo' : '瑙嗛'}',
+                '保存${Platform.isIOS ? ' Live Photo' : '视频'}',
                 style: const TextStyle(fontSize: 14),
               ),
             ),
@@ -610,17 +610,17 @@ class _GalleryViewerState extends State<GalleryViewer>
         PopupMenuItem(
           height: 42,
           onTap: () => Utils.copyText(item.url),
-          child: const Text('澶嶅埗閾炬帴', style: TextStyle(fontSize: 14)),
+          child: const Text('复制链接', style: TextStyle(fontSize: 14)),
         ),
         PopupMenuItem(
           height: 42,
           onTap: () => ImageUtils.downloadImg([item.url]),
-          child: const Text('淇濆瓨鍥剧墖', style: TextStyle(fontSize: 14)),
+          child: const Text('保存图片', style: TextStyle(fontSize: 14)),
         ),
         PopupMenuItem(
           height: 42,
           onTap: () => PageUtils.launchURL(item.url),
-          child: const Text('缃戦〉鎵撳紑', style: TextStyle(fontSize: 14)),
+          child: const Text('网页打开', style: TextStyle(fontSize: 14)),
         ),
         if (item.sourceType == SourceType.livePhoto)
           PopupMenuItem(
@@ -631,7 +631,7 @@ class _GalleryViewerState extends State<GalleryViewer>
               width: item.width!,
               height: item.height!,
             ),
-            child: const Text('淇濆瓨瑙嗛', style: TextStyle(fontSize: 14)),
+            child: const Text('保存视频', style: TextStyle(fontSize: 14)),
           ),
       ],
     );
@@ -664,5 +664,3 @@ class _GalleryViewerState extends State<GalleryViewer>
     );
   }
 }
-
-

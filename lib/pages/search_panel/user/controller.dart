@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/models/common/search/user_search_type.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -45,7 +45,7 @@ class SearchUserController
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 10),
-              const Text('鐢ㄦ埛绮変笣鏁板強绛夌骇鎺掑簭椤哄簭', style: TextStyle(fontSize: 16)),
+              const Text('用户粉丝数及等级排序顺序', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -71,7 +71,7 @@ class SearchUserController
                 ).toList(),
               ),
               const SizedBox(height: 20),
-              const Text('鐢ㄦ埛鍒嗙被', style: TextStyle(fontSize: 16)),
+              const Text('用户分类', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -102,4 +102,3 @@ class SearchUserController
     );
   }
 }
-

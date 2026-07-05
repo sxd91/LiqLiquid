@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/member/coin_like_arc/item.dart';
+import 'package:liqliquid/models_new/member/coin_like_arc/item.dart';
 
 class CoinLikeArcData {
   int? count;
@@ -14,4 +14,3 @@ class CoinLikeArcData {
             .toList(),
       );
 }
-

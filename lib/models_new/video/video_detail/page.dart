@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
+import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
 import 'package:liqliquid/models_new/video/video_detail/episode.dart';
 
 class Part extends BaseEpisodeItem {
@@ -39,4 +39,3 @@ class Part extends BaseEpisodeItem {
     badge: json["badge"],
   );
 }
-

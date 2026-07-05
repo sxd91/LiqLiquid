@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage.dart';
+import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
@@ -27,7 +27,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
     init();
   }
 
-  // 鑾峰彇鎵€鏈夌殑mode
+  // 获取所有的mode
   Future<void> fetchAll() async {
     preferred = await FlutterDisplayMode.preferred;
     active = await FlutterDisplayMode.active;
@@ -37,7 +37,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
     }
   }
 
-  // 鍒濆鍖杕ode/鎵嬪姩璁剧疆
+  // 初始化mode/手动设置
   Future<void> init() async {
     try {
       modes = await FlutterDisplayMode.supported;
@@ -61,7 +61,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('灞忓箷甯х巼璁剧疆')),
+      appBar: AppBar(title: const Text('屏幕帧率设置')),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -70,7 +70,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
                 MediaQuery.viewPaddingOf(context).copyWith(top: 0, bottom: 0) +
                 const EdgeInsets.only(left: 25, top: 10, bottom: 5),
             child: Text(
-              '娌℃湁鐢熸晥锛熼噸鍚痑pp璇曡瘯',
+              '没有生效？重启app试试',
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -94,8 +94,8 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
                   return RadioListTile<DisplayMode>(
                     value: mode,
                     title: mode == DisplayMode.auto
-                        ? const Text('鑷姩')
-                        : Text('$mode${mode == active ? '  [绯荤粺]' : ''}'),
+                        ? const Text('自动')
+                        : Text('$mode${mode == active ? '  [系统]' : ''}'),
                   );
                 },
               ),
@@ -106,4 +106,3 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/fav_order_type.dart';
 import 'package:liqliquid/models/common/video/source_type.dart';
@@ -74,4 +74,3 @@ class FavSearchController
     },
   );
 }
-

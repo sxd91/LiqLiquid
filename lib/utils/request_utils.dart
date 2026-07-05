@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -56,9 +56,20 @@ abstract final class RequestUtils {
     }
   }
 
-  // 1锛氬皬瑙嗛锛堝凡寮冪敤锛?  // 2锛氱浉绨?  // 3锛氱函鏂囧瓧
-  // 4锛氱洿鎾紙姝ょ被鍨嬩笉甯哥敤锛岃鍒嗕韩鍏朵粬鍐呭娑堟伅锛?  // 5锛氳棰?  // 6锛氫笓鏍?  // 7锛氱暘鍓э紙id 涓?season_id锛?  // 8锛氶煶涔?  // 9锛氬浗浜у姩鐢伙紙id 涓?AV 鍙凤級
-  // 10锛氬浘鐗?  // 11锛氬姩鎬?  // 16锛氱暘鍓э紙id 涓?epid锛?  // 17锛氱暘鍓?  // https://github.com/SocialSisterYi/bilibili-API-collect/tree/master/docs/message/private_msg_content.md
+  // 1：小视频（已弃用）
+  // 2：相簿
+  // 3：纯文字
+  // 4：直播（此类型不常用，见分享其他内容消息）
+  // 5：视频
+  // 6：专栏
+  // 7：番剧（id 为 season_id）
+  // 8：音乐
+  // 9：国产动画（id 为 AV 号）
+  // 10：图片
+  // 11：动态
+  // 16：番剧（id 为 epid）
+  // 17：番剧
+  // https://github.com/SocialSisterYi/bilibili-API-collect/tree/master/docs/message/private_msg_content.md
   static Future<bool> pmShare({
     required int receiverId,
     required Map content,
@@ -171,7 +182,7 @@ abstract final class RequestUtils {
                     isAdd: !isSpecialFollowed,
                   );
                   if (res.isSuccess) {
-                    SmartDialog.showToast('$text鎴愬姛');
+                    SmartDialog.showToast('$text成功');
                     afterMod?.call(isSpecialFollowed ? 2 : -10);
                   } else {
                     res.toast();
@@ -351,7 +362,7 @@ abstract final class RequestUtils {
             builder: (context) => AlertDialog(
               title: const Text('动态检查结果'),
               content: SelectableText(
-                '${isSuccess ? '鏃犺处鍙风姸鎬佷笅鎵惧埌浜嗕綘鐨勫姩鎬侊紝鍔ㄦ€佹甯革紒' : '浣犵殑鍔ㄦ€佽shadow ban锛堜粎鑷繁鍙锛夛紒'}${dynText != null ? ' \n\n鍔ㄦ€佸唴瀹? $dynText' : ''}',
+                '${isSuccess ? '无账号状态下找到了你的动态，动态正常！' : '你的动态被shadow ban（仅自己可见）！'}${dynText != null ? ' \n\n动态内容: $dynText' : ''}',
               ),
               actions: actions.isEmpty ? null : actions,
             ),
@@ -382,7 +393,8 @@ abstract final class RequestUtils {
 
     final res = await DynamicsHttp.thumbDynamic(
       dynamicId: item.idStr!,
-      up: status ? 2 : 1, // 1 已点赞 2 不喜欢 0 未操作?    );
+      up: status ? 2 : 1, // 1 已点赞 2 不喜欢 0 未操作
+    );
     if (res.isSuccess) {
       SmartDialog.showToast(status ? '取消赞' : '点赞成功');
       like
@@ -470,7 +482,7 @@ abstract final class RequestUtils {
                               ..refresh();
                           }
                           SmartDialog.dismiss();
-                          SmartDialog.showToast('${isCopy ? '复制' : '移动'}鎴愬姛');
+                          SmartDialog.showToast('${isCopy ? '复制' : '移动'}成功');
                           Get.back();
                         } else {
                           SmartDialog.dismiss();
@@ -479,7 +491,7 @@ abstract final class RequestUtils {
                       });
                     }
                   },
-                  child: const Text('纭'),
+                  child: const Text('确认'),
                 ),
               ],
             );
@@ -521,7 +533,7 @@ abstract final class RequestUtils {
     }
 
     if (!isGeeArgumentValid()) {
-      SmartDialog.showToast("鍙傛暟涓虹┖");
+      SmartDialog.showToast("参数为空");
       return;
     }
 
@@ -583,4 +595,3 @@ abstract final class RequestUtils {
     }
   }
 }
-

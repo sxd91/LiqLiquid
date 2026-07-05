@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/pages/live_room/controller.dart';
 import 'package:liqliquid/pages/video/widgets/header_mixin.dart';
 import 'package:liqliquid/plugin/pl_player/controller.dart';
@@ -54,7 +54,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           PlayOrPauseButton(plPlayerController: plPlayerController),
           ComBtn(
             height: 30,
-            tooltip: '鍒锋柊',
+            tooltip: '刷新',
             icon: const Icon(
               Icons.refresh,
               size: 18,
@@ -65,7 +65,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           const Spacer(),
           ComBtn(
             height: 30,
-            tooltip: '灞忚斀',
+            tooltip: '屏蔽',
             icon: const Icon(
               size: 18,
               Icons.block,
@@ -80,7 +80,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
                   },
                 );
               } else {
-                SmartDialog.showToast('璐﹀彿鏈櫥褰?);
+                SmartDialog.showToast('账号未登录');
               }
             },
           ),
@@ -88,10 +88,10 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           Obx(
             () {
               final enableShowLiveDanmaku =
-                  plPlayerController.enableShowDanmaku.value;
+                  plPlayerController.enableShowLiveDanmaku.value;
               return ComBtn(
                 height: 30,
-                tooltip: "${enableShowLiveDanmaku ? '鍏抽棴' : '寮€鍚?}寮瑰箷",
+                tooltip: "${enableShowLiveDanmaku ? '关闭' : '开启'}弹幕",
                 icon: enableShowLiveDanmaku
                     ? const Icon(
                         size: 18,
@@ -105,7 +105,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
                       ),
                 onTap: () {
                   final newVal = !enableShowLiveDanmaku;
-                  plPlayerController.enableShowDanmaku.value = newVal;
+                  plPlayerController.enableShowLiveDanmaku.value = newVal;
                   if (!plPlayerController.tempPlayerConf) {
                     GStorage.setting.put(
                       SettingBoxKey.enableShowLiveDanmaku,
@@ -118,7 +118,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           ),
           ComBtn(
             height: 30,
-            tooltip: '寮瑰箷璁剧疆',
+            tooltip: '弹幕设置',
             icon: const Icon(
               size: 18,
               CustomIcons.dm_settings,
@@ -128,7 +128,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           ),
           Obx(
             () => PopupMenuButton<VideoFitType>(
-              tooltip: '鐢婚潰姣斾緥',
+              tooltip: '画面比例',
               initialValue: plPlayerController.videoFit.value,
               color: Colors.black.withValues(alpha: 0.8),
               itemBuilder: (context) {
@@ -161,7 +161,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           ),
           Obx(
             () => PopupMenuButton<int>(
-              tooltip: '鐢昏川',
+              tooltip: '画质',
               padding: EdgeInsets.zero,
               initialValue: liveRoomCtr.currentQn,
               color: Colors.black.withValues(alpha: 0.8),
@@ -196,7 +196,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
           if (!plPlayerController.isDesktopPip)
             ComBtn(
               height: 30,
-              tooltip: isFullScreen ? '閫€鍑哄叏灞? : '鍏ㄥ睆',
+              tooltip: isFullScreen ? '退出全屏' : '全屏',
               icon: isFullScreen
                   ? const Icon(
                       Icons.fullscreen_exit,
@@ -220,4 +220,3 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/constants.dart';
@@ -164,7 +164,7 @@ class _ArticleListPageState extends State<ArticleListPage> with GridMixin {
                           text: '${NumUtils.numFormat(item.articlesCount)}篇专栏',
                         ),
                         divider,
-                        TextSpan(text: '${NumUtils.numFormat(item.words)}涓瓧'),
+                        TextSpan(text: '${NumUtils.numFormat(item.words)}个字'),
                         divider,
                         TextSpan(text: '${NumUtils.numFormat(item.read)}次阅读'),
                       ],
@@ -176,7 +176,7 @@ class _ArticleListPageState extends State<ArticleListPage> with GridMixin {
                       children: [
                         TextSpan(
                           text:
-                              '${DateFormatUtils.dateFormat(item.updateTime)}鏇存柊',
+                              '${DateFormatUtils.dateFormat(item.updateTime)}更新',
                         ),
                         divider,
                         TextSpan(text: '文集号: ${item.id}'),
@@ -192,7 +192,7 @@ class _ArticleListPageState extends State<ArticleListPage> with GridMixin {
       ),
       actions: [
         IconButton(
-          tooltip: '娴忚鍣ㄦ墦寮€',
+          tooltip: '浏览器打开',
           onPressed: () => PageUtils.inAppWebview(
             '${HttpString.baseUrl}/read/mobile-readlist/rl${_controller.id}',
           ),
@@ -203,4 +203,3 @@ class _ArticleListPageState extends State<ArticleListPage> with GridMixin {
     );
   }
 }
-

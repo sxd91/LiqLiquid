@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Directory, File;
+import 'dart:io' show Directory, File;
 
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
@@ -13,7 +13,7 @@ abstract final class CacheManager {
     maxNrOfCacheLength: Pref.maxCacheSize.toInt(),
   ).then((i) => manager = i);
 
-  // 鑾峰彇缂撳瓨鐩綍
+  // 获取缓存目录
   @pragma('vm:notify-debugger-on-exception')
   static Future<int> loadApplicationCache() async {
     try {
@@ -29,7 +29,8 @@ abstract final class CacheManager {
     return 0;
   }
 
-  // 寰幆璁＄畻鏂囦欢鐨勫ぇ灏?  @pragma('vm:notify-debugger-on-exception')
+  // 循环计算文件的大小
+  @pragma('vm:notify-debugger-on-exception')
   static Future<int> getTotalSizeOfFilesInDir(final Directory file) async {
     int total = 0;
     await for (final child in file.list(recursive: false)) {
@@ -50,7 +51,7 @@ abstract final class CacheManager {
     return total;
   }
 
-  // 缂撳瓨澶у皬鏍煎紡杞崲
+  // 缓存大小格式转换
   static String formatSize(num value) {
     const unitArr = ['B', 'K', 'M', 'G', 'T', 'P'];
     int index = 0;
@@ -62,7 +63,8 @@ abstract final class CacheManager {
     return size + (unitArr.elementAtOrNull(index) ?? '');
   }
 
-  // 娓呴櫎 Library/Caches 鐩綍鍙婃枃浠剁紦瀛?  @pragma('vm:notify-debugger-on-exception')
+  // 清除 Library/Caches 目录及文件缓存
+  @pragma('vm:notify-debugger-on-exception')
   static Future<void> clearLibraryCache() async {
     try {
       await manager.emptyCache();
@@ -80,4 +82,3 @@ abstract final class CacheManager {
     } catch (_) {}
   }
 }
-

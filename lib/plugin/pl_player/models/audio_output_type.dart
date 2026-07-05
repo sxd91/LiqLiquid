@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 
 enum AudioOutput implements EnumWithLabel {
   opensles('OpenSL ES'),
@@ -12,4 +12,3 @@ enum AudioOutput implements EnumWithLabel {
   final String label;
   const AudioOutput(this.label);
 }
-

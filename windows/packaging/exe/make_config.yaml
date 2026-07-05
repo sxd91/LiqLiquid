@@ -1,14 +1,16 @@
-﻿script_template: inno_setup.iss
-# AppId 鐨勫€煎敮涓€鏍囪瘑姝ゅ簲鐢ㄣ€?# 涓嶈鍦ㄥ叾浠栧簲鐢ㄧ殑瀹夎绋嬪簭涓娇鐢ㄧ浉鍚岀殑 AppId 鍊笺€?app_id: 5ef970f9-2b9e-4155-b7d6-a9d4dbd6b226
+script_template: inno_setup.iss
+# AppId 的值唯一标识此应用。
+# 不要在其他应用的安装程序中使用相同的 AppId 值。
+app_id: 5ef970f9-2b9e-4155-b7d6-a9d4dbd6b226
 publisher: dom
-publisher_url: https://github.com/sxd91/qiliquid
-display_name: LiqLiquid
+publisher_url: https://github.com/bggRGjQaUbCoE/PiliPlus
+display_name: PiliPlus
 # create_desktop_icon: true
 # See: https://jrsoftware.org/ishelp/index.php?topic=setup_defaultdirname
 # install_dir_name: "D:\\HELLO-WORLD"
-# 杩欓噷鐨勮矾寰勬槸鐩稿浜庨」鐩牴鐩綍鐨勮矾寰勶紱 鍥炬爣鏍煎紡蹇呴』鏄痠co鏍煎紡锛屼笉鑳芥槸png鎴栧叾瀹?setup_icon_file: windows\runner\resources\app_icon.ico
+# 这里的路径是相对于项目根目录的路径； 图标格式必须是ico格式，不能是png或其它
+setup_icon_file: windows\runner\resources\app_icon.ico
 locales:
   - en
   - zh
 privileges_required: admin
-

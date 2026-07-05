@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
+import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/http/search.dart';
@@ -147,7 +147,7 @@ class MemberVideoCtr
 
   Future<void> toViewPlayAll() async {
     final episodicButton = this.episodicButton!;
-    if (episodicButton.text == '缁х画鎾斁' &&
+    if (episodicButton.text == '继续播放' &&
         episodicButton.uri?.isNotEmpty == true) {
       final params = Uri.parse(episodicButton.uri!).queryParameters;
       String? oid = params['oid'];
@@ -166,7 +166,7 @@ class MemberVideoCtr
               'mediaId': seasonId ?? seriesId ?? mid,
               'oid': oid,
               'favTitle':
-                  '$username: ${title ?? episodicButton.text ?? '鎾斁鍏ㄩ儴'}',
+                  '$username: ${title ?? episodicButton.text ?? '播放全部'}',
               if (seriesId == null) 'count': ?count,
               if (seasonId != null || seriesId != null)
                 'mediaType': params['page_type'],
@@ -208,7 +208,7 @@ class MemberVideoCtr
               'mediaId': seasonId ?? seriesId ?? mid,
               'oid': IdUtils.bv2av(element.bvid!),
               'favTitle':
-                  '$username: ${title ?? episodicButton.text ?? '鎾斁鍏ㄩ儴'}',
+                  '$username: ${title ?? episodicButton.text ?? '播放全部'}',
               if (seriesId == null) 'count': ?count,
               if (seasonId != null || seriesId != null)
                 'mediaType': Uri.parse(
@@ -231,4 +231,3 @@ class MemberVideoCtr
     return super.onReload();
   }
 }
-

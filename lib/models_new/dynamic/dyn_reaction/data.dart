@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/dynamic/dyn_reaction/item.dart';
+import 'package:liqliquid/models_new/dynamic/dyn_reaction/item.dart';
 
 class DynReactionData {
   bool? hasMore;
@@ -18,4 +18,3 @@ class DynReactionData {
         total: json['total'] as int? ?? 0,
       );
 }
-

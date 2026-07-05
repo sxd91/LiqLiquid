@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 
 abstract final class BrowserUa {
   static String get platform => PlatformUtils.isMobile ? mob : pc;
@@ -9,4 +9,3 @@ abstract final class BrowserUa {
   static const mob =
       'Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36 os/android build/8430300 osVer/10 sdkInt/29 network/2 BiliApp/8430300 mobi_app/android_q channel/master innerVer/8430300';
 }
-

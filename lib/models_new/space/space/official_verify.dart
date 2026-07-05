@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 
 class OfficialVerify extends BaseOfficialVerify {
   String? spliceTitle;
@@ -7,4 +7,3 @@ class OfficialVerify extends BaseOfficialVerify {
     spliceTitle = json['splice_title'] as String?;
   }
 }
-

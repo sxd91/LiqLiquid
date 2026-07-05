@@ -1,4 +1,4 @@
-﻿import 'dart:convert' show JsonEncoder, base64;
+import 'dart:convert' show JsonEncoder, base64;
 import 'dart:math' show Random;
 
 import 'package:catcher_2/catcher_2.dart';
@@ -38,7 +38,7 @@ abstract final class Utils {
   }
 
   static String makeHeroTag(dynamic v) {
-    return v.toString();
+    return v.toString() + random.nextInt(9999).toString();
   }
 
   static List<int> generateRandomBytes(int minLength, int maxLength) {

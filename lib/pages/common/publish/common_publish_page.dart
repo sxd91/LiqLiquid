@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' show max;
 
@@ -235,4 +235,3 @@ abstract class CommonPublishPageState<T extends CommonPublishPage>
 
   void onSave();
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 abstract final class Update {
-  // 妫€鏌ユ洿鏂?
+  // 检查更新
   static Future<void> checkUpdate([bool isAuto = true]) async {
     if (kDebugMode) return;
     SmartDialog.dismiss();
@@ -30,7 +30,7 @@ abstract final class Update {
       );
       if (res.data is Map || res.data.isEmpty) {
         if (!isAuto) {
-          SmartDialog.showToast('妫€鏌ユ洿鏂板け璐ワ紝GitHub鎺ュ彛鏈繑鍥炴暟鎹紝璇锋鏌ョ綉缁?);
+          SmartDialog.showToast('检查更新失败，GitHub接口未返回数据，请检查网络');
         }
         return;
       }
@@ -39,7 +39,7 @@ abstract final class Update {
           DateTime.parse(data['created_at']).millisecondsSinceEpoch ~/ 1000;
       if (BuildConfig.buildTime >= latest) {
         if (!isAuto) {
-          SmartDialog.showToast('宸叉槸鏈€鏂扮増鏈?);
+          SmartDialog.showToast('已是最新版本');
         }
       } else {
         SmartDialog.show(
@@ -51,7 +51,7 @@ abstract final class Update {
               child: Text(text),
             );
             return AlertDialog(
-              title: const Text('馃帀 鍙戠幇鏂扮増鏈?'),
+              title: const Text('🎉 发现新版本 '),
               content: SizedBox(
                 height: 280,
                 child: SingleChildScrollView(
@@ -69,7 +69,7 @@ abstract final class Update {
                           '${Constants.sourceCodeUrl}/commits/main',
                         ),
                         child: Text(
-                          "鐐规鏌ョ湅瀹屾暣鏇存柊(鍗砪ommit)鍐呭",
+                          "点此查看完整更新(即commit)内容",
                           style: TextStyle(color: colorScheme.primary),
                         ),
                       ),
@@ -85,14 +85,14 @@ abstract final class Update {
                       GStorage.setting.put(SettingBoxKey.autoUpdate, false);
                     },
                     child: Text(
-                      '涓嶅啀鎻愰啋',
+                      '不再提醒',
                       style: TextStyle(color: colorScheme.outline),
                     ),
                   ),
                 TextButton(
                   onPressed: SmartDialog.dismiss,
                   child: Text(
-                    '鍙栨秷',
+                    '取消',
                     style: TextStyle(color: colorScheme.outline),
                   ),
                 ),
@@ -115,7 +115,7 @@ abstract final class Update {
     }
   }
 
-  // 涓嬭浇閫傜敤浜庡綋鍓嶇郴缁熺殑瀹夎鍖?
+  // 下载适用于当前系统的安装包
   static Future<void> onDownload(Map data, {String? ext}) async {
     SmartDialog.dismiss();
     try {
@@ -134,7 +134,7 @@ abstract final class Update {
       }
 
       if (Platform.isAndroid) {
-        // 鑾峰彇璁惧淇℃伅
+        // 获取设备信息
         AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
         // [arm64-v8a]
         download(androidInfo.supportedAbis.first);
@@ -147,4 +147,3 @@ abstract final class Update {
     }
   }
 }
-

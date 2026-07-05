@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/avatars.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
@@ -74,10 +74,10 @@ class _VotePanelState extends State<VotePanel> {
         children: [
           Text(
             _enabled
-                ? '鎶曠エ閫夐」'
+                ? '投票选项'
                 : groupValue.isEmpty
-                ? '宸茬粨鏉?
-                : '宸插畬鎴?,
+                ? '已结束'
+                : '已完成',
           ),
           if (_enabled) Obx(() => Text('${groupValue.length} / $_maxCnt')),
         ],
@@ -133,7 +133,7 @@ class _VotePanelState extends State<VotePanel> {
                       }
                     }
                   : null,
-              child: const Center(child: Text('鎶曠エ')),
+              child: const Center(child: Text('投票')),
             ),
           ),
         ),
@@ -161,7 +161,7 @@ class _VotePanelState extends State<VotePanel> {
                       final colorScheme = ColorScheme.of(context);
                       return SimpleDialog(
                         clipBehavior: .hardEdge,
-                        title: const Text('鍏虫敞鐨勪汉鐨勬姇绁?),
+                        title: const Text('关注的人的投票'),
                         contentPadding: const .only(bottom: 12),
                         titlePadding: const .fromLTRB(20, 20, 20, 10),
                         children: list
@@ -182,7 +182,7 @@ class _VotePanelState extends State<VotePanel> {
                                     children: [
                                       TextSpan(text: e.name),
                                       TextSpan(
-                                        text: ' 鎶曠粰浜?,
+                                        text: ' 投给了',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: colorScheme.outline,
@@ -201,7 +201,7 @@ class _VotePanelState extends State<VotePanel> {
                                             )
                                             ?.optDesc,
                                       )
-                                      .join('銆?),
+                                      .join('、'),
                                 ),
                               ),
                             )
@@ -250,7 +250,7 @@ class _VotePanelState extends State<VotePanel> {
             runSpacing: 5,
             children: [
               Text(
-                '鑷?${DateFormatUtils.format(_voteInfo.endTime, format: DateFormatUtils.longFormatDs)}',
+                '至 ${DateFormatUtils.format(_voteInfo.endTime, format: DateFormatUtils.longFormatDs)}',
               ),
               Text.rich(
                 TextSpan(
@@ -259,7 +259,7 @@ class _VotePanelState extends State<VotePanel> {
                       text: NumUtils.numFormat(_voteInfo.joinNum),
                       style: TextStyle(color: theme.colorScheme.primary),
                     ),
-                    const TextSpan(text: '浜哄弬涓?),
+                    const TextSpan(text: '人参与'),
                   ],
                 ),
               ),
@@ -292,7 +292,7 @@ class _VotePanelState extends State<VotePanel> {
     spacing: 16,
     children: [
       CheckBoxText(
-        text: '鏄剧ず姣斾緥',
+        text: '显示比例',
         selected: _showPercentage,
         onChanged: (value) {
           setState(() {
@@ -301,7 +301,7 @@ class _VotePanelState extends State<VotePanel> {
         },
       ),
       CheckBoxText(
-        text: '鍖垮悕',
+        text: '匿名',
         selected: anonymous,
         onChanged: (val) => anonymous = val,
       ),
@@ -570,4 +570,3 @@ Future<void> showVoteDialog(
     }
   }
 }
-

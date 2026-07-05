@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
+import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/selectable_text.dart';
@@ -64,8 +64,8 @@ class _IntroDetailState extends State<PgcIntroPanel>
                   tabAlignment: TabAlignment.start,
                   dividerColor: Colors.transparent,
                   tabs: const [
-                    Tab(text: '璇︽儏'),
-                    Tab(text: '鐐硅瘎'),
+                    Tab(text: '详情'),
+                    Tab(text: '点评'),
                   ],
                   onTap: (index) {
                     if (!_tabController.indexIsChanging) {
@@ -77,7 +77,7 @@ class _IntroDetailState extends State<PgcIntroPanel>
                 ),
               ),
               IconButton(
-                tooltip: '鍏抽棴',
+                tooltip: '关闭',
                 icon: const Icon(Icons.close, size: 20),
                 onPressed: Get.back,
               ),
@@ -167,7 +167,7 @@ class _IntroDetailState extends State<PgcIntroPanel>
         if (widget.item.evaluate?.isNotEmpty == true) ...[
           const SizedBox(height: 20),
           Text(
-            '绠€浠嬶細',
+            '简介：',
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 4),
@@ -179,7 +179,7 @@ class _IntroDetailState extends State<PgcIntroPanel>
         if (widget.item.actors?.isNotEmpty == true) ...[
           const SizedBox(height: 20),
           Text(
-            '婕旇亴浜哄憳锛?,
+            '演职人员：',
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 4),
@@ -212,4 +212,3 @@ class _IntroDetailState extends State<PgcIntroPanel>
     );
   }
 }
-

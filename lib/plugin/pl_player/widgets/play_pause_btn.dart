@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/plugin/pl_player/controller.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class PlayOrPauseButtonState extends State<PlayOrPauseButton>
         onTap: widget.plPlayerController.onDoubleTapCenter,
         child: Center(
           child: AnimatedIcon(
-            semanticLabel: player.state.playing ? '鏆傚仠' : '鎾斁',
+            semanticLabel: player.state.playing ? '暂停' : '播放',
             progress: controller,
             icon: AnimatedIcons.play_pause,
             color: Colors.white,
@@ -68,4 +68,3 @@ class PlayOrPauseButtonState extends State<PlayOrPauseButton>
     );
   }
 }
-

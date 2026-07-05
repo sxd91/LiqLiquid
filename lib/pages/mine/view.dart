@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
@@ -119,7 +119,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                       mainAxisSize: .min,
                       mainAxisAlignment: .center,
                       children: [
-                        Icon(size: e.size, e.icon, color: primary),
+                        Icon(e.icon, color: primary),
                         Text(
                           e.title,
                           style: const TextStyle(fontSize: 13),
@@ -158,7 +158,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             iconSize: iconSize,
             padding: padding,
             style: style,
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: () => Get.toNamed('/search'),
             icon: const Icon(Icons.search),
           ),
@@ -169,7 +169,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             iconSize: iconSize,
             padding: padding,
             style: style,
-            tooltip: '璇勮璁板綍',
+            tooltip: '评论记录',
             onPressed: () => Get.toNamed('/myReply'),
             icon: const Icon(Icons.message_outlined),
           ),
@@ -180,7 +180,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               iconSize: iconSize,
               padding: padding,
               style: style,
-              tooltip: "${anonymity ? '閫€鍑? : '杩涘叆'}鏃犵棔妯″紡",
+              tooltip: "${anonymity ? '退出' : '进入'}无痕模式",
               onPressed: MineController.onChangeAnonymity,
               icon: anonymity
                   ? const Icon(MdiIcons.incognito)
@@ -192,7 +192,7 @@ class _MediaPageState extends CommonPageState<MinePage>
           iconSize: iconSize,
           padding: padding,
           style: style,
-          tooltip: '鍒囨崲璐﹀彿',
+          tooltip: '切换账号',
           onPressed: () => LoginPageController.switchAccountDialog(context),
           icon: const Icon(Icons.switch_account_outlined),
         ),
@@ -202,7 +202,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               iconSize: iconSize,
               padding: padding,
               style: style,
-              tooltip: '鍒囨崲鑷?{controller.nextThemeType.desc}涓婚',
+              tooltip: '切换至${controller.nextThemeType.desc}主题',
               onPressed: controller.onChangeTheme,
               icon: controller.themeType.value.icon,
             );
@@ -212,7 +212,7 @@ class _MediaPageState extends CommonPageState<MinePage>
           iconSize: iconSize,
           padding: padding,
           style: style,
-          tooltip: '璁剧疆',
+          tooltip: '设置',
           onPressed: () => Get.toNamed('/setting', preventDuplicates: false),
           icon: const Icon(Icons.settings_outlined),
         ),
@@ -278,7 +278,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                               child: SvgPicture.asset(
                                 Assets.vipIcon,
                                 height: 19,
-                                semanticsLabel: "澶т細鍛?,
+                                semanticsLabel: "大会员",
                               ),
                             ),
                         ],
@@ -289,7 +289,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                           height: 55,
                           cacheHeight: 55.cacheSize(context),
                           Assets.avatarPlaceHolder,
-                          semanticLabel: "榛樿澶村儚",
+                          semanticLabel: "默认头像",
                         ),
                       ),
                 const SizedBox(width: 16),
@@ -304,7 +304,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                         children: [
                           Flexible(
                             child: Text(
-                              userInfo.uname ?? '鐐瑰嚮鐧诲綍',
+                              userInfo.uname ?? '点击登录',
                               style: theme.textTheme.titleMedium!.copyWith(
                                 height: 1,
                                 color: isVip && userInfo.vipType == 2
@@ -327,7 +327,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '纭竵 ',
+                              text: '硬币 ',
                               style: coinLabelStyle,
                             ),
                             TextSpan(
@@ -335,7 +335,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                               style: coinValStyle,
                             ),
                             TextSpan(
-                              text: "      缁忛獙 ",
+                              text: "      经验 ",
                               style: coinLabelStyle,
                             ),
                             TextSpan(
@@ -378,21 +378,21 @@ class _MediaPageState extends CommonPageState<MinePage>
               _btn(
                 count: userStat.dynamicCount,
                 countStyle: style,
-                name: '鍔ㄦ€?,
+                name: '动态',
                 labelStyle: labelStyle,
                 onTap: () => controller.push('memberDynamics'),
               ),
               _btn(
                 count: userStat.following,
                 countStyle: style,
-                name: '鍏虫敞',
+                name: '关注',
                 labelStyle: labelStyle,
                 onTap: () => controller.push('follow'),
               ),
               _btn(
                 count: userStat.follower,
                 countStyle: style,
-                name: '绮変笣',
+                name: '粉丝',
                 labelStyle: labelStyle,
                 onTap: () => controller.push('fan'),
               ),
@@ -460,7 +460,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '鎴戠殑鏀惰棌  ',
+                    text: '我的收藏  ',
                     style: TextStyle(
                       fontSize: theme.textTheme.titleMedium!.fontSize,
                       fontWeight: .bold,
@@ -486,7 +486,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             ),
           ),
           trailing: IconButton(
-            tooltip: '鍒锋柊',
+            tooltip: '刷新',
             onPressed: controller.onRefresh,
             icon: const Icon(Icons.refresh, size: 20),
           ),
@@ -522,7 +522,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                     padding: const .only(bottom: 35),
                     child: Center(
                       child: IconButton(
-                        tooltip: '鏌ョ湅鏇村',
+                        tooltip: '查看更多',
                         style: ButtonStyle(
                           padding: const WidgetStatePropertyAll(.zero),
                           backgroundColor: WidgetStatePropertyAll(
@@ -567,4 +567,3 @@ class _MediaPageState extends CommonPageState<MinePage>
     };
   }
 }
-

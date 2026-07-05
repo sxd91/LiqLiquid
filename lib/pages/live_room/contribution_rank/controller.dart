@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/live.dart';
+import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/live/live_contribution_rank_type.dart';
 import 'package:liqliquid/models_new/live/live_contribution_rank/data.dart';
@@ -43,4 +43,3 @@ class ContributionRankController
         type: type,
       );
 }
-

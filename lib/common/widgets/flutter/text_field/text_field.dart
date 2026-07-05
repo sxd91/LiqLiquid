@@ -1,4 +1,4 @@
-﻿// Copyright 2014 The Flutter Authors. All rights reserved.
+// Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -154,7 +154,8 @@ class _TextFieldSelectionGestureDetectorBuilder
 /// ## Handling emojis and other complex characters
 /// {@macro flutter.widgets.EditableText.onChanged}
 ///
-/// In the live Dartpad example above, try typing the emoji 馃懆鈥嶐煈┾€嶐煈?/// into the field and submitting. Because the example code measures the length
+/// In the live Dartpad example above, try typing the emoji 👨‍👩‍👦
+/// into the field and submitting. Because the example code measures the length
 /// with `value.characters.length`, the emoji is correctly counted as a single
 /// character.
 ///
@@ -268,7 +269,7 @@ class RichTextField extends StatefulWidget {
     this.showCursor,
     this.autofocus = false,
     this.statesController,
-    this.obscuringCharacter = '鈥?,
+    this.obscuringCharacter = '•',
     this.obscureText = false,
     this.autocorrect,
     SmartDashesType? smartDashesType,
@@ -1025,7 +1026,7 @@ class RichTextField extends StatefulWidget {
         DiagnosticsProperty<String>(
           'obscuringCharacter',
           obscuringCharacter,
-          defaultValue: '鈥?,
+          defaultValue: '•',
         ),
       )
       ..add(
@@ -2038,4 +2039,3 @@ TextStyle _m3CounterErrorStyle(BuildContext context) =>
 // dart format on
 
 // END GENERATED TOKEN PROPERTIES - TextField
-

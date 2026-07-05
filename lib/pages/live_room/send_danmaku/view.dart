@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/flutter/text_field/text_field.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
@@ -112,7 +112,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<LiveSendDmPanel> {
               onSubmitted: onSubmitted,
               focusNode: focusNode,
               decoration: const InputDecoration(
-                hintText: "杈撳叆寮瑰箷鍐呭",
+                hintText: "输入弹幕内容",
                 border: InputBorder.none,
                 hintStyle: TextStyle(fontSize: 14),
               ),
@@ -140,7 +140,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<LiveSendDmPanel> {
                   visualDensity: .compact,
                   padding: const .symmetric(horizontal: 20, vertical: 10),
                 ),
-                child: const Text('鍙戦€?),
+                child: const Text('发送'),
               ),
             ),
           ],
@@ -184,7 +184,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<LiveSendDmPanel> {
       liveRoomController
         ..savedDanmaku?.clear()
         ..savedDanmaku = null;
-      SmartDialog.showToast('鍙戦€佹垚鍔?);
+      SmartDialog.showToast('发送成功');
     } else {
       res.toast();
     }
@@ -193,4 +193,3 @@ class _ReplyPageState extends CommonRichTextPubPageState<LiveSendDmPanel> {
   @override
   Future<void>? onMention([bool fromClick = false]) => null;
 }
-

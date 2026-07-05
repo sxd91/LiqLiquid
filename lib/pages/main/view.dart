@@ -1,9 +1,10 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/floating_navigation_bar.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/tabs.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -23,7 +24,6 @@ import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -251,9 +251,9 @@ class _MainAppState extends PopScopeState<MainApp>
 
     Menu trayMenu = Menu(
       items: [
-        MenuItem(key: 'show', label: '鏄剧ず绐楀彛'),
+        MenuItem(key: 'show', label: '显示窗口'),
         MenuItem.separator(),
-        MenuItem(key: 'exit', label: '閫€鍑?${Constants.appName}'),
+        MenuItem(key: 'exit', label: '退出 ${Constants.appName}'),
       ],
     );
     await trayManager.setContextMenu(trayMenu);
@@ -288,12 +288,12 @@ class _MainAppState extends PopScopeState<MainApp>
     if (_mainController.navigationBars.length > 1) {
       if (_mainController.floatingNavBar) {
         bottomNav = Obx(
-          () => LGBottomBar(
-            onTabSelected: _mainController.setIndex,
+          () => FloatingNavigationBar(
+            onDestinationSelected: _mainController.setIndex,
             selectedIndex: _mainController.selectedIndex.value,
-            tabs: _mainController.navigationBars
+            destinations: _mainController.navigationBars
                 .map(
-                  (e) => LGBottomBarTab(
+                  (e) => FloatingNavigationDestination(
                     label: e.label,
                     icon: _buildIcon(type: e),
                     selectedIcon: _buildIcon(type: e, selected: true),
@@ -483,7 +483,13 @@ class _MainAppState extends PopScopeState<MainApp>
         ),
         child: child,
       ),
-      bottomNavigationBar: bottomNav,
+      // Wrap bottom nav with LiquidGlass for glass-morphism effect
+      bottomNavigationBar: LiquidGlass(
+        glassColor: Colors.white.withOpacity(0.1),
+        blur: 8.0,
+        thickness: 25.0,
+        child: bottomNav,
+      ),
     );
 
     if (PlatformUtils.isMobile) {
@@ -525,10 +531,10 @@ class _MainAppState extends PopScopeState<MainApp>
         const SizedBox(height: 8),
         msgBadge(_mainController),
         IconButton(
-          tooltip: '鎼滅储',
+          tooltip: '搜索',
           icon: const Icon(
             Icons.search_outlined,
-            semanticLabel: '鎼滅储',
+            semanticLabel: '搜索',
           ),
           onPressed: () => Get.toNamed('/search'),
         ),
@@ -536,4 +542,3 @@ class _MainAppState extends PopScopeState<MainApp>
     );
   }
 }
-

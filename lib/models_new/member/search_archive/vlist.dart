@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/horizontal_video_model.dart';
+import 'package:liqliquid/models/horizontal_video_model.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/duration_utils.dart';
 
@@ -17,11 +17,11 @@ class VListItemModel extends HorizontalVideoModel {
     owner = VListOwner.fromJson(json);
     if (json['is_lesson_video'] == 1) {
       isPugv = true;
-      badge = '璇惧爞';
+      badge = '课堂';
     } else if (json['is_charging_arc'] == true) {
-      badge = '鍏呯數涓撳睘';
+      badge = '充电专属';
     } else if (json['is_union_video'] == 1) {
-      badge = '鍚堜綔';
+      badge = '合作';
     }
     seasonId = json['season_id'];
     redirectUrl = json['jump_url'];
@@ -49,4 +49,3 @@ class VListStat extends BaseStat {
     danmu = json['video_review'];
   }
 }
-

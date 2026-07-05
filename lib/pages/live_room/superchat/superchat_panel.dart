@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/super_chat_type.dart';
+import 'package:liqliquid/models/common/super_chat_type.dart';
 import 'package:liqliquid/pages/live_room/controller.dart';
 import 'package:liqliquid/pages/live_room/superchat/superchat_card.dart';
 import 'package:liqliquid/pages/search/controller.dart';
@@ -62,4 +62,3 @@ class _SuperChatPanelState extends DebounceStreamState<SuperChatPanel, bool>
   @override
   bool get wantKeepAlive => true;
 }
-

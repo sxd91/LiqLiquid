@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/match/match_info/contest.dart';
@@ -20,4 +20,3 @@ abstract final class MatchHttp {
     }
   }
 }
-

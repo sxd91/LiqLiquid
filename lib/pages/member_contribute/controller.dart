@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/models_new/space/space/tab2.dart';
 import 'package:liqliquid/pages/member/controller.dart';
@@ -34,7 +34,7 @@ class MemberContributeCtr extends GetxController
           items!.add(
             const SpaceTab2Item(
               param: 'ugcSeason',
-              title: '鍏ㄩ儴鍚堥泦/鍒楄〃',
+              title: '全部合集/列表',
             ),
           );
         }
@@ -54,4 +54,3 @@ class MemberContributeCtr extends GetxController
     super.onClose();
   }
 }
-

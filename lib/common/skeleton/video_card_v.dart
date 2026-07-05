@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +22,9 @@ class VideoCardVSkeleton extends StatelessWidget {
             ),
           ),
           Padding(
-            // 澶氬垪
+            // 多列
             padding: const EdgeInsets.fromLTRB(4, 5, 6, 6),
-            // 鍗曞垪
+            // 单列
             // padding: const EdgeInsets.fromLTRB(14, 10, 4, 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,4 +62,3 @@ class VideoCardVSkeleton extends StatelessWidget {
     );
   }
 }
-

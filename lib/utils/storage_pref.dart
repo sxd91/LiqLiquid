@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart'
     show deviceTouchSlop;
@@ -1033,4 +1033,3 @@ abstract final class Pref {
 
   static List? get liveStream => _setting.get(SettingBoxKey.liveStream);
 }
-

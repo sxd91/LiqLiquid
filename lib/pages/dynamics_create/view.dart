@@ -1,4 +1,4 @@
-﻿import 'dart:math' show max;
+import 'dart:math' show max;
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
@@ -194,7 +194,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                                 TextSpan(
                                   text: hasTopic
                                       ? _topic.value!.second
-                                      : '閫夋嫨璇濋',
+                                      : '选择话题',
                                   style: TextStyle(
                                     color: hasTopic
                                         ? null
@@ -226,7 +226,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                   controller: _titleEditCtr,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
-                    hintText: '鏍囬锛岄€夊～20瀛?,
+                    hintText: '标题，选填20字',
                     isDense: true,
                     visualDensity: .standard,
                     contentPadding: EdgeInsets.zero,
@@ -335,7 +335,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             width: 34,
             height: 34,
             child: IconButton(
-              tooltip: '杩斿洖',
+              tooltip: '返回',
               style: ButtonStyle(
                 padding: const WidgetStatePropertyAll(EdgeInsets.zero),
                 backgroundColor: WidgetStatePropertyAll(
@@ -353,7 +353,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
         ),
         Center(
           child: Text(
-            _isEdit ? '缂栬緫鍔ㄦ€? : '鍙戝竷鍔ㄦ€?,
+            _isEdit ? '编辑动态' : '发布动态',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
         ),
@@ -370,7 +370,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                 ),
                 visualDensity: VisualDensity.compact,
               ),
-              child: Text(_publishTime.value == null ? '鍙戝竷' : '瀹氭椂鍙戝竷'),
+              child: Text(_publishTime.value == null ? '发布' : '定时发布'),
             ),
           ),
         ),
@@ -399,7 +399,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                 index == 0 ? Icons.visibility : Icons.visibility_off,
               ),
               const SizedBox(width: 4),
-              Text(index == 0 ? '鎵€鏈変汉鍙' : '浠呰嚜宸卞彲瑙?),
+              Text(index == 0 ? '所有人可见' : '仅自己可见'),
             ],
           ),
         ),
@@ -416,7 +416,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             ),
             const SizedBox(width: 4),
             Text(
-              _isPrivate.value ? '浠呰嚜宸卞彲瑙? : '鎵€鏈変汉鍙',
+              _isPrivate.value ? '仅自己可见' : '所有人可见',
               style: TextStyle(
                 height: 1,
                 color: color,
@@ -527,12 +527,12 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                     if (selectedTime != null) {
                       if (selectedDate.day == nowDate.day) {
                         if (selectedTime.hour < nowTime.hour) {
-                          SmartDialog.showToast('鏃堕棿璁剧疆閿欒锛岃嚦灏戦€夋嫨6鍒嗛挓涔嬪悗');
+                          SmartDialog.showToast('时间设置错误，至少选择6分钟之后');
                           return;
                         } else if (selectedTime.hour == nowTime.hour) {
                           if (selectedTime.minute < nowTime.minute + 6) {
                             if (selectedDate.day == nowDate.day) {
-                              SmartDialog.showToast('鏃堕棿璁剧疆閿欒锛岃嚦灏戦€夋嫨6鍒嗛挓涔嬪悗');
+                              SmartDialog.showToast('时间设置错误，至少选择6分钟之后');
                             }
                             return;
                           }
@@ -548,7 +548,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                     }
                   }
                 },
-          child: const Text('瀹氭椂鍙戝竷'),
+          child: const Text('定时发布'),
         )
       : OutlinedButton.icon(
           style: OutlinedButton.styleFrom(
@@ -642,7 +642,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
           item(
             onTap: _onReserve,
             icon: Icon(CustomIcons.live_reserve, size: 28, color: color),
-            title: '鐩存挱棰勭害',
+            title: '直播预约',
           ),
         ],
       ),
@@ -684,7 +684,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             ..value = newValue;
         } else {
           onInsertText(
-            '鎴戝彂璧蜂簡涓€涓姇绁?,
+            '我发起了一个投票',
             RichTextType.text,
           );
           onInsertText(
@@ -697,7 +697,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
       }
     },
     icon: const Icon(Icons.bar_chart_rounded, size: 24),
-    tooltip: '鎶曠エ',
+    tooltip: '投票',
     selected: false,
   );
 
@@ -718,7 +718,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
         decoration: InputDecoration(
-          hintText: '璇寸偣浠€涔堝惂',
+          hintText: '说点什么吧',
           visualDensity: .standard,
           hintStyle: TextStyle(color: theme.colorScheme.outline),
           border: const OutlineInputBorder(
@@ -737,7 +737,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
 
   @override
   Future<void> onCustomPublish({List? pictures}) async {
-    SmartDialog.showLoading(msg: '姝ｅ湪鍙戝竷');
+    SmartDialog.showLoading(msg: '正在发布');
     List<Map<String, dynamic>>? extraContent = getRichContent();
     final hasRichText = extraContent != null;
 
@@ -758,7 +758,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
       if (res.isSuccess) {
         hasPub = true;
         Get.back();
-        SmartDialog.showToast('鍙戝竷鎴愬姛');
+        SmartDialog.showToast('发布成功');
         widget.onSuccess?.call();
       } else {
         res.toast();
@@ -794,7 +794,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
     if (res case Success(:final response)) {
       hasPub = true;
       Get.back();
-      SmartDialog.showToast('鍙戝竷鎴愬姛');
+      SmartDialog.showToast('发布成功');
       final id = response?['dyn_id'];
       RequestUtils.insertCreatedDyn(id);
       if (!_isPrivate.value && _publishTime.value == null) {
@@ -847,11 +847,11 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                   spacing: 3,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('鐩存挱棰勭害: ${reserveCard.title}'),
+                    Text('直播预约: ${reserveCard.title}'),
                     Text(
                       '${DateFormatUtils.longFormatD.format(
                         DateTime.fromMillisecondsSinceEpoch(reserveCard.livePlanStartTime! * 1000),
-                      )} 鐩存挱',
+                      )} 直播',
                     ),
                   ],
                 ),
@@ -885,4 +885,3 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
     }
   }
 }
-

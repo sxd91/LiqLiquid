@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/user_real_name/reject_page.dart';
+import 'package:liqliquid/models_new/user_real_name/reject_page.dart';
 
 class UserRealNameData {
   String? name;
@@ -14,4 +14,3 @@ class UserRealNameData {
             : RejectPage.fromJson(json['reject_page'] as Map<String, dynamic>),
       );
 }
-

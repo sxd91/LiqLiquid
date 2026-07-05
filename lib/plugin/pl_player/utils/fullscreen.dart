@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:liqliquid/utils/device_utils.dart';
@@ -83,4 +83,3 @@ Future<void>? showSystemBar() {
     overlays: SystemUiOverlay.values,
   );
 }
-

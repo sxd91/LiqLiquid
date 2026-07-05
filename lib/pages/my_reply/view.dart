@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/dialog/export_import.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
@@ -45,7 +45,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鎴戠殑璇勮'),
+        title: const Text('我的评论'),
         actions: [
           if (kDebugMode)
             IconButton(
@@ -62,12 +62,12 @@ class _MyReplyState extends State<MyReply> with DynMixin {
               icon: const Icon(Icons.clear_all),
             ),
           IconButton(
-            tooltip: '瀵煎嚭',
+            tooltip: '导出',
             onPressed: _showExportDialog,
             icon: const Icon(Icons.file_upload_outlined),
           ),
           IconButton(
-            tooltip: '瀵煎叆',
+            tooltip: '导入',
             onPressed: _showImportDialog,
             icon: const Icon(Icons.file_download_outlined),
           ),
@@ -157,7 +157,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
         children: [
           ListTile(
             dense: true,
-            title: const Text('瀵煎嚭鑷冲壀璐存澘', style: style),
+            title: const Text('导出至剪贴板', style: style),
             onTap: () {
               Get.back();
               exportToClipBoard(onExport: _onExport);
@@ -165,7 +165,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
           ),
           ListTile(
             dense: true,
-            title: const Text('瀵煎嚭鏂囦欢鑷虫湰鍦?, style: style),
+            title: const Text('导出文件至本地', style: style),
             onTap: () {
               Get.back();
               exportToLocalFile(
@@ -201,12 +201,12 @@ class _MyReplyState extends State<MyReply> with DynMixin {
         children: [
           ListTile(
             dense: true,
-            title: const Text('浠庡壀璐存澘瀵煎叆', style: style),
+            title: const Text('从剪贴板导入', style: style),
             onTap: () {
               Get.back();
               importFromClipBoard<List<dynamic>>(
                 context,
-                title: '璇勮',
+                title: '评论',
                 onExport: _onExport,
                 onImport: _onImport,
                 showConfirmDialog: false,
@@ -215,7 +215,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
           ),
           ListTile(
             dense: true,
-            title: const Text('浠庢湰鍦版枃浠跺鍏?, style: style),
+            title: const Text('从本地文件导入', style: style),
             onTap: () {
               Get.back();
               importFromLocalFile<List<dynamic>>(onImport: _onImport);
@@ -226,4 +226,3 @@ class _MyReplyState extends State<MyReply> with DynMixin {
     );
   }
 }
-

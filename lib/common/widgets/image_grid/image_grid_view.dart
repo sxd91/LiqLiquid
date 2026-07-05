@@ -1,18 +1,18 @@
-﻿/*
- * This file is part of PiliPlus
+/*
+ * This file is part of liqliquid
  *
- * LiqLiquid is free software: you can redistribute it and/or modify
+ * liqliquid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LiqLiquid is distributed in the hope that it will be useful,
+ * liqliquid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with PiliPlus.  If not, see <https://www.gnu.org/licenses/>.
+ * along with liqliquid.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 import 'dart:io' show Platform;
@@ -150,25 +150,25 @@ class ImageGridView extends StatelessWidget {
           PopupMenuItem(
             height: 42,
             onTap: () => ImageUtils.onShareImg(item.url),
-            child: const Text('鍒嗕韩', style: TextStyle(fontSize: 14)),
+            child: const Text('分享', style: TextStyle(fontSize: 14)),
           ),
         PopupMenuItem(
           height: 42,
           onTap: () => ImageUtils.downloadImg([item.url]),
-          child: const Text('淇濆瓨鍥剧墖', style: TextStyle(fontSize: 14)),
+          child: const Text('保存图片', style: TextStyle(fontSize: 14)),
         ),
         if (PlatformUtils.isDesktop)
           PopupMenuItem(
             height: 42,
             onTap: () => PageUtils.launchURL(item.url),
-            child: const Text('缃戦〉鎵撳紑', style: TextStyle(fontSize: 14)),
+            child: const Text('网页打开', style: TextStyle(fontSize: 14)),
           )
         else if (picArr.length > 1)
           PopupMenuItem(
             height: 42,
             onTap: () =>
                 ImageUtils.downloadImg(picArr.map((item) => item.url).toList()),
-            child: const Text('淇濆瓨鍏ㄩ儴', style: TextStyle(fontSize: 14)),
+            child: const Text('保存全部', style: TextStyle(fontSize: 14)),
           ),
         if (item.isLivePhoto)
           PopupMenuItem(
@@ -180,7 +180,7 @@ class ImageGridView extends StatelessWidget {
               height: item.height.toInt(),
             ),
             child: Text(
-              '淇濆瓨${Platform.isIOS ? '瀹炲喌' : '瑙嗛'}',
+              '保存${Platform.isIOS ? '实况' : '视频'}',
               style: const TextStyle(fontSize: 14),
             ),
           ),
@@ -243,14 +243,14 @@ class ImageGridView extends StatelessWidget {
                 if (item.isLivePhoto)
                   const PBadge(text: 'Live', right: 8, bottom: 8, type: .gray)
                 else if (item.isLongPic)
-                  const PBadge(text: '闀垮浘', right: 8, bottom: 8),
+                  const PBadge(text: '长图', right: 8, bottom: 8),
               ],
             );
             if (!item.isLongPic) {
               child = Hero(tag: '${item.url}$hashCode', child: child);
             }
             child = Semantics(
-              label: '鍥剧墖锛岀 ${index + 1} 寮狅紝鍏?${picArr.length} 寮?,
+              label: '图片，第 ${index + 1} 张，共 ${picArr.length} 张',
               button: true,
               onTap: onTap,
               child: child,
@@ -262,5 +262,3 @@ class ImageGridView extends StatelessWidget {
     );
   }
 }
-
-

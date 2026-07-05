@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/content.dart';
+import 'package:liqliquid/models_new/reply/content.dart';
 import 'package:liqliquid/models_new/reply/folder.dart';
 import 'package:liqliquid/models_new/reply/member.dart';
 import 'package:liqliquid/models_new/reply/reply.dart';
@@ -121,4 +121,3 @@ class Upper {
     trackInfo: json['track_info'] as String?,
   );
 }
-

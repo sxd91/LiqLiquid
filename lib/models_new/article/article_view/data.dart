@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart';
+import 'package:liqliquid/models/model_avatar.dart';
 import 'package:liqliquid/models_new/article/article_view/ops.dart';
 import 'package:liqliquid/models_new/article/article_view/opus.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
@@ -46,4 +46,3 @@ class ArticleViewData {
             .toList(),
       );
 }
-

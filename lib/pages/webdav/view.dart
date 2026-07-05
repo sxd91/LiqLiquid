@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/pages/webdav/webdav.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
@@ -39,7 +39,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
     final showAppBar = widget.showAppBar;
     final padding = MediaQuery.viewPaddingOf(context);
     return Scaffold(
-      appBar: showAppBar ? AppBar(title: const Text('WebDAV 璁剧疆')) : null,
+      appBar: showAppBar ? AppBar(title: const Text('WebDAV 设置')) : null,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -54,7 +54,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
               TextField(
                 controller: _uriCtr,
                 decoration: const InputDecoration(
-                  labelText: '鍦板潃',
+                  labelText: '地址',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -62,7 +62,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
               TextField(
                 controller: _usernameCtr,
                 decoration: const InputDecoration(
-                  labelText: '鐢ㄦ埛',
+                  labelText: '用户',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -71,7 +71,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                 controller: _passwordCtr,
                 autofillHints: const [AutofillHints.password],
                 decoration: InputDecoration(
-                  labelText: '瀵嗙爜',
+                  labelText: '密码',
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     onPressed: () =>
@@ -87,7 +87,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
               TextField(
                 controller: _directoryCtr,
                 decoration: const InputDecoration(
-                  labelText: '璺緞',
+                  labelText: '路径',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -102,7 +102,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                         ),
                       ),
                       onPressed: WebDav().backup,
-                      child: const Text('澶囦唤璁剧疆'),
+                      child: const Text('备份设置'),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -114,7 +114,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                         ),
                       ),
                       onPressed: WebDav().restore,
-                      child: const Text('鎭㈠璁剧疆'),
+                      child: const Text('恢复设置'),
                     ),
                   ),
                 ],
@@ -140,12 +140,12 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                 try {
                   final res = await WebDav().init();
                   if (res.first) {
-                    SmartDialog.showToast('閰嶇疆鎴愬姛');
+                    SmartDialog.showToast('配置成功');
                   } else {
-                    SmartDialog.showToast('閰嶇疆澶辫触: ${res.second}');
+                    SmartDialog.showToast('配置失败: ${res.second}');
                   }
                 } catch (e) {
-                  SmartDialog.showToast('閰嶇疆澶辫触: ${e.toString()}');
+                  SmartDialog.showToast('配置失败: ${e.toString()}');
                   return;
                 }
               },
@@ -156,4 +156,3 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/constants.dart';
@@ -342,7 +342,7 @@ abstract final class MsgHttp {
     }
   }
 
-  // 娑堟伅鏍囪宸茶
+  // 消息标记已读
   static Future<LoadingState<void>> ackSessionMsg({
     required int talkerId,
     required int ackSeqno,
@@ -369,8 +369,8 @@ abstract final class MsgHttp {
     }
   }
 
-  // // 鍙戦€佺淇?
-    static Future<LoadingState<void>> sendMsg({
+  // // 发送私信
+  // static Future<LoadingState<void>> sendMsg({
   //   required int senderUid,
   //   required int receiverId,
   //   int? msgType,
@@ -634,4 +634,3 @@ abstract final class MsgHttp {
     }
   }
 }
-

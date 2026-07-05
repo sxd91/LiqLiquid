@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:liqliquid/grpc/bilibili/rpc.pb.dart';
@@ -129,4 +129,3 @@ abstract final class GrpcReq {
   //   });
   // }
 }
-

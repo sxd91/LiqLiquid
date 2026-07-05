@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/reorder_mixin.dart';
+import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
@@ -49,7 +49,7 @@ class _FavSortPageState extends State<FavSortPage> with ReorderMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('鎺掑簭: ${_favDetailController.folderInfo.value.title}'),
+        title: Text('排序: ${_favDetailController.folderInfo.value.title}'),
         actions: [
           TextButton(
             onPressed: () {
@@ -62,7 +62,7 @@ class _FavSortPageState extends State<FavSortPage> with ReorderMixin {
                 sort: sort.join(','),
               ).then((res) {
                 if (res.isSuccess) {
-                  SmartDialog.showToast('鎺掑簭瀹屾垚');
+                  SmartDialog.showToast('排序完成');
                   _favDetailController.loadingState.value = Success(sortList);
                   if (mounted) {
                     Get.back();
@@ -72,7 +72,7 @@ class _FavSortPageState extends State<FavSortPage> with ReorderMixin {
                 }
               });
             },
-            child: const Text('瀹屾垚'),
+            child: const Text('完成'),
           ),
           const SizedBox(width: 16),
         ],
@@ -128,4 +128,3 @@ class _FavSortPageState extends State<FavSortPage> with ReorderMixin {
     return child;
   }
 }
-

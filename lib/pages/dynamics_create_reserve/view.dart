@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/time_picker.dart';
+import 'package:liqliquid/common/widgets/time_picker.dart';
 import 'package:liqliquid/pages/dynamics_create_reserve/controller.dart';
 import 'package:liqliquid/utils/date_utils.dart';
 import 'package:liqliquid/utils/utils.dart';
@@ -47,7 +47,7 @@ class _CreateReservePageState extends State<CreateReservePage> {
       const SizedBox(height: 10),
     ];
     return Scaffold(
-      appBar: AppBar(title: const Text('娣诲姞鐩存挱棰勭害')),
+      appBar: AppBar(title: const Text('添加直播预约')),
       body: ListView(
         padding: EdgeInsets.only(
           top: 16,
@@ -61,7 +61,7 @@ class _CreateReservePageState extends State<CreateReservePage> {
             children: [
               SizedBox(
                 width: 65,
-                child: Text('绫诲瀷', style: _leadingStyle),
+                child: Text('类型', style: _leadingStyle),
               ),
               Obx(
                 () => PopupMenuButton(
@@ -72,16 +72,16 @@ class _CreateReservePageState extends State<CreateReservePage> {
                     return const [
                       PopupMenuItem(
                         value: 0,
-                        child: Text('鍏紑鐩存挱'),
+                        child: Text('公开直播'),
                       ),
                       PopupMenuItem(
                         value: 1,
-                        child: Text('澶ц埅娴风洿鎾?),
+                        child: Text('大航海直播'),
                       ),
                     ];
                   },
                   child: Text(
-                    _controller.subType.value == 0 ? '鍏紑鐩存挱' : '澶ц埅娴风洿鎾?,
+                    _controller.subType.value == 0 ? '公开直播' : '大航海直播',
                   ),
                 ),
               ),
@@ -93,7 +93,7 @@ class _CreateReservePageState extends State<CreateReservePage> {
             children: [
               SizedBox(
                 width: 65,
-                child: Text('鏃堕棿', style: _leadingStyle),
+                child: Text('时间', style: _leadingStyle),
               ),
               Expanded(
                 child: GestureDetector(
@@ -125,7 +125,7 @@ class _CreateReservePageState extends State<CreateReservePage> {
                             const Duration(minutes: 5)) {
                           _controller.date.value = newEndtime;
                         } else {
-                          SmartDialog.showToast('鑷冲皯閫夋嫨5鍒嗛挓涔嬪悗');
+                          SmartDialog.showToast('至少选择5分钟之后');
                         }
                       }
                     }
@@ -153,8 +153,8 @@ class _CreateReservePageState extends State<CreateReservePage> {
               onChanged: (value) => _controller
                 ..title.value = value
                 ..updateCanCreate(),
-              desc: '鏍囬',
-              hintText: '璇峰～鍐欐爣棰橈紝鏈€澶?4瀛?,
+              desc: '标题',
+              hintText: '请填写标题，最多14字',
               inputFormatters: [LengthLimitingTextInputFormatter(14)],
             ),
           ),
@@ -165,7 +165,7 @@ class _CreateReservePageState extends State<CreateReservePage> {
               onPressed: _controller.canCreate.value
                   ? _controller.onCreate
                   : null,
-              child: const Text('娣诲姞棰勭害'),
+              child: const Text('添加预约'),
             );
           }),
         ],
@@ -214,4 +214,3 @@ class _CreateReservePageState extends State<CreateReservePage> {
     );
   }
 }
-

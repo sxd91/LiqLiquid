@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/live.dart';
+import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/live/live_area_list/area_item.dart';
 import 'package:liqliquid/models_new/live/live_area_list/area_list.dart';
@@ -62,7 +62,7 @@ class LiveAreaController extends CommonListController<List<AreaList>?, AreaList>
       );
       if (res.isSuccess) {
         isEditing.value = !isEditing.value;
-        SmartDialog.showToast('璁剧疆鎴愬姛');
+        SmartDialog.showToast('设置成功');
       } else {
         res.toast();
       }
@@ -86,4 +86,3 @@ class LiveAreaController extends CommonListController<List<AreaList>?, AreaList>
     super.onClose();
   }
 }
-

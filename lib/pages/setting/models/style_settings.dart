@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/color_palette.dart';
@@ -45,14 +45,14 @@ import 'package:path/path.dart' as path;
 List<SettingsModel> get styleSettings => [
   if (PlatformUtils.isDesktop) ...[
     const SwitchModel(
-      title: '鏄剧ず绐楀彛鏍囬鏍?,
+      title: '显示窗口标题栏',
       leading: Icon(Icons.window),
       setKey: SettingBoxKey.showWindowTitleBar,
       defaultVal: true,
       needReboot: true,
     ),
     const SwitchModel(
-      title: '鏄剧ず鎵樼洏鍥炬爣',
+      title: '显示托盘图标',
       leading: Icon(Icons.donut_large_rounded),
       setKey: SettingBoxKey.showTrayIcon,
       defaultVal: true,
@@ -61,8 +61,8 @@ List<SettingsModel> get styleSettings => [
   ],
   if (Platform.isLinux) _useSSDModel(),
   SwitchModel(
-    title: '妯睆閫傞厤',
-    subtitle: '鍚敤妯睆甯冨眬涓庨€昏緫锛屽钩鏉裤€佹姌鍙犲睆绛夊彲寮€鍚紱寤鸿鍏ㄥ睆鏂瑰悜璁句负銆愪笉鏀瑰彉褰撳墠鏂瑰悜銆?,
+    title: '横屏适配',
+    subtitle: '启用横屏布局与逻辑，平板、折叠屏等可开启；建议全屏方向设为【不改变当前方向】',
     leading: const Icon(Icons.phonelink_outlined),
     setKey: SettingBoxKey.horizontalScreen,
     defaultVal: Pref.horizontalScreen,
@@ -75,8 +75,8 @@ List<SettingsModel> get styleSettings => [
     },
   ),
   const SwitchModel(
-    title: '鏀圭敤渚ц竟鏍?,
-    subtitle: '寮€鍚悗搴曟爮涓庨《鏍忚鏇挎崲锛屼笖鐩稿叧璁剧疆澶辨晥',
+    title: '改用侧边栏',
+    subtitle: '开启后底栏与顶栏被替换，且相关设置失效',
     leading: Icon(Icons.chrome_reader_mode_outlined),
     setKey: SettingBoxKey.useSideBar,
     defaultVal: false,
@@ -84,8 +84,8 @@ List<SettingsModel> get styleSettings => [
   ),
   SplitModel(
     normalModel: const NormalModel.split(
-      title: 'App瀛椾綋瀛楅噸',
-      subtitle: '鐐瑰嚮璁剧疆',
+      title: 'App字体字重',
+      subtitle: '点击设置',
       leading: Icon(Icons.text_fields),
     ),
     switchModel: SwitchModel.split(
@@ -96,34 +96,34 @@ List<SettingsModel> get styleSettings => [
     ),
   ),
   NormalModel(
-    title: '鐣岄潰缂╂斁',
-    getSubtitle: () => '褰撳墠缂╂斁姣斾緥锛?{Pref.uiScale.toStringAsFixed(2)}',
+    title: '界面缩放',
+    getSubtitle: () => '当前缩放比例：${Pref.uiScale.toStringAsFixed(2)}',
     leading: const Icon(Icons.zoom_in_outlined),
     onTap: _showUiScaleDialog,
   ),
   NormalModel(
-    title: '椤甸潰杩囨浮鍔ㄧ敾',
+    title: '页面过渡动画',
     leading: const Icon(Icons.animation),
-    getSubtitle: () => '褰撳墠锛?{Pref.pageTransition.name}',
+    getSubtitle: () => '当前：${Pref.pageTransition.name}',
     onTap: _showTransitionDialog,
   ),
   const SwitchModel(
-    title: '浼樺寲骞虫澘瀵艰埅鏍?,
+    title: '优化平板导航栏',
     leading: Icon(Icons.auto_fix_high),
     setKey: SettingBoxKey.optTabletNav,
     defaultVal: true,
     needReboot: true,
   ),
   const SwitchModel(
-    title: 'MD3鏍峰紡搴曟爮',
-    subtitle: 'Material You璁捐瑙勮寖搴曟爮锛屽叧闂彲鍙樼獎',
+    title: 'MD3样式底栏',
+    subtitle: 'Material You设计规范底栏，关闭可变窄',
     leading: Icon(Icons.design_services_outlined),
     setKey: SettingBoxKey.enableMYBar,
     defaultVal: true,
     needReboot: true,
   ),
   const SwitchModel(
-    title: '鎮诞搴曟爮',
+    title: '悬浮底栏',
     leading: Icon(MdiIcons.soundbar),
     setKey: SettingBoxKey.floatingNavBar,
     defaultVal: false,
@@ -131,87 +131,87 @@ List<SettingsModel> get styleSettings => [
   ),
   NormalModel(
     leading: const Icon(Icons.calendar_view_week_outlined),
-    title: '鍒楄〃瀹藉害锛坉p锛夐檺鍒?,
+    title: '列表宽度（dp）限制',
     getSubtitle: () =>
-        '褰撳墠: 涓婚〉${Pref.recommendCardWidth.toInt()}dp 鍏朵粬${Pref.smallCardWidth.toInt()}dp锛屽睆骞曞搴?${MediaQuery.widthOf(Get.context!).toPrecision(2)}dp銆傚搴﹁秺灏忓垪鏁拌秺澶氥€?,
+        '当前: 主页${Pref.recommendCardWidth.toInt()}dp 其他${Pref.smallCardWidth.toInt()}dp，屏幕宽度:${MediaQuery.widthOf(Get.context!).toPrecision(2)}dp。宽度越小列数越多。',
     onTap: _showCardWidthDialog,
   ),
   const SwitchModel(
-    title: '鎾斁椤电Щ闄ゅ畨鍏ㄨ竟璺?,
+    title: '播放页移除安全边距',
     leading: Icon(Icons.fit_screen_outlined),
     setKey: SettingBoxKey.removeSafeArea,
     defaultVal: false,
   ),
   const SwitchModel(
-    title: '瑙嗛鎾斁椤典娇鐢ㄦ繁鑹蹭富棰?,
+    title: '视频播放页使用深色主题',
     leading: Icon(Icons.dark_mode_outlined),
     setKey: SettingBoxKey.darkVideoPage,
     defaultVal: false,
   ),
   SwitchModel(
-    title: '鍔ㄦ€侀〉鍚敤鐎戝竷娴?,
-    subtitle: '鍏抽棴浼氭樉绀轰负鍗曞垪',
+    title: '动态页启用瀑布流',
+    subtitle: '关闭会显示为单列',
     leading: const Icon(Icons.view_array_outlined),
     setKey: SettingBoxKey.dynamicsWaterfallFlow,
     defaultVal: Pref.horizontalScreen,
     needReboot: true,
   ),
   NormalModel(
-    title: '鍔ㄦ€侀〉UP涓绘樉绀轰綅缃?,
+    title: '动态页UP主显示位置',
     leading: const Icon(Icons.person_outlined),
-    getSubtitle: () => '褰撳墠锛?{Pref.upPanelPosition.label}',
+    getSubtitle: () => '当前：${Pref.upPanelPosition.label}',
     onTap: _showUpPosDialog,
   ),
   const SwitchModel(
-    title: '鍔ㄦ€侀〉鏄剧ず鎵€鏈夊凡鍏虫敞UP涓?,
+    title: '动态页显示所有已关注UP主',
     leading: Icon(Icons.people_alt_outlined),
     setKey: SettingBoxKey.dynamicsShowAllFollowedUp,
     defaultVal: false,
     needReboot: true,
   ),
   const SwitchModel(
-    title: '鍔ㄦ€侀〉灞曞紑姝ｅ湪鐩存挱UP鍒楄〃',
+    title: '动态页展开正在直播UP列表',
     leading: Icon(Icons.live_tv),
     setKey: SettingBoxKey.expandDynLivePanel,
     defaultVal: false,
     needReboot: true,
   ),
   NormalModel(
-    title: '鍔ㄦ€佹湭璇绘爣璁?,
+    title: '动态未读标记',
     leading: const Icon(Icons.motion_photos_on_outlined),
-    getSubtitle: () => '褰撳墠鏍囪鏍峰紡锛?{Pref.dynamicBadgeType.desc}',
+    getSubtitle: () => '当前标记样式：${Pref.dynamicBadgeType.desc}',
     onTap: _showDynBadgeDialog,
   ),
   NormalModel(
-    title: '娑堟伅鏈鏍囪',
+    title: '消息未读标记',
     leading: const Icon(MdiIcons.bellBadgeOutline),
-    getSubtitle: () => '褰撳墠鏍囪鏍峰紡锛?{Pref.msgBadgeMode.desc}',
+    getSubtitle: () => '当前标记样式：${Pref.msgBadgeMode.desc}',
     onTap: _showMsgBadgeDialog,
   ),
   NormalModel(
     onTap: _showMsgUnReadDialog,
-    title: '娑堟伅鏈绫诲瀷',
+    title: '消息未读类型',
     leading: const Icon(MdiIcons.bellCogOutline),
     getSubtitle: () =>
-        '褰撳墠娑堟伅绫诲瀷锛?{Pref.msgUnReadTypeV2.map((item) => item.title).join('銆?)}',
+        '当前消息类型：${Pref.msgUnReadTypeV2.map((item) => item.title).join('、')}',
   ),
   NormalModel(
     onTap: _showBarHideTypeDialog,
-    title: '椤?搴曟爮鏀惰捣绫诲瀷',
+    title: '顶/底栏收起类型',
     leading: const Icon(MdiIcons.arrowExpandVertical),
-    getSubtitle: () => '褰撳墠锛?{Pref.barHideType.label}',
+    getSubtitle: () => '当前：${Pref.barHideType.label}',
   ),
   SwitchModel(
-    title: '棣栭〉椤舵爮鏀惰捣',
-    subtitle: '棣栭〉鍒楄〃婊戝姩鏃讹紝鏀惰捣椤舵爮',
+    title: '首页顶栏收起',
+    subtitle: '首页列表滑动时，收起顶栏',
     leading: const Icon(Icons.vertical_align_top_outlined),
     setKey: SettingBoxKey.hideTopBar,
     defaultVal: PlatformUtils.isMobile,
     needReboot: true,
   ),
   SwitchModel(
-    title: '棣栭〉搴曟爮鏀惰捣',
-    subtitle: '棣栭〉鍒楄〃婊戝姩鏃讹紝鏀惰捣搴曟爮',
+    title: '首页底栏收起',
+    subtitle: '首页列表滑动时，收起底栏',
     leading: const Icon(Icons.vertical_align_bottom_outlined),
     setKey: SettingBoxKey.hideBottomBar,
     defaultVal: PlatformUtils.isMobile,
@@ -220,7 +220,7 @@ List<SettingsModel> get styleSettings => [
   NormalModel(
     onTap: (context, setState) => _showQualityDialog(
       context: context,
-      title: const Text('鍥剧墖璐ㄩ噺'),
+      title: const Text('图片质量'),
       initValue: Pref.picQuality,
       onChanged: (picQuality) async {
         GlobalData().imgQuality = picQuality;
@@ -228,8 +228,8 @@ List<SettingsModel> get styleSettings => [
         setState();
       },
     ),
-    title: '鍥剧墖璐ㄩ噺',
-    subtitle: '閫夋嫨鍚堥€傜殑鍥剧墖娓呮櫚搴︼紝涓婇檺100%',
+    title: '图片质量',
+    subtitle: '选择合适的图片清晰度，上限100%',
     leading: const Icon(Icons.image_outlined),
     getTrailing: (theme) => Text(
       '${Pref.picQuality}%',
@@ -239,15 +239,15 @@ List<SettingsModel> get styleSettings => [
   NormalModel(
     onTap: (context, setState) => _showQualityDialog(
       context: context,
-      title: const Text('鏌ョ湅澶у浘璐ㄩ噺'),
+      title: const Text('查看大图质量'),
       initValue: Pref.previewQ,
       onChanged: (picQuality) async {
         await GStorage.setting.put(SettingBoxKey.previewQuality, picQuality);
         setState();
       },
     ),
-    title: '鏌ョ湅澶у浘璐ㄩ噺',
-    subtitle: '閫夋嫨鍚堥€傜殑鍥剧墖娓呮櫚搴︼紝涓婇檺100%',
+    title: '查看大图质量',
+    subtitle: '选择合适的图片清晰度，上限100%',
     leading: const Icon(Icons.image_outlined),
     getTrailing: (theme) => Text(
       '${Pref.previewQ}%',
@@ -256,8 +256,8 @@ List<SettingsModel> get styleSettings => [
   ),
   NormalModel(
     onTap: _showReduceColorDialog,
-    title: '娣辫壊涓嬪浘鐗囬鑹插彔鍔?,
-    subtitle: '鏄剧ず棰滆壊=鍥剧墖鍘熻壊x鎵€閫夐鑹诧紝澶у浘鏌ョ湅涓嶅彈褰卞搷',
+    title: '深色下图片颜色叠加',
+    subtitle: '显示颜色=图片原色x所选颜色，大图查看不受影响',
     leading: const Icon(Icons.format_color_fill_outlined),
     getTrailing: (theme) => Container(
       width: 20,
@@ -270,8 +270,8 @@ List<SettingsModel> get styleSettings => [
   ),
   NormalModel(
     leading: const Icon(Icons.opacity_outlined),
-    title: '姘旀场鎻愮ず涓嶉€忔槑搴?,
-    subtitle: '鑷畾涔夋皵娉℃彁绀?Toast)涓嶉€忔槑搴?,
+    title: '气泡提示不透明度',
+    subtitle: '自定义气泡提示(Toast)不透明度',
     getTrailing: (theme) => Text(
       CustomToast.toastOpacity.toStringAsFixed(1),
       style: theme.textTheme.titleSmall,
@@ -281,12 +281,12 @@ List<SettingsModel> get styleSettings => [
   NormalModel(
     onTap: _showThemeTypeDialog,
     leading: const Icon(Icons.flashlight_on_outlined),
-    title: '涓婚妯″紡',
-    getSubtitle: () => '褰撳墠妯″紡锛?{Pref.themeType.desc}',
+    title: '主题模式',
+    getSubtitle: () => '当前模式：${Pref.themeType.desc}',
   ),
   SwitchModel(
     leading: const Icon(Icons.invert_colors),
-    title: '绾粦涓婚',
+    title: '纯黑主题',
     setKey: SettingBoxKey.isPureBlackTheme,
     defaultVal: false,
     onChanged: (value) {
@@ -298,8 +298,8 @@ List<SettingsModel> get styleSettings => [
   NormalModel(
     onTap: (context, setState) => Get.toNamed('/colorSetting'),
     leading: const Icon(Icons.color_lens_outlined),
-    title: '搴旂敤涓婚',
-    getSubtitle: () => '褰撳墠涓婚锛?{Pref.dynamicColor ? '鍔ㄦ€佸彇鑹? : '鎸囧畾棰滆壊'}',
+    title: '应用主题',
+    getSubtitle: () => '当前主题：${Pref.dynamicColor ? '动态取色' : '指定颜色'}',
     getTrailing: (theme) => Pref.dynamicColor
         ? Icon(Icons.color_lens_rounded, color: theme.colorScheme.primary)
         : SizedBox.square(
@@ -314,12 +314,12 @@ List<SettingsModel> get styleSettings => [
   ),
   NormalModel(
     leading: const Icon(Icons.home_outlined),
-    title: '榛樿鍚姩椤?,
-    getSubtitle: () => '褰撳墠鍚姩椤碉細${Pref.defaultHomePage.label}',
+    title: '默认启动页',
+    getSubtitle: () => '当前启动页：${Pref.defaultHomePage.label}',
     onTap: _showDefHomeDialog,
   ),
   const NormalModel(
-    title: '婊戝姩鍔ㄧ敾寮圭哀鍙傛暟',
+    title: '滑动动画弹簧参数',
     leading: Icon(Icons.chrome_reader_mode_outlined),
     onTap: _showSpringDialog,
   ),
@@ -330,11 +330,11 @@ List<SettingsModel> get styleSettings => [
         setState();
       }
     },
-    title: '瀛椾綋澶у皬',
+    title: '字体大小',
     leading: const Icon(Icons.format_size_outlined),
     getSubtitle: () {
       final scale = Pref.defaultTextScale;
-      return scale == 1.0 ? '榛樿' : scale.toString();
+      return scale == 1.0 ? '默认' : scale.toString();
     },
   ),
   NormalModel(
@@ -343,11 +343,11 @@ List<SettingsModel> get styleSettings => [
       arguments: {
         'key': SettingBoxKey.tabBarSort,
         'defaultBars': HomeTabType.values,
-        'title': '棣栭〉鏍囩椤?,
+        'title': '首页标签页',
       },
     ),
-    title: '棣栭〉鏍囩椤?,
-    subtitle: '鍒犻櫎鎴栬皟鎹㈤椤垫爣绛鹃〉',
+    title: '首页标签页',
+    subtitle: '删除或调换首页标签页',
     leading: const Icon(Icons.toc_outlined),
   ),
   NormalModel(
@@ -359,13 +359,13 @@ List<SettingsModel> get styleSettings => [
         'title': 'Navbar',
       },
     ),
-    title: 'Navbar缂栬緫',
-    subtitle: '鍒犻櫎鎴栬皟鎹avbar',
+    title: 'Navbar编辑',
+    subtitle: '删除或调换Navbar',
     leading: const Icon(Icons.toc_outlined),
   ),
   SwitchModel(
-    title: '杩斿洖鏃剁洿鎺ラ€€鍑?,
-    subtitle: '寮€鍚悗鍦ㄤ富椤典换鎰弔ab鎸夎繑鍥為敭閮界洿鎺ラ€€鍑猴紝鍏抽棴鍒欏厛鍥炲埌Navbar鐨勭涓€涓猼ab',
+    title: '返回时直接退出',
+    subtitle: '开启后在主页任意tab按返回键都直接退出，关闭则先回到Navbar的第一个tab',
     leading: const Icon(Icons.exit_to_app_outlined),
     setKey: SettingBoxKey.directExitOnBack,
     defaultVal: false,
@@ -374,7 +374,7 @@ List<SettingsModel> get styleSettings => [
   if (Platform.isAndroid)
     NormalModel(
       onTap: (context, setState) => Get.toNamed('/displayModeSetting'),
-      title: '灞忓箷甯х巼',
+      title: '屏幕帧率',
       leading: const Icon(Icons.autofps_select_outlined),
     ),
 ];
@@ -398,7 +398,7 @@ void _showQualityDialog({
     ),
   ).then((result) {
     if (result != null) {
-      SmartDialog.showToast('璁剧疆鎴愬姛');
+      SmartDialog.showToast('设置成功');
       onChanged(result.toInt());
     }
   });
@@ -419,7 +419,7 @@ void _showUiScaleDialog(
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('鐣岄潰缂╂斁'),
+      title: const Text('界面缩放'),
       contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
       content: StatefulBuilder(
         onDispose: textController.dispose,
@@ -448,7 +448,7 @@ void _showUiScaleDialog(
                 FilteringTextInputFormatter.allow(RegExp(r'[\d.]+')),
               ],
               decoration: const InputDecoration(
-                labelText: '缂╂斁姣斾緥',
+                labelText: '缩放比例',
                 hintText: '0.50 - 2.00',
                 border: OutlineInputBorder(),
               ),
@@ -476,12 +476,12 @@ void _showUiScaleDialog(
               ScaledWidgetsFlutterBinding.instance.scaleFactor = 1.0;
             });
           },
-          child: const Text('閲嶇疆'),
+          child: const Text('重置'),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -496,7 +496,7 @@ void _showUiScaleDialog(
               },
             );
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -544,7 +544,7 @@ void _showSpringDialog(BuildContext context, _) {
       title: Row(
         mainAxisAlignment: .spaceBetween,
         children: [
-          const Text('寮圭哀鍙傛暟'),
+          const Text('弹簧参数'),
           TextButton(
             style: TextButton.styleFrom(
               visualDensity: .compact,
@@ -563,7 +563,7 @@ void _showSpringDialog(BuildContext context, _) {
                 SmartDialog.showToast(e.toString());
               }
             },
-            child: Text(physicalMode ? '婊戝姩鏃堕棿' : '鐗╃悊鍙傛暟'),
+            child: Text(physicalMode ? '滑动时间' : '物理参数'),
           ),
         ],
       ),
@@ -599,14 +599,14 @@ void _showSpringDialog(BuildContext context, _) {
           onPressed: () {
             Get.back();
             GStorage.setting.delete(SettingBoxKey.springDescription);
-            SmartDialog.showToast('閲嶇疆鎴愬姛锛岄噸鍚敓鏁?);
+            SmartDialog.showToast('重置成功，重启生效');
           },
-          child: const Text('閲嶇疆'),
+          child: const Text('重置'),
         ),
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '鍙栨秷',
+            '取消',
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -619,12 +619,12 @@ void _showSpringDialog(BuildContext context, _) {
               final res = springDescription.map(double.parse).toList();
               Get.back();
               GStorage.setting.put(SettingBoxKey.springDescription, res);
-              SmartDialog.showToast('璁剧疆鎴愬姛锛岄噸鍚敓鏁?);
+              SmartDialog.showToast('设置成功，重启生效');
             } catch (e) {
               SmartDialog.showToast(e.toString());
             }
           },
-          child: const Text('纭畾'),
+          child: const Text('确定'),
         ),
       ],
     ),
@@ -635,7 +635,7 @@ Future<void> _showFontWeightDialog(BuildContext context) async {
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('App瀛椾綋瀛楅噸'),
+      title: const Text('App字体字重'),
       value: Pref.appFontWeight.toDouble() + 1,
       min: 1,
       max: FontWeight.values.length.toDouble(),
@@ -655,7 +655,7 @@ Future<void> _showTransitionDialog(
   final res = await showDialog<Transition>(
     context: context,
     builder: (context) => SelectDialog<Transition>(
-      title: '椤甸潰杩囨浮鍔ㄧ敾',
+      title: '页面过渡动画',
       value: Pref.pageTransition,
       values: Transition.values.map((e) => (e, e.name)).toList(),
     ),
@@ -674,11 +674,11 @@ Future<void> _showCardWidthDialog(
   final res = await showDialog<(double, double)>(
     context: context,
     builder: (context) => DualSliderDialog(
-      title: const Text('鍒楄〃鏈€澶у垪瀹藉害锛堥粯璁?40dp锛?),
+      title: const Text('列表最大列宽度（默认240dp）'),
       value1: Pref.recommendCardWidth,
       value2: Pref.smallCardWidth,
-      description1: const Text('涓婚〉鎺ㄨ崘娴?),
-      description2: const Text('鍏朵粬'),
+      description1: const Text('主页推荐流'),
+      description2: const Text('其他'),
       min: 150.0,
       max: 500.0,
       divisions: 35,
@@ -690,7 +690,7 @@ Future<void> _showCardWidthDialog(
       SettingBoxKey.recommendCardWidth: res.$1,
       SettingBoxKey.smallCardWidth: res.$2,
     });
-    SmartDialog.showToast('閲嶅惎鐢熸晥');
+    SmartDialog.showToast('重启生效');
     setState();
   }
 }
@@ -702,14 +702,14 @@ Future<void> _showUpPosDialog(
   final res = await showDialog<UpPanelPosition>(
     context: context,
     builder: (context) => SelectDialog<UpPanelPosition>(
-      title: '鍔ㄦ€侀〉UP涓绘樉绀轰綅缃?,
+      title: '动态页UP主显示位置',
       value: Pref.upPanelPosition,
       values: UpPanelPosition.values.map((e) => (e, e.label)).toList(),
     ),
   );
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.upPanelPosition, res.index);
-    SmartDialog.showToast('閲嶅惎鐢熸晥');
+    SmartDialog.showToast('重启生效');
     setState();
   }
 }
@@ -721,7 +721,7 @@ Future<void> _showDynBadgeDialog(
   final res = await showDialog<DynamicBadgeMode>(
     context: context,
     builder: (context) => SelectDialog<DynamicBadgeMode>(
-      title: '鍔ㄦ€佹湭璇绘爣璁?,
+      title: '动态未读标记',
       value: Pref.dynamicBadgeType,
       values: DynamicBadgeMode.values.map((e) => (e, e.desc)).toList(),
     ),
@@ -736,7 +736,7 @@ Future<void> _showDynBadgeDialog(
       SettingBoxKey.dynamicBadgeMode,
       res.index,
     );
-    SmartDialog.showToast('璁剧疆鎴愬姛');
+    SmartDialog.showToast('设置成功');
     setState();
   }
 }
@@ -748,7 +748,7 @@ Future<void> _showMsgBadgeDialog(
   final res = await showDialog<DynamicBadgeMode>(
     context: context,
     builder: (context) => SelectDialog<DynamicBadgeMode>(
-      title: '娑堟伅鏈鏍囪',
+      title: '消息未读标记',
       value: Pref.msgBadgeMode,
       values: DynamicBadgeMode.values.map((e) => (e, e.desc)).toList(),
     ),
@@ -762,7 +762,7 @@ Future<void> _showMsgBadgeDialog(
       mainController.msgUnReadCount.value = '';
     }
     await GStorage.setting.put(SettingBoxKey.msgBadgeMode, res.index);
-    SmartDialog.showToast('璁剧疆鎴愬姛');
+    SmartDialog.showToast('设置成功');
     setState();
   }
 }
@@ -774,7 +774,7 @@ Future<void> _showMsgUnReadDialog(
   final res = await showDialog<Set<MsgUnReadType>>(
     context: context,
     builder: (context) => MultiSelectDialog<MsgUnReadType>(
-      title: '娑堟伅鏈绫诲瀷',
+      title: '消息未读类型',
       initValues: Pref.msgUnReadTypeV2,
       values: {for (final i in MsgUnReadType.values) i: i.title},
     ),
@@ -788,7 +788,7 @@ Future<void> _showMsgUnReadDialog(
       SettingBoxKey.msgUnReadTypeV2,
       res.map((item) => item.index).toList()..sort(),
     );
-    SmartDialog.showToast('璁剧疆鎴愬姛');
+    SmartDialog.showToast('设置成功');
     setState();
   }
 }
@@ -811,7 +811,7 @@ void _showReduceColorDialog(
             if (color == Colors.white) {
               NetworkImgLayer.reduceLuxColor = null;
               GStorage.setting.delete(SettingBoxKey.reduceLuxColor);
-              SmartDialog.showToast('璁剧疆鎴愬姛');
+              SmartDialog.showToast('设置成功');
               setState();
             } else {
               void onConfirm() {
@@ -820,7 +820,7 @@ void _showReduceColorDialog(
                   SettingBoxKey.reduceLuxColor,
                   color.toARGB32(),
                 );
-                SmartDialog.showToast('璁剧疆鎴愬姛');
+                SmartDialog.showToast('设置成功');
                 setState();
               }
 
@@ -828,9 +828,9 @@ void _showReduceColorDialog(
                 showConfirmDialog(
                   context: context,
                   title: Text(
-                    '纭浣跨敤#${(color.toARGB32() & 0xFFFFFF).toRadixString(16).toUpperCase().padLeft(6)}锛?,
+                    '确认使用#${(color.toARGB32() & 0xFFFFFF).toRadixString(16).toUpperCase().padLeft(6)}？',
                   ),
-                  content: const Text('鎵€閫夐鑹茶繃浜庢槒鏆楋紝鍙兘浼氬奖鍝嶅浘鐗囪鐪?),
+                  content: const Text('所选颜色过于昏暗，可能会影响图片观看'),
                   onConfirm: onConfirm,
                 );
               } else {
@@ -851,7 +851,7 @@ Future<void> _showToastDialog(
   final res = await showDialog<double>(
     context: context,
     builder: (context) => SliderDialog(
-      title: const Text('Toast涓嶉€忔槑搴?),
+      title: const Text('Toast不透明度'),
       value: CustomToast.toastOpacity,
       min: 0.0,
       max: 1.0,
@@ -861,7 +861,7 @@ Future<void> _showToastDialog(
   if (res != null) {
     CustomToast.toastOpacity = res;
     await GStorage.setting.put(SettingBoxKey.defaultToastOp, res);
-    SmartDialog.showToast('璁剧疆鎴愬姛');
+    SmartDialog.showToast('设置成功');
     setState();
   }
 }
@@ -873,7 +873,7 @@ Future<void> _showThemeTypeDialog(
   final res = await showDialog<ThemeType>(
     context: context,
     builder: (context) => SelectDialog<ThemeType>(
-      title: '涓婚妯″紡',
+      title: '主题模式',
       value: Pref.themeType,
       values: ThemeType.values.map((e) => (e, e.desc)).toList(),
     ),
@@ -895,14 +895,14 @@ Future<void> _showDefHomeDialog(
   final res = await showDialog<NavigationBarType>(
     context: context,
     builder: (context) => SelectDialog<NavigationBarType>(
-      title: '棣栭〉鍚姩椤?,
+      title: '首页启动页',
       value: Pref.defaultHomePage,
       values: NavigationBarType.values.map((e) => (e, e.label)).toList(),
     ),
   );
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.defaultHomePage, res.index);
-    SmartDialog.showToast('璁剧疆鎴愬姛锛岄噸鍚敓鏁?);
+    SmartDialog.showToast('设置成功，重启生效');
     setState();
   }
 }
@@ -914,14 +914,14 @@ Future<void> _showBarHideTypeDialog(
   final res = await showDialog<BarHideType>(
     context: context,
     builder: (context) => SelectDialog<BarHideType>(
-      title: '椤?搴曟爮鏀惰捣绫诲瀷',
+      title: '顶/底栏收起类型',
       value: Pref.barHideType,
       values: BarHideType.values.map((e) => (e, e.label)).toList(),
     ),
   );
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.barHideType, res.index);
-    SmartDialog.showToast('閲嶅惎鐢熸晥');
+    SmartDialog.showToast('重启生效');
     setState();
   }
 }
@@ -937,7 +937,7 @@ NormalModel _useSSDModel() {
   }
 
   return NormalModel(
-    title: '浣跨敤SSD锛圫erver-Side Decoration锛?,
+    title: '使用SSD（Server-Side Decoration）',
     leading: const Icon(Icons.web_asset),
     onTap: onChanged,
     getTrailing: (theme) => Builder(
@@ -953,4 +953,3 @@ NormalModel _useSSDModel() {
     ),
   );
 }
-

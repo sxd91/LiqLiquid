@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/button/icon_button.dart';
+import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -83,7 +83,7 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                     const SizedBox(width: 16),
                     iconButton(
                       size: 32,
-                      tooltip: '鍙栨秷',
+                      tooltip: '取消',
                       context: context,
                       icon: const Icon(Icons.clear),
                       onPressed: _favNoteController.onDisable,
@@ -112,7 +112,7 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                           bottom: 14,
                           right: 12,
                         ),
-                        child: Text('鍏ㄩ€?),
+                        child: Text('全选'),
                       ),
                     ),
                     const Spacer(),
@@ -125,12 +125,12 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                         if (_favNoteController.checkedCount != 0) {
                           showConfirmDialog(
                             context: context,
-                            title: const Text('纭畾鍒犻櫎宸查€変腑鐨勭瑪璁板悧锛?),
+                            title: const Text('确定删除已选中的笔记吗？'),
                             onConfirm: _favNoteController.onRemove,
                           );
                         }
                       },
-                      child: const Text('鍒犻櫎'),
+                      child: const Text('删除'),
                     ),
                     const SizedBox(width: 16),
                   ],
@@ -174,4 +174,3 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
   @override
   bool get wantKeepAlive => true;
 }
-

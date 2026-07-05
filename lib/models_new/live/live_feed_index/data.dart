@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/card_list.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/card_list.dart';
 
 class LiveIndexData {
   List<LiveCardList>? cardList;
@@ -34,4 +34,3 @@ class LiveIndexData {
     hasMore = json['has_more'] as int?;
   }
 }
-

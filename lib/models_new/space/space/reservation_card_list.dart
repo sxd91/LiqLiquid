@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/parse_string.dart';
+import 'package:liqliquid/utils/parse_string.dart';
 
 class ReservationCardItem {
   int? sid;
@@ -51,4 +51,3 @@ class LotteryPrizeInfo {
     );
   }
 }
-

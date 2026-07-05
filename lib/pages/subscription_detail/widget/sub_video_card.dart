@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -13,7 +13,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
-// 鏀惰棌瑙嗛鍗＄墖 - 姘村钩甯冨眬
+// 收藏视频卡片 - 水平布局
 class SubVideoCardH extends StatelessWidget {
   final SubDetailItemModel videoItem;
   final int? searchType;
@@ -135,4 +135,3 @@ class SubVideoCardH extends StatelessWidget {
     );
   }
 }
-

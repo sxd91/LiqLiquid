@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 
 enum WebSsType {
   season(Api.seasonArchives),
@@ -8,4 +8,3 @@ enum WebSsType {
   final String api;
   const WebSsType(this.api);
 }
-

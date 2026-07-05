@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_room_play_info/playurl.dart';
+import 'package:liqliquid/models_new/live/live_room_play_info/playurl.dart';
 
 class PlayurlInfo {
   Playurl? playurl;
@@ -13,4 +13,3 @@ class PlayurlInfo {
         : Playurl.fromJson(json['playurl'] as Map<String, dynamic>),
   );
 }
-

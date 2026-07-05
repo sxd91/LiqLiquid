@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/skeleton.dart';
+import 'package:liqliquid/common/skeleton/skeleton.dart';
 import 'package:liqliquid/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -49,4 +49,3 @@ class SpaceOpusSkeleton extends StatelessWidget {
     );
   }
 }
-

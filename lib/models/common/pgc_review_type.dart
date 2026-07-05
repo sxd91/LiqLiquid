@@ -1,8 +1,8 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 
 enum PgcReviewType {
-  long(label: '闀胯瘎', api: Api.pgcReviewL),
-  short(label: '鐭瘎', api: Api.pgcReviewS),
+  long(label: '长评', api: Api.pgcReviewL),
+  short(label: '短评', api: Api.pgcReviewS),
   ;
 
   final String label;
@@ -14,12 +14,11 @@ enum PgcReviewType {
 }
 
 enum PgcReviewSortType {
-  def('榛樿', 0),
-  latest('鏈€鏂?, 1),
+  def('默认', 0),
+  latest('最新', 1),
   ;
 
   final int sort;
   final String label;
   const PgcReviewSortType(this.label, this.sort);
 }
-

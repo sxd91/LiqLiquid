@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pair.dart';
+import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/utils/storage.dart';
@@ -51,13 +51,13 @@ class _BarSetPageState extends State<BarSetPage> with ReorderMixin {
       key,
       list.where((e) => e.second).map((e) => e.first.index).toList(),
     );
-    SmartDialog.showToast('淇濆瓨鎴愬姛锛屼笅娆″惎鍔ㄦ椂鐢熸晥');
+    SmartDialog.showToast('保存成功，下次启动时生效');
   }
 
   void onReset() {
     Get.back();
     GStorage.setting.delete(key);
-    SmartDialog.showToast('閲嶇疆鎴愬姛锛屼笅娆″惎鍔ㄦ椂鐢熸晥');
+    SmartDialog.showToast('重置成功，下次启动时生效');
   }
 
   void onReorderItem(int oldIndex, int newIndex) {
@@ -70,10 +70,10 @@ class _BarSetPageState extends State<BarSetPage> with ReorderMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('$title缂栬緫'),
+        title: Text('$title编辑'),
         actions: [
-          TextButton(onPressed: onReset, child: const Text('閲嶇疆')),
-          TextButton(onPressed: saveEdit, child: const Text('淇濆瓨')),
+          TextButton(onPressed: onReset, child: const Text('重置')),
+          TextButton(onPressed: saveEdit, child: const Text('保存')),
           const SizedBox(width: 12),
         ],
       ),
@@ -84,7 +84,7 @@ class _BarSetPageState extends State<BarSetPage> with ReorderMixin {
           padding: padding,
           child: const Align(
             alignment: Alignment.centerRight,
-            child: Text('*闀挎寜鎷栧姩鎺掑簭'),
+            child: Text('*长按拖动排序'),
           ),
         ),
         children: list
@@ -105,4 +105,3 @@ class _BarSetPageState extends State<BarSetPage> with ReorderMixin {
     );
   }
 }
-

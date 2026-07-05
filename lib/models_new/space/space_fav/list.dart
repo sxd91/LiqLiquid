@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/sub/sub/list.dart';
 
 class SpaceFavItemModel extends SubItemModel {
@@ -53,4 +53,3 @@ class SpaceFavItemModel extends SubItemModel {
         type: json['type'] as int?,
       );
 }
-

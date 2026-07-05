@@ -1,15 +1,14 @@
-﻿import 'package:liqliquid/models/common/enum_with_label.dart';
+import 'package:liqliquid/models/common/enum_with_label.dart';
 
 enum PlayRepeat implements EnumWithLabel {
-  pause('鎾畬鏆傚仠'),
-  listOrder('椤哄簭鎾斁'),
-  singleCycle('鍗曚釜寰幆'),
-  listCycle('鍒楄〃寰幆'),
-  autoPlayRelated('鑷姩杩炴挱'),
+  pause('播完暂停'),
+  listOrder('顺序播放'),
+  singleCycle('单个循环'),
+  listCycle('列表循环'),
+  autoPlayRelated('自动连播'),
   ;
 
   @override
   final String label;
   const PlayRepeat(this.label);
 }
-

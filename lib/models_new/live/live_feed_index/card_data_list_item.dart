@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/watched_show.dart';
 import 'package:liqliquid/utils/parse_string.dart';
 
 class CardLiveItem {
@@ -45,4 +45,3 @@ class CardLiveItem {
         : WatchedShow.fromJson(json['watched_show'] as Map<String, dynamic>),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/api.dart';
+import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/error_msg.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -11,7 +11,8 @@ abstract final class FollowHttp {
     int? vmid,
     int? pn,
     int ps = 20,
-    String orderType = '', // ''=>鏈€杩戝叧娉紝'attention'=>鏈€甯歌闂?  }) async {
+    String orderType = '', // ''=>最近关注，'attention'=>最常访问
+  }) async {
     final res = await Request().get(
       Api.followings,
       queryParameters: {
@@ -51,4 +52,3 @@ abstract final class FollowHttp {
     }
   }
 }
-

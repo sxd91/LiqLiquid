@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/episode.dart';
+import 'package:liqliquid/models_new/video/video_detail/episode.dart';
 
 class SectionItem {
   int? seasonId;
@@ -20,4 +20,3 @@ class SectionItem {
         .toList(),
   );
 }
-

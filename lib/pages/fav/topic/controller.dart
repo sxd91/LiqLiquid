@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fav.dart';
+import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_topic/data.dart';
 import 'package:liqliquid/models_new/fav/fav_topic/topic_item.dart';
@@ -44,10 +44,9 @@ class FavTopicController
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('宸插彇娑堟敹钘?);
+      SmartDialog.showToast('已取消收藏');
     } else {
       res.toast();
     }
   }
 }
-

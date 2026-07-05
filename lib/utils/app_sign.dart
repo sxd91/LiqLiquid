@@ -1,4 +1,4 @@
-﻿import 'dart:convert' show utf8;
+import 'dart:convert' show utf8;
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:crypto/crypto.dart';
@@ -20,7 +20,8 @@ abstract final class AppSign {
       ..sort((a, b) => a.key.compareTo(b.key));
     params['sign'] = md5
         .convert(utf8.encode(_makeQueryFromParametersDefault(sorted) + appsec))
-        .toString(); // 鑾峰彇MD5鍝堝笇鍊?  }
+        .toString(); // 获取MD5哈希值
+  }
 
   /// from [Uri]
   static String _makeQueryFromParametersDefault(
@@ -54,4 +55,3 @@ abstract final class AppSign {
     return result.toString();
   }
 }
-

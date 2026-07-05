@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_index_result/list.dart';
+import 'package:liqliquid/models_new/pgc/pgc_index_result/list.dart';
 
 class PgcIndexResult {
   int? hasNext;
@@ -13,4 +13,3 @@ class PgcIndexResult {
         .toList(),
   );
 }
-

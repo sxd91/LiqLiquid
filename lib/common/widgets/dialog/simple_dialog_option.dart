@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
 final EdgeInsets _padding = PlatformUtils.isMobile
@@ -27,4 +27,3 @@ class DialogOption extends StatelessWidget {
     );
   }
 }
-

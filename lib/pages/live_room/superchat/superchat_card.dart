@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/image_type.dart';
@@ -105,7 +105,7 @@ class _SuperChatCardState extends State<SuperChatCard> {
           height: 38,
           onTap: () => Get.toNamed('/member?mid=${item.uid}'),
           child: Text(
-            '璁块棶: ${item.userInfo.uname}',
+            '访问: ${item.userInfo.uname}',
             style: const TextStyle(fontSize: 13),
           ),
         ),
@@ -113,7 +113,7 @@ class _SuperChatCardState extends State<SuperChatCard> {
           height: 38,
           onTap: () => Utils.copyText(Utils.jsonEncoder.convert(item.toJson())),
           child: const Text(
-            '澶嶅埗 SC 淇℃伅',
+            '复制 SC 信息',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -121,7 +121,7 @@ class _SuperChatCardState extends State<SuperChatCard> {
           height: 38,
           onTap: widget.onReport,
           child: const Text(
-            '涓炬姤',
+            '举报',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -205,7 +205,7 @@ class _SuperChatCardState extends State<SuperChatCard> {
                     children: [
                       name,
                       Text(
-                        "锟?{item.price}",
+                        "￥${item.price}",
                         style: TextStyle(
                           color: ColourUtils.parseColor(
                             item.backgroundPriceColor,
@@ -254,4 +254,3 @@ class _SuperChatCardState extends State<SuperChatCard> {
     );
   }
 }
-

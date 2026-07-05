@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -78,7 +78,7 @@ abstract final class FavHttp {
     }
   }
 
-  // 鍙栨秷璁㈤槄
+  // 取消订阅
   static Future<LoadingState<void>> cancelSub({
     required int id,
     required int type,
@@ -394,7 +394,7 @@ abstract final class FavHttp {
     }
   }
 
-  // 鏀惰棌澶?
+  // 收藏夹
   static Future<LoadingState<FavFolderData>> userfavFolder({
     required int pn,
     required int ps,
@@ -411,7 +411,7 @@ abstract final class FavHttp {
     if (res.data['code'] == 0) {
       return Success(FavFolderData.fromJson(res.data['data']));
     } else {
-      return Error(res.data['message'] ?? '璐﹀彿鏈櫥褰?);
+      return Error(res.data['message'] ?? '账号未登录');
     }
   }
 
@@ -629,7 +629,7 @@ abstract final class FavHttp {
     }
   }
 
-  // 锛堝彇娑堬級鏀惰棌
+  // （取消）收藏
   static Future<LoadingState<void>> favVideo({
     required String resources,
     String? addIds,
@@ -652,7 +652,7 @@ abstract final class FavHttp {
     }
   }
 
-  // 锛堝彇娑堬級鏀惰棌
+  // （取消）收藏
   static Future<LoadingState<void>> unfavAll({
     required Object rid,
     required Object type,
@@ -718,7 +718,7 @@ abstract final class FavHttp {
     }
   }
 
-  // 鏌ョ湅瑙嗛琚敹钘忓湪鍝釜鏂囦欢澶?
+  // 查看视频被收藏在哪个文件夹
   static Future<LoadingState<FavFolderData>> videoInFolder({
     dynamic mid,
     dynamic rid,
@@ -739,4 +739,3 @@ abstract final class FavHttp {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
@@ -73,10 +73,10 @@ class _DLNAPageState extends State<DLNAPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('鎶曞睆'),
+        title: const Text('投屏'),
         actions: [
           IconButton(
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: _onSearch,
             icon: const Icon(Icons.refresh),
           ),
@@ -95,7 +95,7 @@ class _DLNAPageState extends State<DLNAPage> {
   Widget _buildBody(ColorScheme colorScheme) {
     if (!_isSearching && _deviceList.isEmpty) {
       return HttpError(
-        errMsg: '娌℃湁璁惧',
+        errMsg: '没有设备',
         onReload: _onSearch,
       );
     }
@@ -129,4 +129,3 @@ class _DLNAPageState extends State<DLNAPage> {
     return const SliverToBoxAdapter();
   }
 }
-

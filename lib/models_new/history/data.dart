@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/history/list.dart';
+import 'package:liqliquid/models_new/history/list.dart';
 import 'package:liqliquid/models_new/history/tab.dart';
 
 class HistoryData {
@@ -16,4 +16,3 @@ class HistoryData {
         .toList(),
   );
 }
-

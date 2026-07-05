@@ -1,8 +1,10 @@
 name: liqliquid
-description: A new Flutter project.
+description: A Bilibili third-party client with liquid glass UI, built with Flutter.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
+homepage: https://github.com/sxd91/LiqLiquid
+repository: https://github.com/sxd91/LiqLiquid
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -66,6 +68,7 @@ dependencies:
       ref: dev
   collection: ^1.19.1
   connectivity_plus: ^7.1.1
+  cupertino_icons: ^1.0.6
   cookie_jar: ^4.0.8
   crypto: ^3.0.6
   desktop_webview_window:
@@ -78,8 +81,6 @@ dependencies:
   dlna_dart: ^0.1.0
   dynamic_color: ^1.8.1
   easy_debounce: ^2.0.3
-  flutter_liquid_glass_plus: ^0.0.7
-  progressive_blur: ^0.0.2
   encrypt: ^5.0.3
   expandable: ^5.0.1
   extended_nested_scroll_view:
@@ -96,6 +97,7 @@ dependencies:
   flutter_displaymode: ^0.7.0
   flutter_html: ^3.0.0-beta.2
   flutter_inappwebview: ^6.1.5
+  flutter_liquid_glass_plus: ^0.0.7
   flutter_smart_dialog:
     git:
       url: https://github.com/bggRGjQaUbCoE/flutter_smart_dialog.git
@@ -145,6 +147,7 @@ dependencies:
   permission_handler_apple: ^9.4.7
   permission_handler_platform_interface: ^4.3.0
   pretty_qr_code: ^3.3.0
+  progressive_blur: ^0.0.2
   protobuf: ^6.0.0
   re_highlight: ^0.0.3
   saver_gallery: ^5.0.2
@@ -266,13 +269,15 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
-    - assets/images/logo/
-    - assets/images/logo/ico/
-    - assets/images/logo/desktop/
-    - assets/images/live/
-    - assets/images/paycoins/
-    - assets/shaders/
+    - path: assets/images/
+    - path: assets/images/logo/
+    - path: assets/images/logo/ico/
+      platforms: [windows]
+    - path: assets/images/logo/desktop/
+      platforms: [linux, macos]
+    - path: assets/images/live/
+    - path: assets/images/paycoins/
+    - path: assets/shaders/
 
   fonts:
     - family: digital_id_num

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_video.dart';
+import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
 
 abstract class HorizontalVideoModel extends BaseVideoItemModel {
@@ -19,4 +19,3 @@ abstract class HorizontalVideoModel extends BaseVideoItemModel {
   // search
   List<({bool isEm, String text})>? titleList;
 }
-

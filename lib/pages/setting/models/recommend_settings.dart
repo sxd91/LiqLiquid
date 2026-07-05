@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/video.dart';
+import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/pages/rcmd/controller.dart';
 import 'package:liqliquid/pages/setting/models/model.dart';
 import 'package:liqliquid/utils/recommend_filter.dart';
@@ -9,16 +9,16 @@ import 'package:get/get.dart';
 
 List<SettingsModel> get recommendSettings => [
   const SwitchModel(
-    title: '棣栭〉浣跨敤app绔帹鑽?,
-    subtitle: '鑻eb绔帹鑽愪笉澶鍚堥鏈燂紝鍙皾璇曞垏鎹㈣嚦app绔帹鑽?,
+    title: '首页使用app端推荐',
+    subtitle: '若web端推荐不太符合预期，可尝试切换至app端推荐',
     leading: Icon(Icons.model_training_outlined),
     setKey: SettingBoxKey.appRcmd,
     defaultVal: true,
     needReboot: true,
   ),
   SwitchModel(
-    title: '淇濈暀棣栭〉鎺ㄨ崘鍒锋柊',
-    subtitle: '涓嬫媺鍒锋柊鏃朵繚鐣欎笂娆″唴瀹?,
+    title: '保留首页推荐刷新',
+    subtitle: '下拉刷新时保留上次内容',
     leading: const Icon(Icons.refresh),
     setKey: SettingBoxKey.enableSaveLastData,
     defaultVal: true,
@@ -33,8 +33,8 @@ List<SettingsModel> get recommendSettings => [
     },
   ),
   SwitchModel(
-    title: '鏄剧ず涓婃鐪嬪埌浣嶇疆鎻愮ず',
-    subtitle: '淇濈暀涓婃鎺ㄨ崘鏃讹紝鍦ㄤ笂娆″埛鏂颁綅缃樉绀烘彁绀?,
+    title: '显示上次看到位置提示',
+    subtitle: '保留上次推荐时，在上次刷新位置显示提示',
     leading: const Icon(Icons.tips_and_updates_outlined),
     setKey: SettingBoxKey.savedRcmdTip,
     defaultVal: true,
@@ -49,14 +49,14 @@ List<SettingsModel> get recommendSettings => [
     },
   ),
   getVideoFilterSelectModel(
-    title: '鐐硅禐鐜?,
+    title: '点赞率',
     suffix: '%',
     key: SettingBoxKey.minLikeRatioForRecommend,
     values: [0, 1, 2, 3, 4],
     onChanged: (value) => RecommendFilter.minLikeRatioForRecommend = value,
   ),
   getBanWordModel(
-    title: '鏍囬鍏抽敭璇嶈繃婊?,
+    title: '标题关键词过滤',
     key: SettingBoxKey.banWordForRecommend,
     onChanged: (value) {
       RecommendFilter.rcmdRegExp = value;
@@ -64,7 +64,7 @@ List<SettingsModel> get recommendSettings => [
     },
   ),
   getBanWordModel(
-    title: 'App鎺ㄨ崘/鐑棬/鎺掕姒? 瑙嗛鍒嗗尯鍏抽敭璇嶈繃婊?,
+    title: 'App推荐/热门/排行榜: 视频分区关键词过滤',
     key: SettingBoxKey.banWordForZone,
     onChanged: (value) {
       VideoHttp.zoneRegExp = value;
@@ -72,33 +72,32 @@ List<SettingsModel> get recommendSettings => [
     },
   ),
   getVideoFilterSelectModel(
-    title: '瑙嗛鏃堕暱',
+    title: '视频时长',
     suffix: 's',
     key: SettingBoxKey.minDurationForRcmd,
     values: [0, 30, 60, 90, 120],
     onChanged: (value) => RecommendFilter.minDurationForRcmd = value,
   ),
   getVideoFilterSelectModel(
-    title: '鎾斁閲?,
+    title: '播放量',
     key: SettingBoxKey.minPlayForRcmd,
     values: [0, 50, 100, 500, 1000],
     onChanged: (value) => RecommendFilter.minPlayForRcmd = value,
   ),
   SwitchModel(
-    title: '宸插叧娉║P璞佸厤鎺ㄨ崘杩囨护',
-    subtitle: '鎺ㄨ崘涓凡鍏虫敞鐢ㄦ埛鍙戝竷鐨勫唴瀹逛笉浼氳杩囨护',
+    title: '已关注UP豁免推荐过滤',
+    subtitle: '推荐中已关注用户发布的内容不会被过滤',
     leading: const Icon(Icons.favorite_border_outlined),
     setKey: SettingBoxKey.exemptFilterForFollowed,
     defaultVal: true,
     onChanged: (value) => RecommendFilter.exemptFilterForFollowed = value,
   ),
   SwitchModel(
-    title: '杩囨护鍣ㄤ篃搴旂敤浜庤鎯呴〉鐩稿叧瑙嗛',
-    subtitle: '鍏跺畠锛堝鐑棬瑙嗛銆佹悳绱㈢瓑锛夊潎涓嶅彈杩囨护鍣ㄥ奖鍝嶏紝鏃犳硶璞佸厤鐩稿叧瑙嗛涓殑宸插叧娉║P',
+    title: '过滤器也应用于详情页相关视频',
+    subtitle: '其它（如热门视频、搜索等）均不受过滤器影响，无法豁免相关视频中的已关注UP',
     leading: const Icon(Icons.explore_outlined),
     setKey: SettingBoxKey.applyFilterToRelatedVideos,
     defaultVal: true,
     onChanged: (value) => RecommendFilter.applyFilterToRelatedVideos = value,
   ),
 ];
-

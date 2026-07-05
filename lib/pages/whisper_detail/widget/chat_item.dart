@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/constants.dart';
@@ -46,7 +46,7 @@ class ChatItem extends StatelessWidget {
   final GestureTapUpCallback? onSecondaryTapUp;
   final bool isOwner;
 
-  // 娑堟伅鏉ユ簮
+  // 消息来源
   // enum MsgSource {
   //     EN_MSG_SOURCE_AUTOREPLY_BY_FOLLOWED    = 8;  //
   //     EN_MSG_SOURCE_AUTOREPLY_BY_RECEIVE_MSG = 9;  //
@@ -56,7 +56,7 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final msgType = item.msgType;
-    // final isRevoke = msgType == MsgType.EN_MSG_TYPE_DRAW_BACK.value; // 鎾ゅ洖娑堟伅
+    // final isRevoke = msgType == MsgType.EN_MSG_TYPE_DRAW_BACK.value; // 撤回消息
     // if (isRevoke) {
     //   return const SizedBox.shrink();
     // }
@@ -82,7 +82,7 @@ class ChatItem extends StatelessWidget {
         msgType == 16;
 
     if (!isSystem) {
-      final isPic = msgType == MsgType.EN_MSG_TYPE_PIC.value; // 鍥剧墖
+      final isPic = msgType == MsgType.EN_MSG_TYPE_PIC.value; // 图片
       child = Row(
         mainAxisAlignment: isOwner ? .end : .start,
         children: [
@@ -116,7 +116,7 @@ class ChatItem extends StatelessWidget {
                 isPic ? const SizedBox(height: 7) : const SizedBox(height: 2),
                 if (item.msgStatus == 1)
                   Text(
-                    '  宸叉挙鍥?,
+                    '  已撤回',
                     style: theme.textTheme.labelSmall!.copyWith(
                       color: theme.colorScheme.onErrorContainer,
                     ),
@@ -128,7 +128,7 @@ class ChatItem extends StatelessWidget {
                     color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                   Text(
-                    '姝ゆ潯娑堟伅涓鸿嚜鍔ㄥ洖澶?,
+                    '此条消息为自动回复',
                     style: theme.textTheme.labelMedium!.copyWith(
                       color: theme.colorScheme.outline,
                     ),
@@ -199,7 +199,7 @@ class ChatItem extends StatelessWidget {
   }
 
   Widget msgTypeCommonShareCard_14(dynamic content, Color textColor) {
-    if (content['source'] == '鐩存挱') {
+    if (content['source'] == '直播') {
       return GestureDetector(
         behavior: .opaque,
         onTap: () {
@@ -229,7 +229,7 @@ class ChatItem extends StatelessWidget {
             ),
             const SizedBox(height: 1),
             Text(
-              '${content['author']} 路 鐩存挱',
+              '${content['author']} · 直播',
               style: TextStyle(
                 letterSpacing: 0.6,
                 height: 1.5,
@@ -346,7 +346,7 @@ class ChatItem extends StatelessWidget {
                       SmartDialog.showToast(err.toString());
                     }
                   } else {
-                    SmartDialog.showToast('鏈尮閰嶅埌 BV 鍙?);
+                    SmartDialog.showToast('未匹配到 BV 号');
                     PageUtils.handleWebview(i['jump_url']);
                   }
                 },
@@ -470,7 +470,7 @@ class ChatItem extends StatelessWidget {
                       vertical: 8,
                     ),
                     child: Text(
-                      content['times'] == 0 ? '鍐呭宸插け鏁? : content['title'],
+                      content['times'] == 0 ? '内容已失效' : content['title'],
                       style: TextStyle(
                         letterSpacing: 0.6,
                         height: 1.5,
@@ -508,13 +508,13 @@ class ChatItem extends StatelessWidget {
     switch (content['source']) {
       // album
       case 2:
-        type = '鐩哥翱';
+        type = '相簿';
         onTap = () => PageUtils.pushDynFromId(rid: content['id']);
         break;
 
       // video
       case 5:
-        type = '瑙嗛';
+        type = '视频';
         onTap = () async {
           dynamic aid = content['id'];
           if (aid is String) {
@@ -545,7 +545,7 @@ class ChatItem extends StatelessWidget {
 
       // article
       case 6:
-        type = '涓撴爮';
+        type = '专栏';
         onTap = () => Get.toNamed(
           '/articlePage',
           parameters: {
@@ -557,7 +557,7 @@ class ChatItem extends StatelessWidget {
 
       // dynamic
       case 11:
-        type = '鍔ㄦ€?;
+        type = '动态';
         onTap = () => PageUtils.pushDynFromId(id: content['id']);
         break;
 
@@ -608,7 +608,7 @@ class ChatItem extends StatelessWidget {
           if (content['author'] != null) ...[
             const SizedBox(height: 1),
             Text(
-              '${content['author']}${type != null ? ' 路 $type' : ''}',
+              '${content['author']}${type != null ? ' · $type' : ''}',
               style: TextStyle(
                 letterSpacing: 0.6,
                 height: 1.5,
@@ -732,7 +732,7 @@ class ChatItem extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             onTap: () => PiliScheme.routePushFromUrl(uri),
             child: Text(
-              text != null && text.isNotEmpty ? text : '鏌ョ湅璇︽儏',
+              text != null && text.isNotEmpty ? text : '查看详情',
             ),
           ),
         ];
@@ -831,4 +831,3 @@ class ChatItem extends StatelessWidget {
     );
   }
 }
-

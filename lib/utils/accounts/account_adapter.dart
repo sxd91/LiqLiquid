@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/account_type.dart';
+import 'package:liqliquid/models/common/account_type.dart';
 import 'package:liqliquid/utils/accounts/account.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:hive_ce/hive.dart';
@@ -45,4 +45,3 @@ class LoginAccountAdapter extends TypeAdapter<LoginAccount> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-

@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File, Platform;
+import 'dart:io' show File, Platform;
 import 'dart:ui' show PlatformDispatcher;
 
 import 'package:liqliquid/common/constants.dart';
@@ -71,7 +71,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
   void setMediaItem(MediaItem newMediaItem) {
     if (!enableBackgroundPlay) return;
     // if (kDebugMode) {
-    //   debugPrint("姝ゆ椂璋冪敤鏍堜负锛?);
+    //   debugPrint("此时调用栈为：");
     //   debugPrint(newMediaItem);
     //   debugPrint(newMediaItem.title);
     //   debugPrint(StackTrace.current.toString());
@@ -164,7 +164,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
   }) {
     if (!enableBackgroundPlay) return;
     // if (kDebugMode) {
-    //   debugPrint('褰撳墠璋冪敤鏍堜负锛?);
+    //   debugPrint('当前调用栈为：');
     //   debugPrint(StackTrace.current);
     // }
     if (!PlPlayerController.instanceExists()) return;
@@ -309,5 +309,3 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     );
   }
 }
-
-

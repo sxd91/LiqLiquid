@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 
 class Guard {
   String? uri;
@@ -16,4 +16,3 @@ class Guard {
     }
   }
 }
-

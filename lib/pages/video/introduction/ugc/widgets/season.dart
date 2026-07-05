@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/models_new/video/video_detail/data.dart';
@@ -55,13 +55,14 @@ class _SeasonPanelState extends State<SeasonPanel> {
         ? videoDetail.pages!.last.cid
         : videoDetail.pages!.first.cid;
 
-    /// 鏍规嵁 cid 鎵惧埌瀵瑰簲闆嗭紝鎵惧埌瀵瑰簲 episodes
-    /// 鏈夊涓猠pisodes鏃讹紝鍙樉绀哄叾涓竴涓?    _findEpisode();
+    /// 根据 cid 找到对应集，找到对应 episodes
+    /// 有多个episodes时，只显示其中一个
+    _findEpisode();
     if (episodes.isEmpty) {
       return;
     }
 
-    /// 鍙栧搴?season_id 鐨?episodes
+    /// 取对应 season_id 的 episodes
     currentIndex.value = episodes.indexWhere(
       (EpisodeItem e) => e.cid == _videoDetailController.seasonCid,
     );
@@ -119,7 +120,7 @@ class _SeasonPanelState extends State<SeasonPanel> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    '鍚堥泦锛?{videoDetail.ugcSeason!.title!}',
+                    '合集：${videoDetail.ugcSeason!.title!}',
                     style: theme.textTheme.labelMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -130,7 +131,7 @@ class _SeasonPanelState extends State<SeasonPanel> {
                   color: theme.colorScheme.primary,
                   height: 12,
                   cacheHeight: 12.cacheSize(context),
-                  semanticLabel: "姝ｅ湪鎾斁锛?,
+                  semanticLabel: "正在播放：",
                 ),
                 const SizedBox(width: 10),
                 Obx(
@@ -138,14 +139,14 @@ class _SeasonPanelState extends State<SeasonPanel> {
                     '${currentIndex.value + 1}/${episodes.length}',
                     style: theme.textTheme.labelMedium,
                     semanticsLabel:
-                        '绗?{currentIndex.value + 1}闆嗭紝鍏?{episodes.length}闆?,
+                        '第${currentIndex.value + 1}集，共${episodes.length}集',
                   ),
                 ),
                 const SizedBox(width: 6),
                 const Icon(
                   Icons.arrow_forward_ios_outlined,
                   size: 13,
-                  semanticLabel: '鏌ョ湅',
+                  semanticLabel: '查看',
                 ),
               ],
             ),
@@ -171,4 +172,3 @@ class _SeasonPanelState extends State<SeasonPanel> {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
@@ -146,7 +146,7 @@ class _SubDetailPageState extends State<SubDetailPage> with GridMixin {
             style: theme.textTheme.titleMedium,
           ),
           Text(
-            '鍏?{info.mediaCount}鏉¤棰?,
+            '共${info.mediaCount}条视频',
             style: theme.textTheme.labelMedium,
           ),
         ],
@@ -195,10 +195,10 @@ class _SubDetailPageState extends State<SubDetailPage> with GridMixin {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text('鍏?{info.mediaCount}鏉¤棰?, style: style),
+                    Text('共${info.mediaCount}条视频', style: style),
                     const SizedBox(height: 4),
                     Text(
-                      '${NumUtils.numFormat(info.viewCount ?? info.cntInfo?.play)}娆℃挱鏀?,
+                      '${NumUtils.numFormat(info.viewCount ?? info.cntInfo?.play)}次播放',
                       style: style,
                     ),
                   ],
@@ -211,4 +211,3 @@ class _SubDetailPageState extends State<SubDetailPage> with GridMixin {
     );
   }
 }
-

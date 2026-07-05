@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/popup_menu.dart';
+import 'package:liqliquid/common/widgets/flutter/popup_menu.dart';
 import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/http/live.dart';
@@ -221,7 +221,7 @@ class LiveRoomChatPanel extends StatelessWidget {
                   child: ElevatedButton.icon(
                     style: const ButtonStyle(visualDensity: .comfortable),
                     icon: const Icon(Icons.arrow_downward_rounded, size: 20),
-                    label: const Text('鍥炲埌搴曢儴'),
+                    label: const Text('回到底部'),
                     onPressed: liveRoomController.handleJumpToBottom,
                   ),
                 )
@@ -332,7 +332,7 @@ class LiveRoomChatPanel extends StatelessWidget {
           height: 38,
           onTap: () => Utils.copyText(Utils.jsonEncoder.convert(item.toJson())),
           child: const Text(
-            '澶嶅埗寮瑰箷淇℃伅',
+            '复制弹幕信息',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -340,7 +340,7 @@ class LiveRoomChatPanel extends StatelessWidget {
           height: 38,
           onTap: () => Get.toNamed('/member?mid=${item.extra.mid}'),
           child: const Text(
-            '鍘籘A鐨勪釜浜虹┖闂?,
+            '去TA的个人空间',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -362,13 +362,13 @@ class LiveRoomChatPanel extends StatelessWidget {
               type: 1,
             );
             if (res.isSuccess) {
-              SmartDialog.showToast('灞忚斀鎴愬姛');
+              SmartDialog.showToast('屏蔽成功');
             } else {
               res.toast();
             }
           },
           child: const Text(
-            '灞忚斀鍙戦€佽€?,
+            '屏蔽发送者',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -381,7 +381,7 @@ class LiveRoomChatPanel extends StatelessWidget {
             extra: item.extra,
           ),
           child: const Text(
-            '涓炬姤閫変腑寮瑰箷',
+            '举报选中弹幕',
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -395,4 +395,3 @@ class LiveRoomChatPanel extends StatelessWidget {
     });
   }
 }
-

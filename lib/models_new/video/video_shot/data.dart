@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/extension/iterable_ext.dart';
+import 'package:liqliquid/utils/extension/iterable_ext.dart';
 import 'package:liqliquid/utils/extension/string_ext.dart';
 
 class VideoShotData {
@@ -33,4 +33,3 @@ class VideoShotData {
     index: (json["index"] as List).fromCast(),
   );
 }
-

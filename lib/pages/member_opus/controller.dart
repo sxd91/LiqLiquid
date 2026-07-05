@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models_new/space/space/tab2.dart';
 import 'package:liqliquid/models_new/space/space_opus/data.dart';
@@ -20,9 +20,9 @@ class MemberOpusController
 
   String offset = '';
   Rx<SpaceTabFilter> type = const SpaceTabFilter(
-    text: "鍏ㄩ儴鍥炬枃",
+    text: "全部图文",
     meta: "all",
-    tabName: "鍥炬枃",
+    tabName: "图文",
   ).obs;
   List<SpaceTabFilter>? filter;
 
@@ -60,4 +60,3 @@ class MemberOpusController
     type: type.value.meta,
   );
 }
-

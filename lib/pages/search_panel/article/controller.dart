@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/models/common/search/article_search_type.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -65,7 +65,7 @@ class SearchArticleController
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 10),
-              const Text('鎺掑簭', style: TextStyle(fontSize: 16)),
+              const Text('排序', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -91,7 +91,7 @@ class SearchArticleController
                 ).toList(),
               ),
               const SizedBox(height: 20),
-              const Text('鍒嗗尯', style: TextStyle(fontSize: 16)),
+              const Text('分区', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -122,4 +122,3 @@ class SearchArticleController
     );
   }
 }
-

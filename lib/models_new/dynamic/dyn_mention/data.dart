@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/dynamic/dyn_mention/group.dart';
+import 'package:liqliquid/models_new/dynamic/dyn_mention/group.dart';
 
 class DynMentionData {
   List<MentionGroup>? groups;
@@ -11,4 +11,3 @@ class DynMentionData {
         .toList(),
   );
 }
-

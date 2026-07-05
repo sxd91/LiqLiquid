@@ -1,11 +1,11 @@
-﻿import 'package:liqliquid/http/member.dart';
+import 'package:liqliquid/http/member.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
-const _reason = ['澶村儚杩濊', '鏄电О杩濊', '绛惧悕杩濊'];
+const _reason = ['头像违规', '昵称违规', '签名违规'];
 
-const _reasonV2 = ['鑹叉儏浣庝織', '涓嶅疄淇℃伅', '杩濈', '浜鸿韩鏀诲嚮', '璧屽崥璇堥獥', '杩濊寮曟祦澶栭摼'];
+const _reasonV2 = ['色情低俗', '不实信息', '违禁', '人身攻击', '赌博诈骗', '违规引流外链'];
 
 Future<void> showMemberReportDialog(
   BuildContext context, {
@@ -28,7 +28,7 @@ Future<void> showMemberReportDialog(
           crossAxisAlignment: .start,
           children: [
             Text(
-              '涓炬姤: $name',
+              '举报: $name',
               style: const TextStyle(fontSize: 18),
             ),
             Text('uid: $mid'),
@@ -41,7 +41,7 @@ Future<void> showMemberReportDialog(
             children: [
               const Padding(
                 padding: .only(left: 18),
-                child: Text('涓炬姤鍐呭锛堝繀閫夛紝鍙閫夛級'),
+                child: Text('举报内容（必选，可多选）'),
               ),
               ...List.generate(
                 3,
@@ -87,7 +87,7 @@ Future<void> showMemberReportDialog(
               ),
               const Padding(
                 padding: .only(left: 18),
-                child: Text('涓炬姤鐞嗙敱锛堝崟閫夛紝闈炲繀閫夛級'),
+                child: Text('举报理由（单选，非必选）'),
               ),
               Builder(
                 builder: (context) => Column(
@@ -141,14 +141,14 @@ Future<void> showMemberReportDialog(
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '鍙栨秷',
+              '取消',
               style: TextStyle(color: theme.colorScheme.outline),
             ),
           ),
           TextButton(
             onPressed: () {
               if (reason.isEmpty) {
-                SmartDialog.showToast('鑷冲皯閫夋嫨涓€椤逛綔涓轰妇鎶ュ唴瀹?);
+                SmartDialog.showToast('至少选择一项作为举报内容');
               } else {
                 Get.back();
                 MemberHttp.reportMember(
@@ -158,11 +158,10 @@ Future<void> showMemberReportDialog(
                 );
               }
             },
-            child: const Text('纭畾'),
+            child: const Text('确定'),
           ),
         ],
       );
     },
   );
 }
-

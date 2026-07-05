@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:flutter/gestures.dart';
 
@@ -78,4 +78,3 @@ double _calcDeviceTouchSlop() {
       ? kTouchSlop
       : physicalTouchSlop / view.devicePixelRatio;
 }
-

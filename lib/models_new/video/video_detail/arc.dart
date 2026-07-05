@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models_new/video/video_detail/dimension.dart';
 import 'package:liqliquid/models_new/video/video_detail/stat.dart';
 
@@ -40,4 +40,3 @@ class Arc {
         : Dimension.fromJson(json['dimension'] as Map<String, dynamic>),
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/http/dynamics.dart';
@@ -25,7 +25,7 @@ Widget? addWidget(
   Widget? child;
   try {
     switch (type) {
-      // 杞彂鐨勬姇绋?
+      // 转发的投稿
       case 'ADDITIONAL_TYPE_UGC' when (additional.ugc != null):
         final ugc = additional.ugc!;
         child = InkWell(
@@ -307,7 +307,7 @@ Widget? addWidget(
           ),
         );
 
-      // 鍟嗗搧
+      // 商品
       case 'ADDITIONAL_TYPE_GOODS' when (additional.goods != null):
         final content = additional.goods!;
         if (content.items?.isNotEmpty == true) {
@@ -355,7 +355,7 @@ Widget? addWidget(
                                       ),
                                     ),
                                     const TextSpan(
-                                      text: ' 璧?,
+                                      text: ' 起',
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ],
@@ -443,7 +443,7 @@ Widget? addWidget(
                           overflow: TextOverflow.ellipsis,
                         ),
                       Text(
-                        '${NumUtils.numFormat(vote.joinNum)}浜哄弬涓?,
+                        '${NumUtils.numFormat(vote.joinNum)}人参与',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -476,7 +476,7 @@ Widget? addWidget(
                     ),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('鍙備笌'),
+                  child: const Text('参与'),
                 ),
               ],
             ),
@@ -702,4 +702,3 @@ err: $e''',
     );
   }
 }
-

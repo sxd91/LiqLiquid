@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/setting/models/extra_settings.dart';
+import 'package:liqliquid/pages/setting/models/extra_settings.dart';
 import 'package:liqliquid/pages/setting/models/model.dart';
 import 'package:liqliquid/pages/setting/models/play_settings.dart';
 import 'package:liqliquid/pages/setting/models/privacy_settings.dart';
@@ -7,14 +7,14 @@ import 'package:liqliquid/pages/setting/models/style_settings.dart';
 import 'package:liqliquid/pages/setting/models/video_settings.dart';
 
 enum SettingType {
-  privacySetting('闅愮璁剧疆'),
-  recommendSetting('鎺ㄨ崘娴佽缃?),
-  videoSetting('闊宠棰戣缃?),
-  playSetting('鎾斁鍣ㄨ缃?),
-  styleSetting('澶栬璁剧疆'),
-  extraSetting('鍏跺畠璁剧疆'),
-  webdavSetting('WebDAV 璁剧疆'),
-  about('鍏充簬'),
+  privacySetting('隐私设置'),
+  recommendSetting('推荐流设置'),
+  videoSetting('音视频设置'),
+  playSetting('播放器设置'),
+  styleSetting('外观设置'),
+  extraSetting('其它设置'),
+  webdavSetting('WebDAV 设置'),
+  about('关于'),
   ;
 
   final String title;
@@ -30,4 +30,3 @@ enum SettingType {
     _ => throw UnimplementedError(),
   };
 }
-

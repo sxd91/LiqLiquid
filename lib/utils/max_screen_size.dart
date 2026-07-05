@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/utils/android/android_helper.dart';
 import 'package:liqliquid/utils/android/bindings.g.dart';
@@ -33,4 +33,3 @@ abstract final class MaxScreenSize {
     return !(hasWidthMatch && hasHeightMatch);
   }
 }
-

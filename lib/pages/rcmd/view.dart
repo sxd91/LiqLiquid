@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_v.dart';
+import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
@@ -83,7 +83,7 @@ class _RcmdPageState extends State<RcmdPage>
                             alignment: Alignment.center,
                             padding: const .symmetric(horizontal: 10),
                             child: Text(
-                              '涓婃鐪嬪埌杩欓噷\n鐐瑰嚮鍒锋柊',
+                              '上次看到这里\n点击刷新',
                               textAlign: .center,
                               style: TextStyle(
                                 color: colorScheme.onSurfaceVariant,
@@ -136,4 +136,3 @@ class _RcmdPageState extends State<RcmdPage>
     itemCount: 10,
   );
 }
-

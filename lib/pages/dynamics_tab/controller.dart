@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/dynamics.dart';
+import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/msg.dart';
 import 'package:liqliquid/models/common/dynamic/dynamics_type.dart';
@@ -58,7 +58,7 @@ class DynamicsTabController
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('鍒犻櫎鎴愬姛');
+      SmartDialog.showToast('删除成功');
     } else {
       res.toast();
     }
@@ -94,4 +94,3 @@ class DynamicsTabController
   @override
   void onChangeAccount(bool isLogin) => onReload();
 }
-

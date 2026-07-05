@@ -1,4 +1,4 @@
-﻿import 'dart:async' show Timer;
+import 'dart:async' show Timer;
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/flutter/vertical_slider.dart';
@@ -242,4 +242,3 @@ class _RenderVolumeWidget extends RenderProxyBox {
     transform.translateByDouble(_offset.dx, _offset.dy, 0.0, 1.0);
   }
 }
-

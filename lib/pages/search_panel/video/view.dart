@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
+import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
 import 'package:liqliquid/common/widgets/video_card/video_card_h.dart';
 import 'package:liqliquid/models/common/search/video_search_type.dart';
 import 'package:liqliquid/models/search/result.dart';
@@ -83,7 +83,7 @@ class _SearchVideoPanelState
               width: 32,
               height: 32,
               child: IconButton(
-                tooltip: '绛涢€?,
+                tooltip: '筛选',
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.zero),
                 ),
@@ -123,4 +123,3 @@ class _SearchVideoPanelState
   @override
   Widget get buildLoading => gridSkeleton;
 }
-

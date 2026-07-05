@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/pgc/pgc_review/list.dart';
+import 'package:liqliquid/models_new/pgc/pgc_review/list.dart';
 
 class PgcReviewData {
   List<PgcReviewItemModel>? list;
@@ -15,4 +15,3 @@ class PgcReviewData {
     count: json['count'] ?? json['total'],
   );
 }
-

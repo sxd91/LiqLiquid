@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/later_view_type.dart';
@@ -92,7 +92,7 @@ class _LaterViewChildPageState extends State<LaterViewChildPage>
                                 'count': _laterController
                                     .baseCtr
                                     .counts[LaterViewType.all.index],
-                                'favTitle': '绋嶅悗鍐嶇湅',
+                                'favTitle': '稍后再看',
                                 'mediaId': _laterController.mid,
                                 'desc': _laterController.asc.value,
                                 'isContinuePlaying': index != 0,
@@ -115,4 +115,3 @@ class _LaterViewChildPageState extends State<LaterViewChildPage>
   @override
   bool get wantKeepAlive => true;
 }
-

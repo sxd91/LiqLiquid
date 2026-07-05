@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
+import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/material.dart' hide TabBarView;
@@ -76,4 +76,3 @@ class ReloadScrollPhysics extends AlwaysScrollableScrollPhysics {
     );
   }
 }
-

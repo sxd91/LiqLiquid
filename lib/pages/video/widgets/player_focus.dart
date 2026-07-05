@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io' show exit, Platform;
 import 'dart:math' as math;
 
@@ -107,6 +107,10 @@ class PlayerFocus extends StatelessWidget {
         introController!.onCancelTriple(isKeyQ);
       }
       return true;
+    } else if (event is KeyDownEvent) {
+      if (introController?.isTripling ?? false) {
+        introController!.onCancelTriple();
+      }
     }
 
     final isArrowUp = key == LogicalKeyboardKey.arrowUp;
@@ -152,7 +156,7 @@ class PlayerFocus extends StatelessWidget {
           if (speed != plPlayerController.playbackSpeed) {
             plPlayerController.setPlaybackSpeed(speed);
           }
-          SmartDialog.showToast('${speed}x鎾斁');
+          SmartDialog.showToast('${speed}x播放');
         }
         return true;
       }
@@ -180,8 +184,8 @@ class PlayerFocus extends StatelessWidget {
           return true;
 
         case LogicalKeyboardKey.keyD:
-          final newVal = !plPlayerController.enableShowDanmaku.value;
-          plPlayerController.enableShowDanmaku.value = newVal;
+          final newVal = !plPlayerController.enableShowDanmakuAdaptive.value;
+          plPlayerController.enableShowDanmakuAdaptive.value = newVal;
           if (!plPlayerController.tempPlayerConf) {
             GStorage.setting.put(
               plPlayerController.isLive
@@ -208,7 +212,7 @@ class PlayerFocus extends StatelessWidget {
               isMuted ? 0 : plPlayerController.volume.value * 100,
             );
             plPlayerController.isMuted = isMuted;
-            SmartDialog.showToast('${isMuted ? '' : '鍙栨秷'}闈欓煶');
+            SmartDialog.showToast('${isMuted ? '' : '取消'}静音');
           }
           return true;
 
@@ -268,7 +272,7 @@ class PlayerFocus extends StatelessWidget {
           case LogicalKeyboardKey.bracketLeft:
             if (introController case final introController?) {
               if (!introController.prevPlay()) {
-                SmartDialog.showToast('宸茬粡鏄涓€闆嗕簡');
+                SmartDialog.showToast('已经是第一集了');
               }
             }
             return true;
@@ -276,7 +280,7 @@ class PlayerFocus extends StatelessWidget {
           case LogicalKeyboardKey.bracketRight:
             if (introController case final introController?) {
               if (!introController.nextPlay()) {
-                SmartDialog.showToast('宸茬粡鏄渶鍚庝竴闆嗕簡');
+                SmartDialog.showToast('已经是最后一集了');
               }
             }
             return true;
@@ -287,4 +291,3 @@ class PlayerFocus extends StatelessWidget {
     return false;
   }
 }
-

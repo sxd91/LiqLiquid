@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File;
+import 'dart:io' show File;
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -63,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('璐﹀彿璧勬枡')),
+      appBar: AppBar(title: const Text('账号资料')),
       body: _buildBody(theme, _loadingState),
     );
   }
@@ -136,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider1,
           _item(
             theme: theme,
-            title: '澶村儚',
+            title: '头像',
             widget: Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: NetworkImgLayer(
@@ -157,15 +157,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '鏄电О',
+            title: '昵称',
             text: response.name,
             onTap: () {
               if (response.coins! < 6) {
-                SmartDialog.showToast('纭竵涓嶈冻');
+                SmartDialog.showToast('硬币不足');
               } else {
                 _editDialog(
                   type: ProfileType.uname,
-                  title: '鏄电О',
+                  title: '昵称',
                   text: response.name!,
                 );
               }
@@ -174,7 +174,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '鎬у埆',
+            title: '性别',
             text: _sex(response.sex!),
             onTap: () => showDialog(
               context: context,
@@ -184,7 +184,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '鍑虹敓骞存湀',
+            title: '出生年月',
             text: response.birthday,
             onTap: () =>
                 showDatePicker(
@@ -204,18 +204,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '涓€х鍚?,
+            title: '个性签名',
             text: response.sign,
             onTap: () => _editDialog(
               type: ProfileType.sign,
-              title: '涓€х鍚?,
+              title: '个性签名',
               text: response.sign ?? '',
             ),
           ),
           divider1,
           _item(
             theme: theme,
-            title: '澶村儚鎸備欢',
+            title: '头像挂件',
             onTap: () => PageUtils.inAppWebview(
               'https://www.bilibili.com/h5/mall/pendant/home',
             ),
@@ -231,7 +231,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider1,
           _item(
             theme: theme,
-            title: '鍝斿摡鍝斿摡璁よ瘉',
+            title: '哔哩哔哩认证',
             onTap: () => PageUtils.inAppWebview(
               'https://account.bilibili.com/official/mobile/home',
             ),
@@ -251,9 +251,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       clipBehavior: Clip.hardEdge,
       contentPadding: const EdgeInsets.symmetric(vertical: 12),
       children: [
-        _sexDialogItem(1, current, '鐢?),
-        _sexDialogItem(0, current, '淇濆瘑'),
-        _sexDialogItem(2, current, '濂?),
+        _sexDialogItem(1, current, '男'),
+        _sexDialogItem(0, current, '保密'),
+        _sexDialogItem(2, current, '女'),
       ],
     );
   }
@@ -293,7 +293,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       builder: (BuildContext context) {
         final theme = Theme.of(context);
         return AlertDialog(
-          title: Text('淇敼$title'),
+          title: Text('修改$title'),
           content: TextField(
             controller: _textController,
             minLines: lines,
@@ -320,19 +320,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '鍙栨秷',
+                '取消',
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
             ),
             TextButton(
               onPressed: () {
                 if (_textController.text == text) {
-                  SmartDialog.showToast('涓庡師$title鐩稿悓');
+                  SmartDialog.showToast('与原$title相同');
                 } else {
                   _update(type: type);
                 }
               },
-              child: const Text('纭畾'),
+              child: const Text('确定'),
             ),
           ],
         );
@@ -346,7 +346,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }) async {
     final accessKey = Accounts.main.accessKey;
     if (accessKey == null || accessKey.isEmpty) {
-      SmartDialog.showToast('璇烽€€鍑鸿处鍙峰悗閲嶆柊鐧诲綍');
+      SmartDialog.showToast('请退出账号后重新登录');
       return;
     }
     final data = <String, String>{
@@ -400,7 +400,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             } else if (type == ProfileType.sex) {
               data.sex = datum;
             }
-            SmartDialog.showToast('淇敼鎴愬姛');
+            SmartDialog.showToast('修改成功');
             if (mounted) {
               setState(() {});
             }
@@ -415,10 +415,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String _sex(int sex) {
     return switch (sex) {
-      0 => '淇濆瘑',
-      1 => '鐢?,
-      2 => '濂?,
-      _ => '鏈煡',
+      0 => '保密',
+      1 => '男',
+      2 => '女',
+      _ => '未知',
     };
   }
 
@@ -432,7 +432,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }) {
     return ListTile(
       onTap: onTap,
-      dense: title != '澶村儚',
+      dense: title != '头像',
       leading: Text(
         title,
         style: const TextStyle(
@@ -483,7 +483,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ?.split('/')
             .elementAtOrNull(1);
         if (mimeType == 'gif') {
-          SmartDialog.showToast('涓嶈兘閫塆IF');
+          SmartDialog.showToast('不能选GIF');
           return;
         }
         if (PlatformUtils.isMobile) {
@@ -491,7 +491,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             sourcePath: imagePath,
             uiSettings: [
               AndroidUiSettings(
-                toolbarTitle: '瑁佸壀',
+                toolbarTitle: '裁剪',
                 toolbarColor: theme.colorScheme.secondaryContainer,
                 toolbarWidgetColor: theme.colorScheme.onSecondaryContainer,
                 statusBarLight: theme.isLight,
@@ -502,7 +502,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 initAspectRatio: const CropAspectRatioPresetCustom(),
               ),
               IOSUiSettings(
-                title: '瑁佸壀',
+                title: '裁剪',
                 aspectRatioPresets: const [CropAspectRatioPresetCustom()],
                 cropStyle: CropStyle.circle,
                 aspectRatioLockEnabled: true,
@@ -529,7 +529,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               )
               .then((res) {
                 if (res.data['code'] == 0) {
-                  SmartDialog.showToast('淇敼鎴愬姛');
+                  SmartDialog.showToast('修改成功');
                   Future.delayed(const Duration(milliseconds: 500), () {
                     if (mounted) {
                       _getInfo();
@@ -559,4 +559,3 @@ class CropAspectRatioPresetCustom implements CropAspectRatioPresetData {
   @override
   String get name => '1x1 (customized)';
 }
-

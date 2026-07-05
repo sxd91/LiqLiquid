@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/text_field/controller.dart';
+import 'package:liqliquid/common/widgets/flutter/text_field/controller.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show MainListReply, ReplyInfo, SubjectControl, Mode;
 import 'package:liqliquid/grpc/bilibili/pagination.pb.dart';
@@ -57,16 +57,15 @@ abstract class ReplyController<R> extends CommonListController<R, ReplyInfo> {
   }
 
   @override
-  bool customHandleResponse(bool isRefresh, Success response) {
-    MainListReply data = response.response;
+  bool customHandleResponse(bool isRefresh, Success<R> response) {
+    final data = response.response as MainListReply;
     cursorNext = data.cursor.next;
     paginationReply = data.paginationReply;
     count.value = data.subjectControl.count.toInt();
     if (isRefresh) {
       subjectControl = data.subjectControl;
       upMid ??= data.subjectControl.upMid;
-      hasUpTop = data.hasUpTop();
-      if (data.hasUpTop()) {
+      if (hasUpTop = data.hasUpTop()) {
         data.replies.insert(0, data.upTop);
       }
       if (subjectControl?.title == ReplySortType.select.title) {
@@ -85,7 +84,7 @@ abstract class ReplyController<R> extends CommonListController<R, ReplyInfo> {
     return super.onRefresh();
   }
 
-  // 鎺掑簭鎼滅储璇勮
+  // 排序搜索评论
   void queryBySort() {
     if (isLoading) return;
     switch (sortType.value) {
@@ -115,7 +114,7 @@ abstract class ReplyController<R> extends CommonListController<R, ReplyInfo> {
           if (inputDisable) {
             SmartDialog.showToast(rootText);
           }
-          if (rootText.contains('鍙彂') || rootText.contains('鍙')) {
+          if (rootText.contains('可发') || rootText.contains('可见')) {
             hint = rootText;
           }
         }
@@ -245,7 +244,7 @@ abstract class ReplyController<R> extends CommonListController<R, ReplyInfo> {
           ..insert(0, list.removeAt(index));
       }
       loadingState.refresh();
-      SmartDialog.showToast('${isUpTop ? '鍙栨秷' : ''}缃《鎴愬姛');
+      SmartDialog.showToast('${isUpTop ? '取消' : ''}置顶成功');
     } else {
       res.toast();
     }
@@ -257,4 +256,3 @@ abstract class ReplyController<R> extends CommonListController<R, ReplyInfo> {
     super.onClose();
   }
 }
-

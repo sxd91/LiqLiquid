@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/setting/widgets/normal_item.dart';
 import 'package:liqliquid/pages/setting/widgets/popup_item.dart';
@@ -215,7 +215,7 @@ SettingsModel getBanWordModel({
   return NormalModel(
     leading: const Icon(Icons.filter_alt_outlined),
     title: title,
-    getSubtitle: () => banWord.isEmpty ? "鐐瑰嚮娣诲姞" : banWord,
+    getSubtitle: () => banWord.isEmpty ? "点击添加" : banWord,
     onTap: (context, setState) {
       String editValue = banWord;
       showDialog(
@@ -227,7 +227,7 @@ SettingsModel getBanWordModel({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('浣跨敤|闅斿紑锛屽锛氬皾璇晐娴嬭瘯'),
+              const Text('使用|隔开，如：尝试|测试'),
               TextFormField(
                 autofocus: true,
                 initialValue: editValue,
@@ -242,18 +242,18 @@ SettingsModel getBanWordModel({
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '鍙栨秷',
+                '取消',
                 style: TextStyle(color: ColorScheme.of(context).outline),
               ),
             ),
             TextButton(
-              child: const Text('淇濆瓨'),
+              child: const Text('保存'),
               onPressed: () {
                 Get.back();
                 banWord = editValue;
                 setState();
                 onChanged(RegExp(banWord, caseSensitive: false));
-                SmartDialog.showToast('宸蹭繚瀛?);
+                SmartDialog.showToast('已保存');
                 GStorage.setting.put(key, banWord);
               },
             ),
@@ -277,19 +277,19 @@ SettingsModel getVideoFilterSelectModel({
   assert(!isFilter || onChanged != null);
   int value = GStorage.setting.get(key, defaultValue: defaultValue);
   return NormalModel(
-    title: '$title${isFilter ? '杩囨护' : ''}',
+    title: '$title${isFilter ? '过滤' : ''}',
     leading: const Icon(Icons.timelapse_outlined),
     subtitle: subtitle,
     getSubtitle: subtitle == null
         ? () => isFilter
-              ? '杩囨护鎺?title灏忎簬銆?value${suffix ?? ""}銆嶇殑瑙嗛'
-              : '褰撳墠$title:銆?value${suffix ?? ""}銆?
+              ? '过滤掉$title小于「$value${suffix ?? ""}」的视频'
+              : '当前$title:「$value${suffix ?? ""}」'
         : null,
     onTap: (context, setState) async {
       var result = await showDialog<int>(
         context: context,
         builder: (context) => SelectDialog<int>(
-          title: '閫夋嫨$title${isFilter ? '锛?鍗充笉杩囨护锛? : ''}',
+          title: '选择$title${isFilter ? '（0即不过滤）' : ''}',
           value: value,
           values:
               (values
@@ -297,7 +297,7 @@ SettingsModel getVideoFilterSelectModel({
                     ..sort())
                   .map((e) => (e, suffix == null ? e.toString() : '$e $suffix'))
                   .toList()
-                ..add((-1, '鑷畾涔?)),
+                ..add((-1, '自定义')),
         ),
       );
       if (result != null) {
@@ -306,7 +306,7 @@ SettingsModel getVideoFilterSelectModel({
           await showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('鑷畾涔?title'),
+              title: Text('自定义$title'),
               content: TextField(
                 autofocus: true,
                 onChanged: (value) => valueStr = value,
@@ -318,7 +318,7 @@ SettingsModel getVideoFilterSelectModel({
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '鍙栨秷',
+                    '取消',
                     style: TextStyle(color: ColorScheme.of(context).outline),
                   ),
                 ),
@@ -331,7 +331,7 @@ SettingsModel getVideoFilterSelectModel({
                       SmartDialog.showToast(e.toString());
                     }
                   },
-                  child: const Text('纭畾'),
+                  child: const Text('确定'),
                 ),
               ],
             ),
@@ -347,4 +347,3 @@ SettingsModel getVideoFilterSelectModel({
     },
   );
 }
-

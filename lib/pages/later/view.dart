@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/appbar/appbar.dart';
+import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart';
@@ -101,7 +101,7 @@ class _LaterPageState extends State<LaterPage>
                                 _baseCtr.setIsPlayAll(true);
                               }
                             },
-                            label: const Text('鎾斁鍏ㄩ儴'),
+                            label: const Text('播放全部'),
                             icon: const Icon(Icons.playlist_play),
                           ),
                         ),
@@ -173,7 +173,7 @@ class _LaterPageState extends State<LaterPage>
               mid: ctr.mid,
             );
           },
-          child: Text('澶嶅埗', style: textStyle),
+          child: Text('复制', style: textStyle),
         ),
         TextButton(
           style: btnStyle,
@@ -187,14 +187,14 @@ class _LaterPageState extends State<LaterPage>
               mid: ctr.mid,
             );
           },
-          child: Text('绉诲姩', style: textStyle),
+          child: Text('移动', style: textStyle),
         ),
       ],
       child: AppBar(
-        title: const Text('绋嶅悗鍐嶇湅'),
+        title: const Text('稍后再看'),
         actions: [
           IconButton(
-            tooltip: '鎼滅储',
+            tooltip: '搜索',
             onPressed: () {
               final mid = Accounts.main.mid;
               Get.toNamed(
@@ -203,7 +203,7 @@ class _LaterPageState extends State<LaterPage>
                   'type': 0,
                   'mediaId': mid,
                   'mid': mid,
-                  'title': '绋嶅悗鍐嶇湅',
+                  'title': '稍后再看',
                   'count': _baseCtr.counts[LaterViewType.all.index],
                 },
               );
@@ -216,7 +216,7 @@ class _LaterPageState extends State<LaterPage>
               final value = currCtr().asc.value;
               return PopupMenuButton(
                 initialValue: value,
-                tooltip: '鎺掑簭',
+                tooltip: '排序',
                 onSelected: (value) => currCtr()
                   ..asc.value = value
                   ..onReload(),
@@ -232,7 +232,7 @@ class _LaterPageState extends State<LaterPage>
                     ),
                     TextSpan(
                       children: [
-                        TextSpan(text: value ? '鏈€鏃╂坊鍔? : '鏈€杩戞坊鍔?),
+                        TextSpan(text: value ? '最早添加' : '最近添加'),
                         WidgetSpan(
                           alignment: .middle,
                           child: Icon(
@@ -249,18 +249,18 @@ class _LaterPageState extends State<LaterPage>
                 itemBuilder: (_) => [
                   const PopupMenuItem(
                     value: false,
-                    child: Text('鏈€杩戞坊鍔?),
+                    child: Text('最近添加'),
                   ),
                   const PopupMenuItem(
                     value: true,
-                    child: Text('鏈€鏃╂坊鍔?),
+                    child: Text('最早添加'),
                   ),
                 ],
               );
             },
           ),
           PopupMenuButton(
-            tooltip: '娓呯┖',
+            tooltip: '清空',
             borderRadius: const .all(.circular(20)),
             child: Padding(
               padding: const .symmetric(horizontal: 12, vertical: 6),
@@ -273,7 +273,7 @@ class _LaterPageState extends State<LaterPage>
                 ),
                 TextSpan(
                   children: [
-                    const TextSpan(text: '娓呯┖'),
+                    const TextSpan(text: '清空'),
                     WidgetSpan(
                       alignment: .middle,
                       child: Icon(
@@ -290,15 +290,15 @@ class _LaterPageState extends State<LaterPage>
             itemBuilder: (_) => [
               PopupMenuItem(
                 onTap: () => currCtr().toViewClear(context, 1),
-                child: const Text('娓呯┖澶辨晥'),
+                child: const Text('清空失效'),
               ),
               PopupMenuItem(
                 onTap: () => currCtr().toViewClear(context, 2),
-                child: const Text('娓呯┖鐪嬪畬'),
+                child: const Text('清空看完'),
               ),
               PopupMenuItem(
                 onTap: () => currCtr().toViewClear(context),
-                child: const Text('娓呯┖鍏ㄩ儴'),
+                child: const Text('清空全部'),
               ),
             ],
           ),
@@ -308,4 +308,3 @@ class _LaterPageState extends State<LaterPage>
     );
   }
 }
-

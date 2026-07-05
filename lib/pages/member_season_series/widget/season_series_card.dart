@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -52,7 +52,7 @@ class SeasonSeriesCard extends StatelessWidget {
                         ),
                         PBadge(
                           text:
-                              '${item.meta!.seasonId != null ? '鍚堥泦' : '鍒楄〃'}: ${item.meta!.total}',
+                              '${item.meta!.seasonId != null ? '合集' : '列表'}: ${item.meta!.total}',
                           bottom: 6.0,
                           right: 6.0,
                         ),
@@ -104,4 +104,3 @@ class SeasonSeriesCard extends StatelessWidget {
     );
   }
 }
-

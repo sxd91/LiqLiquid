@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/utils/bili_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';
@@ -59,7 +59,7 @@ class SearchUserItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '绮変笣锛?{NumUtils.numFormat(item.fans)}  瑙嗛锛?{NumUtils.numFormat(item.videos)}',
+                  '粉丝：${NumUtils.numFormat(item.fans)}  视频：${NumUtils.numFormat(item.videos)}',
                   style: style,
                 ),
                 if (item.officialVerify?.desc?.isNotEmpty == true)
@@ -75,4 +75,3 @@ class SearchUserItem extends StatelessWidget {
     );
   }
 }
-

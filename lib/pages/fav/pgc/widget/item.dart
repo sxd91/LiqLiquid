@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -107,7 +107,7 @@ class FavPgcItem extends StatelessWidget {
                         if (item.newEp?.indexShow != null) ...[
                           const SizedBox(height: 6),
                           Text(
-                            '${item.newEp!.indexShow}${item.isFinish == 0 && item.renewalTime?.isNotEmpty == true ? '锛?{item.renewalTime}' : ''}',
+                            '${item.newEp!.indexShow}${item.isFinish == 0 && item.renewalTime?.isNotEmpty == true ? '，${item.renewalTime}' : ''}',
                             style: TextStyle(
                               fontSize: 13,
                               color: colorScheme.onSurfaceVariant,
@@ -148,4 +148,3 @@ class FavPgcItem extends StatelessWidget {
     );
   }
 }
-

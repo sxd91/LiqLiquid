@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -7,7 +7,7 @@ import 'package:liqliquid/utils/page_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 
-// 瑙嗛鍗＄墖 - 鍨傜洿甯冨眬
+// 视频卡片 - 垂直布局
 class PgcCardVSearch extends StatelessWidget {
   const PgcCardVSearch({
     super.key,
@@ -74,4 +74,3 @@ class PgcCardVSearch extends StatelessWidget {
     );
   }
 }
-
