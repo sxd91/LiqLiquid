@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:io';
 
 import 'package:liqliquid/build_config.dart';
@@ -25,7 +25,7 @@ import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/update.dart';
 import 'package:liqliquid/utils/utils.dart';
 import 'package:flutter/material.dart' hide ListTile;
-import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

@@ -77,7 +77,7 @@ class _HomePageState extends CommonPageState<HomePage>
       children: [
         if (!_mainController.useSideBar &&
             MediaQuery.sizeOf(context).isPortrait)
-          Obx(() => ProgressiveBlurWidget(sigma: blurSigma.value, child: customAppBar(theme))),
+          Obx(() => ProgressiveBlurWidget(linearGradientBlur: const LinearGradientBlur(values: [0.0, 1.0], stops: [0.0, 1.0], start: Alignment.topCenter, end: Alignment.bottomCenter), sigma: blurSigma.value, child: customAppBar(theme))),
         tabBar,
         Expanded(
           child: onBuild(
@@ -137,13 +137,19 @@ class _HomePageState extends CommonPageState<HomePage>
     }
     // Progressive blur on top bar for glass-morphism scroll effect
     return ProgressiveBlurWidget(
+      linearGradientBlur: const LinearGradientBlur(
+        values: [0.0, 1.0],
+        stops: [0.0, 1.0],
+        start: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
       sigma: 10.0,
       child: Container(
-      height: Style.topBarHeight,
-      padding: padding,
-      child: child,
-    );
+        height: Style.topBarHeight,
+        padding: padding,
+        child: child,
       ),
+    );
   }
 
   Widget searchBar(ThemeData theme) {

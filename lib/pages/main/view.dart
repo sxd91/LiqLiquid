@@ -1,10 +1,10 @@
-import 'dart:io';
+﻿import 'dart:io';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/floating_navigation_bar.dart';
-import 'package:flutter_liquid_glass_plus/flutter_liquid_glass_plus.dart';
+import 'package:flutter_liquid_glass_plus/flutter_liquid_glass.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/tabs.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -484,10 +484,7 @@ class _MainAppState extends PopScopeState<MainApp>
         child: child,
       ),
       // Wrap bottom nav with LiquidGlass for glass-morphism effect
-      bottomNavigationBar: LiquidGlass(
-        glassColor: Colors.white.withOpacity(0.1),
-        blur: 8.0,
-        thickness: 25.0,
+      bottomNavigationBar: LGContainer(
         child: bottomNav,
       ),
     );
