@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:liqliquid/common/widgets/color_palette.dart';
 import 'package:liqliquid/common/widgets/custom_toast.dart';
 import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scale_app.dart';
 import 'package:liqliquid/common/widgets/stateful_builder.dart';
@@ -983,11 +984,11 @@ void _showHomeBgDialog(
           onPressed: () async {
             Get.back();
             try {
-              final result = await FilePicker.platform.pickFiles(
+              final result = await FilePicker.pickFile(
                 type: FileType.image,
               );
-              if (result != null && result.files.single.path != null) {
-                final imgPath = result.files.single.path!;
+              if (result != null && result.path != null) {
+                final imgPath = result.path!;
                 await GStorage.setting.put(SettingBoxKey.homeBgPath, imgPath);
                 SmartDialog.showToast('背景设置成功，重启生效');
                 setState();

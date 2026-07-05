@@ -54,8 +54,8 @@ jobs:
         runs-on: ubuntu-latest
         permissions: write-all
         env:
-          GRADLE_OPTS: "-Xmx10G -Dkotlin.daemon.jvm.options=-Xmx4G"
-          JAVA_TOOL_OPTIONS: "-Xmx10G"
+          GRADLE_OPTS: "-Xmx6G -Dkotlin.daemon.jvm.options=-Xmx2G"
+          JAVA_TOOL_OPTIONS: "-Xmx6G"
 
         steps:
             - name: 代码迁出
