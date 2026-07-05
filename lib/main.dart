@@ -186,6 +186,21 @@ void main() async {
     await MyApp.initPlatformState();
   }
 
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    if (kDebugMode) debugPrint(details.exceptionAsString());
+  };
+  ErrorWidget.builder = (details) {
+    return const Material(
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text("Load error, please restart"),
+        ),
+      ),
+    );
+  };
+
   if (Pref.enableLog) {
     // 异常捕获 logo记录
     final customParameters = {
@@ -261,8 +276,6 @@ class MyApp extends StatelessWidget {
     final (light, dark) = getAllTheme();
     // Glass-morphism UI theme
     return GetMaterialApp(
-
-
       title: Constants.appName,
       theme: light,
       darkTheme: dark,
@@ -294,7 +307,6 @@ class MyApp extends StatelessWidget {
           ? const CustomScrollBehavior(desktopDragDevices)
           : null,
     );
-
   }
 
   static Widget _builder(BuildContext context, Widget? child) {

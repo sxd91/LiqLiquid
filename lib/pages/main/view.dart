@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -484,8 +484,8 @@ class _MainAppState extends PopScopeState<MainApp>
         child: child,
       ),
       // Wrap bottom nav with LiquidGlass for glass-morphism effect (mobile only)
-      bottomNavigationBar: PlatformUtils.isMobile
-          ? LGContainer(child: bottomNav)
+      bottomNavigationBar: PlatformUtils.isMobile && bottomNav != null
+          ? LGContainer(child: bottomNav!)
           : bottomNav,
     );
 
