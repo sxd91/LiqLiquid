@@ -1,4 +1,4 @@
-import 'dart:math' show pow;
+﻿import 'dart:math' show pow;
 
 abstract final class DurationUtils {
   static String formatDuration(num? seconds) {

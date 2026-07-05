@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/bubble/dyn_list.dart';
+﻿import 'package:liqliquid/models_new/bubble/dyn_list.dart';
 
 class Content {
   String? count;

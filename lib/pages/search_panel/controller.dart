@@ -1,4 +1,4 @@
-import 'dart:async' show StreamSubscription;
+﻿import 'dart:async' show StreamSubscription;
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/search.dart';

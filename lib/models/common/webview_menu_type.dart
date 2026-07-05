@@ -1,4 +1,4 @@
-enum WebviewMenuItem {
+﻿enum WebviewMenuItem {
   refresh('刷新'),
   copy('复制链接'),
   openInBrowser('浏览器中打开'),

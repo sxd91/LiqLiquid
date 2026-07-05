@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+﻿import 'dart:math' as math;
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';

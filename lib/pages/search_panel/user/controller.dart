@@ -1,4 +1,4 @@
-import 'dart:math';
+﻿import 'dart:math';
 
 import 'package:liqliquid/models/common/search/user_search_type.dart';
 import 'package:liqliquid/models/search/result.dart';

@@ -1,4 +1,4 @@
-class PgcConditionValue {
+﻿class PgcConditionValue {
   String? keyword;
   String? name;
 

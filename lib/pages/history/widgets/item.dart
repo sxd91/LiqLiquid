@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/style.dart';
+﻿import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/progress_bar/video_progress_indicator.dart';

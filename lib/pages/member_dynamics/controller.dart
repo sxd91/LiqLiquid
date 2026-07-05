@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/dynamics.dart';
+﻿import 'package:liqliquid/http/dynamics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/http/msg.dart';

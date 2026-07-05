@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/assets.dart';
+﻿import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models_new/live/live_medal_wall/data.dart';

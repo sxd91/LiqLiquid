@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/bubble/sort_item.dart';
+﻿import 'package:liqliquid/models_new/bubble/sort_item.dart';
 
 class SortInfo {
   bool? showSort;

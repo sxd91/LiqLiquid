@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+﻿import 'dart:io' show Platform;
 
 abstract final class PlatformUtils {
   @pragma("vm:platform-const")

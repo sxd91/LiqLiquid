@@ -1,4 +1,4 @@
-class Live {
+﻿class Live {
   int? roomStatus;
   int? roundStatus;
   int? liveStatus;

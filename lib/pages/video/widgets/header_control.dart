@@ -1,4 +1,4 @@
-import 'dart:async' show Timer;
+﻿import 'dart:async' show Timer;
 import 'dart:convert' show jsonDecode, utf8;
 import 'dart:io' show Platform, File;
 import 'dart:typed_data' show Uint8List;

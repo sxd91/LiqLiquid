@@ -1,4 +1,4 @@
-class MsgAtContent {
+﻿class MsgAtContent {
   String? business;
   String? image;
   String? sourceContent;

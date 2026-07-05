@@ -1,4 +1,4 @@
-class ListTag {
+﻿class ListTag {
   int? tid;
   int? count;
   String? name;

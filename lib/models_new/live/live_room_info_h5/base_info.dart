@@ -1,4 +1,4 @@
-class BaseInfo {
+﻿class BaseInfo {
   String? uname;
   String? face;
 

@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/scroll_physics.dart';
+﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/dynamic/dynamics_type.dart';
 import 'package:liqliquid/models/common/dynamic/up_panel_position.dart';

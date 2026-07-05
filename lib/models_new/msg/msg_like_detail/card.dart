@@ -1,4 +1,4 @@
-class MsgLikeDetailCard {
+﻿class MsgLikeDetailCard {
   String? business;
   String? title;
 

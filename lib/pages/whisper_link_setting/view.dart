@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/msg/im_user_infos/datum.dart';
 import 'package:liqliquid/models_new/msg/msg_dnd/uid_setting.dart';

@@ -1,4 +1,4 @@
-import 'package:liqliquid/models/model_avatar.dart';
+﻿import 'package:liqliquid/models/model_avatar.dart';
 import 'package:liqliquid/models_new/space/space/achieve.dart';
 import 'package:liqliquid/models_new/space/space/followings_followed_upper.dart';
 import 'package:liqliquid/models_new/space/space/level_info.dart';

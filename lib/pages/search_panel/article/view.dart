@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
+﻿import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/pages/search_panel/article/controller.dart';
 import 'package:liqliquid/pages/search_panel/article/widgets/item.dart';

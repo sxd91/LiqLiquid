@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -44,8 +44,8 @@ import 'package:media_kit/media_kit.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:screen_brightness_platform_interface/screen_brightness_platform_interface.dart';
-import 'package:window_manager/window_manager.dart' hide calcWindowPosition;
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:window_manager/window_manager.dart' hide calcWindowPosition;
 
 WebViewEnvironment? webViewEnvironment;
 
@@ -92,6 +92,8 @@ Future<void> _initAppPath() async {
 void main() async {
   ScaledWidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
+    // 初始化 LiquidGlassWidgets（必须在 runApp 前调用）
+  await LiquidGlassWidgets.initialize();
   await _initAppPath();
   try {
     await GStorage.init();
@@ -187,20 +189,6 @@ void main() async {
     await MyApp.initPlatformState();
   }
 
-  // Prevent black screen on widget build errors
-  ErrorWidget.builder = (details) {
-    return const Material(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text("Load error, restart app"),
-        ),
-      ),
-    );
-  };
-  if (Pref.useLiquidGlass) {
-    await LiquidGlassWidgets.initialize();
-  }
   if (Pref.enableLog) {
     // 异常捕获 logo记录
     final customParameters = {
@@ -216,12 +204,12 @@ void main() async {
 
     Catcher2(
       [?fileHandler, const ConsoleHandler()],
-      Pref.useLiquidGlass ? LiquidGlassWidgets.wrap(child: const MyApp()) : const MyApp(),
+      const MyApp(),
       logger: logger,
       customParameters: customParameters,
     );
   } else {
-    runApp(Pref.useLiquidGlass ? LiquidGlassWidgets.wrap(child: const MyApp()) : const MyApp());
+    runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
   }
 }
 
@@ -274,7 +262,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (light, dark) = getAllTheme();
-    // Glass-morphism UI theme
     return GetMaterialApp(
       title: Constants.appName,
       theme: light,
@@ -290,7 +277,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
       initialRoute: '/',
       getPages: Routes.getPages,
-      defaultTransition: Transition.cupertino,
+      defaultTransition: Pref.pageTransition,
       builder: FlutterSmartDialog.init(
         toastBuilder: CustomToast.new,
         loadingBuilder: LoadingWidget.new,

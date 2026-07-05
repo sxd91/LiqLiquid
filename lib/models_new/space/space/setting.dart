@@ -1,4 +1,4 @@
-class SpaceSetting {
+﻿class SpaceSetting {
   int? channel;
   int? favVideo;
   int? coinsVideo;

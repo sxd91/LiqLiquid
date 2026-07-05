@@ -1,10 +1,9 @@
-import 'dart:io';
+﻿import 'dart:io';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/floating_navigation_bar.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/tabs.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -22,8 +21,9 @@ import 'package:liqliquid/utils/extension/theme_ext.dart';
 import 'package:liqliquid/utils/mobile_observer.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage.dart';
-import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:liqliquid/utils/storage_key.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -50,6 +50,8 @@ class _MainAppState extends PopScopeState<MainApp>
   late EdgeInsets _padding;
   late ThemeData theme;
   Brightness? _brightness;
+  /// 搜索是否激活，用于 GlassTabBar.searchable 搜索栏切换
+  bool _isSearching = false;
 
   @override
   bool get initCanPop => false;
@@ -287,7 +289,44 @@ class _MainAppState extends PopScopeState<MainApp>
   Widget? get _bottomNav {
     Widget? bottomNav;
     if (_mainController.navigationBars.length > 1) {
-      if (_mainController.floatingNavBar) {
+      // 液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
+      if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
+        bottomNav = GlassTabBar.searchable(
+          selectedIndex: _mainController.selectedIndex.value,
+          isSearchActive: _isSearching,
+          onTabSelected: (index) {
+            _mainController.setIndex(index);
+            setState(() => _isSearching = false);
+          },
+          selectedIconColor: theme.colorScheme.primary,
+          unselectedIconColor: theme.colorScheme.onSurfaceVariant,
+          iconSize: 26,
+          magnification: 1.15,
+          quality: GlassQuality.premium,
+          searchConfig: GlassSearchBarConfig(
+            hintText: '搜索',
+            onSearchToggle: (active) {
+              if (active) {
+                Get.toNamed('/search');
+              }
+              setState(() => _isSearching = false);
+            },
+            searchIcon: Icon(
+              Icons.search,
+              size: 28,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            showsCancelButton: true,
+          ),
+          tabs: _mainController.navigationBars
+              .map((e) => GlassTab(
+                    label: e.label,
+                    icon: _buildIcon(type: e),
+                    activeIcon: _buildIcon(type: e, selected: true),
+                  ))
+              .toList(),
+        );
+      } else if (_mainController.floatingNavBar) {
         bottomNav = Obx(
           () => FloatingNavigationBar(
             onDestinationSelected: _mainController.setIndex,
@@ -473,37 +512,19 @@ class _MainAppState extends PopScopeState<MainApp>
       );
     }
 
-    child = Pref.useLiquidGlass
-        ? GlassScaffold(
-            extendBody: true,
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(toolbarHeight: 0),
-            body: Padding(
-              padding: EdgeInsets.only(
-                left: _mainController.useBottomNav ? _padding.left : 0.0,
-                right: _padding.right,
-              ),
-              child: child,
-            ),
-            bottomBar: PlatformUtils.isMobile && bottomNav != null
-                ? GlassContainer(child: bottomNav!)
-                : null,
-          )
-        : Scaffold(
-            extendBody: true,
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(toolbarHeight: 0),
-            body: Padding(
-              padding: EdgeInsets.only(
-                left: _mainController.useBottomNav ? _padding.left : 0.0,
-                right: _padding.right,
-              ),
-              child: child,
-            ),
-            bottomNavigationBar: PlatformUtils.isMobile && bottomNav != null
-                ? GlassContainer(child: bottomNav!)
-                : bottomNav,
-          );
+    child = Scaffold(
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(toolbarHeight: 0),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: _mainController.useBottomNav ? _padding.left : 0.0,
+          right: _padding.right,
+        ),
+        child: child,
+      ),
+      bottomNavigationBar: bottomNav,
+    );
 
     if (PlatformUtils.isMobile) {
       child = AnnotatedRegion<SystemUiOverlayStyle>(

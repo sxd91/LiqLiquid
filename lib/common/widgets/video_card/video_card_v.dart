@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/style.dart';
+﻿import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -108,14 +108,11 @@ class VideoCardV extends StatelessWidget {
                       return Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Hero(
-                            tag: videoItem.bvid ?? videoItem.aid.toString(),
-                            child: NetworkImgLayer(
-                              src: videoItem.cover,
-                              width: maxWidth,
-                              height: maxHeight,
-                              type: .emote,
-                            ),
+                          NetworkImgLayer(
+                            src: videoItem.cover,
+                            width: maxWidth,
+                            height: maxHeight,
+                            type: .emote,
                           ),
                           if (videoItem.duration > 0)
                             PBadge(

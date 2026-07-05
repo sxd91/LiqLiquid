@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart' show PointerDeviceKind;
+﻿import 'package:flutter/gestures.dart' show PointerDeviceKind;
 import 'package:flutter/material.dart';
 
 class CustomScrollBehavior extends MaterialScrollBehavior {

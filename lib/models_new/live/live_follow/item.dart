@@ -1,4 +1,4 @@
-class LiveFollowItem {
+﻿class LiveFollowItem {
   int? roomid;
   String? uname;
   String? title;

@@ -1,4 +1,4 @@
-import 'package:liqliquid/models/horizontal_video_model.dart';
+﻿import 'package:liqliquid/models/horizontal_video_model.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/duration_utils.dart';
 

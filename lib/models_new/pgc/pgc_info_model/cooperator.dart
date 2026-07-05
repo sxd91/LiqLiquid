@@ -1,4 +1,4 @@
-class Cooperator {
+﻿class Cooperator {
   int? mid;
   String? avatar;
   String? nickName;

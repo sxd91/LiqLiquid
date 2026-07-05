@@ -1,4 +1,4 @@
-class Achieve {
+﻿class Achieve {
   bool? isDefault;
   String? image;
   String? achieveUrl;

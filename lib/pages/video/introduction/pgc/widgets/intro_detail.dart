@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
+﻿import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/selectable_text.dart';

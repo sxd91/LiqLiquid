@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/live/live_room_info_h5/base_info.dart';
+﻿import 'package:liqliquid/models_new/live/live_room_info_h5/base_info.dart';
 
 class AnchorInfo {
   BaseInfo? baseInfo;

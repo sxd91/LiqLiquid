@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_creator.dart';
+﻿import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_creator.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_top/topic_item.dart';
 
 class TopDetails {

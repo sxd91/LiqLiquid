@@ -1,4 +1,4 @@
-class History {
+﻿class History {
   int? progress;
   int? duration;
 

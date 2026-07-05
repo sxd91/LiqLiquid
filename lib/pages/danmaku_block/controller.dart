@@ -1,4 +1,4 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 
 import 'package:liqliquid/http/danmaku_block.dart';
 import 'package:liqliquid/http/loading_state.dart';

@@ -1,4 +1,4 @@
-class TribeInfo {
+﻿class TribeInfo {
   String? id;
   String? title;
   String? subTitle;

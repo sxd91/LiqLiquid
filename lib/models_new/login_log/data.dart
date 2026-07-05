@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/login_log/list.dart';
+﻿import 'package:liqliquid/models_new/login_log/list.dart';
 
 class LoginLogData {
   List<LoginLogItem>? list;

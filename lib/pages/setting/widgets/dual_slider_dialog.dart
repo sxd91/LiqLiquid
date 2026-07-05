@@ -1,4 +1,4 @@
-import 'package:liqliquid/utils/extension/num_ext.dart';
+﻿import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
 
 class DualSliderDialog extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/style.dart';
+﻿import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/pages/home/controller.dart';
 import 'package:liqliquid/pages/main/controller.dart';
 import 'package:flutter/foundation.dart' show clampDouble;

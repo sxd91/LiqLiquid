@@ -1,4 +1,4 @@
-name: Build for Windows x64
+﻿name: Build for Windows x64
 
 on:
   workflow_call:
@@ -53,33 +53,33 @@ jobs:
           mkdir -p Release/liqliquid-Win
           mkdir -p liqliquid-Win-Setup
           mv build/windows/x64/runner/Release/* Release/liqliquid-Win/
-          mv dist/**/*.exe liqliquid-Win-Setup/PiliPlus_windows_${{env.version}}_x64_setup.exe
+          mv dist/**/*.exe liqliquid-Win-Setup/liqliquid_windows_${{env.version}}_x64_setup.exe
 
       - name: Compress
         run: |
-          Compress-Archive -Path "Release/liqliquid-Win" -DestinationPath "PiliPlus_windows_${{env.version}}_x64_portable.zip"
+          Compress-Archive -Path "Release/liqliquid-Win" -DestinationPath "liqliquid_windows_${{env.version}}_x64_portable.zip"
         shell: pwsh
 
       - name: Release
-        if: ${{ inputs.tag != '' }}
+        if: ${{ github.event.inputs.tag != '' }}
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ inputs.tag }}
-          name: ${{ inputs.tag }}
+          tag_name: ${{ github.event.inputs.tag }}
+          name: ${{ github.event.inputs.tag }}
           files: |
-            PiliPlus_windows_*.zip
-            liqliquid-Win-Setup/PiliPlus_windows_*.exe
+            liqliquid_windows_*.zip
+            liqliquid-Win-Setup/liqliquid_windows_*.exe
 
       - name: Upload windows file release
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Windows-file-x64-release
-          path: PiliPlus_windows_*.zip
+          path: liqliquid_windows_*.zip
 
       - name: Upload windows setup release
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Windows-setup-x64-release
-          path: liqliquid-Win-Setup/PiliPlus_windows_*.exe
+          path: liqliquid-Win-Setup/liqliquid_windows_*.exe

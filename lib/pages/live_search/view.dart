@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/scroll_physics.dart';
+﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/models/common/live/live_search_type.dart';
 import 'package:liqliquid/pages/live_search/child/view.dart';

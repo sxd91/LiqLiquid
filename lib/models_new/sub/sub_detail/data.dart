@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/sub/sub/list.dart';
+﻿import 'package:liqliquid/models_new/sub/sub/list.dart';
 import 'package:liqliquid/models_new/sub/sub_detail/media.dart';
 
 class SubDetailData {

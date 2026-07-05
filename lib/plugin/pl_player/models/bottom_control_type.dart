@@ -1,4 +1,4 @@
-enum BottomControlType {
+﻿enum BottomControlType {
   playOrPause,
   pre,
   next,

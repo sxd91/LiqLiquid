@@ -1,4 +1,4 @@
-// mpv --hwdec=help
+﻿// mpv --hwdec=help
 enum HwDecType {
   no('no', '启用软解'),
   auto('auto', '启用任意可用解码器'),

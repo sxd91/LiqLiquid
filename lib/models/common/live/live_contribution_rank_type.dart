@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+﻿// ignore_for_file: constant_identifier_names
 
 enum LiveContributionRankType {
   online_rank('在线榜', 'contribution_rank'),

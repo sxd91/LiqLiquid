@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder, base64;
+﻿import 'dart:convert' show JsonEncoder, base64;
 import 'dart:math' show Random;
 
 import 'package:catcher_2/catcher_2.dart';

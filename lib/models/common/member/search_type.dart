@@ -1,1 +1,1 @@
-enum MemberSearchType { archive, dynamic }
+﻿enum MemberSearchType { archive, dynamic }

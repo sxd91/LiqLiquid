@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/space/space_cheese/item.dart';
+﻿import 'package:liqliquid/models_new/space/space_cheese/item.dart';
 import 'package:liqliquid/models_new/space/space_cheese/page.dart';
 
 class SpaceCheeseData {

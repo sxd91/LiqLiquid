@@ -1,4 +1,4 @@
-enum UserOrderType {
+﻿enum UserOrderType {
   def('默认排序', 0, ''),
   fansDesc('粉丝数由高到低', 0, 'fans'),
   fansAsc('粉丝数由低到高', 1, 'fans'),

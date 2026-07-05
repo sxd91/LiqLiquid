@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show immutable;
+﻿import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 sealed class LoadingState<T> {

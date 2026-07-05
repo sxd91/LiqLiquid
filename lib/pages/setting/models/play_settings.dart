@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+﻿import 'dart:io' show Platform;
 
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/models/common/super_chat_type.dart';

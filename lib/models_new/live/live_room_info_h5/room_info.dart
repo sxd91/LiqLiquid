@@ -1,4 +1,4 @@
-class RoomInfo {
+﻿class RoomInfo {
   int? uid;
   String? title;
   String? cover;

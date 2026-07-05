@@ -1,4 +1,4 @@
-class ArticleOps {
+﻿class ArticleOps {
   dynamic insert;
   Attributes? attributes;
 

@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/member/season_web/archive.dart';
+﻿import 'package:liqliquid/models_new/member/season_web/archive.dart';
 import 'package:liqliquid/models_new/member/season_web/page.dart';
 
 class SeasonWebData {

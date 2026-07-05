@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart' show TapGestureRecognizer;
+﻿import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 
 class NoDeadlineTapGestureRecognizer extends TapGestureRecognizer {
   NoDeadlineTapGestureRecognizer({

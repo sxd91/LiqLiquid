@@ -1,4 +1,4 @@
-import 'package:flutter/rendering.dart' show RenderSliverToBoxAdapter;
+﻿import 'package:flutter/rendering.dart' show RenderSliverToBoxAdapter;
 import 'package:flutter/widgets.dart';
 
 class SliverToBoxWithOffsetAdapter extends SliverToBoxAdapter {

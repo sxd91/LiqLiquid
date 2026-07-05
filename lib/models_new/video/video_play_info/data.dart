@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/video/video_play_info/interaction.dart';
+﻿import 'package:liqliquid/models_new/video/video_play_info/interaction.dart';
 import 'package:liqliquid/models_new/video/video_play_info/subtitle_info.dart';
 import 'package:liqliquid/models_new/video/video_play_info/view_point.dart';
 

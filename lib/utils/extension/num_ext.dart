@@ -1,4 +1,4 @@
-import 'dart:math' show pow;
+﻿import 'dart:math' show pow;
 
 import 'package:flutter/widgets.dart' show BuildContext, MediaQuery;
 

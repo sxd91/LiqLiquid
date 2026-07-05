@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/pgc/pgc_review/author.dart';
+﻿import 'package:liqliquid/models_new/pgc/pgc_review/author.dart';
 import 'package:liqliquid/models_new/pgc/pgc_review/stat.dart';
 
 class PgcReviewItemModel {

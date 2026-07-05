@@ -1,4 +1,4 @@
-import 'dart:math';
+﻿import 'dart:math';
 
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';

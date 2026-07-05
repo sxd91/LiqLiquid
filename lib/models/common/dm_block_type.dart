@@ -1,4 +1,4 @@
-enum DmBlockType {
+﻿enum DmBlockType {
   keyword('关键词'),
   regex('正则'),
   uid('用户'),

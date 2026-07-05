@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/assets.dart';
+﻿import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/extra_hittest_stack.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';

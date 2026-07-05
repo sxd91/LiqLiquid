@@ -1,4 +1,4 @@
-class Badge {
+﻿class Badge {
   String? text;
 
   Badge({

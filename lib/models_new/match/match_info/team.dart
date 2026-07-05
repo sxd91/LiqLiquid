@@ -1,4 +1,4 @@
-class MatchTeam {
+﻿class MatchTeam {
   String? title;
   String? logo;
 

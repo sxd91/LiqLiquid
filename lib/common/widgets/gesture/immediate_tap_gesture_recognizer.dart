@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+﻿import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
 class ImmediateTapGestureRecognizer extends OneSequenceGestureRecognizer {

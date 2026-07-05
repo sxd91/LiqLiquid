@@ -1,4 +1,4 @@
-import 'package:liqliquid/pages/fav/article/view.dart';
+﻿import 'package:liqliquid/pages/fav/article/view.dart';
 import 'package:liqliquid/pages/fav/cheese/view.dart';
 import 'package:liqliquid/pages/fav/note/view.dart';
 import 'package:liqliquid/pages/fav/pgc/view.dart';

@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:liqliquid/models/common/rank_type.dart';
 import 'package:liqliquid/pages/common/common_controller.dart';

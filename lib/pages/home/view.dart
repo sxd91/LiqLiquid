@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/style.dart';
+﻿import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_height_widget.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -10,6 +10,8 @@ import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/extension/size_ext.dart';
 import 'package:liqliquid/utils/feed_back.dart';
 import 'package:progressive_blur/progressive_blur.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -23,11 +25,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends CommonPageState<HomePage>
     with AutomaticKeepAliveClientMixin {
-  // Progressive blur sigma driven by scroll position
-  final RxDouble blurSigma = 0.0.obs;
+  /// 当前选中的标签页索引，用于 GlassSegmentedControl
+  int _tabIndex = 0;
 
   final _homeController = Get.putOrFind(HomeController.new);
   final _mainController = Get.find<MainController>();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabIndex = _homeController.tabController.index;
+    _homeController.tabController.addListener(_onTabChanged);
+  }
+
+  @override
+  void dispose() {
+    _homeController.tabController.removeListener(_onTabChanged);
+    super.dispose();
+  }
+
+  /// 标签页切换回调，同步 GlassSegmentedControl 选中状态
+  void _onTabChanged() {
+    if (_tabIndex != _homeController.tabController.index) {
+      setState(() => _tabIndex = _homeController.tabController.index);
+    }
+  }
 
   @override
   bool get needsCorrection => _homeController.hideTopBar;
@@ -41,28 +63,52 @@ class _HomePageState extends CommonPageState<HomePage>
     final theme = Theme.of(context);
     Widget tabBar;
     if (_homeController.tabs.length > 1) {
-      tabBar = Padding(
-        padding: const EdgeInsets.only(top: 4),
-        child: SizedBox(
-          height: 42,
-          width: double.infinity,
-          child: TabBar(
-            controller: _homeController.tabController,
-            tabs: _homeController.tabs.map((e) => Tab(text: e.label)).toList(),
-            isScrollable: true,
-            dividerColor: Colors.transparent,
-            dividerHeight: 0,
-            splashBorderRadius: Style.mdRadius,
-            tabAlignment: TabAlignment.center,
-            onTap: (_) {
-              feedBack();
-              if (!_homeController.tabController.indexIsChanging) {
-                _homeController.animateToTop();
-              }
-            },
+      // 根据用户设置决定使用液态玻璃分段控件还是标准 TabBar
+      if (Pref.useLiquidGlass) {
+        tabBar = Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: SizedBox(
+            height: 42,
+            width: double.infinity,
+            child: GlassSegmentedControl(
+              selectedIndex: _tabIndex,
+              onSegmentSelected: (i) {
+                feedBack();
+                _homeController.tabController.animateTo(i);
+                if (!_homeController.tabController.indexIsChanging) {
+                  _homeController.animateToTop();
+                }
+              },
+              segments: _homeController.tabs
+                  .map((e) => GlassSegment(label: e.label))
+                  .toList(),
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        tabBar = Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: SizedBox(
+            height: 42,
+            width: double.infinity,
+            child: TabBar(
+              controller: _homeController.tabController,
+              tabs: _homeController.tabs.map((e) => Tab(text: e.label)).toList(),
+              isScrollable: true,
+              dividerColor: Colors.transparent,
+              dividerHeight: 0,
+              splashBorderRadius: Style.mdRadius,
+              tabAlignment: TabAlignment.center,
+              onTap: (_) {
+                feedBack();
+                if (!_homeController.tabController.indexIsChanging) {
+                  _homeController.animateToTop();
+                }
+              },
+            ),
+          ),
+        );
+      }
       if (_homeController.hideTopBar &&
           _mainController.barHideType == .instant) {
         tabBar = Material(
@@ -73,20 +119,54 @@ class _HomePageState extends CommonPageState<HomePage>
     } else {
       tabBar = const SizedBox(height: 6);
     }
+    // 主要内容区域（TabBarView 或 PageView）
+    final mainContent = onBuild(
+      tabBarView(
+        controller: _homeController.tabController,
+        children: _homeController.tabs.map((e) => e.page).toList(),
+      ),
+    );
+
+    // 竖屏且非侧边栏模式下，顶部使用 ProgressiveBlurWidget 渐变模糊
+    if (!_mainController.useSideBar &&
+        MediaQuery.sizeOf(context).isPortrait &&
+        Pref.useLiquidGlass) {
+      return Stack(
+        children: [
+          Positioned.fill(child: mainContent),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: ProgressiveBlurWidget(
+              sigma: 20.0,
+              linearGradientBlur: const LinearGradientBlur(
+                values: [1, 0],
+                stops: [0.0, 0.5],
+                start: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  customAppBar(theme),
+                  tabBar,
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    // 非液态玻璃模式或侧边栏模式：使用普通 Column 布局
     return Column(
       children: [
         if (!_mainController.useSideBar &&
             MediaQuery.sizeOf(context).isPortrait)
-          Obx(() => ProgressiveBlurWidget(linearGradientBlur: const LinearGradientBlur(values: [0.0, 1.0], stops: [0.0, 1.0], start: Alignment.topCenter, end: Alignment.bottomCenter), sigma: blurSigma.value, child: customAppBar(theme))),
+          customAppBar(theme),
         tabBar,
-        Expanded(
-          child: onBuild(
-            tabBarView(
-              controller: _homeController.tabController,
-              children: _homeController.tabs.map((e) => e.page).toList(),
-            ),
-          ),
-        ),
+        Expanded(child: mainContent),
       ],
     );
   }
@@ -135,20 +215,11 @@ class _HomePageState extends CommonPageState<HomePage>
         });
       }
     }
-    // Progressive blur on top bar for glass-morphism scroll effect
-    return ProgressiveBlurWidget(
-      linearGradientBlur: const LinearGradientBlur(
-        values: [0.0, 1.0],
-        stops: [0.0, 1.0],
-        start: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
-      sigma: 10.0,
-      child: Container(
-        height: Style.topBarHeight,
-        padding: padding,
-        child: child,
-      ),
+    // 顶栏不在此处应用模糊，由外层 ProgressiveBlurWidget 统一处理
+    return Container(
+      height: Style.topBarHeight,
+      padding: padding,
+      child: child,
     );
   }
 

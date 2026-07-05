@@ -10,7 +10,7 @@ $BottomSheetAndroidPatch = "lib/scripts/bottom_sheet_android.patch"
 
 # https://github.com/sxd91/LiqLiquid/issues/1906
 $BottomSheetIOSFlutterPatch = "lib/scripts/bottom_sheet_ios_flutter.patch"
-$BottomSheetIOSPiliPlusPatch = "lib/scripts/bottom_sheet_ios_piliplus.patch"
+$BottomSheetIOSliqliquidPatch = "lib/scripts/bottom_sheet_ios_liqliquid.patch"
 
 # https://github.com/sxd91/LiqLiquid/issues/1662
 $ScrollViewPatch = "lib/scripts/scroll_view.patch"
@@ -50,9 +50,9 @@ $MouseCursorPatch = "lib/scripts/mouse_cursor.patch"
 $GeetestIOSPatch = "lib/scripts/geetest_ios.patch"
 
 if ($platform.ToLower() -eq "ios") {
-    git apply $BottomSheetIOSPiliPlusPatch
+    git apply $BottomSheetIOSliqliquidPatch
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "$BottomSheetIOSPiliPlusPatch applied"
+        Write-Host "$BottomSheetIOSliqliquidPatch applied"
     }
     git apply $GeetestIOSPatch
     if ($LASTEXITCODE -eq 0) {

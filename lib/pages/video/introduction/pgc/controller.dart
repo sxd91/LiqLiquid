@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:math' show max;
 
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';

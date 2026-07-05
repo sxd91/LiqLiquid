@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/avatars.dart';
+﻿import 'package:liqliquid/common/widgets/avatars.dart';
 import 'package:liqliquid/common/widgets/image/image_save.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/dynamics/result.dart';

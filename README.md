@@ -1,11 +1,11 @@
-<div align="center">
+﻿<div align="center">
     <img width="200" height="200" src="assets/images/logo/logo.png">
 </div>
 
 
 
 <div align="center">
-    <h1>LiqLiquid</h1>
+    <h1>liqliquid</h1>
 <div align="center">
     
 ![GitHub repo size](https://img.shields.io/github/repo-size/sxd91/LiqLiquid) 
@@ -33,7 +33,7 @@
 - [x] Windows
 - [x] Linux
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/LiqLiquid.svg)](https://repology.org/project/LiqLiquid/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/liqliquid.svg)](https://repology.org/project/liqliquid/versions)
 
 ## refactor
 
@@ -219,7 +219,7 @@
 
 ## 声明
 
-此项目（LiqLiquid）是个人为了兴趣而开发，仅用于学习和测试，请于下载后24小时内删除。
+此项目（liqliquid）是个人为了兴趣而开发，仅用于学习和测试，请于下载后24小时内删除。
 所用API皆从官方网站收集，不提供任何破解内容。
 在此致敬原作者：[guozhigq/pilipala](https://github.com/guozhigq/pilipala)
 在此致敬上游作者：[orz12/PiliPalaX](https://github.com/orz12/PiliPalaX)

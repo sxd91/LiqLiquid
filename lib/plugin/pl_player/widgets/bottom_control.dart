@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/progress_bar/audio_video_progress_bar.dart';
+﻿import 'package:liqliquid/common/widgets/progress_bar/audio_video_progress_bar.dart';
 import 'package:liqliquid/common/widgets/progress_bar/segment_progress_bar.dart';
 import 'package:liqliquid/pages/video/controller.dart';
 import 'package:liqliquid/plugin/pl_player/controller.dart';

@@ -1,4 +1,4 @@
-class ReserveInfoData {
+﻿class ReserveInfoData {
   int? id;
   String? title;
   int? livePlanStartTime;

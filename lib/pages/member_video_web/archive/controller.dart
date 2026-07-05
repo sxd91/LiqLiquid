@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/loading_state.dart';
+﻿import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/common/member/archive_order_type_web.dart';
 import 'package:liqliquid/models_new/member/search_archive/data.dart';

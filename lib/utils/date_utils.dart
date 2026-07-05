@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart' show DateFormat;
+﻿import 'package:intl/intl.dart' show DateFormat;
 
 abstract final class DateFormatUtils {
   static final shortFormat = DateFormat('MM-dd');

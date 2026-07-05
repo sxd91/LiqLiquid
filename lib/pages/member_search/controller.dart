@@ -1,4 +1,4 @@
-import 'package:liqliquid/models/common/member/search_type.dart';
+﻿import 'package:liqliquid/models/common/member/search_type.dart';
 import 'package:liqliquid/pages/member_search/child/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:liqliquid/utils/utils.dart';

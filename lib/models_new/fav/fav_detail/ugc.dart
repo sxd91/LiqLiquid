@@ -1,4 +1,4 @@
-class Ugc {
+﻿class Ugc {
   int? firstCid;
 
   Ugc({this.firstCid});

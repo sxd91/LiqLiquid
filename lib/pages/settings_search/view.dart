@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_sliver_safe_area.dart';
 import 'package:liqliquid/pages/search/controller.dart' show DebounceStreamState;
 import 'package:liqliquid/pages/setting/models/extra_settings.dart';

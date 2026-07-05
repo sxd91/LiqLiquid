@@ -1,4 +1,4 @@
-import 'dart:async' show scheduleMicrotask;
+﻿import 'dart:async' show scheduleMicrotask;
 import 'dart:collection' show Queue;
 import 'dart:ui' show PointerDataPacket;
 

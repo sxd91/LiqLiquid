@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/space/space/list.dart';
+﻿import 'package:liqliquid/models_new/space/space/list.dart';
 import 'package:liqliquid/models_new/space/space_article/item.dart';
 
 class Article {

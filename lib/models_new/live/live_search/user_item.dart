@@ -1,4 +1,4 @@
-class LiveSearchUserItemModel {
+﻿class LiveSearchUserItemModel {
   String? face;
   String? name;
   int? liveStatus;

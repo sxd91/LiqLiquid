@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/utils/bili_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';

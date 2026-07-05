@@ -1,4 +1,4 @@
-enum ActionType {
+﻿enum ActionType {
   skip('跳过'),
   mute('静音'),
   full('整个视频'),

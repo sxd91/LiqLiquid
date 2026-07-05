@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/bubble/meta.dart';
+﻿import 'package:liqliquid/models_new/bubble/meta.dart';
 
 class DynList {
   String? dynId;

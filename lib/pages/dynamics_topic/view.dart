@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/assets.dart';
+﻿import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/dynamic_sliver_app_bar/dynamic_sliver_app_bar.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';

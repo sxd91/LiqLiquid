@@ -1,4 +1,4 @@
-import 'dart:async' show FutureOr;
+﻿import 'dart:async' show FutureOr;
 import 'dart:convert' show utf8, jsonDecode;
 
 import 'package:liqliquid/common/style.dart';
@@ -31,7 +31,7 @@ void exportToLocalFile({
   final res = utf8.encode(onExport());
   StorageUtils.saveBytes2File(
     name:
-        'piliplus_${localFileName()}_'
+        'liqliquid_${localFileName()}_'
         '${DateFormat('yyyyMMddHHmmss').format(DateTime.now())}.json',
     bytes: res,
     allowedExtensions: const ['json'],

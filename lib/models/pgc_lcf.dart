@@ -1,4 +1,4 @@
-class PgcLCF {
+﻿class PgcLCF {
   num? coinNumber;
   int? favorite;
   int? isOriginal;

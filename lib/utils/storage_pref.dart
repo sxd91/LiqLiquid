@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart'
     show deviceTouchSlop;
@@ -709,8 +709,6 @@ abstract final class Pref {
 
   static bool get useSideBar =>
       _setting.get(SettingBoxKey.useSideBar, defaultValue: false);
-  static bool get useLiquidGlass =>
-      _setting.get(SettingBoxKey.useLiquidGlass, defaultValue: false);
 
   static bool get dynamicsShowAllFollowedUp => _setting.get(
     SettingBoxKey.dynamicsShowAllFollowedUp,
@@ -1019,7 +1017,14 @@ abstract final class Pref {
       _setting.get(SettingBoxKey.saveReply, defaultValue: true);
 
   static bool get floatingNavBar =>
-      _setting.get(SettingBoxKey.floatingNavBar, defaultValue: false);
+      _setting.get(SettingBoxKey.floatingNavBar, defaultValue: true);
+
+  /// 是否使用液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
+  static bool get useGlassNavBar =>
+      _setting.get(SettingBoxKey.useGlassNavBar, defaultValue: true);
+
+  /// 主页自定义背景图片路径，为空则使用默认背景
+  static String? get homeBgPath => _setting.get(SettingBoxKey.homeBgPath);
 
   static bool get removeSafeArea =>
       _setting.get(SettingBoxKey.removeSafeArea, defaultValue: false);

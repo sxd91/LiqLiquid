@@ -1,4 +1,4 @@
-import 'package:liqliquid/models/common/account_type.dart';
+﻿import 'package:liqliquid/models/common/account_type.dart';
 import 'package:hive_ce/hive.dart';
 
 class AccountTypeAdapter extends TypeAdapter<AccountType> {

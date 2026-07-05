@@ -1,4 +1,4 @@
-enum PlaySpeed {
+﻿enum PlaySpeed {
   pointFive(0.5),
   pointSevenFive(0.75),
 

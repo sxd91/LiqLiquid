@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show clampDouble;
+﻿import 'package:flutter/foundation.dart' show clampDouble;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show RenderSliverToBoxAdapter;
 

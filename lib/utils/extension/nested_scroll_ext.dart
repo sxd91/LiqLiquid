@@ -1,4 +1,4 @@
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+﻿import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     show ExtendedNestedScrollViewState;
 import 'package:flutter/widgets.dart' show Element, Curves;
 

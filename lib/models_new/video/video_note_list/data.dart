@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/video/video_note_list/list.dart';
+﻿import 'package:liqliquid/models_new/video/video_note_list/list.dart';
 import 'package:liqliquid/models_new/video/video_note_list/page.dart';
 
 class VideoNoteData {

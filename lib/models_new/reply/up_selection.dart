@@ -1,4 +1,4 @@
-class UpSelection {
+﻿class UpSelection {
   int? pendingCount;
   int? ignoreCount;
 

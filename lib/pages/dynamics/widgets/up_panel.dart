@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/assets.dart';
+﻿import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/dynamic/up_panel_position.dart';
 import 'package:liqliquid/models/dynamics/up.dart';

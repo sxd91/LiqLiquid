@@ -1,4 +1,4 @@
-class DynReserveData {
+﻿class DynReserveData {
   int? finalBtnStatus;
   int? reserveUpdate;
   String? descUpdate;

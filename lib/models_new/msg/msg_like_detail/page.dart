@@ -1,4 +1,4 @@
-class MsgLikeDetailPage {
+﻿class MsgLikeDetailPage {
   bool? isEnd;
 
   MsgLikeDetailPage({this.isEnd});

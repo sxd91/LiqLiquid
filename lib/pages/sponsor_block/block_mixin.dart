@@ -1,4 +1,4 @@
-import 'dart:async' show StreamSubscription, Timer;
+﻿import 'dart:async' show StreamSubscription, Timer;
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';

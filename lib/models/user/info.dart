@@ -1,4 +1,4 @@
-import 'package:liqliquid/utils/extension/map_ext.dart';
+﻿import 'package:liqliquid/utils/extension/map_ext.dart';
 import 'package:hive_ce/hive.dart';
 
 part 'info.g.dart';

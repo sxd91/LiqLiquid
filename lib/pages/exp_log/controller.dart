@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/loading_state.dart';
+﻿import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/models_new/coin_log/data.dart';
 import 'package:liqliquid/models_new/coin_log/list.dart';

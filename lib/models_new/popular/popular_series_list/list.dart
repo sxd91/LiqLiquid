@@ -1,4 +1,4 @@
-class PopularSeriesListItem {
+﻿class PopularSeriesListItem {
   int? number;
   String? name;
 

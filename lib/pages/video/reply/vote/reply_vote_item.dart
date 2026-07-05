@@ -1,4 +1,4 @@
-import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show VoteCard;
 import 'package:liqliquid/pages/dynamics/widgets/vote.dart';
 import 'package:liqliquid/utils/num_utils.dart';

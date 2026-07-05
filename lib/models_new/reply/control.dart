@@ -1,4 +1,4 @@
-class ReplyControl {
+﻿class ReplyControl {
   bool? inputDisable;
   String? rootInputText;
   String? childInputText;

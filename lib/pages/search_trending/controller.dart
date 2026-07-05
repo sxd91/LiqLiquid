@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/loading_state.dart';
+﻿import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/search.dart';
 import 'package:liqliquid/models_new/search/search_trending/data.dart';
 import 'package:liqliquid/models_new/search/search_trending/list.dart';

@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/svg/level_icon.dart';
+﻿import 'package:liqliquid/common/widgets/svg/level_icon.dart';
 import 'package:flutter/material.dart';
 
 abstract final class BiliUtils {

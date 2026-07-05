@@ -1,4 +1,4 @@
-class Dimension {
+﻿class Dimension {
   int? width;
   int? height;
 

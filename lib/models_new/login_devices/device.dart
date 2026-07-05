@@ -1,4 +1,4 @@
-class LoginDevice {
+﻿class LoginDevice {
   String? deviceName;
   bool? isCurrentDevice;
   String? latestLoginAt;

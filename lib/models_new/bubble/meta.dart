@@ -1,4 +1,4 @@
-class Meta {
+﻿class Meta {
   String? author;
   String? timeText;
   String? replyCount;

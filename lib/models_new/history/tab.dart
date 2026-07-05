@@ -1,4 +1,4 @@
-class HistoryTab {
+﻿class HistoryTab {
   String? type;
   String? name;
 

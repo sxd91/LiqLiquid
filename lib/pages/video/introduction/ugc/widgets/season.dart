@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/models_new/video/video_detail/data.dart';

@@ -1,4 +1,4 @@
-name: Build for Linux x64
+﻿name: Build for Linux x64
 
 on:
   workflow_call:
@@ -55,19 +55,18 @@ jobs:
         shell: pwsh
         run: lib/scripts/patch.ps1 Linux
 
-
-        # TODO: deb and rpm packages need to be build
+        #TODO: deb and rpm packages need to be build
       - name: Build Linux
         run: flutter build linux --release -v --pub --dart-define-from-file=pili_release.json
 
       - name: Package .tar.gz
-        run: tar -zcvf PiliPlus_linux_${{ env.version }}_amd64.tar.gz -C build/linux/x64/release/bundle .
+        run: tar -zcvf liqliquid_linux_${{ env.version }}_amd64.tar.gz -C build/linux/x64/release/bundle .
 
       - name: Packege deb
         run: |
           printf "建立构建目录...\n"
-          mkdir "PiliPlus_linux_${{ env.version }}_amd64"
-          pushd "PiliPlus_linux_${{ env.version }}_amd64"
+          mkdir "liqliquid_linux_${{ env.version }}_amd64"
+          pushd "liqliquid_linux_${{ env.version }}_amd64"
           mkdir -p opt/liqliquid
           mkdir -p usr/share/applications
           mkdir -p usr/share/icons/hicolor/512x512/apps
@@ -75,20 +74,20 @@ jobs:
           printf "复制文件...\n"
           cp -r ../build/linux/x64/release/bundle/* opt/liqliquid
           cp -r ../assets/linux/DEBIAN .
-          cp ../assets/linux/com.example.piliplus.desktop usr/share/applications
+          cp ../assets/linux/com.sxdliqliquid.app.desktop usr/share/applications
           cp ../assets/images/logo/logo.png usr/share/icons/hicolor/512x512/apps/liqliquid.png
 
           printf "修改控制文件...\n"
-          # 替换版本�?
+          # 替换版本号
           sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
-          # 计算安装大小并替�?
+          # 计算安装大小并替换
           SIZE_KB=$(du -s -b --apparent-size . | awk '{print int($1)}')
           SIZE_KB=$(($SIZE_KB - $(du -s -b --apparent-size DEBIAN | awk '{print int($1)}')))
           SIZE_KB=$(echo $SIZE_KB | awk '{print int($1/1024 + 0.999)}')
           printf "\t安装大小: %s KB\n" "$SIZE_KB"
           sed -i "9s/size_need_change/${SIZE_KB}/g" DEBIAN/control
 
-          printf "生成并写�?md5sums ...\n"
+          printf "生成并写入 md5sums ...\n"
           md5sum opt/liqliquid/liqliquid >> DEBIAN/md5sums
           md5sum opt/liqliquid/lib/* >> DEBIAN/md5sums
           md5sum opt/liqliquid/data/icudtl.dat >> DEBIAN/md5sums
@@ -102,8 +101,8 @@ jobs:
 
           printf "打包 deb 文件...\n"
           popd
-          dpkg-deb --build --verbose --root-owner-group "PiliPlus_linux_${{ env.version }}_amd64"
-          printf "完成: PiliPlus_linux_%s_amd64.deb\n" "${{ env.version }}"
+          dpkg-deb --build --verbose --root-owner-group "liqliquid_linux_${{ env.version }}_amd64"
+          printf "完成: liqliquid_linux_%s_amd64.deb\n" "${{ env.version }}"
         shell: bash
 
       - name: Packege rpm
@@ -117,12 +116,12 @@ jobs:
           SRC_DIR="$PWD/liqliquid-${{ env.version }}"
           mkdir -p "$SRC_DIR/bundle" "$SRC_DIR/assets"
           cp -r build/linux/x64/release/bundle/* "$SRC_DIR/bundle/"
-          cp assets/linux/com.example.piliplus.desktop "$SRC_DIR/assets/com.example.piliplus.desktop"
+          cp assets/linux/com.sxdliqliquid.app.desktop "$SRC_DIR/assets/com.sxdliqliquid.app.desktop"
           cp assets/images/logo/logo.png "$SRC_DIR/assets/liqliquid.png"
           tar -zcvf "$RPM_BUILD_ROOT/SOURCES/liqliquid-${{ env.version }}.tar.gz" -C "$PWD" "liqliquid-${{ env.version }}"
 
           printf "生成 spec 文件...\n"
-          cat > "$RPM_BUILD_ROOT/SPECS/liqliquid.spec" <<'EOF'
+          cat > "$RPM_BUILD_ROOT/SPECS/liqliquid.spec" <<EOF
           Name:           liqliquid
           Version:        ${{ env.version }}
           Release:        1%{?dist}
@@ -143,14 +142,14 @@ jobs:
           mkdir -p %{buildroot}/opt/liqliquid
           cp -r bundle/* %{buildroot}/opt/liqliquid/
 
-          # 二进制权限与命令行入�?
+          # 二进制权限与命令行入口
           chmod 755 %{buildroot}/opt/liqliquid/liqliquid
           mkdir -p %{buildroot}/usr/bin
           ln -sf /opt/liqliquid/liqliquid %{buildroot}/usr/bin/liqliquid
 
           # 桌面集成
           mkdir -p %{buildroot}/usr/share/applications
-          install -m 644 assets/com.example.piliplus.desktop %{buildroot}/usr/share/applications/com.example.piliplus.desktop
+          install -m 644 assets/com.sxdliqliquid.app.desktop %{buildroot}/usr/share/applications/com.sxdliqliquid.app.desktop
 
           mkdir -p %{buildroot}/usr/share/icons/hicolor/512x512/apps
           install -m 644 assets/liqliquid.png %{buildroot}/usr/share/icons/hicolor/512x512/apps/liqliquid.png
@@ -166,7 +165,7 @@ jobs:
           %files
           /opt/liqliquid
           /usr/bin/liqliquid
-          /usr/share/applications/com.example.piliplus.desktop
+          /usr/share/applications/com.sxdliqliquid.app.desktop
           /usr/share/icons/hicolor/512x512/apps/liqliquid.png
 
           %changelog
@@ -176,13 +175,13 @@ jobs:
 
           sed -i "s/DATE/${DATE}/g" "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "构建 RPM �?..\n"
+          printf "构建 RPM 包...\n"
           rpmbuild --define "_topdir $RPM_BUILD_ROOT" -bb "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "移动生成�?RPM...\n"
-          find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "PiliPlus_linux_${{ env.version }}_amd64.rpm" \;
+          printf "移动生成的 RPM...\n"
+          find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "liqliquid_linux_${{ env.version }}_amd64.rpm" \;
 
-          printf "完成: PiliPlus_linux_%s_amd64.rpm\n" "${{ env.version }}"
+          printf "完成: liqliquid_linux_%s_amd64.rpm\n" "${{ env.version }}"
         shell: bash
 
       - name: Package AppImage
@@ -201,9 +200,9 @@ jobs:
           printf "复制应用文件...\n"
           cp -r build/linux/x64/release/bundle/* "$APPDIR/usr/bin/"
 
-          printf "复制桌面文件和图�?..\n"
-          cp assets/linux/com.example.piliplus.desktop "$APPDIR/com.example.piliplus.desktop"
-          cp assets/linux/com.example.piliplus.desktop "$APPDIR/usr/share/applications/com.example.piliplus.desktop"
+          printf "复制桌面文件和图标...\n"
+          cp assets/linux/com.sxdliqliquid.app.desktop "$APPDIR/com.sxdliqliquid.app.desktop"
+          cp assets/linux/com.sxdliqliquid.app.desktop "$APPDIR/usr/share/applications/com.sxdliqliquid.app.desktop"
           cp assets/images/logo/logo.png "$APPDIR/liqliquid.png"
           cp assets/images/logo/logo.png "$APPDIR/usr/share/icons/hicolor/512x512/apps/liqliquid.png"
 
@@ -219,51 +218,51 @@ jobs:
           chmod +x "$APPDIR/AppRun"
 
           printf "修改桌面文件中的 Exec 路径...\n"
-          sed -i 's|Exec=liqliquid|Exec=liqliquid|g' "$APPDIR/com.example.piliplus.desktop"
-          sed -i 's|Icon=liqliquid|Icon=liqliquid|g' "$APPDIR/com.example.piliplus.desktop"
+          sed -i 's|Exec=liqliquid|Exec=liqliquid|g' "$APPDIR/com.sxdliqliquid.app.desktop"
+          sed -i 's|Icon=liqliquid|Icon=liqliquid|g' "$APPDIR/com.sxdliqliquid.app.desktop"
 
           printf "打包 AppImage...\n"
-          ARCH=x86_64 ./appimagetool-x86_64.AppImage "$APPDIR" "PiliPlus_linux_${{ env.version }}_amd64.AppImage"
+          ARCH=x86_64 ./appimagetool-x86_64.AppImage "$APPDIR" "liqliquid_linux_${{ env.version }}_amd64.AppImage"
 
-          printf "完成: PiliPlus_linux_%s_amd64.AppImage\n" "${{ env.version }}"
+          printf "完成: liqliquid_linux_%s_amd64.AppImage\n" "${{ env.version }}"
         shell: bash
 
       - name: Release
-        if: ${{ inputs.tag != '' }}
+        if: ${{ github.event.inputs.tag != '' }}
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ inputs.tag }}
-          name: ${{ inputs.tag }}
+          tag_name: ${{ github.event.inputs.tag }}
+          name: ${{ github.event.inputs.tag }}
           files: |
-            PiliPlus_linux_*.tar.gz
-            PiliPlus_linux_*.deb
-            PiliPlus_linux_*.rpm
-            PiliPlus_linux_*.AppImage
+            liqliquid_linux_*.tar.gz
+            liqliquid_linux_*.deb
+            liqliquid_linux_*.rpm
+            liqliquid_linux_*.AppImage
 
       - name: Upload linux targz package
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Linux_targz_amd64_packege
-          path: PiliPlus_linux_*.tar.gz
+          path: liqliquid_linux_*.tar.gz
 
       - name: Upload linux deb package
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Linux_deb_amd64_package
-          path: PiliPlus_linux_*.deb
+          path: liqliquid_linux_*.deb
 
       - name: Upload linux rpm package
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Linux_rpm_amd64_package
-          path: PiliPlus_linux_*.rpm
+          path: liqliquid_linux_*.rpm
 
       - name: Upload linux AppImage package
         uses: actions/upload-artifact@v7
         with:
           archive: false
           name: Linux_AppImage_amd64_package
-          path: PiliPlus_linux_*.AppImage
+          path: liqliquid_linux_*.AppImage

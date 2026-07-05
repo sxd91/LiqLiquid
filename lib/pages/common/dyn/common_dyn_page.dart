@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/skeleton/video_reply.dart';
+﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';

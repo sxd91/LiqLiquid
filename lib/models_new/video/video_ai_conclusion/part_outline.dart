@@ -1,4 +1,4 @@
-class PartOutline {
+﻿class PartOutline {
   int? timestamp;
   String? content;
 

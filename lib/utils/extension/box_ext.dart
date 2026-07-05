@@ -1,4 +1,4 @@
-import 'package:collection/collection.dart';
+﻿import 'package:collection/collection.dart';
 import 'package:hive_ce/hive.dart';
 
 extension BoxExt<E> on Box<E> {

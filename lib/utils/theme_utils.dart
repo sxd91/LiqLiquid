@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/style.dart';
+﻿import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/utils/extension/theme_ext.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/cupertino.dart' show CupertinoThemeData;

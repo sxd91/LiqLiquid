@@ -1,4 +1,4 @@
-class PaginationReply {
+﻿class PaginationReply {
   String? nextOffset;
 
   PaginationReply({this.nextOffset});

@@ -1,4 +1,4 @@
-class ReplyFolder {
+﻿class ReplyFolder {
   bool? hasFolded;
   bool? isFolded;
   String? rule;

@@ -1,4 +1,4 @@
-import 'package:liqliquid/models/dynamics/result.dart';
+﻿import 'package:liqliquid/models/dynamics/result.dart';
 import 'package:liqliquid/pages/dynamics_repost/view.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 import 'package:liqliquid/utils/page_utils.dart';

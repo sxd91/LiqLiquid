@@ -1,4 +1,4 @@
-abstract final class SponsorBlockApi {
+﻿abstract final class SponsorBlockApi {
   static const String skipSegments = 'skipSegments';
   static const String voteOnSponsorTime = 'voteOnSponsorTime';
   static const String viewedVideoSponsorTime = 'viewedVideoSponsorTime';

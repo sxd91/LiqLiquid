@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
+﻿import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
 import 'package:liqliquid/models/dynamics/result.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';

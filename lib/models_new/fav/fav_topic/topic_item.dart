@@ -1,4 +1,4 @@
-class FavTopicItem {
+﻿class FavTopicItem {
   int? id;
   String? name;
 

@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/pair.dart';
+﻿import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/models/common/sponsor_block/action_type.dart';
 import 'package:liqliquid/models/common/sponsor_block/segment_type.dart';
 

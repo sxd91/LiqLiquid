@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/color_palette.dart';
@@ -37,6 +37,7 @@ import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:liqliquid/utils/theme_utils.dart';
 import 'package:flutter/material.dart' hide StatefulBuilder;
 import 'package:flutter/services.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -74,6 +75,50 @@ List<SettingsModel> get styleSettings => [
       }
     },
   ),
+  // ======== iOS 26 液态玻璃风格设置 ========
+  /// 启用 iOS 26 Liquid Glass 设计语言（需要 Impeller 渲染引擎）
+  SwitchModel(
+    title: 'iOS 26 液态玻璃风格',
+    subtitle: '启用 iOS 26 Liquid Glass 设计语言，全局应用玻璃质感效果',
+    leading: const Icon(Icons.water_drop_outlined),
+    setKey: SettingBoxKey.useLiquidGlass,
+    defaultVal: true,
+    needReboot: true,
+    onChanged: (_) {
+      SmartDialog.showToast('液态玻璃风格切换将在重启后生效');
+    },
+  ),
+  /// 自定义浮动底部导航栏（默认开启）
+  SwitchModel(
+    title: '浮动底部导航栏',
+    subtitle: '使用自定义 Material 风格浮动底部导航栏替代系统默认导航',
+    leading: const Icon(Icons.swipe_up_outlined),
+    setKey: SettingBoxKey.floatingNavBar,
+    defaultVal: true,
+    needReboot: true,
+  ),
+  /// 液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
+  SwitchModel(
+    title: '玻璃质感底部导航栏',
+    subtitle: '启用液态玻璃材质的底部导航栏，含搜索按钮与变形动画',
+    leading: const Icon(Icons.blur_on_outlined),
+    setKey: SettingBoxKey.useGlassNavBar,
+    defaultVal: true,
+    needReboot: true,
+  ),
+  /// 主页自定义背景图片
+  NormalModel(
+    title: '主页背景图片',
+    leading: const Icon(Icons.image_outlined),
+    getSubtitle: () {
+      final bgPath = Pref.homeBgPath;
+      return bgPath != null && bgPath.isNotEmpty
+          ? '已设置自定义背景'
+          : '未设置';
+    },
+    onTap: _showHomeBgDialog,
+  ),
+  // ======== 原有侧边栏设置 ========
   const SwitchModel(
     title: '改用侧边栏',
     subtitle: '开启后底栏与顶栏被替换，且相关设置失效',
@@ -114,14 +159,6 @@ List<SettingsModel> get styleSettings => [
     defaultVal: true,
     needReboot: true,
   ),
-  SwitchModel(
-    title: 'iOS 26 Liquid Glass style',
-    subtitle: 'Enable iOS 26 Liquid Glass design language (Impeller required)',
-    leading: const Icon(Icons.water_drop_outlined),
-    setKey: SettingBoxKey.useLiquidGlass,
-    defaultVal: false,
-    needReboot: true,
-  ),
   const SwitchModel(
     title: 'MD3样式底栏',
     subtitle: 'Material You设计规范底栏，关闭可变窄',
@@ -130,13 +167,7 @@ List<SettingsModel> get styleSettings => [
     defaultVal: true,
     needReboot: true,
   ),
-  const SwitchModel(
-    title: '悬浮底栏',
-    leading: Icon(MdiIcons.soundbar),
-    setKey: SettingBoxKey.floatingNavBar,
-    defaultVal: false,
-    needReboot: true,
-  ),
+
   NormalModel(
     leading: const Icon(Icons.calendar_view_week_outlined),
     title: '列表宽度（dp）限制',
@@ -934,7 +965,54 @@ Future<void> _showBarHideTypeDialog(
   }
 }
 
-NormalModel _useSSDModel() {
+/// 主页自定义背景图片选择对话框
+/// 支持从本地文件系统选择图片作为主页背景
+void _showHomeBgDialog(
+  BuildContext context,
+  VoidCallback setState,
+) async {
+  final currentPath = Pref.homeBgPath;
+  await showDialog<String>(
+    context: context,
+    builder: (context) => SimpleDialog(
+      clipBehavior: Clip.hardEdge,
+      title: const Text('主页背景设置'),
+      children: [
+        if (currentPath != null && currentPath.isNotEmpty)
+          DialogOption(
+            onPressed: () {
+              GStorage.setting.delete(SettingBoxKey.homeBgPath);
+              Get.back();
+              SmartDialog.showToast('已恢复默认背景');
+              setState();
+            },
+            child: const Text('恢复默认背景', style: TextStyle(fontSize: 15)),
+          ),
+        DialogOption(
+          onPressed: () async {
+            Get.back();
+            try {
+              final result = await FilePicker.platform.pickFiles(
+                type: FileType.image,
+              );
+              if (result != null && result.files.single.path != null) {
+                final imgPath = result.files.single.path!;
+                await GStorage.setting.put(SettingBoxKey.homeBgPath, imgPath);
+                SmartDialog.showToast('背景设置成功，重启生效');
+                setState();
+              }
+            } catch (e) {
+              SmartDialog.showToast('选择图片失败');
+            }
+          },
+          child: const Text('选择本地图片', style: TextStyle(fontSize: 15)),
+        ),
+      ],
+    ),
+  );
+}
+
+${ssdStart}
   final file = File(path.join(appSupportDirPath, 'use_ssd'));
   void onChanged(BuildContext context, VoidCallback setState) {
     (file.existsSync() ? file.tryDel() : file.create()).whenComplete(() {

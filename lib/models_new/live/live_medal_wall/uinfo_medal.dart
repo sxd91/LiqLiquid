@@ -1,4 +1,4 @@
-class UinfoMedal {
+﻿class UinfoMedal {
   String? name;
   int? level;
   int? id;

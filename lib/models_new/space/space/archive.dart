@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/space/space/order.dart';
+﻿import 'package:liqliquid/models_new/space/space/order.dart';
 import 'package:liqliquid/models_new/space/space_archive/item.dart';
 
 class Archive {

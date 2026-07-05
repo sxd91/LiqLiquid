@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/custom_icon.dart';
+﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/pages/live_room/controller.dart';
 import 'package:liqliquid/pages/video/widgets/header_mixin.dart';
 import 'package:liqliquid/plugin/pl_player/controller.dart';

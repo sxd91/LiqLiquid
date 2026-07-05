@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/live/live_dm_info/host_list.dart';
+﻿import 'package:liqliquid/models_new/live/live_dm_info/host_list.dart';
 
 class LiveDmInfoData {
   String token;

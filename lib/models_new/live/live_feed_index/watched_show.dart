@@ -1,4 +1,4 @@
-class WatchedShow {
+﻿class WatchedShow {
   String? textLarge;
 
   WatchedShow({

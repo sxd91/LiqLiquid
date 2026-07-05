@@ -1,4 +1,4 @@
-import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
+﻿import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
 import 'package:liqliquid/models/user/danmaku_block.dart';
 
 class RuleFilter {

@@ -1,4 +1,4 @@
-import 'dart:collection';
+﻿import 'dart:collection';
 import 'dart:io' show File;
 
 import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';

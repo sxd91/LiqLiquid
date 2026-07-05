@@ -1,4 +1,4 @@
-import 'dart:math';
+﻿import 'dart:math';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';

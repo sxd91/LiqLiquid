@@ -1,4 +1,4 @@
-import 'dart:convert' show base64, jsonDecode, jsonEncode, utf8;
+﻿import 'dart:convert' show base64, jsonDecode, jsonEncode, utf8;
 import 'dart:io' show Platform;
 
 import 'package:liqliquid/http/browser_ua.dart';

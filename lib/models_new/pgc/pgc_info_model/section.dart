@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/pgc/pgc_info_model/episode.dart';
+﻿import 'package:liqliquid/models_new/pgc/pgc_info_model/episode.dart';
 
 class Section {
   List<EpisodeItem>? episodes;

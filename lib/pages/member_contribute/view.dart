@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
+﻿import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/models/common/member/contribute_type.dart';
 import 'package:liqliquid/models_new/space/space/tab2.dart';
 import 'package:liqliquid/pages/member_article/view.dart';

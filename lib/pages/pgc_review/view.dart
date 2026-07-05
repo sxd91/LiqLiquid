@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
+﻿import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/models/common/pgc_review_type.dart';
 import 'package:liqliquid/pages/pgc_review/child/controller.dart';
 import 'package:liqliquid/pages/pgc_review/child/view.dart';

@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/all_sort_by.dart';
+﻿import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/all_sort_by.dart';
 
 class TopicSortByConf {
   List<AllSortBy>? allSortBy;

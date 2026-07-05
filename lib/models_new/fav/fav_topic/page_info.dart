@@ -1,4 +1,4 @@
-class PageInfo {
+﻿class PageInfo {
   int? total;
 
   PageInfo({this.total});

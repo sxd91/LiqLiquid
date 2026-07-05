@@ -1,4 +1,4 @@
-class BgmRecommend {
+﻿class BgmRecommend {
   BgmRecommend({
     required this.bvid,
     required this.cid,

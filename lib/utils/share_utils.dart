@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+﻿import 'dart:io' show Platform;
 
 import 'package:liqliquid/utils/device_utils.dart';
 import 'package:liqliquid/utils/platform_utils.dart';

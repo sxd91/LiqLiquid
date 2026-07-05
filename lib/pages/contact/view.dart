@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/scroll_physics.dart';
+﻿import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/pages/fan/view.dart';
 import 'package:liqliquid/pages/follow/child/child_view.dart';
 import 'package:liqliquid/pages/follow_search/view.dart';

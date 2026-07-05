@@ -1,4 +1,4 @@
-class Area {
+﻿class Area {
   String? name;
 
   Area({this.name});

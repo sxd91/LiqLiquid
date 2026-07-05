@@ -1,4 +1,4 @@
-class UpowerRankInfo {
+﻿class UpowerRankInfo {
   int? mid;
   String? nickname;
   String? avatar;

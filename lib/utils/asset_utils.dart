@@ -1,4 +1,4 @@
-import 'dart:async' show FutureOr;
+﻿import 'dart:async' show FutureOr;
 import 'dart:io' show Platform, Directory, File;
 
 import 'package:flutter/services.dart' show rootBundle;

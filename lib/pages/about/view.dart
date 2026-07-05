@@ -138,6 +138,18 @@ class _AboutPageState extends State<AboutPage> {
               ],
             ),
           ),
+          // 开发者信息
+          ListTile(
+            title: Text(
+              'Space-X Dawn 1337（舒玺达）',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: outline,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           ListTile(
             onTap: () => Update.checkUpdate(false),
             onLongPress: () => Utils.copyText(currentVersion),

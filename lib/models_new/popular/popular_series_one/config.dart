@@ -1,4 +1,4 @@
-class PopularSeriesConfig {
+﻿class PopularSeriesConfig {
   String? name;
   String? label;
   int? mediaId;

@@ -1,4 +1,4 @@
-class PageInfo {
+﻿class PageInfo {
   bool? hasMore;
 
   PageInfo({this.hasMore});

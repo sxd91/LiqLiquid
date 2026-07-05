@@ -1,4 +1,4 @@
-import 'package:liqliquid/pages/setting/models/extra_settings.dart';
+﻿import 'package:liqliquid/pages/setting/models/extra_settings.dart';
 import 'package:liqliquid/pages/setting/models/model.dart';
 import 'package:liqliquid/pages/setting/models/play_settings.dart';
 import 'package:liqliquid/pages/setting/models/privacy_settings.dart';

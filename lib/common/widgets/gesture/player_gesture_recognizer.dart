@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart'
+﻿import 'package:flutter/gestures.dart'
     show ScaleGestureRecognizer, RecognizerCallback, GestureRecognizer;
 
 mixin PlayerGestureMixin on GestureRecognizer {

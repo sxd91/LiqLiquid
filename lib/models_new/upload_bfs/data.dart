@@ -1,4 +1,4 @@
-class UploadBfsResData {
+﻿class UploadBfsResData {
   String? imageUrl;
   int? imageWidth;
   int? imageHeight;

@@ -1,4 +1,4 @@
-import 'dart:math' show max, min;
+﻿import 'dart:math' show max, min;
 
 import 'package:liqliquid/models/common/video/audio_quality.dart';
 import 'package:liqliquid/models/common/video/video_quality.dart';

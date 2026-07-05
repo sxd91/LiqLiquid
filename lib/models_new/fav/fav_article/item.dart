@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/fav/fav_article/author.dart';
+﻿import 'package:liqliquid/models_new/fav/fav_article/author.dart';
 import 'package:liqliquid/models_new/fav/fav_article/cover.dart';
 import 'package:liqliquid/models_new/fav/fav_article/stat.dart';
 

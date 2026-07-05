@@ -1,4 +1,4 @@
-class ViewPoint {
+﻿class ViewPoint {
   int? type;
   int? from;
   int? to;

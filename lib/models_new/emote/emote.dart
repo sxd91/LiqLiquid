@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/emote/meta.dart';
+﻿import 'package:liqliquid/models_new/emote/meta.dart';
 
 class Emote {
   String? text;

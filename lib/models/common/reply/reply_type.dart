@@ -1,4 +1,4 @@
-// enum ReplyType {
+﻿// enum ReplyType {
 //   unset,
 //   // 视频
 //   video,

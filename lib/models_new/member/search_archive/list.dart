@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/member/search_archive/slist.dart';
+﻿import 'package:liqliquid/models_new/member/search_archive/slist.dart';
 import 'package:liqliquid/models_new/member/search_archive/vlist.dart';
 
 class SearchArchiveList {

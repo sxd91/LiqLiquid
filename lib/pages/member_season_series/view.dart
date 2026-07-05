@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/member/contribute_type.dart';

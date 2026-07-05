@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/skeleton/video_reply.dart';
+﻿import 'package:liqliquid/common/skeleton/video_reply.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/colored_box_transition.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';

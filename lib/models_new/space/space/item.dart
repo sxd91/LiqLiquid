@@ -1,4 +1,4 @@
-class Item {
+﻿class Item {
   String? title;
   String? subtitle;
   String? tname;

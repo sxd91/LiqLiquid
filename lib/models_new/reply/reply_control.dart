@@ -1,4 +1,4 @@
-class ReplyControl {
+﻿class ReplyControl {
   int? maxLine;
   String? timeDesc;
   String? bizScene;

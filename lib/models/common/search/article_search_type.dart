@@ -1,4 +1,4 @@
-enum ArticleOrderType {
+﻿enum ArticleOrderType {
   totalrank('综合排序'),
   pubdate('最新发布'),
   click('最多点击'),

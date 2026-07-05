@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/keep_alive_wrapper.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';

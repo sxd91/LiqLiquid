@@ -1,4 +1,4 @@
-class DynReactionItem {
+﻿class DynReactionItem {
   String? action;
   String? face;
   String? mid;

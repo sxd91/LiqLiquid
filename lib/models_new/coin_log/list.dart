@@ -1,4 +1,4 @@
-class CoinLogItem {
+﻿class CoinLogItem {
   const CoinLogItem({
     required this.time,
     required this.delta,

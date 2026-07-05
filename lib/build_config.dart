@@ -1,4 +1,4 @@
-abstract final class BuildConfig {
+﻿abstract final class BuildConfig {
   static const int versionCode = int.fromEnvironment(
     'pili.code',
     defaultValue: 1,

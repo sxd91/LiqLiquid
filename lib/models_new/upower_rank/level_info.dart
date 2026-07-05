@@ -1,4 +1,4 @@
-class LevelInfo {
+﻿class LevelInfo {
   int? privilegeType;
   String? name;
   int? memberTotal;

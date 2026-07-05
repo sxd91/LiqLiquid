@@ -1,4 +1,4 @@
-class DescV2 {
+﻿class DescV2 {
   String? rawText;
   int? type;
   int? bizId;

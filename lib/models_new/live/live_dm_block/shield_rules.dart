@@ -1,4 +1,4 @@
-class ShieldRules {
+﻿class ShieldRules {
   int rank;
   int verify;
   int level;

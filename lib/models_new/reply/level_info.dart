@@ -1,4 +1,4 @@
-class LevelInfo {
+﻿class LevelInfo {
   int? currentLevel;
   int? currentMin;
   int? currentExp;

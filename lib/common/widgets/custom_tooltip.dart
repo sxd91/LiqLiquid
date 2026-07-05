@@ -1,4 +1,4 @@
-import 'package:liqliquid/utils/platform_utils.dart';
+﻿import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart'
     show

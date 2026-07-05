@@ -1,4 +1,4 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/pair.dart';
@@ -51,7 +51,7 @@ class WebDav {
   }
 
   String _getFileName() {
-    return 'piliplus_settings_${DeviceUtils.platformName}.json';
+    return 'liqliquid_settings_${DeviceUtils.platformName}.json';
   }
 
   Future<void> backup() async {

@@ -1,4 +1,4 @@
-// dart format width=120
+﻿// dart format width=120
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

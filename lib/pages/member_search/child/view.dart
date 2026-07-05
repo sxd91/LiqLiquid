@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
+﻿import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/member/search_type.dart';

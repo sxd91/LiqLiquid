@@ -1,4 +1,4 @@
-class Episode {
+﻿class Episode {
   String? cover;
   int? episodeId;
   int? follow;

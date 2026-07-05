@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
+﻿import 'package:liqliquid/common/widgets/gesture/tap_gesture_recognizer.dart';
 import 'package:liqliquid/common/widgets/selectable_text.dart';
 import 'package:liqliquid/models_new/video/video_ai_conclusion/model_result.dart';
 import 'package:liqliquid/pages/common/slide/common_slide_page.dart';

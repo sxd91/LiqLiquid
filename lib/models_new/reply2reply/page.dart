@@ -1,4 +1,4 @@
-class ReplyPage {
+﻿class ReplyPage {
   int? num;
   int? size;
   int? count;

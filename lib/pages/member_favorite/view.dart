@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/skeleton/video_card_h.dart';
+﻿import 'package:liqliquid/common/skeleton/video_card_h.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/sliver/sliver_pinned_header.dart';

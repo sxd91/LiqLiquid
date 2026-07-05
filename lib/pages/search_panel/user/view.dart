@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
+﻿import 'package:liqliquid/common/skeleton/msg_feed_top.dart';
 import 'package:liqliquid/common/widgets/sliver/sliver_floating_header.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/pages/search_panel/user/controller.dart';

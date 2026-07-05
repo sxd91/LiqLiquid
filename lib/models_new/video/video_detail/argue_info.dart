@@ -1,4 +1,4 @@
-class ArgueInfo {
+﻿class ArgueInfo {
   String? argueMsg;
 
   ArgueInfo({this.argueMsg});

@@ -1,4 +1,4 @@
-import 'package:liqliquid/pages/common/multi_select/base.dart';
+﻿import 'package:liqliquid/pages/common/multi_select/base.dart';
 
 class MentionItem with MultiSelectData {
   final String? face;

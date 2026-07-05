@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
+﻿import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models/common/image_type.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_mention/item.dart';
 import 'package:liqliquid/utils/num_utils.dart';

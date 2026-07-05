@@ -1,4 +1,4 @@
-import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show MainListReply, VoteCard, ReplyInfo;
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';

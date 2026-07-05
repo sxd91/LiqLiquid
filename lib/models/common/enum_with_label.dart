@@ -1,3 +1,3 @@
-mixin EnumWithLabel on Enum {
+﻿mixin EnumWithLabel on Enum {
   String get label;
 }

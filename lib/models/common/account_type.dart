@@ -1,4 +1,4 @@
-enum AccountType {
+﻿enum AccountType {
   main('主账号'),
   heartbeat('记录观看'),
   recommend('推荐'),

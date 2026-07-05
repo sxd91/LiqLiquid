@@ -1,4 +1,4 @@
-import 'package:liqliquid/utils/storage_pref.dart';
+﻿import 'package:liqliquid/utils/storage_pref.dart';
 
 enum MemberTabType {
   def('默认'),

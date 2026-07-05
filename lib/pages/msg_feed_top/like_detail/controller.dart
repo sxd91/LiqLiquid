@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/loading_state.dart';
+﻿import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/msg.dart';
 import 'package:liqliquid/models_new/msg/msg_like_detail/card.dart';
 import 'package:liqliquid/models_new/msg/msg_like_detail/data.dart';

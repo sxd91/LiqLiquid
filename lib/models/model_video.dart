@@ -1,4 +1,4 @@
-abstract class BaseSimpleVideoItemModel {
+﻿abstract class BaseSimpleVideoItemModel {
   late String title;
   String? bvid;
   int? cid;

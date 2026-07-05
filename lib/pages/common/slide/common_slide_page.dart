@@ -1,4 +1,4 @@
-import 'dart:math' show max;
+﻿import 'dart:math' show max;
 
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart';
 import 'package:liqliquid/utils/storage_pref.dart';

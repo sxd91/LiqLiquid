@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
+﻿import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
 import 'package:liqliquid/utils/bili_utils.dart';
 import 'package:flutter/material.dart';

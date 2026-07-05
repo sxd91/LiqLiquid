@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/live/live_room_play_info/url_info.dart';
+﻿import 'package:liqliquid/models_new/live/live_room_play_info/url_info.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class CodecItem {

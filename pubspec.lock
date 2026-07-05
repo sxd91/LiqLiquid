@@ -468,10 +468,10 @@ packages:
     dependency: transitive
     description:
       name: equatable
-      sha256: "3e0141505477fd8ad55d6eb4e7776d3fe8430be8e497ccb1521370c3f21a3e2b"
+      sha256: "3bce007a596ff8b3119c45d68aaef631272537c03d30e5d4534dd24bf4c5eaa2"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.8"
+    version: "2.1.0"
   expandable:
     dependency: "direct main"
     description:
@@ -1065,10 +1065,10 @@ packages:
     dependency: "direct main"
     description:
       name: liquid_glass_widgets
-      sha256: ed16c4b4fc4aea01083a6c75c7188626e86e4105414f31899a71c9498d0deab9
+      sha256: f9af2ef9587d4644739b16a9dbc7c57391e652990c9cc6c367be45e74154e03a
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.21.0"
+    version: "0.21.1"
   list_counter:
     dependency: transitive
     description:
@@ -1438,14 +1438,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.6.0"
-  progressive_blur:
-    dependency: "direct main"
-    description:
-      name: progressive_blur
-      sha256: "3a8845133b9c67dbd6b49eb14000c2a05d142d6d9ad7281f2d2eb63fba181d37"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.2"
   protobuf:
     dependency: "direct main"
     description:

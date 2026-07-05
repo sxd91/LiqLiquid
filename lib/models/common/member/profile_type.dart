@@ -1,1 +1,1 @@
-enum ProfileType { uname, sign, sex, birthday }
+﻿enum ProfileType { uname, sign, sex, birthday }

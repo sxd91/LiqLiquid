@@ -1,4 +1,4 @@
-enum DynamicBadgeMode {
+﻿enum DynamicBadgeMode {
   hidden('隐藏'),
   point('红点'),
   number('数字'),

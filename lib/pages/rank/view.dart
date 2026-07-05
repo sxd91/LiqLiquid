@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/flutter/vertical_tabs.dart';
+﻿import 'package:liqliquid/common/widgets/flutter/vertical_tabs.dart';
 import 'package:liqliquid/models/common/rank_type.dart';
 import 'package:liqliquid/pages/rank/controller.dart';
 import 'package:liqliquid/pages/rank/zone/view.dart';

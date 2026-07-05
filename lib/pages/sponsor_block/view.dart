@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/pair.dart';
+﻿import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/http/constants.dart';
 import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/loading_state.dart';

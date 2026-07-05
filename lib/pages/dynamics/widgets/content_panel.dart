@@ -1,4 +1,4 @@
-// 内容
+﻿// 内容
 import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/common/widgets/flutter/text/text.dart' as custom_text;
 import 'package:liqliquid/common/widgets/image_grid/image_grid_view.dart';

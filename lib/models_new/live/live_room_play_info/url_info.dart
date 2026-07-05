@@ -1,4 +1,4 @@
-class UrlInfo {
+﻿class UrlInfo {
   String host;
   String extra;
 

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show immutable;
+﻿import 'package:flutter/foundation.dart' show immutable;
 
 class SpaceTab2 {
   final String? title;

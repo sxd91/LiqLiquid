@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/dynamic/dyn_mention/item.dart';
+﻿import 'package:liqliquid/models_new/dynamic/dyn_mention/item.dart';
 
 class MentionGroup {
   String? groupName;

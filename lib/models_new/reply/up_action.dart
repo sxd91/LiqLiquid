@@ -1,4 +1,4 @@
-class UpAction {
+﻿class UpAction {
   bool? like;
   bool? reply;
 

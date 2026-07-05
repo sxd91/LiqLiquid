@@ -1,4 +1,4 @@
-class Publish {
+﻿class Publish {
   String? pubTimeShow;
 
   Publish({

@@ -1,1 +1,1 @@
-enum LiveSearchType { room, user }
+﻿enum LiveSearchType { room, user }

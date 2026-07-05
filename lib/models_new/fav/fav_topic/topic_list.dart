@@ -1,4 +1,4 @@
-import 'package:liqliquid/models_new/fav/fav_topic/page_info.dart';
+﻿import 'package:liqliquid/models_new/fav/fav_topic/page_info.dart';
 import 'package:liqliquid/models_new/fav/fav_topic/topic_item.dart';
 
 class TopicList {

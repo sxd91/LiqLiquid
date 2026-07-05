@@ -1,4 +1,4 @@
-class UidSetting {
+﻿class UidSetting {
   int? setting;
 
   UidSetting({this.setting});

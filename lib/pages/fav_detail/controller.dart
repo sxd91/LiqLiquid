@@ -1,4 +1,4 @@
-import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/common/fav_order_type.dart';

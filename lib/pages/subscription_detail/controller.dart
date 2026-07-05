@@ -1,4 +1,4 @@
-import 'package:liqliquid/http/fav.dart';
+﻿import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/sub/sub/list.dart';
 import 'package:liqliquid/models_new/sub/sub_detail/data.dart';
