@@ -483,10 +483,10 @@ class _MainAppState extends PopScopeState<MainApp>
         ),
         child: child,
       ),
-      // Wrap bottom nav with LiquidGlass for glass-morphism effect
-      bottomNavigationBar: LGContainer(
-        child: bottomNav,
-      ),
+      // Wrap bottom nav with LiquidGlass for glass-morphism effect (mobile only)
+      bottomNavigationBar: PlatformUtils.isMobile
+          ? LGContainer(child: bottomNav)
+          : bottomNav,
     );
 
     if (PlatformUtils.isMobile) {

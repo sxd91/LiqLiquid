@@ -74,20 +74,20 @@ jobs:
           printf "复制文件...\n"
           cp -r ../build/linux/x64/release/bundle/* opt/liqliquid
           cp -r ../assets/linux/DEBIAN .
-          cp ../assets/linux/com.sxdliqliquid.app.desktop usr/share/applications
+          cp ../assets/linux/com.example.piliplus.desktop usr/share/applications
           cp ../assets/images/logo/logo.png usr/share/icons/hicolor/512x512/apps/liqliquid.png
 
           printf "修改控制文件...\n"
-          # 替换版本号
+          # 替换版本�?
           sed -i  "2s/version_need_change/${{ env.version }}/g" DEBIAN/control
-          # 计算安装大小并替换
+          # 计算安装大小并替�?
           SIZE_KB=$(du -s -b --apparent-size . | awk '{print int($1)}')
           SIZE_KB=$(($SIZE_KB - $(du -s -b --apparent-size DEBIAN | awk '{print int($1)}')))
           SIZE_KB=$(echo $SIZE_KB | awk '{print int($1/1024 + 0.999)}')
           printf "\t安装大小: %s KB\n" "$SIZE_KB"
           sed -i "9s/size_need_change/${SIZE_KB}/g" DEBIAN/control
 
-          printf "生成并写入 md5sums ...\n"
+          printf "生成并写�?md5sums ...\n"
           md5sum opt/liqliquid/liqliquid >> DEBIAN/md5sums
           md5sum opt/liqliquid/lib/* >> DEBIAN/md5sums
           md5sum opt/liqliquid/data/icudtl.dat >> DEBIAN/md5sums
@@ -116,7 +116,7 @@ jobs:
           SRC_DIR="$PWD/liqliquid-${{ env.version }}"
           mkdir -p "$SRC_DIR/bundle" "$SRC_DIR/assets"
           cp -r build/linux/x64/release/bundle/* "$SRC_DIR/bundle/"
-          cp assets/linux/com.sxdliqliquid.app.desktop "$SRC_DIR/assets/com.sxdliqliquid.app.desktop"
+          cp assets/linux/com.example.piliplus.desktop "$SRC_DIR/assets/com.example.piliplus.desktop"
           cp assets/images/logo/logo.png "$SRC_DIR/assets/liqliquid.png"
           tar -zcvf "$RPM_BUILD_ROOT/SOURCES/liqliquid-${{ env.version }}.tar.gz" -C "$PWD" "liqliquid-${{ env.version }}"
 
@@ -142,14 +142,14 @@ jobs:
           mkdir -p %{buildroot}/opt/liqliquid
           cp -r bundle/* %{buildroot}/opt/liqliquid/
 
-          # 二进制权限与命令行入口
+          # 二进制权限与命令行入�?
           chmod 755 %{buildroot}/opt/liqliquid/liqliquid
           mkdir -p %{buildroot}/usr/bin
           ln -sf /opt/liqliquid/liqliquid %{buildroot}/usr/bin/liqliquid
 
           # 桌面集成
           mkdir -p %{buildroot}/usr/share/applications
-          install -m 644 assets/com.sxdliqliquid.app.desktop %{buildroot}/usr/share/applications/com.sxdliqliquid.app.desktop
+          install -m 644 assets/com.example.piliplus.desktop %{buildroot}/usr/share/applications/com.example.piliplus.desktop
 
           mkdir -p %{buildroot}/usr/share/icons/hicolor/512x512/apps
           install -m 644 assets/liqliquid.png %{buildroot}/usr/share/icons/hicolor/512x512/apps/liqliquid.png
@@ -165,7 +165,7 @@ jobs:
           %files
           /opt/liqliquid
           /usr/bin/liqliquid
-          /usr/share/applications/com.sxdliqliquid.app.desktop
+          /usr/share/applications/com.example.piliplus.desktop
           /usr/share/icons/hicolor/512x512/apps/liqliquid.png
 
           %changelog
@@ -175,10 +175,10 @@ jobs:
 
           sed -i "s/DATE/${DATE}/g" "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "构建 RPM 包...\n"
+          printf "构建 RPM �?..\n"
           rpmbuild --define "_topdir $RPM_BUILD_ROOT" -bb "$RPM_BUILD_ROOT/SPECS/liqliquid.spec"
 
-          printf "移动生成的 RPM...\n"
+          printf "移动生成�?RPM...\n"
           find "$RPM_BUILD_ROOT/RPMS" -name "*.rpm" -exec mv {} "PiliPlus_linux_${{ env.version }}_amd64.rpm" \;
 
           printf "完成: PiliPlus_linux_%s_amd64.rpm\n" "${{ env.version }}"
@@ -200,9 +200,9 @@ jobs:
           printf "复制应用文件...\n"
           cp -r build/linux/x64/release/bundle/* "$APPDIR/usr/bin/"
 
-          printf "复制桌面文件和图标...\n"
-          cp assets/linux/com.sxdliqliquid.app.desktop "$APPDIR/com.sxdliqliquid.app.desktop"
-          cp assets/linux/com.sxdliqliquid.app.desktop "$APPDIR/usr/share/applications/com.sxdliqliquid.app.desktop"
+          printf "复制桌面文件和图�?..\n"
+          cp assets/linux/com.example.piliplus.desktop "$APPDIR/com.example.piliplus.desktop"
+          cp assets/linux/com.example.piliplus.desktop "$APPDIR/usr/share/applications/com.example.piliplus.desktop"
           cp assets/images/logo/logo.png "$APPDIR/liqliquid.png"
           cp assets/images/logo/logo.png "$APPDIR/usr/share/icons/hicolor/512x512/apps/liqliquid.png"
 
@@ -218,8 +218,8 @@ jobs:
           chmod +x "$APPDIR/AppRun"
 
           printf "修改桌面文件中的 Exec 路径...\n"
-          sed -i 's|Exec=liqliquid|Exec=liqliquid|g' "$APPDIR/com.sxdliqliquid.app.desktop"
-          sed -i 's|Icon=liqliquid|Icon=liqliquid|g' "$APPDIR/com.sxdliqliquid.app.desktop"
+          sed -i 's|Exec=liqliquid|Exec=liqliquid|g' "$APPDIR/com.example.piliplus.desktop"
+          sed -i 's|Icon=liqliquid|Icon=liqliquid|g' "$APPDIR/com.example.piliplus.desktop"
 
           printf "打包 AppImage...\n"
           ARCH=x86_64 ./appimagetool-x86_64.AppImage "$APPDIR" "PiliPlus_linux_${{ env.version }}_amd64.AppImage"
