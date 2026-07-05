@@ -1,4 +1,4 @@
-﻿import 'dart:async' show Timer;
+import 'dart:async' show Timer;
 import 'dart:convert' show jsonDecode, utf8;
 import 'dart:io' show Platform, File;
 import 'dart:typed_data' show Uint8List;
@@ -63,6 +63,7 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/material.dart' hide showBottomSheet;
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -1342,7 +1343,15 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0.5,
+                        max: 2.5,
+                        value: subtitleFontScale,
+                        divisions: 20,
+                        label:
+                            '${(subtitleFontScale * 100).toStringAsFixed(1)}%',
+                        onChanged: updateFontScale,
+                      ) : Slider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScale,
@@ -1371,7 +1380,15 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0.5,
+                        max: 2.5,
+                        value: subtitleFontScaleFS,
+                        divisions: 20,
+                        label:
+                            '${(subtitleFontScaleFS * 100).toStringAsFixed(1)}%',
+                        onChanged: updateFontScaleFS,
+                      ) : Slider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScaleFS,
@@ -1398,7 +1415,14 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0,
+                        max: 8,
+                        value: subtitleFontWeight.toDouble(),
+                        divisions: 8,
+                        label: '${subtitleFontWeight + 1}',
+                        onChanged: updateFontWeight,
+                      ) : Slider(
                         min: 0,
                         max: 8,
                         value: subtitleFontWeight.toDouble(),
@@ -1424,7 +1448,14 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0,
+                        max: 5,
+                        value: subtitleStrokeWidth,
+                        divisions: 10,
+                        label: '$subtitleStrokeWidth',
+                        onChanged: updateStrokeWidth,
+                      ) : Slider(
                         min: 0,
                         max: 5,
                         value: subtitleStrokeWidth,
@@ -1450,7 +1481,14 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0,
+                        max: 100,
+                        value: subtitlePaddingH.toDouble(),
+                        divisions: 100,
+                        label: '$subtitlePaddingH',
+                        onChanged: updateHorizontalPadding,
+                      ) : Slider(
                         min: 0,
                         max: 100,
                         value: subtitlePaddingH.toDouble(),
@@ -1476,7 +1514,14 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0,
+                        max: 200,
+                        value: subtitlePaddingB.toDouble(),
+                        divisions: 200,
+                        label: '$subtitlePaddingB',
+                        onChanged: updateBottomPadding,
+                      ) : Slider(
                         min: 0,
                         max: 200,
                         value: subtitlePaddingB.toDouble(),
@@ -1502,7 +1547,12 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Slider(
+                      child: Pref.useLiquidGlass ? GlassSlider(
+                        min: 0,
+                        max: 1,
+                        value: subtitleBgOpacity,
+                        onChanged: updateOpacity,
+                      ) : Slider(
                         min: 0,
                         max: 1,
                         value: subtitleBgOpacity,

@@ -34,6 +34,7 @@ import 'package:collection/collection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -276,7 +277,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
       initialRoute: '/',
       getPages: Routes.getPages,
-      defaultTransition: Pref.pageTransition,
+      defaultTransition: Pref.useLiquidGlass ? Transition.cupertino : Pref.pageTransition,
       builder: FlutterSmartDialog.init(
         toastBuilder: CustomToast.new,
         loadingBuilder: LoadingWidget.new,
@@ -289,9 +290,7 @@ class MyApp extends StatelessWidget {
         routeObserver,
         FlutterSmartDialog.observer,
       ],
-      scrollBehavior: PlatformUtils.isDesktop
-          ? const CustomScrollBehavior(desktopDragDevices)
-          : null,
+      scrollBehavior: PlatformUtils.isDesktop ? (Pref.useLiquidGlass ? const LiquidGlassScrollBehavior(desktopDragDevices) : const CustomScrollBehavior(desktopDragDevices)) : null,
     );
   }
 

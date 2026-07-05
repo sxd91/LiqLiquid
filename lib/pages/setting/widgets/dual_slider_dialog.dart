@@ -1,5 +1,6 @@
 ﻿import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 class DualSliderDialog extends StatefulWidget {
   final double value1;
@@ -58,7 +59,18 @@ class _DualSliderDialogState extends State<DualSliderDialog> {
           widget.description1,
           Builder(
             builder: (context) {
-              return Slider(
+              return Pref.useLiquidGlass ? GlassSlider(
+                value: _tempValue1,
+                min: widget.min,
+                max: widget.max,
+                divisions: widget.divisions,
+                label:
+                    '${_tempValue1.toStringAsFixed(widget.precise)}${widget.suffix}',
+                onChanged: (double value) {
+                  _tempValue1 = value.toPrecision(widget.precise);
+                  (context as Element).markNeedsBuild();
+                },
+              ) : Slider(
                 value: _tempValue1,
                 min: widget.min,
                 max: widget.max,
@@ -75,7 +87,18 @@ class _DualSliderDialogState extends State<DualSliderDialog> {
           widget.description2,
           Builder(
             builder: (context) {
-              return Slider(
+              return Pref.useLiquidGlass ? GlassSlider(
+                value: _tempValue2,
+                min: widget.min,
+                max: widget.max,
+                divisions: widget.divisions,
+                label:
+                    '${_tempValue2.toStringAsFixed(widget.precise)}${widget.suffix}',
+                onChanged: (double value) {
+                  _tempValue2 = value.toPrecision(widget.precise);
+                  (context as Element).markNeedsBuild();
+                },
+              ) : Slider(
                 value: _tempValue2,
                 min: widget.min,
                 max: widget.max,

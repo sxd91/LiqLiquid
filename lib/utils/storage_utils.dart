@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File;
+import 'dart:io' show File;
 import 'dart:typed_data' show Uint8List;
 
 import 'package:liqliquid/utils/platform_utils.dart';

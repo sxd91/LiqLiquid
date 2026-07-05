@@ -164,8 +164,7 @@ class _HomePageState extends CommonPageState<HomePage>
     const padding = EdgeInsets.fromLTRB(14, 6, 14, 0);
     final child = Row(
       children: [
-        searchBar(theme),
-        const SizedBox(width: 4),
+        const Spacer(),
         msgBadge(_mainController),
         const SizedBox(width: 8),
         userAvatar(theme: theme, mainController: _mainController),

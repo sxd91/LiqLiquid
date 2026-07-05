@@ -81,6 +81,9 @@ jobs:
                   flutter-version-file: pubspec.yaml
                   cache: true
 
+            - name: Flutter Analyze
+              run: flutter analyze
+
             - name: Apply Patch
               shell: pwsh
               run: lib/scripts/patch.ps1 android

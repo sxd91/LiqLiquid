@@ -1,8 +1,9 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/common/widgets/flutter/list_tile.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:flutter/material.dart' hide ListTile;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
@@ -109,10 +110,10 @@ class _SetSwitchItemState extends State<SetSwitchItem> {
     final switchBtn = Transform.scale(
       scale: 0.8,
       alignment: .centerRight,
-      child: Switch(
-        value: val,
-        onChanged: switchChange,
-      ),
+      child: Pref.useLiquidGlass ? GlassSwitch(value: val, onChanged: (v) => switchChange(v)) : Switch(
+      value: val,
+      onChanged: switchChange,
+    ),
     );
 
     Widget child(Widget? trailing) => ListTile(

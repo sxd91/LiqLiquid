@@ -12,6 +12,7 @@ import 'package:liqliquid/utils/utils.dart';
 import 'package:collection/collection.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 import 'package:get/get.dart';
 
@@ -213,7 +214,28 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
           return Row(
             children: [
               const Text('用户等级'),
-              Slider(
+              Pref.useLiquidGlass ? GlassSlider(
+                min: 0,
+                max: 60,
+                // ignore: deprecated_member_use
+                year2023: true,
+                inactiveColor: theme.colorScheme.onInverseSurface,
+                padding: const EdgeInsets.only(left: 20, right: 25),
+                value: level.toDouble(),
+                onChangeStart: (value) => _controller.oldLevel = level,
+                onChanged: (value) =>
+                    _controller.level.value = value.round().clamp(0, 60),
+                onChangeEnd: (value) {
+                  if (_controller.oldLevel != level) {
+                    _controller.setSilent(
+                      LiveDmSilentType.level,
+                      level,
+                      onError: () =>
+                          _controller.level.value = _controller.oldLevel ?? 0,
+                    );
+                  }
+                },
+              ) : Slider(
                 min: 0,
                 max: 60,
                 // ignore: deprecated_member_use

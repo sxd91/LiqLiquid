@@ -63,4 +63,17 @@ class GlassAppBarWrapper extends StatelessWidget implements PreferredSizeWidget 
     }
     return AppBar(leading: showBackButton ? IconButton(icon: const Icon(Icons.arrow_back_rounded), onPressed: onBackTap ?? () => Navigator.of(context).pop()) : null, title: title, actions: actions);
   }
+
+/// 玻璃页面包裹 - 条件性 GlassPage
+class GlassPageWrapper extends StatelessWidget {
+  const GlassPageWrapper({super.key, required this.child, this.settings});
+  final Widget child;
+  final LiquidGlassSettings? settings;
+  @override
+  Widget build(BuildContext context) {
+    if (!Pref.useLiquidGlass) return child;
+    return GlassPage(settings: settings ?? LiquidGlassSettings(thickness: 12.0, blur: 20.0, chromaticAberration: 0.5, refractiveIndex: 1.35), child: child);
+  }
+}
+
 }

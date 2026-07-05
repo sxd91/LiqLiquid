@@ -985,8 +985,8 @@ void _showHomeBgDialog(
             Get.back();
             try {
               final result = await FilePicker.pickFile(
-                type: FileType.image,
-              );
+              type: FileType.image,
+            );
               if (result != null && result.path != null) {
                 final imgPath = result.path!;
                 await GStorage.setting.put(SettingBoxKey.homeBgPath, imgPath);

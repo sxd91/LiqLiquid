@@ -4,6 +4,7 @@ import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/floating_navigation_bar.dart';
+import 'package:liqliquid/common/widgets/glass_interaction.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/tabs.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -290,6 +291,10 @@ class _MainAppState extends PopScopeState<MainApp>
     if (_mainController.navigationBars.length > 1) {
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
         bottomNav = GlassTabBar.searchable(
+          settings: LiquidGlassSettings(glassColor: Colors.black.withValues(alpha: 0.88), blur: 3.0, refractiveIndex: 1.4, thickness: 16.0, chromaticAberration: 0.3),
+          indicatorColor: Colors.grey.shade700,
+          innerBlur: 0.5,
+          enableBlend: false,
           selectedIndex: _mainController.selectedIndex.value,
           isSearchActive: _isSearching,
           onTabSelected: (index) {
