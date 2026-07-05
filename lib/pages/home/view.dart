@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_height_widget.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
@@ -25,7 +25,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends CommonPageState<HomePage>
     with AutomaticKeepAliveClientMixin {
-  /// 当前选中的标签页索引，用于 GlassSegmentedControl
   int _tabIndex = 0;
 
   final _homeController = Get.putOrFind(HomeController.new);
@@ -44,7 +43,6 @@ class _HomePageState extends CommonPageState<HomePage>
     super.dispose();
   }
 
-  /// 标签页切换回调，同步 GlassSegmentedControl 选中状态
   void _onTabChanged() {
     if (_tabIndex != _homeController.tabController.index) {
       setState(() => _tabIndex = _homeController.tabController.index);
@@ -63,7 +61,6 @@ class _HomePageState extends CommonPageState<HomePage>
     final theme = Theme.of(context);
     Widget tabBar;
     if (_homeController.tabs.length > 1) {
-      // 根据用户设置决定使用液态玻璃分段控件还是标准 TabBar
       if (Pref.useLiquidGlass) {
         tabBar = Padding(
           padding: const EdgeInsets.only(top: 4),
@@ -119,7 +116,6 @@ class _HomePageState extends CommonPageState<HomePage>
     } else {
       tabBar = const SizedBox(height: 6);
     }
-    // 主要内容区域（TabBarView 或 PageView）
     final mainContent = onBuild(
       tabBarView(
         controller: _homeController.tabController,
@@ -127,7 +123,6 @@ class _HomePageState extends CommonPageState<HomePage>
       ),
     );
 
-    // 竖屏且非侧边栏模式下，顶部使用 ProgressiveBlurWidget 渐变模糊
     if (!_mainController.useSideBar &&
         MediaQuery.sizeOf(context).isPortrait &&
         Pref.useLiquidGlass) {
@@ -135,23 +130,18 @@ class _HomePageState extends CommonPageState<HomePage>
         children: [
           Positioned.fill(child: mainContent),
           Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
+            top: 0, left: 0, right: 0,
             child: ProgressiveBlurWidget(
               sigma: 20.0,
-              linearGradientBlur: const LinearGradientBlur(
-                values: [1, 0],
-                stops: [0.0, 0.5],
+              linearGradientBlur: LinearGradientBlur(
+                values: const [1, 0],
+                stops: const [0.0, 0.5],
                 start: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  customAppBar(theme),
-                  tabBar,
-                ],
+                children: [customAppBar(theme), tabBar],
               ),
             ),
           ),
@@ -159,7 +149,6 @@ class _HomePageState extends CommonPageState<HomePage>
       );
     }
 
-    // 非液态玻璃模式或侧边栏模式：使用普通 Column 布局
     return Column(
       children: [
         if (!_mainController.useSideBar &&
@@ -215,7 +204,6 @@ class _HomePageState extends CommonPageState<HomePage>
         });
       }
     }
-    // 顶栏不在此处应用模糊，由外层 ProgressiveBlurWidget 统一处理
     return Container(
       height: Style.topBarHeight,
       padding: padding,

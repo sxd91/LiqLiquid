@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/widgets/dialog/export_import.dart';
 import 'package:liqliquid/common/widgets/disabled_icon.dart';

@@ -719,7 +719,7 @@ packages:
     source: hosted
     version: "2.0.35"
   flutter_shaders:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_shaders
       sha256: "34794acadd8275d971e02df03afee3dee0f98dbfb8c4837082ad0034f612a3e2"
@@ -1438,6 +1438,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.6.0"
+  progressive_blur:
+    dependency: "direct main"
+    description:
+      name: progressive_blur
+      sha256: "3a8845133b9c67dbd6b49eb14000c2a05d142d6d9ad7281f2d2eb63fba181d37"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   protobuf:
     dependency: "direct main"
     description:

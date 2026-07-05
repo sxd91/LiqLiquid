@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:liqliquid/common/widgets/color_palette.dart';
@@ -75,8 +75,7 @@ List<SettingsModel> get styleSettings => [
       }
     },
   ),
-  // ======== iOS 26 液态玻璃风格设置 ========
-  /// 启用 iOS 26 Liquid Glass 设计语言（需要 Impeller 渲染引擎）
+  // === iOS 26 液态玻璃 ===
   SwitchModel(
     title: 'iOS 26 液态玻璃风格',
     subtitle: '启用 iOS 26 Liquid Glass 设计语言，全局应用玻璃质感效果',
@@ -84,41 +83,34 @@ List<SettingsModel> get styleSettings => [
     setKey: SettingBoxKey.useLiquidGlass,
     defaultVal: true,
     needReboot: true,
-    onChanged: (_) {
-      SmartDialog.showToast('液态玻璃风格切换将在重启后生效');
-    },
+    onChanged: (_) => SmartDialog.showToast('液态玻璃风格切换将在重启后生效'),
   ),
-  /// 自定义浮动底部导航栏（默认开启）
   SwitchModel(
     title: '浮动底部导航栏',
-    subtitle: '使用自定义 Material 风格浮动底部导航栏替代系统默认导航',
+    subtitle: '使用自定义浮动底部导航栏',
     leading: const Icon(Icons.swipe_up_outlined),
     setKey: SettingBoxKey.floatingNavBar,
     defaultVal: true,
     needReboot: true,
   ),
-  /// 液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
   SwitchModel(
     title: '玻璃质感底部导航栏',
-    subtitle: '启用液态玻璃材质的底部导航栏，含搜索按钮与变形动画',
+    subtitle: '启用液态玻璃底部导航栏（GlassTabBar.searchable）',
     leading: const Icon(Icons.blur_on_outlined),
     setKey: SettingBoxKey.useGlassNavBar,
     defaultVal: true,
     needReboot: true,
   ),
-  /// 主页自定义背景图片
   NormalModel(
     title: '主页背景图片',
     leading: const Icon(Icons.image_outlined),
     getSubtitle: () {
       final bgPath = Pref.homeBgPath;
-      return bgPath != null && bgPath.isNotEmpty
-          ? '已设置自定义背景'
-          : '未设置';
+      return bgPath != null && bgPath.isNotEmpty ? '已设置' : '未设置';
     },
     onTap: _showHomeBgDialog,
   ),
-  // ======== 原有侧边栏设置 ========
+  // === 原有设置 ===
   const SwitchModel(
     title: '改用侧边栏',
     subtitle: '开启后底栏与顶栏被替换，且相关设置失效',
@@ -966,7 +958,6 @@ Future<void> _showBarHideTypeDialog(
 }
 
 /// 主页自定义背景图片选择对话框
-/// 支持从本地文件系统选择图片作为主页背景
 void _showHomeBgDialog(
   BuildContext context,
   VoidCallback setState,
@@ -1012,7 +1003,7 @@ void _showHomeBgDialog(
   );
 }
 
-${ssdStart}
+NormalModel _useSSDModel() {
   final file = File(path.join(appSupportDirPath, 'use_ssd'));
   void onChanged(BuildContext context, VoidCallback setState) {
     (file.existsSync() ? file.tryDel() : file.create()).whenComplete(() {

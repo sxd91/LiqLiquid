@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart'
     show deviceTouchSlop;
@@ -1016,14 +1016,18 @@ abstract final class Pref {
   static bool get saveReply =>
       _setting.get(SettingBoxKey.saveReply, defaultValue: true);
 
+  /// iOS 26 液态玻璃风格开关
+  static bool get useLiquidGlass =>
+      _setting.get(SettingBoxKey.useLiquidGlass, defaultValue: true);
+
   static bool get floatingNavBar =>
       _setting.get(SettingBoxKey.floatingNavBar, defaultValue: true);
 
-  /// 是否使用液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
+  /// 使用液态玻璃底部导航
   static bool get useGlassNavBar =>
       _setting.get(SettingBoxKey.useGlassNavBar, defaultValue: true);
 
-  /// 主页自定义背景图片路径，为空则使用默认背景
+  /// 主页自定义背景图片路径
   static String? get homeBgPath => _setting.get(SettingBoxKey.homeBgPath);
 
   static bool get removeSafeArea =>

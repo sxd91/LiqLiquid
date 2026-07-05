@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/view_safe_area.dart';
 import 'package:liqliquid/grpc/dyn.dart';
@@ -16,7 +16,6 @@ import 'package:liqliquid/utils/extension/iterable_ext.dart';
 import 'package:liqliquid/utils/feed_back.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
-import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:liqliquid/utils/update.dart';
 import 'package:collection/collection.dart';
@@ -57,7 +56,7 @@ class MainController extends GetxController
 
   final enableMYBar = Pref.enableMYBar;
   final floatingNavBar = Pref.floatingNavBar;
-  /// 是否使用液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
+  /// 玻璃底部导航
   final useGlassNavBar = Pref.useGlassNavBar;
   final useSideBar = Pref.useSideBar;
   final mainTabBarView = Pref.mainTabBarView;

@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -92,7 +92,6 @@ Future<void> _initAppPath() async {
 void main() async {
   ScaledWidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
-    // 初始化 LiquidGlassWidgets（必须在 runApp 前调用）
   await LiquidGlassWidgets.initialize();
   await _initAppPath();
   try {

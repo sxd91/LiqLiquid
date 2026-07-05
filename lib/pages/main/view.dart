@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
@@ -50,7 +50,6 @@ class _MainAppState extends PopScopeState<MainApp>
   late EdgeInsets _padding;
   late ThemeData theme;
   Brightness? _brightness;
-  /// 搜索是否激活，用于 GlassTabBar.searchable 搜索栏切换
   bool _isSearching = false;
 
   @override
@@ -289,7 +288,6 @@ class _MainAppState extends PopScopeState<MainApp>
   Widget? get _bottomNav {
     Widget? bottomNav;
     if (_mainController.navigationBars.length > 1) {
-      // 液态玻璃底部导航栏（GlassTabBar.searchable），默认开启
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
         bottomNav = GlassTabBar.searchable(
           selectedIndex: _mainController.selectedIndex.value,
@@ -304,18 +302,12 @@ class _MainAppState extends PopScopeState<MainApp>
           magnification: 1.15,
           quality: GlassQuality.premium,
           searchConfig: GlassSearchBarConfig(
-            hintText: '搜索',
+            hintText: "搜索",
             onSearchToggle: (active) {
-              if (active) {
-                Get.toNamed('/search');
-              }
+              if (active) Get.toNamed("/search");
               setState(() => _isSearching = false);
             },
-            searchIcon: Icon(
-              Icons.search,
-              size: 28,
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+            searchIcon: Icon(Icons.search, size: 28, color: theme.colorScheme.onSurfaceVariant),
             showsCancelButton: true,
           ),
           tabs: _mainController.navigationBars

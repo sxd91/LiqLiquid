@@ -1,4 +1,4 @@
-﻿abstract final class Constants {
+abstract final class Constants {
   static const appName = 'liqliquid';
   static const sourceCodeUrl = 'https://github.com/sxd91/LiqLiquid';
 

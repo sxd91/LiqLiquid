@@ -1,4 +1,4 @@
-﻿// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names
 
 abstract final class SettingBoxKey {
   static const String btmProgressBehavior = 'btmProgressBehavior',
@@ -225,7 +225,6 @@ abstract final class SettingBoxKey {
       useSideBar = 'useSideBar',
       useLiquidGlass = 'useLiquidGlass',
       useGlassNavBar = 'useGlassNavBar',
-      // 主页背景图片路径，用于自定义主页背景
       homeBgPath = 'homeBgPath',
       enableMYBar = 'enableMYBar',
       hideTopBar = 'hideSearchBar',

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 
 import 'package:liqliquid/build_config.dart';
@@ -138,16 +138,12 @@ class _AboutPageState extends State<AboutPage> {
               ],
             ),
           ),
-          // 开发者信息
+          // 开发者
           ListTile(
             title: Text(
-              'Space-X Dawn 1337（舒玺达）',
+              "Space-X Dawn 1337（舒玺达）",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: outline,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 14, color: outline, fontWeight: FontWeight.w500),
             ),
           ),
           ListTile(
