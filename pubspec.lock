@@ -251,10 +251,10 @@ packages:
     description:
       path: "packages/chat_bottom_container"
       ref: dev
-      resolved-ref: "227fe87aeedcd53573b17d6a6e5c08834fbc4e45"
+      resolved-ref: e5e74d45eef94c416b34a0727268b0de0ffa2ada
       url: "https://github.com/bggRGjQaUbCoE/flutter_chat_packages.git"
     source: git
-    version: "0.5.0"
+    version: "0.5.1"
   checked_yaml:
     dependency: transitive
     description:
@@ -1009,7 +1009,7 @@ packages:
     description:
       path: "pkgs/jnigen"
       ref: HEAD
-      resolved-ref: c8b26f45853eb518a5191d2fc47e70d7f23e690c
+      resolved-ref: "213cd7cf5fb2764cca5b35a40710a1e71e6d2cc9"
       url: "https://github.com/dart-lang/native.git"
     source: git
     version: "0.17.0-wip"
