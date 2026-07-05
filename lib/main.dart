@@ -45,6 +45,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:screen_brightness_platform_interface/screen_brightness_platform_interface.dart';
 import 'package:window_manager/window_manager.dart' hide calcWindowPosition;
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 
 WebViewEnvironment? webViewEnvironment;
 
@@ -186,21 +187,20 @@ void main() async {
     await MyApp.initPlatformState();
   }
 
-  FlutterError.onError = (details) {
-    FlutterError.presentError(details);
-    if (kDebugMode) debugPrint(details.exceptionAsString());
-  };
+  // Prevent black screen on widget build errors
   ErrorWidget.builder = (details) {
     return const Material(
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Text("Load error, please restart"),
+          child: Text("Load error, restart app"),
         ),
       ),
     );
   };
-
+  if (Pref.useLiquidGlass) {
+    await LiquidGlassWidgets.initialize();
+  }
   if (Pref.enableLog) {
     // 异常捕获 logo记录
     final customParameters = {
@@ -216,12 +216,12 @@ void main() async {
 
     Catcher2(
       [?fileHandler, const ConsoleHandler()],
-      const MyApp(),
+      Pref.useLiquidGlass ? LiquidGlassWidgets.wrap(child: const MyApp()) : const MyApp(),
       logger: logger,
       customParameters: customParameters,
     );
   } else {
-    runApp(const MyApp());
+    runApp(Pref.useLiquidGlass ? LiquidGlassWidgets.wrap(child: const MyApp()) : const MyApp());
   }
 }
 

@@ -4,7 +4,7 @@ import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/floating_navigation_bar.dart';
-import 'package:flutter_liquid_glass_plus/flutter_liquid_glass.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/flutter/tabs.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
@@ -22,6 +22,7 @@ import 'package:liqliquid/utils/extension/theme_ext.dart';
 import 'package:liqliquid/utils/mobile_observer.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -472,22 +473,37 @@ class _MainAppState extends PopScopeState<MainApp>
       );
     }
 
-    child = Scaffold(
-      extendBody: true,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(toolbarHeight: 0),
-      body: Padding(
-        padding: EdgeInsets.only(
-          left: _mainController.useBottomNav ? _padding.left : 0.0,
-          right: _padding.right,
-        ),
-        child: child,
-      ),
-      // Wrap bottom nav with LiquidGlass for glass-morphism effect (mobile only)
-      bottomNavigationBar: PlatformUtils.isMobile && bottomNav != null
-          ? LGContainer(child: bottomNav!)
-          : bottomNav,
-    );
+    child = Pref.useLiquidGlass
+        ? GlassScaffold(
+            extendBody: true,
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(toolbarHeight: 0),
+            body: Padding(
+              padding: EdgeInsets.only(
+                left: _mainController.useBottomNav ? _padding.left : 0.0,
+                right: _padding.right,
+              ),
+              child: child,
+            ),
+            bottomBar: PlatformUtils.isMobile && bottomNav != null
+                ? GlassContainer(child: bottomNav!)
+                : null,
+          )
+        : Scaffold(
+            extendBody: true,
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(toolbarHeight: 0),
+            body: Padding(
+              padding: EdgeInsets.only(
+                left: _mainController.useBottomNav ? _padding.left : 0.0,
+                right: _padding.right,
+              ),
+              child: child,
+            ),
+            bottomNavigationBar: PlatformUtils.isMobile && bottomNav != null
+                ? GlassContainer(child: bottomNav!)
+                : bottomNav,
+          );
 
     if (PlatformUtils.isMobile) {
       child = AnnotatedRegion<SystemUiOverlayStyle>(

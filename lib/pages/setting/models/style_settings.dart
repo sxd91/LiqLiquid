@@ -114,6 +114,14 @@ List<SettingsModel> get styleSettings => [
     defaultVal: true,
     needReboot: true,
   ),
+  SwitchModel(
+    title: 'iOS 26 Liquid Glass style',
+    subtitle: 'Enable iOS 26 Liquid Glass design language (Impeller required)',
+    leading: const Icon(Icons.water_drop_outlined),
+    setKey: SettingBoxKey.useLiquidGlass,
+    defaultVal: false,
+    needReboot: true,
+  ),
   const SwitchModel(
     title: 'MD3样式底栏',
     subtitle: 'Material You设计规范底栏，关闭可变窄',
