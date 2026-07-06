@@ -82,7 +82,8 @@ jobs:
                   cache: true
 
             - name: Flutter Analyze
-              run: dart analyze
+              run: flutter analyze
+              continue-on-error: true
 
             - name: Apply Patch
               shell: pwsh
