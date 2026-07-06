@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/back_detector.dart';
+import 'package:liqliquid/common/widgets/hero_transition.dart';
 import 'package:liqliquid/common/widgets/custom_toast.dart';
 import 'package:liqliquid/common/widgets/route_aware_mixin.dart';
 import 'package:liqliquid/common/widgets/scale_app.dart';
@@ -220,6 +221,8 @@ class MyApp extends StatelessWidget {
 
   static ColorScheme? _light, _dark;
 
+    static DateTime? _lastBackTime;
+
   static void _onBack() {
     if (SmartDialog.checkExist()) {
       SmartDialog.dismiss();
@@ -229,13 +232,21 @@ class MyApp extends StatelessWidget {
     final route = Get.routing.route;
     if (route is GetPageRoute) {
       if (route.popDisposition == .doNotPop) {
-        route.onPopInvokedWithResult(false, null);
+        final now = DateTime.now();
+        if (_lastBackTime != null && now.difference(_lastBackTime!) < const Duration(seconds: 2)) {
+          exit(0);
+        }
+        if (_lastBackTime == null || now.difference(_lastBackTime!) >= const Duration(seconds: 2)) {
+          _lastBackTime = now;
+          SmartDialog.showToast("再按一次退出");
+        }
         return;
       }
     }
 
     final navigator = Get.key.currentState;
     if (navigator?.canPop() ?? false) {
+      _lastBackTime = null;
       navigator!.pop();
     }
   }
@@ -279,7 +290,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
       initialRoute: '/',
       getPages: Routes.getPages,
-      defaultTransition: Pref.useLiquidGlass ? Transition.cupertino : Pref.pageTransition,
+      defaultTransition: Pref.heroTransitionEnabled ? Transition.fade : (Pref.useLiquidGlass ? Transition.cupertino : Pref.pageTransition),
       builder: FlutterSmartDialog.init(
         toastBuilder: CustomToast.new,
         loadingBuilder: LoadingWidget.new,
@@ -297,6 +308,12 @@ class MyApp extends StatelessWidget {
   }
 
   static Widget _builder(BuildContext context, Widget? child) {
+    if (Pref.heroTransitionEnabled && child != null) {
+      child = HeroPageWrapper(child: Listener(
+        onPointerDown: (e) => heroTapOrigin = e.position,
+        child: child,
+      ));
+    }
     final uiScale = Pref.uiScale;
     final mediaQuery = MediaQuery.of(context);
     final textScaler = TextScaler.linear(Pref.defaultTextScale);

@@ -1098,6 +1098,51 @@ abstract final class Pref {
   }
 
 
+
+  // ======== Hero 展开转场参数 ========
+
+  static bool get heroTransitionEnabled =>
+      _setting.get(SettingBoxKey.heroTransitionEnabled, defaultValue: false);
+
+  static double get heroOpenCenterXDamping =>
+      _setting.get(SettingBoxKey.heroOpenCenterXDamping, defaultValue: 100.0);
+
+  static double get heroOpenCenterXStiffness =>
+      _setting.get(SettingBoxKey.heroOpenCenterXStiffness, defaultValue: 100.0);
+
+  static double get heroOpenCenterYDamping =>
+      _setting.get(SettingBoxKey.heroOpenCenterYDamping, defaultValue: 100.0);
+
+  static double get heroOpenCenterYStiffness =>
+      _setting.get(SettingBoxKey.heroOpenCenterYStiffness, defaultValue: 100.0);
+
+  static double get heroOpenSizeDamping =>
+      _setting.get(SettingBoxKey.heroOpenSizeDamping, defaultValue: 100.0);
+
+  static double get heroOpenSizeStiffness =>
+      _setting.get(SettingBoxKey.heroOpenSizeStiffness, defaultValue: 100.0);
+
+  static double get heroCloseCenterXDamping =>
+      _setting.get(SettingBoxKey.heroCloseCenterXDamping, defaultValue: 100.0);
+
+  static double get heroCloseCenterXStiffness =>
+      _setting.get(SettingBoxKey.heroCloseCenterXStiffness, defaultValue: 100.0);
+
+  static double get heroCloseCenterYDamping =>
+      _setting.get(SettingBoxKey.heroCloseCenterYDamping, defaultValue: 100.0);
+
+  static double get heroCloseCenterYStiffness =>
+      _setting.get(SettingBoxKey.heroCloseCenterYStiffness, defaultValue: 100.0);
+
+  static double get heroCloseSizeDamping =>
+      _setting.get(SettingBoxKey.heroCloseSizeDamping, defaultValue: 100.0);
+
+  static double get heroCloseSizeStiffness =>
+      _setting.get(SettingBoxKey.heroCloseSizeStiffness, defaultValue: 100.0);
+
+  static int get heroTransitionDuration =>
+      _setting.get(SettingBoxKey.heroTransitionDuration, defaultValue: 500);
+
   // ======== 全局液态玻璃参数 (折射扭曲+色散) ========
 
   static double get glassBlur =>

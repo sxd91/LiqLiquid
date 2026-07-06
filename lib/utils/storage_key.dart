@@ -172,7 +172,21 @@ abstract final class SettingBoxKey {
       glassMaxScrollBlur = 'glassMaxScrollBlur',
       topBlurLayers = 'topBlurLayers',
       topBlurBaseBlur = 'topBlurBaseBlur',
-      topBlurHeight = 'topBlurHeight';
+      topBlurHeight = 'topBlurHeight',
+      heroTransitionEnabled = 'heroTransitionEnabled',
+      heroOpenCenterXDamping = 'heroOpenCenterXDamping',
+      heroOpenCenterXStiffness = 'heroOpenCenterXStiffness',
+      heroOpenCenterYDamping = 'heroOpenCenterYDamping',
+      heroOpenCenterYStiffness = 'heroOpenCenterYStiffness',
+      heroOpenSizeDamping = 'heroOpenSizeDamping',
+      heroOpenSizeStiffness = 'heroOpenSizeStiffness',
+      heroCloseCenterXDamping = 'heroCloseCenterXDamping',
+      heroCloseCenterXStiffness = 'heroCloseCenterXStiffness',
+      heroCloseCenterYDamping = 'heroCloseCenterYDamping',
+      heroCloseCenterYStiffness = 'heroCloseCenterYStiffness',
+      heroCloseSizeDamping = 'heroCloseSizeDamping',
+      heroCloseSizeStiffness = 'heroCloseSizeStiffness',
+      heroTransitionDuration = 'heroTransitionDuration';
 
   static const String minimizeOnExit = 'minimizeOnExit',
       windowSize = 'windowSize',

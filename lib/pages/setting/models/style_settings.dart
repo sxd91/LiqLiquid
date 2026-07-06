@@ -216,6 +216,12 @@ List<SettingsModel> get styleSettings => [
     getSubtitle: () => '当前：${Pref.pageTransition.name}',
     onTap: _showTransitionDialog,
   ),
+  NormalModel(
+    leading: const Icon(Icons.tune),
+    title: 'Hero展开曲线参数',
+    getSubtitle: () => Pref.heroTransitionEnabled ? '阻尼: ${Pref.heroOpenCenterXDamping.toInt()}...' : '未启用Hero展开',
+    onTap: Pref.heroTransitionEnabled ? _showHeroParamsDialog : null,
+  ),
   const SwitchModel(
     title: '优化平板导航栏',
     leading: Icon(Icons.auto_fix_high),
@@ -755,21 +761,126 @@ Future<void> _showTransitionDialog(
   BuildContext context,
   VoidCallback setState,
 ) async {
-  final res = await showDialog<Transition>(
+  final res = await showDialog<String>(
     context: context,
-    builder: (context) => SelectDialog<Transition>(
-      title: '页面过渡动画',
-      value: Pref.pageTransition,
-      values: Transition.values.map((e) => (e, e.name)).toList(),
-    ),
+    builder: (context) {
+      final current = Pref.heroTransitionEnabled ? 'Hero 展开' : Pref.pageTransition.name;
+      return SimpleDialog(
+        title: const Text('页面过渡动画'),
+        children: [
+          ...Transition.values.map((t) => SimpleDialogOption(
+            onPressed: () => Navigator.pop(context, t.name),
+            child: Text(t.name, style: TextStyle(
+              fontWeight: (Pref.heroTransitionEnabled ? 'Hero 展开' : t.name) == current ? FontWeight.bold : FontWeight.normal,
+            )),
+          )),
+          const Divider(),
+          SimpleDialogOption(
+            onPressed: () => Navigator.pop(context, 'hero_expand'),
+            child: const Text('Hero 展开', style: TextStyle(fontWeight: FontWeight.normal)),
+          ),
+        ],
+      );
+    },
   );
   if (res != null) {
-    Get.rootController.defaultTransition = res;
-    await GStorage.setting.put(SettingBoxKey.pageTransition, res.index);
-    setState();
+    if (res == 'hero_expand') {
+      await GStorage.setting.put(SettingBoxKey.heroTransitionEnabled, true);
+      Get.rootController.defaultTransition = Transition.fade;
+      SmartDialog.showToast('Hero展开已启用');
+      if (context.mounted) await _showHeroParamsDialog(context, setState);
+      setState();
+    } else {
+      await GStorage.setting.put(SettingBoxKey.heroTransitionEnabled, false);
+      final t = Transition.values.firstWhere((e) => e.name == res);
+      Get.rootController.defaultTransition = t;
+      await GStorage.setting.put(SettingBoxKey.pageTransition, t.index);
+      setState();
+    }
   }
 }
 
+Future<void> _showHeroParamsDialog(BuildContext context, VoidCallback setState) async {
+  final saved = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => _HeroParamsDialog(),
+  );
+  if (saved == true) setState();
+}
+
+class _HeroParamsDialog extends StatefulWidget {
+  @override
+  State<_HeroParamsDialog> createState() => _HeroParamsDialogState();
+}
+
+class _HeroParamsDialogState extends State<_HeroParamsDialog> {
+  late final Map<String, double> _vals = {
+    SettingBoxKey.heroOpenCenterXDamping: Pref.heroOpenCenterXDamping,
+    SettingBoxKey.heroOpenCenterXStiffness: Pref.heroOpenCenterXStiffness,
+    SettingBoxKey.heroOpenCenterYDamping: Pref.heroOpenCenterYDamping,
+    SettingBoxKey.heroOpenCenterYStiffness: Pref.heroOpenCenterYStiffness,
+    SettingBoxKey.heroOpenSizeDamping: Pref.heroOpenSizeDamping,
+    SettingBoxKey.heroOpenSizeStiffness: Pref.heroOpenSizeStiffness,
+    SettingBoxKey.heroCloseCenterXDamping: Pref.heroCloseCenterXDamping,
+    SettingBoxKey.heroCloseCenterXStiffness: Pref.heroCloseCenterXStiffness,
+    SettingBoxKey.heroCloseCenterYDamping: Pref.heroCloseCenterYDamping,
+    SettingBoxKey.heroCloseCenterYStiffness: Pref.heroCloseCenterYStiffness,
+    SettingBoxKey.heroCloseSizeDamping: Pref.heroCloseSizeDamping,
+    SettingBoxKey.heroCloseSizeStiffness: Pref.heroCloseSizeStiffness,
+  };
+
+  static const _labels = {
+    SettingBoxKey.heroOpenCenterXDamping: '打开-中心X阻尼',
+    SettingBoxKey.heroOpenCenterXStiffness: '打开-中心X刚度',
+    SettingBoxKey.heroOpenCenterYDamping: '打开-中心Y阻尼',
+    SettingBoxKey.heroOpenCenterYStiffness: '打开-中心Y刚度',
+    SettingBoxKey.heroOpenSizeDamping: '打开-尺寸阻尼',
+    SettingBoxKey.heroOpenSizeStiffness: '打开-尺寸刚度',
+    SettingBoxKey.heroCloseCenterXDamping: '关闭-中心X阻尼',
+    SettingBoxKey.heroCloseCenterXStiffness: '关闭-中心X刚度',
+    SettingBoxKey.heroCloseCenterYDamping: '关闭-中心Y阻尼',
+    SettingBoxKey.heroCloseCenterYStiffness: '关闭-中心Y刚度',
+    SettingBoxKey.heroCloseSizeDamping: '关闭-尺寸阻尼',
+    SettingBoxKey.heroCloseSizeStiffness: '关闭-尺寸刚度',
+  };
+
+  @override
+  Widget build(BuildContext ctx) {
+    return AlertDialog(
+      title: const Text('Hero展开参数'),
+      content: SizedBox(
+        width: 340,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: _vals.entries.map((e) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: Row(children: [
+                  SizedBox(width: 120, child: Text(_labels[e.key] ?? e.key, style: const TextStyle(fontSize: 12))),
+                  Expanded(child: Slider(value: e.value, min: 1, max: 200, onChanged: (v) => setState(() => _vals[e.key] = v))),
+                  SizedBox(width: 34, child: Text(e.value.toInt().toString(), style: const TextStyle(fontSize: 11))),
+                ]),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
+        TextButton(
+          onPressed: () async {
+            for (final e in _vals.entries) {
+              await GStorage.setting.put(e.key, e.value);
+            }
+            if (ctx.mounted) Navigator.pop(ctx, true);
+          },
+          child: const Text('保存'),
+        ),
+      ],
+    );
+  }
+}
 Future<void> _showCardWidthDialog(
   BuildContext context,
   VoidCallback setState,
