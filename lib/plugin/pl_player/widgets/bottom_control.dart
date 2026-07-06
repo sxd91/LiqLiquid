@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/progress_bar/audio_video_progress_bar.dart';
+import 'package:liqliquid/common/widgets/progress_bar/audio_video_progress_bar.dart';
 import 'package:liqliquid/common/widgets/progress_bar/segment_progress_bar.dart';
 import 'package:liqliquid/pages/video/controller.dart';
 import 'package:liqliquid/plugin/pl_player/controller.dart';
@@ -8,6 +8,8 @@ import 'package:liqliquid/utils/feed_back.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 class BottomControl extends StatelessWidget {
   const BottomControl({
@@ -54,7 +56,7 @@ class BottomControl extends StatelessWidget {
     final thumbGlowColor = primary.withAlpha(80);
     final bufferedBarColor = primary.withValues(alpha: 0.4);
 
-    return Padding(
+    final progressContent = Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -122,5 +124,14 @@ class BottomControl extends StatelessWidget {
         ],
       ),
     );
+
+    if (Pref.useLiquidGlass) {
+      return GlassCard(
+        useOwnLayer: true,
+        padding: EdgeInsets.zero,
+        child: progressContent,
+      );
+    }
+    return progressContent;
   }
 }

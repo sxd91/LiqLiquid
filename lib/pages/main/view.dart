@@ -291,7 +291,22 @@ class _MainAppState extends PopScopeState<MainApp>
     if (_mainController.navigationBars.length > 1) {
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
         bottomNav = GlassTabBar.searchable(
-          settings: LiquidGlassSettings(glassColor: Colors.black.withValues(alpha: 0.88), blur: 3.0, refractiveIndex: 1.4, thickness: 16.0, chromaticAberration: 0.3),
+          settings: LiquidGlassSettings(
+            glassColor: Pref.bottomBarGlassColor,
+            blur: Pref.bottomBarBlur,
+            refractiveIndex: Pref.bottomBarRefractiveIndex,
+            thickness: Pref.bottomBarThickness,
+            chromaticAberration: Pref.bottomBarChromaticAberration,
+            lightIntensity: theme.brightness == Brightness.dark
+                ? Pref.bottomBarLightIntensity
+                : Pref.bottomBarLightIntensity * 0.6,
+            ambientStrength: theme.brightness == Brightness.dark
+                ? Pref.bottomBarAmbientStrength
+                : Pref.bottomBarAmbientStrength * 0.7,
+            saturation: Pref.bottomBarSaturation,
+            specularSharpness: GlassSpecularSharpness.values[Pref.bottomBarSpecularSharpness],
+            lightAngle: Pref.bottomBarLightAngle,
+          ),
           indicatorColor: Colors.grey.shade700,
           innerBlur: 0.5,
           enableBlend: false,

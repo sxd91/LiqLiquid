@@ -154,7 +154,17 @@ abstract final class SettingBoxKey {
       floatingNavBar = 'floatingNavBar',
       removeSafeArea = 'removeSafeArea',
       angleDegrees = 'angleDegrees',
-      liveStream = 'liveStream';
+      liveStream = 'liveStream',
+      bottomBarGlassColor = 'bottomBarGlassColor',
+      bottomBarBlur = 'bottomBarBlur',
+      bottomBarRefractiveIndex = 'bottomBarRefractiveIndex',
+      bottomBarThickness = 'bottomBarThickness',
+      bottomBarChromaticAberration = 'bottomBarChromaticAberration',
+      bottomBarLightIntensity = 'bottomBarLightIntensity',
+      bottomBarAmbientStrength = 'bottomBarAmbientStrength',
+      bottomBarSaturation = 'bottomBarSaturation',
+      bottomBarSpecularSharpness = 'bottomBarSpecularSharpness',
+      bottomBarLightAngle = 'bottomBarLightAngle';
 
   static const String minimizeOnExit = 'minimizeOnExit',
       windowSize = 'windowSize',

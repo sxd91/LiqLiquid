@@ -1027,6 +1027,76 @@ abstract final class Pref {
   static bool get useGlassNavBar =>
       _setting.get(SettingBoxKey.useGlassNavBar, defaultValue: true);
 
+  // ======== 底部导航栏液态玻璃参数 ========
+
+  /// 底部导航栏玻璃颜色（存储 int 值）
+  static Color get bottomBarGlassColor {
+    final int defaultColor = PlatformUtils.isDesktop
+        ? Colors.white.withValues(alpha: 0.15).value
+        : Colors.black.withValues(alpha: 0.88).value;
+    return Color(_setting.get(SettingBoxKey.bottomBarGlassColor,
+        defaultValue: defaultColor));
+  }
+
+  /// 底部导航栏模糊半径 (0-50)，桌面端默认更强
+  static double get bottomBarBlur {
+    final double def = PlatformUtils.isDesktop ? 15.0 : 3.0;
+    return _setting.get(SettingBoxKey.bottomBarBlur, defaultValue: def);
+  }
+
+  /// 底部导航栏折射率 (0.0-2.0)，桌面端默认更深
+  static double get bottomBarRefractiveIndex {
+    final double def = PlatformUtils.isDesktop ? 1.5 : 1.4;
+    return _setting.get(SettingBoxKey.bottomBarRefractiveIndex,
+        defaultValue: def);
+  }
+
+  /// 底部导航栏玻璃厚度 (0-40)，桌面端默认更厚
+  static double get bottomBarThickness {
+    final double def = PlatformUtils.isDesktop ? 24.0 : 16.0;
+    return _setting.get(SettingBoxKey.bottomBarThickness, defaultValue: def);
+  }
+
+  /// 底部导航栏色散强度 (0.0-1.0)，桌面端默认更多棱镜效果
+  static double get bottomBarChromaticAberration {
+    final double def = PlatformUtils.isDesktop ? 0.5 : 0.3;
+    return _setting.get(SettingBoxKey.bottomBarChromaticAberration,
+        defaultValue: def);
+  }
+
+  /// 底部导航栏高光强度 (0.0-1.0)，桌面端默认更亮
+  static double get bottomBarLightIntensity {
+    final double def = PlatformUtils.isDesktop ? 0.6 : 0.0;
+    return _setting.get(SettingBoxKey.bottomBarLightIntensity,
+        defaultValue: def);
+  }
+
+  /// 底部导航栏环境光强度 (0.0-1.0)，桌面端默认更柔和
+  static double get bottomBarAmbientStrength {
+    final double def = PlatformUtils.isDesktop ? 0.25 : 0.0;
+    return _setting.get(SettingBoxKey.bottomBarAmbientStrength,
+        defaultValue: def);
+  }
+
+  /// 底部导航栏饱和度 (0.0-2.0)，桌面端默认更鲜艳
+  static double get bottomBarSaturation {
+    final double def = PlatformUtils.isDesktop ? 1.3 : 1.0;
+    return _setting.get(SettingBoxKey.bottomBarSaturation, defaultValue: def);
+  }
+
+  /// 底部导航栏高光锐度 (0=sharp, 1=medium, 2=soft)
+  static int get bottomBarSpecularSharpness {
+    final int def = PlatformUtils.isDesktop ? 1 : 0;
+    return _setting.get(SettingBoxKey.bottomBarSpecularSharpness,
+        defaultValue: def);
+  }
+
+  /// 底部导航栏光源角度 (弧度, 默认 135°)
+  static double get bottomBarLightAngle {
+    const double def = 0.75 * 3.1415926535;
+    return _setting.get(SettingBoxKey.bottomBarLightAngle, defaultValue: def);
+  }
+
   /// 主页自定义背景图片路径
   static String? get homeBgPath => _setting.get(SettingBoxKey.homeBgPath);
 
