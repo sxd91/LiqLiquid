@@ -292,7 +292,7 @@ class _MainAppState extends PopScopeState<MainApp>
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
         bottomNav = GlassTabBar.searchable(
           settings: LiquidGlassSettings(
-            glassColor: Pref.bottomBarGlassColor,
+            glassColor: Pref.bottomBarGlassColor(theme.brightness),
             blur: Pref.bottomBarBlur,
             refractiveIndex: Pref.bottomBarRefractiveIndex,
             thickness: Pref.bottomBarThickness,
@@ -573,7 +573,7 @@ class _MainAppState extends PopScopeState<MainApp>
   Widget userAndSearchVertical(ThemeData theme) {
     return Column(
       children: [
-        userAvatar(theme: theme, mainController: _mainController),
+        userAvatar(context: context, theme: theme, mainController: _mainController),
         const SizedBox(height: 8),
         msgBadge(_mainController),
         IconButton(

@@ -93,7 +93,8 @@ Future<void> _initAppPath() async {
 void main() async {
   ScaledWidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
-  await LiquidGlassWidgets.initialize();
+  // Start shader warm in parallel with other init to prevent Android black screen
+  final glassInit = LiquidGlassWidgets.initialize();
   await _initAppPath();
   try {
     await GStorage.init();
@@ -209,7 +210,8 @@ void main() async {
       customParameters: customParameters,
     );
   } else {
-    runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
+      await glassInit;
+  runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
   }
 }
 

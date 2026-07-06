@@ -14,6 +14,7 @@ import 'package:liqliquid/pages/video/reply_reply/view.dart';
 import 'package:liqliquid/utils/feed_back.dart';
 import 'package:easy_debounce/easy_throttle.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -139,9 +140,10 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                     right: kFloatingActionButtonMargin,
                     bottom: kFloatingActionButtonMargin + bottom,
                   ),
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    onPressed: () {
+                  child: GlassButton(
+                    quality: GlassQuality.premium,
+                    icon: const Icon(Icons.reply, color: Colors.white),
+                    onTap: () {
                       feedBack();
                       _videoReplyController.onReply(
                         null,
@@ -149,8 +151,8 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                         replyType: _videoReplyController.videoType.replyType,
                       );
                     },
-                    tooltip: '发表评论',
-                    child: const Icon(Icons.reply),
+                    width: 48, height: 48, iconSize: 22,
+                    useOwnLayer: true,
                   ),
                 ),
               ),

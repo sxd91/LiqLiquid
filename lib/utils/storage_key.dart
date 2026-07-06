@@ -164,7 +164,15 @@ abstract final class SettingBoxKey {
       bottomBarAmbientStrength = 'bottomBarAmbientStrength',
       bottomBarSaturation = 'bottomBarSaturation',
       bottomBarSpecularSharpness = 'bottomBarSpecularSharpness',
-      bottomBarLightAngle = 'bottomBarLightAngle';
+      bottomBarLightAngle = 'bottomBarLightAngle',
+      glassBlur = 'glassBlur',
+      glassRefraction = 'glassRefraction',
+      glassChromatic = 'glassChromatic',
+      glassOpacity = 'glassOpacity',
+      glassMaxScrollBlur = 'glassMaxScrollBlur',
+      topBlurLayers = 'topBlurLayers',
+      topBlurBaseBlur = 'topBlurBaseBlur',
+      topBlurHeight = 'topBlurHeight';
 
   static const String minimizeOnExit = 'minimizeOnExit',
       windowSize = 'windowSize',

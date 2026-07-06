@@ -1030,10 +1030,10 @@ abstract final class Pref {
   // ======== 底部导航栏液态玻璃参数 ========
 
   /// 底部导航栏玻璃颜色（存储 int 值）
-  static Color get bottomBarGlassColor {
-    final int defaultColor = PlatformUtils.isDesktop
-        ? Colors.white.withValues(alpha: 0.15).toARGB32()
-        : Colors.black.withValues(alpha: 0.88).toARGB32();
+  static Color bottomBarGlassColor(Brightness brightness) {
+    final int defaultColor = brightness == Brightness.dark
+        ? Colors.white.withValues(alpha: 0.1).toARGB32()
+        : const Color.fromRGBO(0, 0, 0, 0.08).toARGB32();
     return Color(_setting.get(SettingBoxKey.bottomBarGlassColor,
         defaultValue: defaultColor));
   }
@@ -1096,6 +1096,33 @@ abstract final class Pref {
     const double def = 0.75 * 3.1415926535;
     return _setting.get(SettingBoxKey.bottomBarLightAngle, defaultValue: def);
   }
+
+
+  // ======== 全局液态玻璃参数 (折射扭曲+色散) ========
+
+  static double get glassBlur =>
+      _setting.get(SettingBoxKey.glassBlur, defaultValue: PlatformUtils.isDesktop ? 15.0 : 10.0);
+
+  static double get glassRefraction =>
+      _setting.get(SettingBoxKey.glassRefraction, defaultValue: PlatformUtils.isDesktop ? 1.35 : 1.2);
+
+  static double get glassChromatic =>
+      _setting.get(SettingBoxKey.glassChromatic, defaultValue: PlatformUtils.isDesktop ? 0.5 : 0.3);
+
+  static double get glassOpacity =>
+      _setting.get(SettingBoxKey.glassOpacity, defaultValue: PlatformUtils.isDesktop ? 0.15 : 0.12);
+
+  static double get glassMaxScrollBlur =>
+      _setting.get(SettingBoxKey.glassMaxScrollBlur, defaultValue: PlatformUtils.isDesktop ? 15.0 : 10.0);
+
+  static int get topBlurLayers =>
+      _setting.get(SettingBoxKey.topBlurLayers, defaultValue: PlatformUtils.isDesktop ? 5 : 3);
+
+  static double get topBlurBaseBlur =>
+      _setting.get(SettingBoxKey.topBlurBaseBlur, defaultValue: PlatformUtils.isDesktop ? 20.0 : 15.0);
+
+  static double get topBlurHeight =>
+      _setting.get(SettingBoxKey.topBlurHeight, defaultValue: PlatformUtils.isDesktop ? 56.0 : 60.0);
 
   /// 主页自定义背景图片路径
   static String? get homeBgPath => _setting.get(SettingBoxKey.homeBgPath);

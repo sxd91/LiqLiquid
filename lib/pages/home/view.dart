@@ -1,5 +1,6 @@
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/custom_height_widget.dart';
+import 'package:liqliquid/common/widgets/glass_interaction.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/pages/common/common_page.dart';
@@ -9,7 +10,6 @@ import 'package:liqliquid/pages/mine/controller.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/extension/size_ext.dart';
 import 'package:liqliquid/utils/feed_back.dart';
-import 'package:progressive_blur/progressive_blur.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
@@ -126,26 +126,12 @@ class _HomePageState extends CommonPageState<HomePage>
     if (!_mainController.useSideBar &&
         MediaQuery.sizeOf(context).isPortrait &&
         Pref.useLiquidGlass) {
-      return Stack(
-        children: [
-          Positioned.fill(child: mainContent),
-          Positioned(
-            top: 0, left: 0, right: 0,
-            child: ProgressiveBlurWidget(
-              sigma: 20.0,
-              linearGradientBlur: LinearGradientBlur(
-                values: const [1, 0],
-                stops: const [0.0, 0.5],
-                start: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [customAppBar(theme), tabBar],
-              ),
-            ),
-          ),
-        ],
+      return GlassTopBlurOverlay(
+        topWidgets: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [customAppBar(theme), tabBar],
+        ),
+        child: mainContent,
       );
     }
 
@@ -167,7 +153,7 @@ class _HomePageState extends CommonPageState<HomePage>
         const Spacer(),
         msgBadge(_mainController),
         const SizedBox(width: 8),
-        userAvatar(theme: theme, mainController: _mainController),
+        userAvatar(context: context, theme: theme, mainController: _mainController),
       ],
     );
     if (_homeController.hideTopBar) {
@@ -259,6 +245,7 @@ class _HomePageState extends CommonPageState<HomePage>
 }
 
 Widget userAvatar({
+  required BuildContext context,
   required ThemeData theme,
   required MainController mainController,
 }) {
@@ -270,11 +257,17 @@ Widget userAvatar({
           return Stack(
             clipBehavior: .none,
             children: [
-              NetworkImgLayer(
-                type: .avatar,
-                width: 34,
-                height: 34,
-                src: mainController.accountService.face.value,
+              ClipOval(
+                child: GlassContainer(
+                settings: GlassFactory.standardGlass(context),
+                width: 34, height: 34,
+                child: NetworkImgLayer(
+                  type: .avatar,
+                  width: 34,
+                  height: 34,
+                  src: mainController.accountService.face.value,
+                ),
+              ),
               ),
               Positioned.fill(
                 child: Material(

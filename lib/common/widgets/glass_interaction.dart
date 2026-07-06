@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:progressive_blur/progressive_blur.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
@@ -198,6 +199,92 @@ class _GlassStretchWrapperState extends State<GlassStretchWrapper> {
           child: widget.child,
         ),
       ),
+    );
+  }
+}
+
+/// 全局玻璃参数工厂 - 所有玻璃控件统一参数来源
+/// 玻璃颜色从 Monet 动态取色方案获取，根据浅/深模式自动调整
+abstract final class GlassFactory {
+  /// 标准玻璃参数 - 折射扭曲 + 色散 + Monet取色半透明底色
+  static LiquidGlassSettings standardGlass(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final baseColor = isDark
+        ? cs.primaryContainer.withValues(alpha: Pref.glassOpacity * 0.8)
+        : cs.surfaceContainerHighest.withValues(alpha: Pref.glassOpacity);
+    final lightIntensity = isDark ? 0.5 : 0.35;
+    final ambientStrength = isDark ? 0.25 : 0.15;
+    return LiquidGlassSettings(
+      glassColor: baseColor,
+      blur: Pref.glassBlur,
+      refractiveIndex: Pref.glassRefraction,
+      chromaticAberration: Pref.glassChromatic,
+      thickness: 12,
+      lightIntensity: lightIntensity,
+      ambientStrength: ambientStrength,
+    );
+  }
+
+  /// 零不透明度玻璃参数 - 纯折射扭曲 + 强色散，无底色
+  /// 用于长按弹窗 / 悬浮选中框 / 滚动条滑块
+  static LiquidGlassSettings transparentGlass() {
+    return LiquidGlassSettings(
+      glassColor: Colors.transparent,
+      blur: 0,
+      refractiveIndex: Pref.glassRefraction * 1.5,
+      chromaticAberration: Pref.glassChromatic * 2.0,
+      thickness: 2,
+      lightIntensity: 0,
+      ambientStrength: 0,
+    );
+  }
+}
+
+/// 顶部渐变模糊遮罩 - 替代 AppBar 遮盖层
+/// 使用 ProgressiveBlurWidget，越靠近顶部越模糊，置顶控件在上方不受影响
+class GlassTopBlurOverlay extends StatelessWidget {
+  const GlassTopBlurOverlay({
+    super.key,
+    required this.child,
+    required this.topWidgets,
+    this.height,
+    this.layers,
+    this.baseBlur,
+    this.flip = true,
+  });
+
+  final Widget child;
+  final Widget topWidgets;
+  final double? height;
+  final int? layers;
+  final double? baseBlur;
+  final bool flip;
+
+  @override
+  Widget build(BuildContext context) {
+    final blurHeight = height ?? MediaQuery.of(context).size.height / 14;
+    final blurSigma = baseBlur ?? Pref.topBlurBaseBlur;
+
+    return Stack(
+      children: [
+        Positioned.fill(child: child),
+        Positioned(
+          top: 0, left: 0, right: 0,
+          height: blurHeight,
+          child: ProgressiveBlurWidget(
+            sigma: blurSigma,
+            linearGradientBlur: LinearGradientBlur(
+              values: flip ? const [1, 0] : const [0, 1],
+              stops: const [0.0, 1.0],
+              start: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+            child: const SizedBox.expand(),
+          ),
+        ),
+        Positioned(top: 0, left: 0, right: 0, child: topWidgets),
+      ],
     );
   }
 }

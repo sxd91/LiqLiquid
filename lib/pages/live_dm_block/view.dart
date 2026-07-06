@@ -199,10 +199,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               Text('屏蔽${isEnable ? '已' : '未'}开启'),
               Transform.scale(
                 scale: .8,
-                child: Switch(
-                  value: isEnable,
-                  onChanged: _controller.setEnable,
-                ),
+                child: Pref.useLiquidGlass ? GlassSwitch(value: isEnable, onChanged: _controller.setEnable) : Switch(value: isEnable, onChanged: _controller.setEnable),
               ),
             ],
           );
