@@ -1343,7 +1343,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScale,
@@ -1380,7 +1380,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScaleFS,
@@ -1415,7 +1415,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 8,
                         value: subtitleFontWeight.toDouble(),
@@ -1448,7 +1448,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 5,
                         value: subtitleStrokeWidth,
@@ -1481,7 +1481,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 100,
                         value: subtitlePaddingH.toDouble(),
@@ -1514,7 +1514,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 200,
                         value: subtitlePaddingB.toDouble(),
@@ -1547,7 +1547,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 1,
                         value: subtitleBgOpacity,

@@ -18,7 +18,7 @@ class LiquidGlassSlider extends StatefulWidget {
   final Color? accentColor;
   final Color? trackColor;
   final double thumbSize;
-  final double trackHeight;
+  final double trackHeight;\n  final int? divisions;\n  final String? label;
   final GlassBackdropConfig? thumbConfig;
 
   const LiquidGlassSlider({
@@ -31,7 +31,7 @@ class LiquidGlassSlider extends StatefulWidget {
     this.accentColor,
     this.trackColor,
     this.thumbSize = 24,
-    this.trackHeight = 6,
+    this.trackHeight = 6,\n    this.divisions,\n    this.label,
     this.thumbConfig,
   });
 

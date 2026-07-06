@@ -45,7 +45,7 @@ class GlassBackButton extends StatelessWidget {
       icon: Icon(Platform.isIOS || Platform.isMacOS ? CupertinoIcons.back : Icons.arrow_back_rounded, size: iconSize),
       onTap: onTap ?? () => Navigator.of(context).pop(),
       width: size, height: size, iconSize: iconSize,
-      settings: isDesktop
+      config: isDesktop
           ? GlassBackdropConfig(
               surfaceColor: Colors.white.withValues(alpha: 0.15),
               blur: 12.0,
@@ -103,7 +103,7 @@ class GlassPageWrapper extends StatelessWidget {
             refractionAmount: 1.35,
           );
     return GlassBackdrop(
-      settings: settings ?? defaultSettings,
+      config: settings ?? defaultSettings,
       child: child,
     );
   }
@@ -202,66 +202,7 @@ class _GlassStretchWrapperState extends State<GlassStretchWrapper> {
   }
 }
 
-/// 全局玻璃参数工厂 - 所有玻璃控件统一参数来源
-/// 玻璃颜色从 Monet 动态取色方案获取，根据浅/深模式自动调整
-abstract final class GlassFactory {
-  /// 标准玻璃参数 - 折射扭曲 + 色散 + Monet取色半透明底色
-  static GlassBackdropConfig standardGlass(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final baseColor = isDark
-        ? cs.primaryContainer.withValues(alpha: Pref.glassOpacity * 0.8)
-        : cs.surfaceContainerHighest.withValues(alpha: Pref.glassOpacity);
-    final lightIntensity = isDark ? 0.5 : 0.35;
-    final ambientStrength = isDark ? 0.25 : 0.15;
-    return GlassBackdropConfig(
-      surfaceColor: baseColor,
-      blur: Pref.glassBlur,
-      refractionAmount: Pref.glassRefraction,
-      chromaticAberration: Pref.glassChromatic,
-      refractionHeight: 12,
-      // lightIntensity: lightIntensity,
-      // ambientStrength: ambientStrength,
-    );
-  }
-
-  /// 零不透明度玻璃参数 - 纯折射扭曲 + 强色散，无底色
-  /// 用于长按弹窗 / 悬浮选中框 / 滚动条滑块
-  static GlassBackdropConfig transparentGlass() {
-    return GlassBackdropConfig(
-      surfaceColor: Colors.transparent,
-      blur: 0,
-      refractionAmount: Pref.glassRefraction * 1.5,
-      chromaticAberration: Pref.glassChromatic * 2.0,
-      refractionHeight: 2,
-      // lightIntensity: 0,
-      // ambientStrength: 0,
-    );
-  }
-
-  /// 桌面端使用 Premium 质量以获得折射扭曲效果
-  static dynamic get quality =>
-      false ? null : dynamic.standard;
-
-  /// 底部栏玻璃参数 - 与底部导航栏统一的折射扭曲+色散参数
-  /// 用于顶部 SegmentedControl 等需要与底部栏视觉一致的控件
-  static GlassBackdropConfig bottomBarGlass(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return GlassBackdropConfig(
-      surfaceColor: Pref.bottomBarGlassColor(isDark ? Brightness.dark : Brightness.light),
-      blur: Pref.bottomBarBlur,
-      refractionAmount: Pref.bottomBarRefractiveIndex,
-      refractionHeight: Pref.bottomBarThickness,
-      chromaticAberration: Pref.bottomBarChromaticAberration,
-      // lightIntensity: isDark ? Pref.bottomBarLightIntensity : Pref.bottomBarLightIntensity * 0.6,
-      // ambientStrength: isDark ? Pref.bottomBarAmbientStrength : Pref.bottomBarAmbientStrength * 0.7,
-      saturation: Pref.bottomBarSaturation,
-      specularSharpness: dynamic.values[Pref.bottomBarSpecularSharpness],
-      lightAngle: Pref.bottomBarLightAngle,
-    );
-  }
-}
+// GlassFactory moved to lib/common/widgets/glass/glass_factory.dart
 
 /// 顶部渐变模糊遮罩 - 替代 AppBar 遮盖层
 /// 使用 BackdropFilter，越靠近顶部越模糊，置顶控件在上方不受影响

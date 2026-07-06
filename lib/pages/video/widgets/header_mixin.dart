@@ -214,7 +214,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                       ),
                       child: SliderTheme(
                         data: sliderTheme,
-                        child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                        child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                           min: 0,
                           max: 11,
                           value: DanmakuOptions.danmakuWeight.toDouble(),
@@ -308,7 +308,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0.1,
                         max: 1,
                         value: DanmakuOptions.danmakuShowArea,
@@ -341,7 +341,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 1,
                         value: plPlayerController.danmakuOpacity.value,
@@ -376,7 +376,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 8,
                         value: DanmakuOptions.danmakuFontWeight.toDouble(),
@@ -409,7 +409,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0,
                         max: 5,
                         value: DanmakuOptions.danmakuStrokeWidth,
@@ -446,7 +446,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: DanmakuOptions.danmakuFontScale,
@@ -483,7 +483,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: DanmakuOptions.danmakuFontScaleFS,
@@ -518,7 +518,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 1,
                         max: 50,
                         value: DanmakuOptions.danmakuDuration,
@@ -551,7 +551,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 1,
                         max: 50,
                         value: DanmakuOptions.danmakuStaticDuration,
@@ -584,7 +584,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                         min: 1.0,
                         max: 3.0,
                         value: DanmakuOptions.danmakuLineHeight,

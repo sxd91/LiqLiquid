@@ -140,7 +140,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                     right: kFloatingActionButtonMargin,
                     bottom: kFloatingActionButtonMargin + bottom,
                   ),
-                  child: LiquidGlassButton(
+                  child: LiquidLiquidGlassButton(
                     icon: const Icon(Icons.reply, color: Colors.white),
                     onTap: () {
                       feedBack();
@@ -151,8 +151,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                       );
                     },
                     width: 48, height: 48, iconSize: 22,
-                    useOwnLayer: true,
-                  ),
+                    ),
                 ),
               ),
             ),

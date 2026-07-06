@@ -88,13 +88,13 @@ class _GlassAppearancePageState extends State<GlassAppearancePage> {
                 Positioned.fill(
                   child: GlassBackdrop(config: GlassFactory.standardGlass(context), child: 
                     
-                    settings: previewSettings,
+                    config: previewSettings,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        LiquidGlassButton( icon: const Icon(Icons.favorite), width: 48, height: 48, iconSize: 20, onTap: () {}),
+                        LiquidLiquidGlassButton( icon: const Icon(Icons.favorite), width: 48, height: 48, iconSize: 20, onTap: () {}),
                         LiquidGlassToggle( value: true, onChanged: (_) {}),
-                        LiquidGlassSlider( value: 50, min: 0, max: 100, onChanged: (_) {}),
+                        LiquidLiquidGlassSlider( value: 50, min: 0, max: 100, onChanged: (_) {}),
                       ],
                     ),
                   ),
@@ -138,7 +138,7 @@ class _GlassAppearancePageState extends State<GlassAppearancePage> {
   Widget _slider(String key, String label, double val, double min, double max, Function(double) cb) {
     return Row(children: [
       SizedBox(width: 80, child: Text(label, style: const TextStyle(fontSize: 12))),
-      Expanded(child: LiquidGlassSlider( value: val, min: min, max: max, onChanged: (v) { cb(v); _put(key, v); })),
+      Expanded(child: LiquidLiquidGlassSlider( value: val, min: min, max: max, onChanged: (v) { cb(v); _put(key, v); })),
       SizedBox(width: 40, child: Text(val.toStringAsFixed(2), style: const TextStyle(fontSize: 11))),
     ]);
   }

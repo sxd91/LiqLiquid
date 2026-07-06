@@ -212,7 +212,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
           return Row(
             children: [
               const Text('用户等级'),
-              Pref.useLiquidGlass ? LiquidGlassSlider(
+              Pref.useLiquidGlass ? LiquidLiquidGlassSlider(
                 min: 0,
                 max: 60,
                 value: level.toDouble(),
