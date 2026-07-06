@@ -82,7 +82,7 @@ class GlassAppBarWrapper extends StatelessWidget implements PreferredSizeWidget 
 class GlassPageWrapper extends StatelessWidget {
   const GlassPageWrapper({super.key, required this.child, this.settings});
   final Widget child;
-  final LiquidGlassSettings? settings;
+  final GlassBackdropConfig? settings;
   @override
   Widget build(BuildContext context) {
     if (!Pref.useLiquidGlass) return child;
@@ -206,7 +206,7 @@ class _GlassStretchWrapperState extends State<GlassStretchWrapper> {
 /// 玻璃颜色从 Monet 动态取色方案获取，根据浅/深模式自动调整
 abstract final class GlassFactory {
   /// 标准玻璃参数 - 折射扭曲 + 色散 + Monet取色半透明底色
-  static LiquidGlassSettings standardGlass(BuildContext context) {
+  static GlassBackdropConfig standardGlass(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final baseColor = isDark
@@ -227,7 +227,7 @@ abstract final class GlassFactory {
 
   /// 零不透明度玻璃参数 - 纯折射扭曲 + 强色散，无底色
   /// 用于长按弹窗 / 悬浮选中框 / 滚动条滑块
-  static LiquidGlassSettings transparentGlass() {
+  static GlassBackdropConfig transparentGlass() {
     return GlassBackdropConfig(
       surfaceColor: Colors.transparent,
       blur: 0,
@@ -240,12 +240,12 @@ abstract final class GlassFactory {
   }
 
   /// 桌面端使用 Premium 质量以获得折射扭曲效果
-  static GlassQuality get quality =>
-      false ? null : GlassQuality.standard;
+  static dynamic get quality =>
+      false ? null : dynamic.standard;
 
   /// 底部栏玻璃参数 - 与底部导航栏统一的折射扭曲+色散参数
   /// 用于顶部 SegmentedControl 等需要与底部栏视觉一致的控件
-  static LiquidGlassSettings bottomBarGlass(BuildContext context) {
+  static GlassBackdropConfig bottomBarGlass(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return GlassBackdropConfig(
@@ -257,14 +257,14 @@ abstract final class GlassFactory {
       // lightIntensity: isDark ? Pref.bottomBarLightIntensity : Pref.bottomBarLightIntensity * 0.6,
       // ambientStrength: isDark ? Pref.bottomBarAmbientStrength : Pref.bottomBarAmbientStrength * 0.7,
       saturation: Pref.bottomBarSaturation,
-      specularSharpness: GlassSpecularSharpness.values[Pref.bottomBarSpecularSharpness],
+      specularSharpness: dynamic.values[Pref.bottomBarSpecularSharpness],
       lightAngle: Pref.bottomBarLightAngle,
     );
   }
 }
 
 /// 顶部渐变模糊遮罩 - 替代 AppBar 遮盖层
-/// 使用 ProgressiveBlurWidget，越靠近顶部越模糊，置顶控件在上方不受影响
+/// 使用 BackdropFilter，越靠近顶部越模糊，置顶控件在上方不受影响
 class GlassTopBlurOverlay extends StatelessWidget {
   const GlassTopBlurOverlay({
     super.key,
@@ -295,7 +295,7 @@ class GlassTopBlurOverlay extends StatelessWidget {
           top: 0, left: 0, right: 0,
           height: blurHeight,
           child: BackdropFilter(filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma), child: const SizedBox.expand()
-            linearGradientBlur: LinearGradientBlur(
+            dynamic: dynamic(
               stops: [0.0, 1.0],
               start: Alignment.topCenter,
               end: Alignment.bottomCenter,

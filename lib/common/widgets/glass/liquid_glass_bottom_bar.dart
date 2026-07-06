@@ -26,6 +26,18 @@ class GlassBottomTab {
 /// - Accent-colored icons on active tab
 /// - Support for tap-to-switch
 class LiquidGlassBottomBar extends StatefulWidget {
+  // Compatibility params from GlassTabBar API (ignored)
+  final dynamic settings;
+  final dynamic indicatorColor;
+  final double innerBlur;
+  final bool enableBlend;
+  final dynamic isSearchActive;
+  final dynamic searchConfig;
+  final dynamic selectedIconColor;
+  final dynamic unselectedIconColor;
+  final double iconSize;
+  final double magnification;
+  final dynamic quality;
   final int selectedIndex;
   final ValueChanged<int>? onTabSelected;
   final List<GlassBottomTab> tabs;
@@ -38,6 +50,17 @@ class LiquidGlassBottomBar extends StatefulWidget {
   final EdgeInsets padding;
 
   const LiquidGlassBottomBar({
+    this.settings,
+    this.indicatorColor,
+    this.innerBlur = 0.5,
+    this.enableBlend = false,
+    this.isSearchActive,
+    this.searchConfig,
+    this.selectedIconColor,
+    this.unselectedIconColor,
+    this.iconSize = 26,
+    this.magnification = 1.15,
+    this.quality,
     super.key,
     required this.selectedIndex,
     this.onTabSelected,

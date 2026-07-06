@@ -301,7 +301,7 @@ class MyApp extends StatelessWidget {
         FlutterSmartDialog.observer,
       ],
       scrollBehavior: PlatformUtils.isDesktop ? (Pref.useLiquidGlass ? const CustomScrollBehavior() : const CustomScrollBehavior()) : null,
-    ));
+    );
   }
 
   static Widget _builder(BuildContext context, Widget? child) {

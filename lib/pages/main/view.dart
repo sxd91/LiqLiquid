@@ -291,45 +291,22 @@ class _MainAppState extends PopScopeState<MainApp>
     if (_mainController.navigationBars.length > 1) {
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
         bottomNav = LiquidGlassBottomBar(
-          settings: LiquidGlassSettings(
-            glassColor: Pref.bottomBarGlassColor(theme.brightness),
-            blur: Pref.bottomBarBlur,
-            refractiveIndex: Pref.bottomBarRefractiveIndex,
-            thickness: Pref.bottomBarThickness,
-            chromaticAberration: Pref.bottomBarChromaticAberration,
-            lightIntensity: theme.brightness == Brightness.dark
-                ? Pref.bottomBarLightIntensity
-                : Pref.bottomBarLightIntensity * 0.6,
-            ambientStrength: theme.brightness == Brightness.dark
-                ? Pref.bottomBarAmbientStrength
-                : Pref.bottomBarAmbientStrength * 0.7,
-            saturation: Pref.bottomBarSaturation,
-            specularSharpness: GlassSpecularSharpness.values[Pref.bottomBarSpecularSharpness],
-            lightAngle: Pref.bottomBarLightAngle,
-          ),
-          indicatorColor: Colors.grey.shade700,
-          innerBlur: 0.5,
-          enableBlend: false,
+          settings: null,
+          
+          
+          
           selectedIndex: _mainController.selectedIndex.value,
-          isSearchActive: _isSearching,
+          
           onTabSelected: (index) {
             _mainController.setIndex(index);
             setState(() => _isSearching = false);
           },
-          selectedIconColor: theme.colorScheme.primary,
-          unselectedIconColor: theme.colorScheme.onSurfaceVariant,
-          iconSize: 26,
-          magnification: 1.15,
-          quality: GlassQuality.premium,
-          searchConfig: GlassSearchBarConfig(
-            hintText: "搜索",
-            onSearchToggle: (active) {
-              if (active) Get.toNamed("/search");
-              setState(() => _isSearching = false);
-            },
-            searchIcon: Icon(Icons.search, size: 28, color: theme.colorScheme.onSurfaceVariant),
-            showsCancelButton: true,
-          ),
+          
+          
+          
+          
+          
+          
           tabs: _mainController.navigationBars
               .map((e) => GlassBottomTab(
                     label: e.label,
