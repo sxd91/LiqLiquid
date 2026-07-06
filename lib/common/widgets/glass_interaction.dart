@@ -1,8 +1,12 @@
-import 'dart:ui' show ImageFilter;\nimport 'dart:io' show Platform;
+import 'dart:ui' show ImageFilter;
+import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';\nimport 'package:liqliquid/common/widgets/glass/glass_factory.dart';\nimport 'package:liqliquid/common/widgets/glass/interactive_highlight.dart';\nimport 'package:liqliquid/common/widgets/glass/liquid_glass_button.dart';
+import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';
+import 'package:liqliquid/common/widgets/glass/glass_factory.dart';
+import 'package:liqliquid/common/widgets/glass/interactive_highlight.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_button.dart';
 
 import 'package:liqliquid/utils/storage_pref.dart';
 
