@@ -777,7 +777,7 @@ Future<void> _showTransitionDialog(
           const Divider(),
           SimpleDialogOption(
             onPressed: () => Navigator.pop(context, 'hero_expand'),
-            child: const Text('Hero 展开', style: TextStyle(fontWeight: FontWeight.normal)),
+            child: Text('Hero 展开', style: TextStyle(fontWeight: Pref.heroTransitionEnabled ? FontWeight.bold : FontWeight.normal)),
           ),
         ],
       );
@@ -787,7 +787,7 @@ Future<void> _showTransitionDialog(
     if (res == 'hero_expand') {
       await GStorage.setting.put(SettingBoxKey.heroTransitionEnabled, true);
       Get.rootController.defaultTransition = Transition.fade;
-      SmartDialog.showToast('Hero展开已启用');
+      SmartDialog.showToast('Hero展开已启用，重启生效');
       if (context.mounted) await _showHeroParamsDialog(context, setState);
       setState();
     } else {
@@ -795,6 +795,7 @@ Future<void> _showTransitionDialog(
       final t = Transition.values.firstWhere((e) => e.name == res);
       Get.rootController.defaultTransition = t;
       await GStorage.setting.put(SettingBoxKey.pageTransition, t.index);
+      SmartDialog.showToast('过渡动画切换成功，重启生效');
       setState();
     }
   }

@@ -4,6 +4,7 @@ import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/back_detector.dart';
 import 'package:liqliquid/common/widgets/hero_transition.dart';
+
 import 'package:liqliquid/common/widgets/custom_toast.dart';
 import 'package:liqliquid/common/widgets/route_aware_mixin.dart';
 import 'package:liqliquid/common/widgets/scale_app.dart';
@@ -192,6 +193,7 @@ void main() async {
   }
 
   if (Pref.enableLog) {
+    await glassInit;
     // 异常捕获 logo记录
     final customParameters = {
       'Build Time': DateFormatUtils.format(
@@ -206,13 +208,13 @@ void main() async {
 
     Catcher2(
       [?fileHandler, const ConsoleHandler()],
-      const MyApp(),
+      LiquidGlassWidgets.wrap(child: const MyApp()),
       logger: logger,
       customParameters: customParameters,
     );
   } else {
-      await glassInit;
-  runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
+    await glassInit;
+    runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
   }
 }
 
@@ -223,7 +225,7 @@ class MyApp extends StatelessWidget {
 
     static DateTime? _lastBackTime;
 
-  static void _onBack() {
+  static void onBack() {
     if (SmartDialog.checkExist()) {
       SmartDialog.dismiss();
       return;
@@ -308,11 +310,16 @@ class MyApp extends StatelessWidget {
   }
 
   static Widget _builder(BuildContext context, Widget? child) {
-    if (Pref.heroTransitionEnabled && child != null) {
-      child = HeroPageWrapper(child: Listener(
+    if (child != null) {
+      child = Listener(
         onPointerDown: (e) => heroTapOrigin = e.position,
         child: child,
-      ));
+      );
+      if (Pref.heroTransitionEnabled && heroTapOrigin != null) {
+        final origin = heroTapOrigin;
+        heroTapOrigin = null;
+        child = HeroPageWrapper(origin: origin, child: child);
+      }
     }
     final uiScale = Pref.uiScale;
     final mediaQuery = MediaQuery.of(context);
@@ -341,7 +348,7 @@ class MyApp extends StatelessWidget {
     }
     if (PlatformUtils.isDesktop) {
       return BackDetector(
-        onBack: _onBack,
+        onBack: onBack,
         child: child,
       );
     }

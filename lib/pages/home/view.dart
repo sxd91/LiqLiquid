@@ -4,6 +4,7 @@ import 'package:liqliquid/common/widgets/glass_interaction.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';
 import 'package:liqliquid/common/widgets/scroll_physics.dart';
 import 'package:liqliquid/pages/common/common_page.dart';
+import 'package:liqliquid/main.dart';
 import 'package:liqliquid/pages/home/controller.dart';
 import 'package:liqliquid/pages/main/controller.dart';
 import 'package:liqliquid/pages/mine/controller.dart';
@@ -68,6 +69,7 @@ class _HomePageState extends CommonPageState<HomePage>
             height: 42,
             width: double.infinity,
             child: GlassSegmentedControl(
+              settings: GlassFactory.bottomBarGlass(context),
               selectedIndex: _tabIndex,
               onSegmentSelected: (i) {
                 feedBack();
@@ -123,9 +125,8 @@ class _HomePageState extends CommonPageState<HomePage>
       ),
     );
 
-    if (!_mainController.useSideBar &&
-        MediaQuery.sizeOf(context).isPortrait &&
-        Pref.useLiquidGlass) {
+    if (Pref.useLiquidGlass &&
+        MediaQuery.sizeOf(context).isPortrait) {
       return GlassTopBlurOverlay(
         topWidgets: Column(
           mainAxisSize: MainAxisSize.min,
@@ -150,6 +151,7 @@ class _HomePageState extends CommonPageState<HomePage>
     const padding = EdgeInsets.fromLTRB(14, 6, 14, 0);
     final child = Row(
       children: [
+        GlassBackButton(onTap: MyApp.onBack, size: 38, iconSize: 18),
         const Spacer(),
         msgBadge(_mainController),
         const SizedBox(width: 8),
@@ -259,6 +261,7 @@ Widget userAvatar({
             children: [
               ClipOval(
                 child: GlassContainer(
+                quality: GlassFactory.quality,
                 settings: GlassFactory.standardGlass(context),
                 width: 34, height: 34,
                 child: NetworkImgLayer(
@@ -309,17 +312,15 @@ Widget userAvatar({
         return SizedBox(
           width: 38,
           height: 38,
-          child: IconButton(
-            tooltip: '点击登录',
-            style: IconButton.styleFrom(
-              padding: .zero,
-              backgroundColor: theme.colorScheme.onInverseSurface,
-            ),
-            onPressed: mainController.toMinePage,
-            icon: Icon(
-              Icons.person_rounded,
-              size: 22,
-              color: theme.colorScheme.primary,
+          child: GlassContainer(
+            quality: GlassFactory.quality,
+            settings: GlassFactory.standardGlass(context),
+            width: 34, height: 34,
+            child: IconButton(
+              tooltip: '点击登录',
+              style: IconButton.styleFrom(padding: .zero),
+              onPressed: mainController.toMinePage,
+              icon: Icon(Icons.person_rounded, size: 22),
             ),
           ),
         );

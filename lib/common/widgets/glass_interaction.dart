@@ -239,6 +239,29 @@ abstract final class GlassFactory {
       ambientStrength: 0,
     );
   }
+
+  /// 桌面端使用 Premium 质量以获得折射扭曲效果
+  static GlassQuality get quality =>
+      PlatformUtils.isDesktop ? GlassQuality.premium : GlassQuality.standard;
+
+  /// 底部栏玻璃参数 - 与底部导航栏统一的折射扭曲+色散参数
+  /// 用于顶部 SegmentedControl 等需要与底部栏视觉一致的控件
+  static LiquidGlassSettings bottomBarGlass(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return LiquidGlassSettings(
+      glassColor: Pref.bottomBarGlassColor(isDark ? Brightness.dark : Brightness.light),
+      blur: Pref.bottomBarBlur,
+      refractiveIndex: Pref.bottomBarRefractiveIndex,
+      thickness: Pref.bottomBarThickness,
+      chromaticAberration: Pref.bottomBarChromaticAberration,
+      lightIntensity: isDark ? Pref.bottomBarLightIntensity : Pref.bottomBarLightIntensity * 0.6,
+      ambientStrength: isDark ? Pref.bottomBarAmbientStrength : Pref.bottomBarAmbientStrength * 0.7,
+      saturation: Pref.bottomBarSaturation,
+      specularSharpness: GlassSpecularSharpness.values[Pref.bottomBarSpecularSharpness],
+      lightAngle: Pref.bottomBarLightAngle,
+    );
+  }
 }
 
 /// 顶部渐变模糊遮罩 - 替代 AppBar 遮盖层
