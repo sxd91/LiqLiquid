@@ -277,7 +277,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (light, dark) = getAllTheme();
-    return GetMaterialApp(
+    return LiquidGlassWidgets.wrap(child: GetMaterialApp(
       title: Constants.appName,
       theme: light,
       darkTheme: dark,
@@ -306,7 +306,7 @@ class MyApp extends StatelessWidget {
         FlutterSmartDialog.observer,
       ],
       scrollBehavior: PlatformUtils.isDesktop ? (Pref.useLiquidGlass ? const LiquidGlassScrollBehavior() : const CustomScrollBehavior()) : null,
-    );
+    ));
   }
 
   static Widget _builder(BuildContext context, Widget? child) {
