@@ -31,7 +31,6 @@ class ComBtn extends StatelessWidget {
         quality: GlassQuality.premium,
         icon: icon,
         onTap: onTap!,
-        onLongPress: onLongPress,
         width: width,
         height: height,
       );
