@@ -1032,8 +1032,18 @@ abstract final class Pref {
   /// 底部导航栏玻璃颜色（存储 int 值）
   static Color get bottomBarGlassColor {
     final int defaultColor = PlatformUtils.isDesktop
+<<<<<<< HEAD
         ? Colors.white.withValues(alpha: 0.15).toARGB32()
         : Colors.black.withValues(alpha: 0.88).toARGB32();
+=======
+<<<<<<< HEAD
+        ? Colors.white.withValues(alpha: 0.15).toARGB32()
+        : Colors.black.withValues(alpha: 0.88).toARGB32();
+=======
+        ? Colors.white.withValues(alpha: 0.15).value
+        : Colors.black.withValues(alpha: 0.88).value;
+>>>>>>> c606655405a8987367046edb5af1fc820329d114
+>>>>>>> 3084f309138b33e8689ab18625c98cc1efea70ce
     return Color(_setting.get(SettingBoxKey.bottomBarGlassColor,
         defaultValue: defaultColor));
   }
