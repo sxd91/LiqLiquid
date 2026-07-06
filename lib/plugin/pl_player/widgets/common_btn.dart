@@ -25,12 +25,21 @@ class ComBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
+<<<<<<< HEAD
     if (Pref.useLiquidGlass && onTap != null) {
+=======
+    if (Pref.useLiquidGlass) {
+>>>>>>> c606655405a8987367046edb5af1fc820329d114
       child = GlassButton(
         useOwnLayer: true,
         quality: GlassQuality.premium,
         icon: icon,
+<<<<<<< HEAD
         onTap: onTap!,
+=======
+        onTap: onTap,
+        onLongPress: onLongPress,
+>>>>>>> c606655405a8987367046edb5af1fc820329d114
         width: width,
         height: height,
       );
