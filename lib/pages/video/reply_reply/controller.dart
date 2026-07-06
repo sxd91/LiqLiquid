@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show ReplyInfo, DetailListReply, Mode;
 import 'package:liqliquid/grpc/reply.dart';
 import 'package:liqliquid/http/loading_state.dart';

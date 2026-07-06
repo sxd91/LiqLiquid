@@ -1,4 +1,4 @@
-﻿class UserProgress {
+class UserProgress {
   UserProgress({
     this.lastEpId,
   });

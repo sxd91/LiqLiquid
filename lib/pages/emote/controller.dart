@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/reply.dart';
 import 'package:liqliquid/models_new/emote/package.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';

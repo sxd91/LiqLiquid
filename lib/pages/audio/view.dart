@@ -1,4 +1,4 @@
-﻿import 'dart:math' show min;
+import 'dart:math' show min;
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';

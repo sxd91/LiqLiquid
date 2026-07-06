@@ -1,4 +1,4 @@
-﻿class SpaceSettingModel {
+class SpaceSettingModel {
   SpaceSettingModel({
     required this.name,
     required this.key,

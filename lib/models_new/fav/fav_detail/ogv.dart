@@ -1,4 +1,4 @@
-﻿class Ogv {
+class Ogv {
   String? typeName;
   int? seasonId;
 

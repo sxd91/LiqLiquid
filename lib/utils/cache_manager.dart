@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Directory, File;
+import 'dart:io' show Directory, File;
 
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage_pref.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/video/source_type.dart';
+import 'package:liqliquid/models/common/video/source_type.dart';
 import 'package:liqliquid/models_new/later/data.dart';
 import 'package:liqliquid/models_new/later/list.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';

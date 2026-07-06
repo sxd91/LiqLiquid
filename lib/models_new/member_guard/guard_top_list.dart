@@ -1,4 +1,4 @@
-﻿class GuardItem {
+class GuardItem {
   int uid;
   String username;
   String face;

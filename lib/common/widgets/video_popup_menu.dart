@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models/common/account_type.dart';

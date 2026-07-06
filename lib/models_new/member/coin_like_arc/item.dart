@@ -1,4 +1,4 @@
-﻿class CoinLikeArcItem {
+class CoinLikeArcItem {
   String? title;
   String? cover;
   String? uri;

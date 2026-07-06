@@ -1,4 +1,4 @@
-﻿abstract final class Login {
+abstract final class Login {
   //内容来自 https://passport.bilibili.com/web/generic/country/list
   static const dialPrefix = [
     (id: 1, cname: "中国大陆", countryId: 86),

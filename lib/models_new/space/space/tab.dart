@@ -1,4 +1,4 @@
-﻿class SpaceTab {
+class SpaceTab {
   bool? archive;
   bool? article;
   bool? clip;

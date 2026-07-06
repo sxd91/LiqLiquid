@@ -1,4 +1,4 @@
-﻿// enum MsgType {
+// enum MsgType {
 //   invalid(value: 0, label: "空空的~"),
 //   text(value: 1, label: "文本消息"),
 //   pic(value: 2, label: "图片消息"),

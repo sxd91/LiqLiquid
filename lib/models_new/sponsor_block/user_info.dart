@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/duration_utils.dart';
+import 'package:liqliquid/utils/duration_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 
 class UserInfo {

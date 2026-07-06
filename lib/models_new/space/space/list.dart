@@ -1,4 +1,4 @@
-﻿class ListItem {
+class ListItem {
   int? payMid;
   int? rank;
   int? trendType;

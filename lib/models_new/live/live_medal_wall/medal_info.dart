@@ -1,4 +1,4 @@
-﻿class MedalInfo {
+class MedalInfo {
   int? wearingStatus;
 
   MedalInfo({

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/dial_prefix.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';

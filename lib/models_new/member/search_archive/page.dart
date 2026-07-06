@@ -1,4 +1,4 @@
-﻿class Page {
+class Page {
   int? count;
 
   Page({this.count});

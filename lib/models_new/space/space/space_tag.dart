@@ -1,4 +1,4 @@
-﻿class SpaceTag {
+class SpaceTag {
   String? type;
   String? title;
   String? textColor;

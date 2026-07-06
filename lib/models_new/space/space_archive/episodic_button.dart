@@ -1,4 +1,4 @@
-﻿class EpisodicButton {
+class EpisodicButton {
   String? text;
   String? uri;
 

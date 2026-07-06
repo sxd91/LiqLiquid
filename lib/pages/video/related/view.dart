@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/common/widgets/video_card/video_card_h.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models/model_hot_video_item.dart';

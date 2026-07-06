@@ -1,4 +1,4 @@
-﻿class CaptchaDataModel {
+class CaptchaDataModel {
   CaptchaDataModel({
     this.type,
     this.token,

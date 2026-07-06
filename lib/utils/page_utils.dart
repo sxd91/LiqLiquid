@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/widgets/fractionally_sized_box.dart';
 import 'package:liqliquid/common/widgets/image_viewer/gallery_viewer.dart';

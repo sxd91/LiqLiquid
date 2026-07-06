@@ -1,4 +1,4 @@
-﻿class NetPrice {
+class NetPrice {
   String? netPrice;
   String? priceSymbol;
   String? pricePrefix;

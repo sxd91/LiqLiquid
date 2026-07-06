@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/scroll_physics.dart' show ReloadMixin;
+import 'package:liqliquid/common/widgets/scroll_physics.dart' show ReloadMixin;
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models/model_hot_video_item.dart';

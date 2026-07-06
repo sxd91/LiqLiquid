@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_v.dart';
+import 'package:liqliquid/common/skeleton/video_card_v.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';
 import 'package:liqliquid/common/widgets/button/more_btn.dart';

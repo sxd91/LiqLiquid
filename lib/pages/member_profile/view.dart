@@ -1,4 +1,4 @@
-﻿import 'dart:io' show File;
+import 'dart:io' show File;
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';

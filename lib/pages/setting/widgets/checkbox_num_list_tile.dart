@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/setting/widgets/checkbox_num.dart';
+import 'package:liqliquid/pages/setting/widgets/checkbox_num.dart';
 import 'package:flutter/material.dart';
 
 class OrderedCheckboxListTile extends StatelessWidget {

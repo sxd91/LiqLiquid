@@ -1,4 +1,4 @@
-﻿final _regExp = RegExp("^(http:)?//", caseSensitive: false);
+final _regExp = RegExp("^(http:)?//", caseSensitive: false);
 
 extension NullableStringExt on String? {
   String get http2https => this?.replaceFirst(_regExp, "https://") ?? '';

@@ -1,4 +1,4 @@
-﻿class Stat {
+class Stat {
   String? like;
 
   Stat({this.like});

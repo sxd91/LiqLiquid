@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/video.dart';
+import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/pages/rcmd/controller.dart';
 import 'package:liqliquid/pages/setting/models/model.dart';
 import 'package:liqliquid/utils/recommend_filter.dart';

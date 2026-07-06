@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_feed_index/card_data_item.dart';
+import 'package:liqliquid/models_new/live/live_feed_index/card_data_item.dart';
 import 'package:liqliquid/models_new/live/live_feed_index/card_data_list_item.dart';
 
 class CardData {

@@ -1,4 +1,4 @@
-﻿class ArticleListInfo {
+class ArticleListInfo {
   int? id;
   String? name;
   String? imageUrl;

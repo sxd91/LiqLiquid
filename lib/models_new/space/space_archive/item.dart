@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/models_new/space/space_archive/badge.dart';
 import 'package:liqliquid/models_new/space/space_archive/history.dart';

@@ -1,4 +1,4 @@
-﻿class Nameplate {
+class Nameplate {
   int? nid;
   String? name;
   String? image;

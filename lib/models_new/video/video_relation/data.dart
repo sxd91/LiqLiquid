@@ -1,4 +1,4 @@
-﻿class VideoRelation {
+class VideoRelation {
   bool? attention;
   bool? favorite;
   bool? seasonFav;

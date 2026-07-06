@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
+import 'package:liqliquid/grpc/bilibili/community/service/dm/v1.pb.dart';
 import 'package:liqliquid/grpc/grpc_req.dart';
 import 'package:liqliquid/grpc/url.dart';
 import 'package:liqliquid/http/loading_state.dart';

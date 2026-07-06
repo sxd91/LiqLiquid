@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pendant_avatar.dart';
+import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/pages/share/view.dart' show UserModel;
 import 'package:liqliquid/utils/feed_back.dart';

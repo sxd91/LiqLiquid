@@ -1,4 +1,4 @@
-﻿class Statistic {
+class Statistic {
   int? play;
   int? comment;
 

@@ -1,4 +1,4 @@
-﻿class Season {
+class Season {
   String? title;
   String? logo;
 

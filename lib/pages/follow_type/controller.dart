@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/member.dart';
+import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models_new/follow/data.dart';
 import 'package:liqliquid/models_new/follow/list.dart';
 import 'package:liqliquid/pages/common/common_list_controller.dart';

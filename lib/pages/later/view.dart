@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/appbar/appbar.dart';
+import 'package:liqliquid/common/widgets/appbar/appbar.dart';
 import 'package:liqliquid/common/widgets/flutter/page/tabs.dart';
 import 'package:liqliquid/common/widgets/flutter/pop_scope.dart';
 import 'package:liqliquid/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart';

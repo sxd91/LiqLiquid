@@ -1,4 +1,4 @@
-﻿class BaseEmote {
+class BaseEmote {
   late String url;
   late String emoticonUnique;
   late double width;

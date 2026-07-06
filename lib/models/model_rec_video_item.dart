@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_owner.dart';
+import 'package:liqliquid/models/model_owner.dart';
 import 'package:liqliquid/models/model_video.dart';
 
 abstract class BaseRcmdVideoItemModel extends BaseVideoItemModel {

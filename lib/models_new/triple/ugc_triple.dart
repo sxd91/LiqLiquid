@@ -1,4 +1,4 @@
-﻿class UgcTriple {
+class UgcTriple {
   bool? like;
   bool? coin;
   bool? fav;

@@ -1,4 +1,4 @@
-﻿class LiveSecondTag {
+class LiveSecondTag {
   String? name;
   String? sortType;
 

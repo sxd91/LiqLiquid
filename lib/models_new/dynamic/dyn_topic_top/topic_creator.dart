@@ -1,4 +1,4 @@
-﻿class TopicCreator {
+class TopicCreator {
   int? uid;
   String? face;
   String? name;

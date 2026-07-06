@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models_new/space/space_season_series/item.dart';
 import 'package:liqliquid/models_new/space/space_season_series/season.dart';

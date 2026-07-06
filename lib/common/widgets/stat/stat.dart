@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/stat_type.dart';
+import 'package:liqliquid/models/common/stat_type.dart';
 import 'package:liqliquid/utils/num_utils.dart';
 import 'package:flutter/material.dart';
 

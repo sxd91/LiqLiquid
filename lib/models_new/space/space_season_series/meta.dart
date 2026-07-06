@@ -1,4 +1,4 @@
-﻿class SpaceSsMeta {
+class SpaceSsMeta {
   String? cover;
   String? name;
   int? ptime;

@@ -1,4 +1,4 @@
-﻿enum HeartBeatType {
+enum HeartBeatType {
   playing,
   status,
   completed,

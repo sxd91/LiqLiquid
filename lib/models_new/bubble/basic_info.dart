@@ -1,4 +1,4 @@
-﻿class BasicInfo {
+class BasicInfo {
   String? icon;
   String? title;
   String? jumpUri;

@@ -1,4 +1,4 @@
-﻿class PgcIndexItem {
+class PgcIndexItem {
   String? badge;
   String? cover;
   String? indexShow;

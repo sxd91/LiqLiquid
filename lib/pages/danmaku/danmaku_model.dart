@@ -1,4 +1,4 @@
-﻿sealed class DanmakuExtra {
+sealed class DanmakuExtra {
   Object get mid;
   Object get id;
 

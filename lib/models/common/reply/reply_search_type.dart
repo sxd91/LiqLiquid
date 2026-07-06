@@ -1,1 +1,1 @@
-﻿enum ReplySearchType { video, article }
+enum ReplySearchType { video, article }

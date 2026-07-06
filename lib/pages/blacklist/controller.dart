@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/dialog.dart';
+import 'package:liqliquid/common/widgets/dialog/dialog.dart';
 import 'package:liqliquid/http/black.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';

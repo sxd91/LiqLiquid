@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_video.dart';
+import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 abstract final class RecommendFilter {

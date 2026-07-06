@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/rendering.dart' show RenderFractionallySizedOverflowBox;
 import 'package:flutter/widgets.dart';

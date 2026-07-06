@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/live.dart';
+import 'package:liqliquid/http/live.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/live/live_area_list/area_item.dart';
 import 'package:liqliquid/models_new/live/live_area_list/area_list.dart';

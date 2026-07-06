@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/user.dart';
+import 'package:liqliquid/http/user.dart';
 import 'package:liqliquid/utils/accounts.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';

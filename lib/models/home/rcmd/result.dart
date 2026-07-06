@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_rec_video_item.dart';
+import 'package:liqliquid/models/model_rec_video_item.dart';
 import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/id_utils.dart';
 import 'package:liqliquid/utils/num_utils.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_article/item.dart';
+import 'package:liqliquid/models_new/space/space_article/item.dart';
 
 class SpaceArticleData {
   int? count;

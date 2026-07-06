@@ -1,4 +1,4 @@
-﻿class Meta {
+class Meta {
   int? size;
   String? alias;
 

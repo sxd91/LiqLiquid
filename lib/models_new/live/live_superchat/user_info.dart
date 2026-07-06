@@ -1,4 +1,4 @@
-﻿class UserInfo {
+class UserInfo {
   String face;
   String uname;
   String nameColor;

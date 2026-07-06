@@ -1,4 +1,4 @@
-﻿class LoginLogItem {
+class LoginLogItem {
   final String ip;
   final String timeAt;
   final String geo;

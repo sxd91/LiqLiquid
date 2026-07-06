@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' show IconData, Icons;
+import 'package:flutter/material.dart' show IconData, Icons;
 
 enum StatType {
   view(Icons.remove_red_eye_outlined, '观看'),

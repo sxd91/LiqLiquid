@@ -1,4 +1,4 @@
-﻿class Emoticon {
+class Emoticon {
   String? emoji;
   String? url;
   int? width;

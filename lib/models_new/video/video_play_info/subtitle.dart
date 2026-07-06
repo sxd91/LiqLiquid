@@ -1,4 +1,4 @@
-﻿class Subtitle implements Comparable<Subtitle> {
+class Subtitle implements Comparable<Subtitle> {
   late String lan;
   String? lanDoc;
   String? subtitleUrl;

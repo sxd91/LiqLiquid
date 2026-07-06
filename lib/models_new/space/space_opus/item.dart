@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_opus/cover.dart';
+import 'package:liqliquid/models_new/space/space_opus/cover.dart';
 import 'package:liqliquid/models_new/space/space_opus/stat.dart';
 
 class SpaceOpusItemModel {

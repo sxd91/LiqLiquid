@@ -1,4 +1,4 @@
-﻿class SingleUnreadData {
+class SingleUnreadData {
   int unfollowUnread;
   int followUnread;
   int unfollowPushMsg;

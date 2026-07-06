@@ -1,4 +1,4 @@
-﻿// 视频or合集
+// 视频or合集
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';

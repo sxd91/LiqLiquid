@@ -1,1 +1,1 @@
-﻿enum LiveDmSilentType { level, rank, verify }
+enum LiveDmSilentType { level, rank, verify }

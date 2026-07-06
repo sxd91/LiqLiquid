@@ -1,4 +1,4 @@
-﻿extension NullableIterableExt<T> on Iterable<T>? {
+extension NullableIterableExt<T> on Iterable<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 }
 

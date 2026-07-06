@@ -1,4 +1,4 @@
-﻿enum SourceType { fileImage, networkImage, livePhoto }
+enum SourceType { fileImage, networkImage, livePhoto }
 
 class SourceModel {
   final SourceType sourceType;

@@ -1,4 +1,4 @@
-﻿class UpInfo {
+class UpInfo {
   String? avatar;
   int? mid;
   String? uname;

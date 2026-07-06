@@ -1,4 +1,4 @@
-﻿class HostList {
+class HostList {
   String? host;
   int? port;
   int? wssPort;

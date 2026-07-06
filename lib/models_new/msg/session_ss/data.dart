@@ -1,4 +1,4 @@
-﻿class SessionSsData {
+class SessionSsData {
   int? followStatus;
   int? pushSetting;
   int? showPushSetting;

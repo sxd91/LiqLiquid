@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/flutter/text_field/controller.dart';
+import 'package:liqliquid/common/widgets/flutter/text_field/controller.dart';
 import 'package:liqliquid/grpc/bilibili/main/community/reply/v1.pb.dart'
     show MainListReply, ReplyInfo, SubjectControl, Mode;
 import 'package:liqliquid/grpc/bilibili/pagination.pb.dart';

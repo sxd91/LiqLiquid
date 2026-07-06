@@ -1,4 +1,4 @@
-﻿class SpaceArchiveSeason {
+class SpaceArchiveSeason {
   dynamic mtime;
 
   SpaceArchiveSeason({

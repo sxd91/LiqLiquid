@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/http/browser_ua.dart';
 import 'package:liqliquid/main.dart';

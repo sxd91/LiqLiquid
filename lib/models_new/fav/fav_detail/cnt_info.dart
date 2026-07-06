@@ -1,4 +1,4 @@
-﻿class CntInfo {
+class CntInfo {
   int? play;
   int? danmaku;
 

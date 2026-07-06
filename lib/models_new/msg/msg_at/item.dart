@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/msg/msg_at/content.dart';
+import 'package:liqliquid/models_new/msg/msg_at/content.dart';
 import 'package:liqliquid/models_new/msg/msg_at/user.dart';
 
 class MsgAtItem {

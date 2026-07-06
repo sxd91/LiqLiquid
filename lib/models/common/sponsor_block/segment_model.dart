@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/sponsor_block/segment_type.dart';
+import 'package:liqliquid/models/common/sponsor_block/segment_type.dart';
 import 'package:liqliquid/models/common/sponsor_block/skip_type.dart';
 import 'package:liqliquid/models_new/sponsor_block/segment_item.dart';
 import 'package:liqliquid/pages/sponsor_block/block_mixin.dart';

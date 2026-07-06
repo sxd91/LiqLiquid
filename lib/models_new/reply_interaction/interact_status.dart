@@ -1,4 +1,4 @@
-﻿class InteractStatus {
+class InteractStatus {
   bool canModify;
   int status;
 

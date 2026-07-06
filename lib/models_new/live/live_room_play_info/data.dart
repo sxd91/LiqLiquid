@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_room_play_info/playurl_info.dart';
+import 'package:liqliquid/models_new/live/live_room_play_info/playurl_info.dart';
 
 class RoomPlayInfoData {
   int? roomId;

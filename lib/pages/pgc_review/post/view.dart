@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/http/pgc.dart';
 import 'package:liqliquid/utils/accounts.dart';
 import 'package:flutter/material.dart';

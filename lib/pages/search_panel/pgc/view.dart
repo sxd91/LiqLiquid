@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/media_bangumi.dart';
+import 'package:liqliquid/common/skeleton/media_bangumi.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/models/search/result.dart';
 import 'package:liqliquid/pages/search_panel/controller.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage.dart';
+import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;

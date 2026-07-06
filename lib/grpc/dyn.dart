@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/dynamic/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/dynamic/v1.pb.dart'
     show DynRedReq, TabOffset, DynRedReply;
 import 'package:liqliquid/grpc/bilibili/app/dynamic/v2.pb.dart'
     show OpusType, OpusDetailReq, OpusDetailResp;

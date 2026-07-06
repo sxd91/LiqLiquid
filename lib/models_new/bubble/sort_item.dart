@@ -1,4 +1,4 @@
-﻿class SortItem {
+class SortItem {
   int? sortType;
   String? text;
 

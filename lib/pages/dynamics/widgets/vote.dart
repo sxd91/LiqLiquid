@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/avatars.dart';
 import 'package:liqliquid/common/widgets/badge.dart';

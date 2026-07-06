@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/pages/video/pay_coins/view.dart';
 import 'package:liqliquid/utils/global_data.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
+import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
 import 'package:liqliquid/models_new/fav/fav_folder/list.dart';
 
 class FavDetailData {

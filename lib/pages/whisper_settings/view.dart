@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
+import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';
 import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show IMSettingType, Setting;

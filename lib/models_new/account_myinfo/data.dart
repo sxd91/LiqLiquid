@@ -1,4 +1,4 @@
-﻿class AccountMyInfoData {
+class AccountMyInfoData {
   int? mid;
   String? name;
   String? sign;

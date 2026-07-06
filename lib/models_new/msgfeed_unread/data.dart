@@ -1,4 +1,4 @@
-﻿class MsgFeedUnreadData {
+class MsgFeedUnreadData {
   int at;
   int like;
   int reply;

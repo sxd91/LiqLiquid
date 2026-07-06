@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/widgets/flutter/text_field/text_field.dart';
 import 'package:liqliquid/common/widgets/view_safe_area.dart';

@@ -1,4 +1,4 @@
-﻿class MsgLikeDetailUser {
+class MsgLikeDetailUser {
   int? mid;
   String? nickname;
   String? avatar;

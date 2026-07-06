@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_shop/item.dart';
+import 'package:liqliquid/models_new/space/space_shop/item.dart';
 
 class SpaceShopData {
   List<SpaceShopItem>? data;

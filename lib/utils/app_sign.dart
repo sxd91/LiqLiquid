@@ -1,4 +1,4 @@
-﻿import 'dart:convert' show utf8;
+import 'dart:convert' show utf8;
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:crypto/crypto.dart';

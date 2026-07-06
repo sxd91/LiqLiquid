@@ -1,4 +1,4 @@
-﻿class CategoryList {
+class CategoryList {
   String? id;
   String? name;
   int? type;

@@ -1,4 +1,4 @@
-﻿class Stats {
+class Stats {
   int? view;
   int? like;
   int? reply;

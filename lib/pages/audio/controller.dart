@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/common/widgets/dialog/simple_dialog_option.dart';

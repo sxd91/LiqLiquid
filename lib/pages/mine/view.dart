@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/style.dart';

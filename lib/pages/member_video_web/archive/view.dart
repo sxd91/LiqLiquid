@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/self_sized_horizontal_list.dart';
+import 'package:liqliquid/common/widgets/self_sized_horizontal_list.dart';
 import 'package:liqliquid/common/widgets/sliver/sliver_pinned_header.dart';
 import 'package:liqliquid/models/common/member/archive_order_type_web.dart';
 import 'package:liqliquid/models_new/member/search_archive/data.dart';

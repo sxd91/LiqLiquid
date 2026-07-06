@@ -1,4 +1,4 @@
-﻿class Cover {
+class Cover {
   String? url;
 
   Cover({this.url});

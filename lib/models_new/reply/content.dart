@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/picture.dart';
+import 'package:liqliquid/models_new/reply/picture.dart';
 
 class ReplyContent {
   String? message;

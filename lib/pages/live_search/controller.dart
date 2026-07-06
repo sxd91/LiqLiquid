@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/live/live_search_type.dart';
+import 'package:liqliquid/models/common/live/live_search_type.dart';
 import 'package:liqliquid/pages/live_search/child/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:liqliquid/utils/id_utils.dart';

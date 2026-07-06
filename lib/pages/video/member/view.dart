@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/video_card_h.dart';
+import 'package:liqliquid/common/skeleton/video_card_h.dart';
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/image/network_img_layer.dart';

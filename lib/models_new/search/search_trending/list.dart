@@ -1,4 +1,4 @@
-﻿class SearchTrendingItemModel {
+class SearchTrendingItemModel {
   String? keyword;
   String? icon;
   bool? showLiveIcon;

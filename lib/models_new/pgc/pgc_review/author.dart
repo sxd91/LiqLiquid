@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_avatar.dart' show Vip;
+import 'package:liqliquid/models/model_avatar.dart' show Vip;
 
 class Author {
   String? avatar;

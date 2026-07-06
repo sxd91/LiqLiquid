@@ -1,4 +1,4 @@
-﻿class RejectPage {
+class RejectPage {
   String? title;
   String? text;
 

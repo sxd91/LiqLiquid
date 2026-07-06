@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/constants.dart';
+import 'package:liqliquid/common/constants.dart';
 import 'package:liqliquid/http/api.dart';
 import 'package:liqliquid/http/browser_ua.dart';
 import 'package:liqliquid/http/init.dart';

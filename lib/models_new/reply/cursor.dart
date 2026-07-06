@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/pagination_reply.dart';
+import 'package:liqliquid/models_new/reply/pagination_reply.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class ReplyCursor {

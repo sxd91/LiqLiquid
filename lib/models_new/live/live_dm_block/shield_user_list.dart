@@ -1,4 +1,4 @@
-﻿class ShieldUserList {
+class ShieldUserList {
   int? uid;
   String? uname;
 

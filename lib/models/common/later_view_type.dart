@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/later/child_view.dart';
+import 'package:liqliquid/pages/later/child_view.dart';
 import 'package:flutter/material.dart';
 
 enum LaterViewType {

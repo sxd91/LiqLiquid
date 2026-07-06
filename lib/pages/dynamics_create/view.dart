@@ -1,4 +1,4 @@
-﻿import 'dart:math' show max;
+import 'dart:math' show max;
 
 import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/common/widgets/button/icon_button.dart';

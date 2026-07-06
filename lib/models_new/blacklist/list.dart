@@ -1,4 +1,4 @@
-﻿class BlackListItem {
+class BlackListItem {
   int? mid;
   int? mtime;
   String? uname;

@@ -1,4 +1,4 @@
-﻿class ReplyPicture {
+class ReplyPicture {
   String? imgSrc;
   int? imgWidth;
   int? imgHeight;

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/video/cdn_type.dart';
+import 'package:liqliquid/models/common/video/cdn_type.dart';
 import 'package:liqliquid/models/common/video/video_decode_type.dart';
 import 'package:liqliquid/models_new/live/live_room_play_info/codec.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';

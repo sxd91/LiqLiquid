@@ -1,4 +1,4 @@
-﻿class User {
+class User {
   int? mid;
   String? nickname;
   String? avatar;

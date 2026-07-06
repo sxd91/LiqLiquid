@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_room_play_info/format.dart';
+import 'package:liqliquid/models_new/live/live_room_play_info/format.dart';
 
 class Stream {
   String? protocolName;

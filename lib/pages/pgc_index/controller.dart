@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/pgc.dart';
 import 'package:liqliquid/models_new/pgc/pgc_index_condition/data.dart';
 import 'package:liqliquid/models_new/pgc/pgc_index_condition/sort.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
+import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
 import 'package:liqliquid/models_new/video/video_detail/stat_detail.dart';
 import 'package:liqliquid/pages/common/common_intro_controller.dart';
 import 'package:liqliquid/pages/download/controller.dart';

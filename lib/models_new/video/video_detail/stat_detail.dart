@@ -1,4 +1,4 @@
-﻿abstract class StatDetail {
+abstract class StatDetail {
   late num coin;
   int? danmaku;
   late int favorite;

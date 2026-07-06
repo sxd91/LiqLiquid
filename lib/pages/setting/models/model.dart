@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart';
+import 'package:liqliquid/common/style.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/setting/widgets/normal_item.dart';
 import 'package:liqliquid/pages/setting/widgets/popup_item.dart';

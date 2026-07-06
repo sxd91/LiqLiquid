@@ -1,4 +1,4 @@
-﻿import 'package:flutter/gestures.dart' show kBackMouseButton;
+import 'package:flutter/gestures.dart' show kBackMouseButton;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show KeyDownEvent;
 

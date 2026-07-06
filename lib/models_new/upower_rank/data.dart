@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/upower_rank/level_info.dart';
+import 'package:liqliquid/models_new/upower_rank/level_info.dart';
 import 'package:liqliquid/models_new/upower_rank/rank_info.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 

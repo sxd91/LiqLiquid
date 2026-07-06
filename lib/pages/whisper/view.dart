@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/skeleton/whisper_item.dart';
+import 'package:liqliquid/common/skeleton/whisper_item.dart';
 import 'package:liqliquid/common/widgets/flutter/refresh_indicator.dart';
 import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';

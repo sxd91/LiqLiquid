@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/fav/note/child_view.dart';
+import 'package:liqliquid/pages/fav/note/child_view.dart';
 import 'package:liqliquid/pages/fav/note/controller.dart';
 import 'package:liqliquid/utils/extension/scroll_controller_ext.dart';
 import 'package:flutter/material.dart';

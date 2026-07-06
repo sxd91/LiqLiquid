@@ -1,4 +1,4 @@
-﻿class SpaceRelation {
+class SpaceRelation {
   int? status;
   int? isFollow;
   int? isFollowed;

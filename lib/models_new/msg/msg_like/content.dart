@@ -1,4 +1,4 @@
-﻿class MsgLikeContent {
+class MsgLikeContent {
   String? business;
   String? title;
   String? image;

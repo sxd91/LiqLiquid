@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart'
     show Offset, Session, SessionPageType, SessionSecondaryReply, ThreeDotItem;
 import 'package:liqliquid/grpc/im.dart';
 import 'package:liqliquid/http/loading_state.dart';

@@ -1,4 +1,4 @@
-﻿class Rights {
+class Rights {
   int? isCooperation;
 
   Rights({

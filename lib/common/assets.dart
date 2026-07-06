@@ -1,4 +1,4 @@
-﻿abstract final class Assets {
+abstract final class Assets {
   static const digitalNum = 'digital_id_num';
 
   static const logo = 'assets/images/logo/logo.png';

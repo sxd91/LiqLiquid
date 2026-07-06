@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/init.dart';
+import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/http/search.dart';
 import 'package:liqliquid/utils/accounts/account.dart';
 import 'package:liqliquid/utils/id_utils.dart';

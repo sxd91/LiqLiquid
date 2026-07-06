@@ -1,4 +1,4 @@
-﻿import 'package:flutter/rendering.dart' show Color;
+import 'package:flutter/rendering.dart' show Color;
 
 abstract final class ColourUtils {
   static int parse2Int(String color) =>

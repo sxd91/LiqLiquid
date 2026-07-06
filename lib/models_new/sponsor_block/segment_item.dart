@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/sponsor_block/segment_type.dart';
+import 'package:liqliquid/models/common/sponsor_block/segment_type.dart';
 
 class SegmentItemModel {
   String? cid;

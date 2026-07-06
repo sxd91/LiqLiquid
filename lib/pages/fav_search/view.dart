@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/fav_order_type.dart';
+import 'package:liqliquid/models/common/fav_order_type.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/data.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/media.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';

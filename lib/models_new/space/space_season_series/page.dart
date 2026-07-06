@@ -1,4 +1,4 @@
-﻿class SpaceSsPage {
+class SpaceSsPage {
   int? total;
 
   SpaceSsPage({

@@ -1,4 +1,4 @@
-﻿class BenefitInfo {
+class BenefitInfo {
   String? prefix;
   String? amount;
   dynamic suffix;

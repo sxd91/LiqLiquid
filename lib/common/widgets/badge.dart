@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/badge_type.dart';
+import 'package:liqliquid/models/common/badge_type.dart';
 import 'package:liqliquid/utils/extension/string_ext.dart';
 import 'package:liqliquid/utils/extension/theme_ext.dart';
 import 'package:flutter/material.dart';

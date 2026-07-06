@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/follow_type/followed/controller.dart';
+import 'package:liqliquid/pages/follow_type/followed/controller.dart';
 import 'package:liqliquid/pages/follow_type/view.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/parse_int.dart';

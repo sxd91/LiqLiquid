@@ -1,4 +1,4 @@
-﻿class LiveFansWearing {
+class LiveFansWearing {
   DetailV2? detailV2;
 
   LiveFansWearing({

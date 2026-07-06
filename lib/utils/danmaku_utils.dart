@@ -1,4 +1,4 @@
-﻿import 'dart:ui' show Color;
+import 'dart:ui' show Color;
 
 import 'package:canvas_danmaku/models/danmaku_content_item.dart'
     show DanmakuItemType;

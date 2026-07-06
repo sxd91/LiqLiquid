@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/badge.dart';

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:liqliquid/http/browser_ua.dart';
 import 'package:liqliquid/http/constants.dart';

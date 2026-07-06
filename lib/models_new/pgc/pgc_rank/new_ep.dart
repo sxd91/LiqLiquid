@@ -1,4 +1,4 @@
-﻿class NewEp {
+class NewEp {
   String? indexShow;
 
   NewEp({this.indexShow});

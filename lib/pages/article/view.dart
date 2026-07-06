@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/common/widgets/badge.dart';
 import 'package:liqliquid/common/widgets/custom_icon.dart';

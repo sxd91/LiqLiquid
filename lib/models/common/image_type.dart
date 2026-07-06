@@ -1,1 +1,1 @@
-﻿enum ImageType { avatar, emote, def }
+enum ImageType { avatar, emote, def }

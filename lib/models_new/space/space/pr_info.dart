@@ -1,4 +1,4 @@
-﻿class SpacePrInfo {
+class SpacePrInfo {
   SpacePrInfo(
     this.content,
     this.url,

@@ -1,4 +1,4 @@
-﻿class Pair<T, R> {
+class Pair<T, R> {
   Pair({
     required this.first,
     required this.second,

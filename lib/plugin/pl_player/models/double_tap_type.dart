@@ -1,1 +1,1 @@
-﻿enum DoubleTapType { left, center, right }
+enum DoubleTapType { left, center, right }

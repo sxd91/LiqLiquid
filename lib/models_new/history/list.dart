@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/history/history.dart';
+import 'package:liqliquid/models_new/history/history.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 

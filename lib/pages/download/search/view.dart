@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
+import 'package:liqliquid/common/widgets/loading_widget/http_error.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/download/bili_download_entry_info.dart';
 import 'package:liqliquid/pages/common/search/common_search_page.dart';

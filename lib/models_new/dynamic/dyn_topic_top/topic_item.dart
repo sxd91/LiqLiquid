@@ -1,4 +1,4 @@
-﻿class TopicItem {
+class TopicItem {
   int id;
   String name;
   int view;

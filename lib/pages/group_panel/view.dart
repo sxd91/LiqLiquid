@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
+import 'package:liqliquid/common/widgets/loading_widget/loading_widget.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/member.dart';
 import 'package:liqliquid/models/member/tags.dart';

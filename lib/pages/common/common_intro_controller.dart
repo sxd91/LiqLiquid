@@ -1,4 +1,4 @@
-﻿import 'dart:async' show FutureOr, Timer;
+import 'dart:async' show FutureOr, Timer;
 
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';

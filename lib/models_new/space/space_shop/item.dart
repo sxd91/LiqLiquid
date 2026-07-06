@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_shop/below_label.dart';
+import 'package:liqliquid/models_new/space/space_shop/below_label.dart';
 import 'package:liqliquid/models_new/space/space_shop/benefit_info.dart';
 import 'package:liqliquid/models_new/space/space_shop/cover.dart';
 import 'package:liqliquid/models_new/space/space_shop/net_price.dart';

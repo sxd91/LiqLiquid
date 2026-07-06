@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:liqliquid/utils/device_utils.dart';

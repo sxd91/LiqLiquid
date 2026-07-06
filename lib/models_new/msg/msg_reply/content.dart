@@ -1,4 +1,4 @@
-﻿class MsgReplyContent {
+class MsgReplyContent {
   int? subjectId;
   int? businessId;
   String? business;

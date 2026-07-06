@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/live/live_dm_block/shield_rules.dart';
+import 'package:liqliquid/models_new/live/live_dm_block/shield_rules.dart';
 import 'package:liqliquid/models_new/live/live_dm_block/shield_user_list.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 

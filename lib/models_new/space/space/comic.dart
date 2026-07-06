@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_archive/item.dart';
+import 'package:liqliquid/models_new/space/space_archive/item.dart';
 
 class Comic {
   int? count;

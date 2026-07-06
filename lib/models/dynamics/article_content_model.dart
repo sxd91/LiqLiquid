@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/style.dart' as common_style;
+import 'package:liqliquid/common/style.dart' as common_style;
 import 'package:liqliquid/models/dynamics/result.dart';
 import 'package:liqliquid/models/dynamics/vote_model.dart';
 import 'package:liqliquid/utils/color_utils.dart';

@@ -1,4 +1,4 @@
-﻿class DanmakuPost {
+class DanmakuPost {
   DanmakuPost({
     required this.dmid,
   });

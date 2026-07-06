@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/build_config.dart';
 import 'package:liqliquid/common/constants.dart';

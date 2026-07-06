@@ -1,4 +1,4 @@
-﻿import 'dart:io' show FileSystemEntity, Directory;
+import 'dart:io' show FileSystemEntity, Directory;
 
 extension FileSystemEntityExt on FileSystemEntity {
   Future<void> tryDel({bool recursive = false}) =>

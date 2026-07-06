@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform, Process;
+import 'dart:io' show Platform, Process;
 
 import 'package:liqliquid/models/common/video/video_type.dart';
 import 'package:liqliquid/pages/common/multi_select/base.dart'

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/init.dart';
+import 'package:liqliquid/http/init.dart';
 import 'package:liqliquid/models/common/account_type.dart';
 import 'package:liqliquid/pages/mine/controller.dart';
 import 'package:liqliquid/utils/accounts/account.dart';

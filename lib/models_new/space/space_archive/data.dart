@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/space/space_archive/episodic_button.dart';
+import 'package:liqliquid/models_new/space/space_archive/episodic_button.dart';
 import 'package:liqliquid/models_new/space/space_archive/item.dart';
 
 class SpaceArchiveData {

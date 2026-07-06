@@ -1,4 +1,4 @@
-﻿class Order {
+class Order {
   String? title;
   String? value;
 

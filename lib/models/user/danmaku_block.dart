@@ -1,4 +1,4 @@
-﻿class DanmakuBlockDataModel {
+class DanmakuBlockDataModel {
   late List<SimpleRule> rule;
   late List<SimpleRule> rule1;
   late List<SimpleRule> rule2;

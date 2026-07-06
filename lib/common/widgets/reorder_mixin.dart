@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 mixin ReorderMixin<T extends StatefulWidget> on State<T> {
   late ColorScheme scheme;

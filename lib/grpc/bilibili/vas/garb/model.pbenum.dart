@@ -1,4 +1,4 @@
-﻿// This is a generated file - do not edit.
+// This is a generated file - do not edit.
 //
 // Generated from bilibili/vas/garb/model.proto.
 

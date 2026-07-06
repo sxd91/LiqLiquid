@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:liqliquid/common/widgets/pendant_avatar.dart';
 import 'package:liqliquid/models/common/dynamic/dynamics_type.dart';

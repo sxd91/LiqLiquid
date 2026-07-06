@@ -1,4 +1,4 @@
-﻿class Rating {
+class Rating {
   double? score;
 
   Rating({this.score});

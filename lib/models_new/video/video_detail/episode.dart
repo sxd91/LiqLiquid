@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/video/video_detail/arc.dart';
+import 'package:liqliquid/models_new/video/video_detail/arc.dart';
 import 'package:liqliquid/models_new/video/video_detail/page.dart';
 
 class BaseEpisodeItem {

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/pair.dart';
+import 'package:liqliquid/common/widgets/pair.dart';
 import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/utils/storage.dart';

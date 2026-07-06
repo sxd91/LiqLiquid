@@ -1,4 +1,4 @@
-﻿abstract final class GrpcUrl {
+abstract final class GrpcUrl {
   // static const playerOnline =
   //     '/bilibili.app.playeronline.v1.PlayerOnline/PlayerOnline';
   // static const popular = '/bilibili.app.show.v1.Popular/Index';

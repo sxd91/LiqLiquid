@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/fan.dart';
+import 'package:liqliquid/http/fan.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/video.dart';
 import 'package:liqliquid/models_new/follow/data.dart';

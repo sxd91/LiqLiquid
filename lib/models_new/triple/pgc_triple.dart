@@ -1,4 +1,4 @@
-﻿class PgcTriple {
+class PgcTriple {
   num? coin;
   num? coinNumber;
   int? favorite;

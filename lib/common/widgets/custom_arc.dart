@@ -1,4 +1,4 @@
-﻿import 'dart:math' show pi;
+import 'dart:math' show pi;
 
 import 'package:flutter/widgets.dart';
 

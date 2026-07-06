@@ -1,4 +1,4 @@
-﻿class AllSortBy {
+class AllSortBy {
   int? sortBy;
   String? sortName;
 

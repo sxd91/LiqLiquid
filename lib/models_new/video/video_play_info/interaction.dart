@@ -1,4 +1,4 @@
-﻿class Interaction {
+class Interaction {
   HistoryNode? historyNode;
   int? graphVersion;
 

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/reorder_mixin.dart';
+import 'package:liqliquid/common/widgets/reorder_mixin.dart';
 import 'package:liqliquid/http/fav.dart';
 import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/models_new/fav/fav_detail/media.dart';

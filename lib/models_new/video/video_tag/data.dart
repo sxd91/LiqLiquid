@@ -1,4 +1,4 @@
-﻿class VideoTagItem {
+class VideoTagItem {
   int? tagId;
   String? tagName;
   String? tagType;

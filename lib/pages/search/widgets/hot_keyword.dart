@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/models_new/search/search_trending/list.dart';
 import 'package:liqliquid/utils/extension/string_ext.dart';
 import 'package:liqliquid/utils/image_utils.dart';

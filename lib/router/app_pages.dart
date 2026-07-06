@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/pages/article/view.dart';
+import 'package:liqliquid/pages/article/view.dart';
 import 'package:liqliquid/pages/article_list/view.dart';
 import 'package:liqliquid/pages/audio/view.dart';
 import 'package:liqliquid/pages/blacklist/view.dart';

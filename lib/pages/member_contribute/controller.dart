@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:liqliquid/models_new/space/space/tab2.dart';
 import 'package:liqliquid/pages/member/controller.dart';

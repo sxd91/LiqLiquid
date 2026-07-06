@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/reply/control.dart';
+import 'package:liqliquid/models_new/reply/control.dart';
 import 'package:liqliquid/models_new/reply/reply.dart';
 import 'package:liqliquid/models_new/reply/upper.dart';
 import 'package:liqliquid/models_new/reply2reply/page.dart';

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/search/search_rcmd/data.dart';
+import 'package:liqliquid/models_new/search/search_rcmd/data.dart';
 import 'package:liqliquid/models_new/search/search_trending/list.dart';
 
 class SearchTrendingData extends SearchRcmdData {

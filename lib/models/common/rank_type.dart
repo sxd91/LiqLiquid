@@ -1,4 +1,4 @@
-﻿enum RankType {
+enum RankType {
   all('全站', rid: 0),
   anime('番剧', seasonType: 1),
   guochuang('国创', seasonType: 4),

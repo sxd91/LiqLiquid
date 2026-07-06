@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/music.dart';
 import 'package:liqliquid/models_new/music/bgm_detail.dart';
 import 'package:liqliquid/pages/common/dyn/common_dyn_controller.dart';

@@ -1,4 +1,4 @@
-﻿class NewEp {
+class NewEp {
   String? desc;
   String? title;
 

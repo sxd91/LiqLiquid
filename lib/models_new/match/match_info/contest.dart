@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/match/match_info/season.dart';
+import 'package:liqliquid/models_new/match/match_info/season.dart';
 import 'package:liqliquid/models_new/match/match_info/team.dart';
 
 class MatchContest {

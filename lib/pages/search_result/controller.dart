@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/common/search/search_type.dart';
+import 'package:liqliquid/models/common/search/search_type.dart';
 import 'package:get/get.dart';
 
 class SearchResultController extends GetxController {

@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/bubble/tribee_info.dart';
+import 'package:liqliquid/models_new/bubble/tribee_info.dart';
 
 class BaseInfo {
   TribeInfo? tribeInfo;

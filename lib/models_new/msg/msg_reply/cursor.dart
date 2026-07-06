@@ -1,4 +1,4 @@
-﻿class Cursor {
+class Cursor {
   bool? isEnd;
   int? id;
   int? time;

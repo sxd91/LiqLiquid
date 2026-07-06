@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/utils/storage_pref.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 class GlobalData {
   int imgQuality = Pref.picQuality;

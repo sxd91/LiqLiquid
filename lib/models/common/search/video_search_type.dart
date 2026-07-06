@@ -1,4 +1,4 @@
-﻿enum VideoPubTimeType {
+enum VideoPubTimeType {
   all('不限'),
   day('最近一天'),
   week('最近一周'),

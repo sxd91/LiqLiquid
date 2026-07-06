@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/article/article_info/stats.dart';
+import 'package:liqliquid/models_new/article/article_info/stats.dart';
 import 'package:liqliquid/utils/extension/iterable_ext.dart';
 
 class ArticleInfoData {

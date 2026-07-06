@@ -1,4 +1,4 @@
-﻿import 'dart:io' show Platform;
+import 'dart:io' show Platform;
 
 import 'package:liqliquid/common/widgets/color_palette.dart';
 import 'package:liqliquid/main.dart' show MyApp;

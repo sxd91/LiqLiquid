@@ -1,4 +1,4 @@
-﻿class SpaceCheesePage {
+class SpaceCheesePage {
   bool? next;
 
   SpaceCheesePage({this.next});

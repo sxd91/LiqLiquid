@@ -1,4 +1,4 @@
-﻿class Likes {
+class Likes {
   int? likeNum;
   String? skrTip;
 

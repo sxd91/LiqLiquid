@@ -1,4 +1,4 @@
-﻿class Senior {
+class Senior {
   int? status;
 
   Senior({this.status});

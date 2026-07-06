@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_arc.dart';
+import 'package:liqliquid/common/widgets/custom_arc.dart';
 import 'package:liqliquid/utils/extension/theme_ext.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';

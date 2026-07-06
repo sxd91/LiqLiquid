@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';
+import 'package:liqliquid/grpc/bilibili/app/im/v1.pb.dart';
 import 'package:liqliquid/grpc/bilibili/im/interfaces/v1.pb.dart';
 import 'package:liqliquid/grpc/bilibili/im/type.pb.dart';
 import 'package:liqliquid/grpc/grpc_req.dart';

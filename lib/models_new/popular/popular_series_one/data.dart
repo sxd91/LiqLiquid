@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_hot_video_item.dart';
+import 'package:liqliquid/models/model_hot_video_item.dart';
 import 'package:liqliquid/models_new/popular/popular_series_one/config.dart';
 
 class PopularSeriesOneData {

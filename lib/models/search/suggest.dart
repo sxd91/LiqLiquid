@@ -1,4 +1,4 @@
-﻿class SearchSuggestModel {
+class SearchSuggestModel {
   SearchSuggestModel({
     this.tag,
   });

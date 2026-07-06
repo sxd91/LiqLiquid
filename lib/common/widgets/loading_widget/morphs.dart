@@ -1,4 +1,4 @@
-﻿import 'package:material_new_shapes/material_new_shapes.dart';
+import 'package:material_new_shapes/material_new_shapes.dart';
 
 abstract final class Morphs {
   static List<Morph> buildMorph(

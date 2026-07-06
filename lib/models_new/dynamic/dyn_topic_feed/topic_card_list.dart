@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/item.dart';
+import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/item.dart';
 import 'package:liqliquid/models_new/dynamic/dyn_topic_feed/topic_sort_by_conf.dart';
 
 class TopicCardList {

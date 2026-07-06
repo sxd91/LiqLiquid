@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/widgets/custom_icon.dart';
+import 'package:liqliquid/common/widgets/custom_icon.dart';
 import 'package:liqliquid/models/common/enum_with_label.dart';
 import 'package:liqliquid/pages/dynamics/view.dart';
 import 'package:liqliquid/pages/home/view.dart';

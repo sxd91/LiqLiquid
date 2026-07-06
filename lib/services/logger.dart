@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 
 import 'package:liqliquid/utils/json_file_handler.dart';
 import 'package:liqliquid/utils/storage_pref.dart';

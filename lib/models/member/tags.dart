@@ -1,4 +1,4 @@
-﻿class MemberTagItemModel {
+class MemberTagItemModel {
   MemberTagItemModel({
     this.count,
     this.name,

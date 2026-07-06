@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/http/loading_state.dart';
+import 'package:liqliquid/http/loading_state.dart';
 import 'package:liqliquid/http/match.dart';
 import 'package:liqliquid/models_new/match/match_info/contest.dart';
 import 'package:liqliquid/pages/common/dyn/common_dyn_controller.dart';

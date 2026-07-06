@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/models/model_video.dart';
+import 'package:liqliquid/models/model_video.dart';
 import 'package:liqliquid/utils/parse_int.dart';
 import 'package:hive_ce/hive.dart';
 

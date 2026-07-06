@@ -1,4 +1,4 @@
-﻿import 'package:liqliquid/common/assets.dart';
+import 'package:liqliquid/common/assets.dart';
 import 'package:liqliquid/common/widgets/image_viewer/hero.dart';
 import 'package:liqliquid/models/common/image_preview_type.dart';
 import 'package:liqliquid/utils/extension/num_ext.dart';
