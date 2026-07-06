@@ -102,6 +102,77 @@ List<SettingsModel> get styleSettings => [
     defaultVal: true,
     needReboot: true,
   ),
+  // === 底部导航栏液态玻璃参数 ===
+  NormalModel(
+    title: '底部栏模糊强度',
+    subtitle: 'Blur radius',
+    leading: const Icon(Icons.blur_on),
+    getSubtitle: () => Pref.bottomBarBlur.toStringAsFixed(1),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏模糊', Pref.bottomBarBlur, 0, 50, 1,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarBlur, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏折射率',
+    subtitle: 'Refractive index',
+    leading: const Icon(Icons.waves),
+    getSubtitle: () => Pref.bottomBarRefractiveIndex.toStringAsFixed(2),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏折射率', Pref.bottomBarRefractiveIndex, 0, 2.0, 2,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarRefractiveIndex, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏玻璃厚度',
+    subtitle: 'Thickness',
+    leading: const Icon(Icons.height),
+    getSubtitle: () => Pref.bottomBarThickness.toStringAsFixed(1),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏厚度', Pref.bottomBarThickness, 0, 40, 1,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarThickness, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏色散强度',
+    subtitle: 'Chromatic aberration',
+    leading: const Icon(Icons.color_lens_outlined),
+    getSubtitle: () => Pref.bottomBarChromaticAberration.toStringAsFixed(2),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏色散', Pref.bottomBarChromaticAberration, 0, 1.0, 2,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarChromaticAberration, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏高光强度',
+    subtitle: 'Light intensity',
+    leading: const Icon(Icons.highlight),
+    getSubtitle: () => Pref.bottomBarLightIntensity.toStringAsFixed(2),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏高光', Pref.bottomBarLightIntensity, 0, 1.0, 2,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarLightIntensity, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏环境光强度',
+    subtitle: 'Ambient strength',
+    leading: const Icon(Icons.light_mode_outlined),
+    getSubtitle: () => Pref.bottomBarAmbientStrength.toStringAsFixed(2),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏环境光', Pref.bottomBarAmbientStrength, 0, 1.0, 2,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarAmbientStrength, v),
+    ),
+  ),
+  NormalModel(
+    title: '底部栏饱和度',
+    subtitle: 'Saturation',
+    leading: const Icon(Icons.satellite_alt),
+    getSubtitle: () => Pref.bottomBarSaturation.toStringAsFixed(2),
+    onTap: (context, setState) => _showGlassSliderDialog(
+      context, setState, '底部栏饱和度', Pref.bottomBarSaturation, 0, 2.0, 2,
+      (v) => GStorage.setting.put(SettingBoxKey.bottomBarSaturation, v),
+    ),
+  ),
   NormalModel(
     title: '主页背景图片',
     leading: const Icon(Icons.image_outlined),
@@ -954,6 +1025,35 @@ Future<void> _showBarHideTypeDialog(
   if (res != null) {
     await GStorage.setting.put(SettingBoxKey.barHideType, res.index);
     SmartDialog.showToast('重启生效');
+    setState();
+  }
+}
+
+/// 底部栏玻璃参数滑块对话框
+Future<void> _showGlassSliderDialog(
+  BuildContext context,
+  VoidCallback setState,
+  String title,
+  double currentValue,
+  double min,
+  double max,
+  int precise,
+  ValueChanged<double> onSave,
+) async {
+  final res = await showDialog<double>(
+    context: context,
+    builder: (context) => SliderDialog(
+      title: Text(title),
+      value: currentValue,
+      min: min,
+      max: max,
+      divisions: ((max - min) * 10).toInt(),
+      precise: precise,
+    ),
+  );
+  if (res != null) {
+    onSave(res);
+    SmartDialog.showToast('设置成功，需重启应用完全生效');
     setState();
   }
 }

@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/utils/storage_pref.dart';
 
 class ComBtn extends StatelessWidget {
   final Widget icon;
@@ -22,17 +24,29 @@ class ComBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = SizedBox(
-      width: width,
-      height: height,
-      child: GestureDetector(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        onSecondaryTap: onSecondaryTap,
-        behavior: HitTestBehavior.opaque,
-        child: icon,
-      ),
-    );
+    Widget child;
+    if (Pref.useLiquidGlass && onTap != null) {
+      child = GlassButton(
+        useOwnLayer: true,
+        quality: GlassQuality.premium,
+        icon: icon,
+        onTap: onTap!,
+        width: width,
+        height: height,
+      );
+    } else {
+      child = SizedBox(
+        width: width,
+        height: height,
+        child: GestureDetector(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          onSecondaryTap: onSecondaryTap,
+          behavior: HitTestBehavior.opaque,
+          child: icon,
+        ),
+      );
+    }
     if (tooltip != null) {
       return Tooltip(message: tooltip, child: child);
     }
