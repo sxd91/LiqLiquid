@@ -25,7 +25,6 @@ import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/update.dart';
 import 'package:liqliquid/utils/utils.dart';
 import 'package:flutter/material.dart' hide ListTile;
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -94,7 +93,7 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
       appBar: showAppBar
       ? (Pref.useLiquidGlass
-          ? const GlassAppBar(title: Text('关于'), backgroundColor: Colors.transparent)
+          ? AppBar(title: Text('关于'), backgroundColor: Colors.transparent)
           : AppBar(title: const Text('关于')))
       : null,
       resizeToAvoidBottomInset: false,

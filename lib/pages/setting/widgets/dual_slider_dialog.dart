@@ -1,6 +1,6 @@
 import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_slider.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 class DualSliderDialog extends StatefulWidget {
@@ -60,7 +60,7 @@ class _DualSliderDialogState extends State<DualSliderDialog> {
           widget.description1,
           Builder(
             builder: (context) {
-              return Pref.useLiquidGlass ? GlassSlider(
+              return Pref.useLiquidGlass ? LiquidGlassSlider(
                 value: _tempValue1,
                 min: widget.min,
                 max: widget.max,
@@ -88,7 +88,7 @@ class _DualSliderDialogState extends State<DualSliderDialog> {
           widget.description2,
           Builder(
             builder: (context) {
-              return Pref.useLiquidGlass ? GlassSlider(
+              return Pref.useLiquidGlass ? LiquidGlassSlider(
                 value: _tempValue2,
                 min: widget.min,
                 max: widget.max,

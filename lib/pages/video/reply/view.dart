@@ -14,7 +14,7 @@ import 'package:liqliquid/pages/video/reply_reply/view.dart';
 import 'package:liqliquid/utils/feed_back.dart';
 import 'package:easy_debounce/easy_throttle.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -140,8 +140,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                     right: kFloatingActionButtonMargin,
                     bottom: kFloatingActionButtonMargin + bottom,
                   ),
-                  child: GlassButton(
-                    quality: GlassQuality.premium,
+                  child: LiquidGlassButton(
                     icon: const Icon(Icons.reply, color: Colors.white),
                     onTap: () {
                       feedBack();

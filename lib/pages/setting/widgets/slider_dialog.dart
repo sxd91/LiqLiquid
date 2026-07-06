@@ -1,6 +1,6 @@
 import 'package:liqliquid/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_slider.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 class SliderDialog extends StatefulWidget {
@@ -43,7 +43,7 @@ class _SliderDialogState extends State<SliderDialog> {
       contentPadding: const .only(top: 20, left: 8, right: 8, bottom: 8),
       content: SizedBox(
         height: 40,
-        child: Pref.useLiquidGlass ? GlassSlider(
+        child: Pref.useLiquidGlass ? LiquidGlassSlider(
           value: _tempValue,
           min: widget.min,
           max: widget.max,

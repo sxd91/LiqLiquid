@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';
+import 'package:liqliquid/common/widgets/glass/glass_factory.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_slider.dart';
 import 'package:liqliquid/common/widgets/glass_interaction.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage.dart';
@@ -46,16 +48,16 @@ class _GlassAppearancePageState extends State<GlassAppearancePage> {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
-    final previewSettings = LiquidGlassSettings(
-      glassColor: isDark
+    final previewSettings = GlassBackdropConfig(effects: [BlurEffect(radius: _blur), VibrancyEffect(saturation: 1.2)], 
+      surfaceColor: isDark
           ? cs.primaryContainer.withValues(alpha: _opacity * 0.8)
           : cs.surfaceContainerHighest.withValues(alpha: _opacity),
       blur: _blur,
-      refractiveIndex: _refraction,
+      refractionAmount: _refraction,
       chromaticAberration: _chromatic,
-      thickness: 12,
-      lightIntensity: _lightIntensity,
-      ambientStrength: _ambientStrength,
+      refractionHeight: 12,
+      
+      
     );
 
     return Scaffold(
@@ -84,15 +86,15 @@ class _GlassAppearancePageState extends State<GlassAppearancePage> {
                   ),
                 ),
                 Positioned.fill(
-                  child: GlassCard(
-                    quality: GlassFactory.quality,
+                  child: GlassBackdrop(config: GlassFactory.standardGlass(context), child: 
+                    
                     settings: previewSettings,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GlassButton(quality: GlassFactory.quality, icon: const Icon(Icons.favorite), width: 48, height: 48, iconSize: 20, onTap: () {}),
-                        GlassSwitch(quality: GlassFactory.quality, value: true, onChanged: (_) {}),
-                        GlassSlider(quality: GlassFactory.quality, value: 50, min: 0, max: 100, onChanged: (_) {}),
+                        LiquidGlassButton( icon: const Icon(Icons.favorite), width: 48, height: 48, iconSize: 20, onTap: () {}),
+                        LiquidGlassToggle( value: true, onChanged: (_) {}),
+                        LiquidGlassSlider( value: 50, min: 0, max: 100, onChanged: (_) {}),
                       ],
                     ),
                   ),
@@ -136,7 +138,7 @@ class _GlassAppearancePageState extends State<GlassAppearancePage> {
   Widget _slider(String key, String label, double val, double min, double max, Function(double) cb) {
     return Row(children: [
       SizedBox(width: 80, child: Text(label, style: const TextStyle(fontSize: 12))),
-      Expanded(child: GlassSlider(quality: GlassFactory.quality, value: val, min: min, max: max, onChanged: (v) { cb(v); _put(key, v); })),
+      Expanded(child: LiquidGlassSlider( value: val, min: min, max: max, onChanged: (v) { cb(v); _put(key, v); })),
       SizedBox(width: 40, child: Text(val.toStringAsFixed(2), style: const TextStyle(fontSize: 11))),
     ]);
   }

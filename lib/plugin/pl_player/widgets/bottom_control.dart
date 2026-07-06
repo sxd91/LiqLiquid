@@ -8,7 +8,7 @@ import 'package:liqliquid/utils/feed_back.dart';
 import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 class BottomControl extends StatelessWidget {
@@ -126,9 +126,11 @@ class BottomControl extends StatelessWidget {
     );
 
     if (Pref.useLiquidGlass) {
-      return GlassCard(
-        useOwnLayer: true,
-        padding: EdgeInsets.zero,
+      return GlassBackdrop(
+        config: const GlassBackdropConfig(
+          effects: [BlurEffect(radius: 10), VibrancyEffect(saturation: 1.5)],
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
         child: progressContent,
       );
     }

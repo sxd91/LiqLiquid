@@ -63,7 +63,7 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/material.dart' hide showBottomSheet;
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_slider.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -1343,7 +1343,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScale,
@@ -1380,7 +1380,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0.5,
                         max: 2.5,
                         value: subtitleFontScaleFS,
@@ -1415,7 +1415,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0,
                         max: 8,
                         value: subtitleFontWeight.toDouble(),
@@ -1448,7 +1448,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0,
                         max: 5,
                         value: subtitleStrokeWidth,
@@ -1481,7 +1481,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0,
                         max: 100,
                         value: subtitlePaddingH.toDouble(),
@@ -1514,7 +1514,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0,
                         max: 200,
                         value: subtitlePaddingB.toDouble(),
@@ -1547,7 +1547,7 @@ class HeaderControlState extends State<HeaderControl>
                     ),
                     child: SliderTheme(
                       data: sliderTheme,
-                      child: Pref.useLiquidGlass ? GlassSlider(
+                      child: Pref.useLiquidGlass ? LiquidGlassSlider(
                         min: 0,
                         max: 1,
                         value: subtitleBgOpacity,

@@ -12,7 +12,7 @@ import 'package:liqliquid/utils/utils.dart';
 import 'package:collection/collection.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_slider.dart';\nimport 'package:liqliquid/common/widgets/glass/liquid_glass_toggle.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 import 'package:get/get.dart';
@@ -199,7 +199,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
               Text('屏蔽${isEnable ? '已' : '未'}开启'),
               Transform.scale(
                 scale: .8,
-                child: Pref.useLiquidGlass ? GlassSwitch(value: isEnable, onChanged: _controller.setEnable) : Switch(value: isEnable, onChanged: _controller.setEnable),
+                child: Pref.useLiquidGlass ? LiquidGlassToggle(value: isEnable, onChanged: _controller.setEnable) : Switch(value: isEnable, onChanged: _controller.setEnable),
               ),
             ],
           );
@@ -212,7 +212,7 @@ class _LiveDmBlockPageState extends State<LiveDmBlockPage> {
           return Row(
             children: [
               const Text('用户等级'),
-              Pref.useLiquidGlass ? GlassSlider(
+              Pref.useLiquidGlass ? LiquidGlassSlider(
                 min: 0,
                 max: 60,
                 value: level.toDouble(),

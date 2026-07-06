@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_button.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 
 class ComBtn extends StatelessWidget {
@@ -26,9 +26,9 @@ class ComBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child;
     if (Pref.useLiquidGlass && onTap != null) {
-      child = GlassButton(
-        useOwnLayer: true,
-        quality: GlassQuality.premium,
+      child = LiquidGlassButton(
+        
+        
         icon: icon,
         onTap: onTap!,
         width: width,

@@ -24,7 +24,7 @@ import 'package:liqliquid/utils/platform_utils.dart';
 import 'package:liqliquid/utils/storage.dart';
 import 'package:liqliquid/utils/storage_key.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/liquid_glass_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -290,7 +290,7 @@ class _MainAppState extends PopScopeState<MainApp>
     Widget? bottomNav;
     if (_mainController.navigationBars.length > 1) {
       if (_mainController.useGlassNavBar && Pref.useLiquidGlass) {
-        bottomNav = GlassTabBar.searchable(
+        bottomNav = LiquidGlassBottomBar(
           settings: LiquidGlassSettings(
             glassColor: Pref.bottomBarGlassColor(theme.brightness),
             blur: Pref.bottomBarBlur,
@@ -331,7 +331,7 @@ class _MainAppState extends PopScopeState<MainApp>
             showsCancelButton: true,
           ),
           tabs: _mainController.navigationBars
-              .map((e) => GlassTab(
+              .map((e) => GlassBottomTab(
                     label: e.label,
                     icon: _buildIcon(type: e),
                     activeIcon: _buildIcon(type: e, selected: true),

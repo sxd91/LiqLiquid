@@ -11,7 +11,8 @@ import 'package:liqliquid/pages/mine/controller.dart';
 import 'package:liqliquid/utils/extension/get_ext.dart';
 import 'package:liqliquid/utils/extension/size_ext.dart';
 import 'package:liqliquid/utils/feed_back.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';
+import 'package:liqliquid/common/widgets/glass/glass_factory.dart';
 import 'package:liqliquid/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,19 +69,14 @@ class _HomePageState extends CommonPageState<HomePage>
           child: SizedBox(
             height: 42,
             width: double.infinity,
-            child: GlassSegmentedControl(
-              settings: GlassFactory.bottomBarGlass(context),
-              selectedIndex: _tabIndex,
-              onSegmentSelected: (i) {
+            child: TabBar(controller: _homeController.tabController, onTap: (i) {
                 feedBack();
                 _homeController.tabController.animateTo(i);
                 if (!_homeController.tabController.indexIsChanging) {
                   _homeController.animateToTop();
                 }
               },
-              segments: _homeController.tabs
-                  .map((e) => GlassSegment(label: e.label))
-                  .toList(),
+              tabs: _homeController.tabs.map((e) => Tab(text: e.label)).toList(),
             ),
           ),
         );
@@ -260,10 +256,7 @@ Widget userAvatar({
             clipBehavior: .none,
             children: [
               ClipOval(
-                child: GlassContainer(
-                quality: GlassFactory.quality,
-                settings: GlassFactory.standardGlass(context),
-                width: 34, height: 34,
+                child: GlassBackdrop(config: GlassFactory.standardGlass(context),
                 child: NetworkImgLayer(
                   type: .avatar,
                   width: 34,
@@ -312,10 +305,7 @@ Widget userAvatar({
         return SizedBox(
           width: 38,
           height: 38,
-          child: GlassContainer(
-            quality: GlassFactory.quality,
-            settings: GlassFactory.standardGlass(context),
-            width: 34, height: 34,
+          child: GlassBackdrop(config: GlassFactory.standardGlass(context),
             child: IconButton(
               tooltip: '点击登录',
               style: IconButton.styleFrom(padding: .zero),

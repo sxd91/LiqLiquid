@@ -47,7 +47,6 @@ import 'package:media_kit/media_kit.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:screen_brightness_platform_interface/screen_brightness_platform_interface.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:window_manager/window_manager.dart' hide calcWindowPosition;
 
 WebViewEnvironment? webViewEnvironment;
@@ -95,8 +94,6 @@ Future<void> _initAppPath() async {
 void main() async {
   ScaledWidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
-  // Start shader warm in parallel with other init to prevent Android black screen
-  final glassInit = LiquidGlassWidgets.initialize();
   await _initAppPath();
   try {
     await GStorage.init();
@@ -193,7 +190,6 @@ void main() async {
   }
 
   if (Pref.enableLog) {
-    await glassInit;
     // 异常捕获 logo记录
     final customParameters = {
       'Build Time': DateFormatUtils.format(
@@ -208,13 +204,12 @@ void main() async {
 
     Catcher2(
       [?fileHandler, const ConsoleHandler()],
-      LiquidGlassWidgets.wrap(child: const MyApp()),
+      const MyApp(),
       logger: logger,
       customParameters: customParameters,
     );
   } else {
-    await glassInit;
-    runApp(LiquidGlassWidgets.wrap(child: const MyApp()));
+    runApp(const MyApp());
   }
 }
 
@@ -277,7 +272,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (light, dark) = getAllTheme();
-    return LiquidGlassWidgets.wrap(child: GetMaterialApp(
+    return GetMaterialApp(
       title: Constants.appName,
       theme: light,
       darkTheme: dark,
@@ -305,7 +300,7 @@ class MyApp extends StatelessWidget {
         routeObserver,
         FlutterSmartDialog.observer,
       ],
-      scrollBehavior: PlatformUtils.isDesktop ? (Pref.useLiquidGlass ? const LiquidGlassScrollBehavior() : const CustomScrollBehavior()) : null,
+      scrollBehavior: PlatformUtils.isDesktop ? (Pref.useLiquidGlass ? const CustomScrollBehavior() : const CustomScrollBehavior()) : null,
     ));
   }
 

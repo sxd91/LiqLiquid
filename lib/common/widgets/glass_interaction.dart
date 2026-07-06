@@ -1,10 +1,9 @@
-import 'dart:io' show Platform;
+import 'dart:ui' show ImageFilter;\nimport 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-import 'package:progressive_blur/progressive_blur.dart';
-import 'package:liqliquid/utils/platform_utils.dart';
+import 'package:liqliquid/common/widgets/glass/glass_backdrop.dart';\nimport 'package:liqliquid/common/widgets/glass/glass_factory.dart';\nimport 'package:liqliquid/common/widgets/glass/interactive_highlight.dart';\nimport 'package:liqliquid/common/widgets/glass/liquid_glass_button.dart';
+
 import 'package:liqliquid/utils/storage_pref.dart';
 
 /// iOS 26 玻璃按压交互
@@ -40,20 +39,20 @@ class GlassBackButton extends StatelessWidget {
   final double size;
   @override
   Widget build(BuildContext context) {
-    final isDesktop = PlatformUtils.isDesktop;
-    return GlassButton(
-      quality: GlassQuality.premium,
+    final isDesktop = false;
+    return LiquidGlassButton(
+      quality: null,
       icon: Icon(Platform.isIOS || Platform.isMacOS ? CupertinoIcons.back : Icons.arrow_back_rounded, size: iconSize),
       onTap: onTap ?? () => Navigator.of(context).pop(),
       width: size, height: size, iconSize: iconSize,
       settings: isDesktop
-          ? LiquidGlassSettings(
-              glassColor: Colors.white.withValues(alpha: 0.15),
+          ? GlassBackdropConfig(
+              surfaceColor: Colors.white.withValues(alpha: 0.15),
               blur: 12.0,
-              refractiveIndex: 0.8,
-              thickness: 10.0,
-              lightIntensity: 0.3,
-              ambientStrength: 0.15,
+              refractionAmount: 0.8,
+              refractionHeight: 10.0,
+              // lightIntensity: 0.3,
+              // ambientStrength: 0.15,
               chromaticAberration: 0.3,
             )
           : null,
@@ -73,7 +72,7 @@ class GlassAppBarWrapper extends StatelessWidget implements PreferredSizeWidget 
   @override
   Widget build(BuildContext context) {
     if (Pref.useLiquidGlass) {
-      return GlassAppBar(backgroundColor: Colors.transparent, leading: showBackButton ? GlassBackButton(onTap: onBackTap) : null, title: title, actions: actions);
+      return AppBar(backgroundColor: Colors.transparent, leading: showBackButton ? GlassBackButton(onTap: onBackTap) : null, title: title, actions: actions);
     }
     return AppBar(leading: showBackButton ? IconButton(icon: const Icon(Icons.arrow_back_rounded), onPressed: onBackTap ?? () => Navigator.of(context).pop()) : null, title: title, actions: actions);
   }
@@ -87,23 +86,23 @@ class GlassPageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!Pref.useLiquidGlass) return child;
-    final defaultSettings = PlatformUtils.isDesktop
-        ? const LiquidGlassSettings(
-            thickness: 14.0,
+    final defaultSettings = false
+        ? const GlassBackdropConfig(
+            refractionHeight: 14.0,
             blur: 25.0,
             chromaticAberration: 0.6,
-            refractiveIndex: 1.45,
-            lightIntensity: 0.4,
-            ambientStrength: 0.2,
+            refractionAmount: 1.45,
+            // lightIntensity: 0.4,
+            // ambientStrength: 0.2,
             saturation: 1.2,
           )
-        : const LiquidGlassSettings(
-            thickness: 12.0,
+        : const GlassBackdropConfig(
+            refractionHeight: 12.0,
             blur: 20.0,
             chromaticAberration: 0.5,
-            refractiveIndex: 1.35,
+            refractionAmount: 1.35,
           );
-    return GlassPage(
+    return GlassBackdrop(
       settings: settings ?? defaultSettings,
       child: child,
     );
@@ -190,7 +189,7 @@ class _GlassStretchWrapperState extends State<GlassStretchWrapper> {
             }
           : null,
       onLongPressCancel: () => setState(() => _pressed = false),
-      child: GlassGlow(
+      child: InteractiveHighlight(
         glowColor: Colors.white.withValues(alpha: _pressed ? 0.15 : 0.0),
         child: AnimatedScale(
           scale: _pressed ? 0.95 : 1.0,
@@ -215,48 +214,48 @@ abstract final class GlassFactory {
         : cs.surfaceContainerHighest.withValues(alpha: Pref.glassOpacity);
     final lightIntensity = isDark ? 0.5 : 0.35;
     final ambientStrength = isDark ? 0.25 : 0.15;
-    return LiquidGlassSettings(
-      glassColor: baseColor,
+    return GlassBackdropConfig(
+      surfaceColor: baseColor,
       blur: Pref.glassBlur,
-      refractiveIndex: Pref.glassRefraction,
+      refractionAmount: Pref.glassRefraction,
       chromaticAberration: Pref.glassChromatic,
-      thickness: 12,
-      lightIntensity: lightIntensity,
-      ambientStrength: ambientStrength,
+      refractionHeight: 12,
+      // lightIntensity: lightIntensity,
+      // ambientStrength: ambientStrength,
     );
   }
 
   /// 零不透明度玻璃参数 - 纯折射扭曲 + 强色散，无底色
   /// 用于长按弹窗 / 悬浮选中框 / 滚动条滑块
   static LiquidGlassSettings transparentGlass() {
-    return LiquidGlassSettings(
-      glassColor: Colors.transparent,
+    return GlassBackdropConfig(
+      surfaceColor: Colors.transparent,
       blur: 0,
-      refractiveIndex: Pref.glassRefraction * 1.5,
+      refractionAmount: Pref.glassRefraction * 1.5,
       chromaticAberration: Pref.glassChromatic * 2.0,
-      thickness: 2,
-      lightIntensity: 0,
-      ambientStrength: 0,
+      refractionHeight: 2,
+      // lightIntensity: 0,
+      // ambientStrength: 0,
     );
   }
 
   /// 桌面端使用 Premium 质量以获得折射扭曲效果
   static GlassQuality get quality =>
-      PlatformUtils.isDesktop ? GlassQuality.premium : GlassQuality.standard;
+      false ? null : GlassQuality.standard;
 
   /// 底部栏玻璃参数 - 与底部导航栏统一的折射扭曲+色散参数
   /// 用于顶部 SegmentedControl 等需要与底部栏视觉一致的控件
   static LiquidGlassSettings bottomBarGlass(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return LiquidGlassSettings(
-      glassColor: Pref.bottomBarGlassColor(isDark ? Brightness.dark : Brightness.light),
+    return GlassBackdropConfig(
+      surfaceColor: Pref.bottomBarGlassColor(isDark ? Brightness.dark : Brightness.light),
       blur: Pref.bottomBarBlur,
-      refractiveIndex: Pref.bottomBarRefractiveIndex,
-      thickness: Pref.bottomBarThickness,
+      refractionAmount: Pref.bottomBarRefractiveIndex,
+      refractionHeight: Pref.bottomBarThickness,
       chromaticAberration: Pref.bottomBarChromaticAberration,
-      lightIntensity: isDark ? Pref.bottomBarLightIntensity : Pref.bottomBarLightIntensity * 0.6,
-      ambientStrength: isDark ? Pref.bottomBarAmbientStrength : Pref.bottomBarAmbientStrength * 0.7,
+      // lightIntensity: isDark ? Pref.bottomBarLightIntensity : Pref.bottomBarLightIntensity * 0.6,
+      // ambientStrength: isDark ? Pref.bottomBarAmbientStrength : Pref.bottomBarAmbientStrength * 0.7,
       saturation: Pref.bottomBarSaturation,
       specularSharpness: GlassSpecularSharpness.values[Pref.bottomBarSpecularSharpness],
       lightAngle: Pref.bottomBarLightAngle,
@@ -295,11 +294,9 @@ class GlassTopBlurOverlay extends StatelessWidget {
         Positioned(
           top: 0, left: 0, right: 0,
           height: blurHeight,
-          child: ProgressiveBlurWidget(
-            sigma: blurSigma,
+          child: BackdropFilter(filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma), child: const SizedBox.expand()
             linearGradientBlur: LinearGradientBlur(
-              values: flip ? const [1, 0] : const [0, 1],
-              stops: const [0.0, 1.0],
+              stops: [0.0, 1.0],
               start: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
